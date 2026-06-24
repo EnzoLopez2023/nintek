@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /$
+Allow: /index.html
+
+# Per-app marketing and legal pages are intentionally not indexed.
+# They remain publicly reachable (e.g. for App Store privacy URLs).
+Disallow: /cairn
+Disallow: /tare
+Disallow: /pulsewire
+Disallow: /puzzlebox
+Disallow: /hearth
+Disallow: /shopkeep
+Disallow: /tabloom
+Disallow: /workshop
+
+Sitemap: https://www.nintek.com/sitemap.xml

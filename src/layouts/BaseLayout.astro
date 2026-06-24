@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+import { COMPANY } from '../data/apps';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** When true, emit a noindex robots tag (used on /<app> marketing + legal pages) */
+  noindex?: boolean;
+  /** Canonical path, e.g. "/cairn" */
+  path?: string;
+}
+
+const {
+  title,
+  description = COMPANY.tagline,
+  noindex = false,
+  path = '/',
+} = Astro.props;
+
+const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#0f1115" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">
+          <span class="brand-dot" aria-hidden="true"></span>
+          {COMPANY.name}
+        </a>
+        <nav class="nav">
+          <a href="/#apps">Apps</a>
+          <a href="/#about">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span>© {new Date().getFullYear()} {COMPANY.name}</span>
+        <span>
+          <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

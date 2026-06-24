@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AppCard from '../components/AppCard.astro';
+import { apps, COMPANY } from '../data/apps';
+---
+
+<BaseLayout
+  title={`${COMPANY.name} — ${COMPANY.tagline}`}
+  description={`${COMPANY.name} builds small, thoughtful apps for learning, health, home, and play.`}
+  path="/"
+>
+  <section class="hero container">
+    <h1>Small, thoughtful software for everyday life.</h1>
+    <p>
+      {COMPANY.name} is an independent studio building focused apps that do one
+      thing well — for learning, health, home, and play.
+    </p>
+  </section>
+
+  <section id="apps" class="section container">
+    <h2 class="section-title">Our apps</h2>
+    <div class="app-grid">
+      {apps.map((app) => <AppCard app={app} />)}
+    </div>
+  </section>
+
+  <section id="about" class="section container">
+    <h2 class="section-title">About {COMPANY.name}</h2>
+    <p class="muted" style="max-width: 64ch;">
+      {COMPANY.name} is a one-person software studio. Every app is designed to be
+      private by default, fast, and pleasant to use — no clutter, no dark
+      patterns. Have a question or some feedback?
+      <a href={`mailto:${COMPANY.email}`}>Get in touch</a>.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getApp } from '../../data/apps';
+
+const app = getApp('cairn')!;
+
+const features = [
+  {
+    title: 'Spaced-repetition flashcards',
+    body: 'An SM-2 scheduling engine surfaces cards right before you forget them, so study time compounds.',
+  },
+  {
+    title: 'Realistic practice exams',
+    body: 'Timed, domain-weighted practice tests that mirror the real certification experience.',
+  },
+  {
+    title: 'Curated cert tracks',
+    body: 'Structured paths across major cloud and platform certifications, with clear next steps.',
+  },
+  {
+    title: 'Progress you can see',
+    body: 'Readiness scoring and per-domain breakdowns show exactly where to focus next.',
+  },
+  {
+    title: 'Private by default',
+    body: 'Your study data lives in your own protected space and is never sold or used for ads.',
+  },
+  {
+    title: 'Built for exam day',
+    body: 'A quality gate keeps content accurate, so you practice on questions that count.',
+  },
+];
+---
+
+<BaseLayout
+  title={`${app.name} — ${app.tagline}`}
+  description={app.description}
+  path={`/${app.slug}`}
+  noindex={true}
+>
+  <section class="product-hero container">
+    <img class="icon" src={app.icon} alt={`${app.name} icon`} width="104" height="104" />
+    <div>
+      <h1>{app.name}</h1>
+      <p>{app.description}</p>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="feature-list">
+      {
+        features.map((f) => (
+          <div class="feature">
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container" style="padding: 24px 0 8px;">
+    <p class="muted">
+      Questions about your data? Read the
+      <a href="/cairn/privacy">{app.name} Privacy Policy</a>.
+    </p>
+  </section>
+</BaseLayout>
