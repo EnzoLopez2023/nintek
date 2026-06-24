@@ -5,10 +5,12 @@ import { COMPANY } from '../data/apps';
 interface Props {
   title: string;
   description?: string;
-  /** When true, emit a noindex robots tag (used on /<app> marketing + legal pages) */
   noindex?: boolean;
-  /** Canonical path, e.g. "/cairn" */
   path?: string;
+  /** Render without the site header/footer/background — for self-contained pages. */
+  bare?: boolean;
+  /** Load the Cairn editorial fonts (Playfair Display + Inter). */
+  fonts?: boolean;
 }
 
 const {
@@ -16,9 +18,12 @@ const {
   description = COMPANY.tagline,
   noindex = false,
   path = '/',
+  bare = false,
+  fonts = false,
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -32,37 +37,124 @@ const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {
+      fonts && (
+        <>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+          />
+        </>
+      )
+    }
+    <slot name="head" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="theme-color" content="#0f1115" />
+    <meta name="theme-color" content="#f5f0ea" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="container">
-        <a class="brand" href="/">
-          <span class="brand-dot" aria-hidden="true"></span>
-          {COMPANY.name}
-        </a>
-        <nav class="nav">
-          <a href="/#apps">Apps</a>
-          <a href="/#about">About</a>
-        </nav>
-      </div>
-    </header>
+    {
+      bare ? (
+        <slot />
+      ) : (
+        <>
+          <div class="bg-decor" aria-hidden="true">
+            <div class="orb orb-1" data-parallax data-speed="-0.12" />
+            <div class="orb orb-2" data-parallax data-speed="0.10" />
+            <div class="orb orb-3" data-parallax data-speed="-0.08" />
+            <div class="grain" />
+          </div>
 
-    <main>
-      <slot />
-    </main>
+          <header class="site-header">
+            <div class="container">
+              <a class="brand" href="/">
+                <span class="brand-dot" aria-hidden="true" />
+                {COMPANY.name}
+              </a>
+              <nav class="nav">
+                <a href="/#apps">Apps</a>
+                <a href="/#about">About</a>
+              </nav>
+            </div>
+          </header>
 
-    <footer class="site-footer">
-      <div class="container">
-        <span>© {new Date().getFullYear()} {COMPANY.name}</span>
-        <span>
-          <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
-        </span>
-      </div>
-    </footer>
+          <main>
+            <slot />
+          </main>
+
+          <footer class="site-footer">
+            <div class="container">
+              <span>© {year} {COMPANY.name}</span>
+              <span>
+                <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+              </span>
+            </div>
+          </footer>
+        </>
+      )
+    }
+
+    <script>
+      const reduce = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      // --- parallax (orbs + tagged elements) ---
+      const para = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-parallax]')
+      );
+      let ticking = false;
+
+      function applyParallax() {
+        const sy = window.scrollY;
+        const vh = window.innerHeight;
+        for (const el of para) {
+          const speed = parseFloat(el.dataset.speed || '0');
+          if (el.classList.contains('orb')) {
+            el.style.transform = `translateY(${sy * speed}px)`;
+          } else {
+            const r = el.getBoundingClientRect();
+            const center = r.top + r.height / 2 - vh / 2;
+            el.style.transform = `translateY(${center * speed}px)`;
+          }
+        }
+        ticking = false;
+      }
+
+      function onScroll() {
+        if (reduce || ticking) return;
+        ticking = true;
+        requestAnimationFrame(applyParallax);
+      }
+
+      if (!reduce) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', applyParallax);
+        applyParallax();
+      }
+
+      // --- reveal on scroll ---
+      const reveals = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveals.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
+        );
+        reveals.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getApp, COMPANY } from '../../data/apps';
+
+const app = getApp('workshop')!;
+const lastUpdated = 'June 24, 2026';
+---
+
+<BaseLayout
+  title={`${app.name} Privacy Policy — ${COMPANY.name}`}
+  description={`How ${app.name} collects, uses, and protects your information.`}
+  path={`/${app.slug}/privacy`}
+  noindex={true}
+>
+  <article class="prose container">
+    <a class="back-link" href="/workshop">← {app.name}</a>
+    <h1>{app.name} Privacy Policy</h1>
+    <p class="updated">Last updated: {lastUpdated} · <strong>DRAFT</strong></p>
+
+    <p>
+      This Privacy Policy explains how {COMPANY.name} (“we”, “us”) handles
+      information in connection with the {app.name} application and website
+      (the “Service”), a single-user companion for woodworking. We aim to
+      collect as little as possible and to keep what we do collect private and
+      secure.
+    </p>
+
+    <h2>Information we collect</h2>
+    <ul>
+      <li>
+        <strong>Account information.</strong> When you sign in, we use Microsoft
+        identity services. We receive a unique account identifier and basic
+        profile details such as your name and email address so we can create and
+        secure your account.
+      </li>
+      <li>
+        <strong>Workshop data you create.</strong> Content you generate in the
+        app — such as projects, cut lists, board and material data, build logs,
+        finish records, notebook entries, and build progress — so the Service
+        can plan your cuts and keep your project history.
+      </li>
+      <li>
+        <strong>Imported project data.</strong> When you paste a project link
+        (for example, a Shaper Hub URL), we process the referenced page to
+        extract parts, dimensions, and related build details into your account.
+      </li>
+      <li>
+        <strong>Limited technical data.</strong> Basic operational logs (such as
+        request timestamps and error information) needed to run, secure, and
+        troubleshoot the Service.
+      </li>
+    </ul>
+    <p>
+      We do <strong>not</strong> collect precise location, contacts, or device
+      advertising identifiers, and we do not use third-party advertising or
+      cross-app tracking.
+    </p>
+
+    <h2>How we use information</h2>
+    <ul>
+      <li>To provide, maintain, and secure your account and the Service.</li>
+      <li>
+        To generate cut plans, save your projects and build logs, and track your
+        progress.
+      </li>
+      <li>To diagnose problems and improve reliability and performance.</li>
+    </ul>
+
+    <h2>How your information is stored and protected</h2>
+    <p>
+      Your projects, cut lists, board and material data, and progress are stored
+      in your own per-user, private SQLite database. Information is encrypted in
+      transit using HTTPS, and the Service is hosted on Microsoft Azure. Access
+      is limited to what is necessary to operate the Service.
+    </p>
+
+    <h2>Sharing</h2>
+    <p>
+      We do not sell your personal information. We share information only with
+      infrastructure providers that host and secure the Service (for example,
+      Microsoft Azure for hosting and identity), and only as needed to operate
+      it, or where required by law.
+    </p>
+
+    <h2>Data retention and deletion</h2>
+    <p>
+      We retain your information for as long as your account is active. You may
+      request access to, or deletion of, your account and associated data by
+      emailing
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+    </p>
+
+    <h2>Children’s privacy</h2>
+    <p>
+      The Service is intended for a general, adult audience and is not directed
+      to children. We do not knowingly collect personal information from
+      children.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      We may update this policy from time to time. Material changes will be
+      reflected by updating the “Last updated” date above.
+    </p>
+
+    <h2>Contact us</h2>
+    <p>
+      Questions about this policy or your data? Email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+    </p>
+  </article>
+</BaseLayout>

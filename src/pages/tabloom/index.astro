@@ -1,0 +1,421 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/tabloom-landing.css';
+
+/* ── Feature data (ported verbatim from Tabloom's landing) ── */
+const FEATURES = [
+  {
+    emoji: '📷',
+    title: 'Inkbox',
+    desc: 'Snap a photo of your handwritten notes. AI reads the handwriting and files a clean typed page instantly.',
+    color: '#2d4a7a',
+  },
+  {
+    emoji: '✍️',
+    title: 'Rich Block Editor',
+    desc: 'Headings, checklists, callouts, tables, images — every block you need. Keyboard-first with a slash menu.',
+    color: '#3f6f4a',
+  },
+  {
+    emoji: '🤖',
+    title: 'Ask Your Notes',
+    desc: 'Semantic AI search across every page. Ask a question, get an answer grounded in your own writing.',
+    color: '#6a7fd6',
+  },
+  {
+    emoji: '📚',
+    title: 'Smart Notebooks',
+    desc: 'Organize everything into notebooks. Drag to reorder, share with collaborators, keep private.',
+    color: '#c08856',
+  },
+  {
+    emoji: '🏷️',
+    title: 'Tags & Discovery',
+    desc: 'Cross-notebook tagging with color coding. Filter across everything with a single click.',
+    color: '#8a6fc7',
+  },
+  {
+    emoji: '🔗',
+    title: 'Link Inbox',
+    desc: 'Save URLs with titles and snippets auto-fetched. Your reading list, research, clipped articles.',
+    color: '#4a9e8f',
+  },
+  {
+    emoji: '📜',
+    title: 'Version History',
+    desc: 'Every edit is tracked. Restore any previous version of any page with a single click.',
+    color: '#c45e5e',
+  },
+];
+
+/* ── Detail strip (auth/identity copy reworded; no auth words) ── */
+const DETAILS = [
+  { icon: '🔒', title: 'Private by default', desc: 'Secure single sign-on with your existing identity — no new password to remember.' },
+  { icon: '📱', title: 'Works everywhere', desc: 'Responsive on mobile, tablet, and desktop. Same workspace, any screen.' },
+  { icon: '⚡', title: 'Instant save', desc: 'Every keystroke synced. A status pill tells you exactly when.' },
+  { icon: '🌙', title: 'Dark mode', desc: "A warm dark theme that's easy on the eyes for late-night writing." },
+];
+
+/* ── AI demo, rendered in its final settled state ── */
+const aiDemo = {
+  q: 'What did I note about flagstone spacing?',
+  a: 'Based on your Patio Plan: use ½" gaps for a dry-set patio to allow drainage without frost heaving…',
+};
+
+/* ── Inkbox demo, rendered in its final "Filed" state ── */
+const TYPED_LINES = [
+  'Q2 Review Notes',
+  '',
+  'Revenue up 14%, but churn remains high.',
+  'Priority: fix the onboarding flow.',
+  'Search UX overhaul — biggest complaint.',
+  'Schedule retro for next Friday.',
+];
+const HANDWRITTEN_LINES = [
+  'Q2 Review',
+  '→ revenue up 14%',
+  '   churn still high',
+  'Fix onboarding flow',
+  'Search UX overhaul',
+  'Retro – next Friday',
+];
+---
+
+<BaseLayout
+  bare
+  noindex
+  path="/tabloom"
+  title="Tabloom — A notebook that thinks with you."
+  description="A calm editorial workspace for your notes — rich blocks, smart tagging, handwriting capture, and an AI that actually knows what you've written."
+>
+  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    slot="head"
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap"
+  />
+
+  <div class="landing-root">
+    {/* ── Background orbs ── */}
+    <div class="landing-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    {/* ── Nav (brand only) ── */}
+    <nav class="landing-nav">
+      <div class="landing-nav-brand">
+        <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#4f6e3a"></rect>
+          <g transform="translate(32 30) scale(1.1) translate(-32 -30)">
+            <path d="M12 22c0-3.3 2.7-6 6-6h14l6 6h-2c-3.3 0-6 2.7-6 6v16c0 1.1-.9 2-2 2H18c-3.3 0-6-2.7-6-6V22z" fill="#fdfcf9"></path>
+            <circle cx="40" cy="18" r="5" fill="#e3eed7"></circle>
+            <circle cx="47" cy="25" r="5" fill="#e3eed7" opacity="0.9"></circle>
+            <circle cx="36" cy="26" r="5" fill="#e3eed7" opacity="0.75"></circle>
+            <circle cx="42" cy="22" r="2.2" fill="#4f6e3a"></circle>
+          </g>
+        </svg>
+        <span>Tabloom</span>
+      </div>
+    </nav>
+
+    {/* ── Hero ── */}
+    <section class="landing-hero">
+      <div class="landing-hero-left">
+        <div class="landing-hero-badge">
+          <span class="hero-badge-dot"></span>
+          New: Inkbox — scan your handwritten notes
+        </div>
+
+        <h1 class="landing-h1">
+          The notebook that
+          <br />
+          <em class="landing-h1-accent">thinks with you.</em>
+        </h1>
+
+        <p class="landing-sub">
+          Capture fast, find later. A calm editorial workspace with rich blocks,
+          smart tagging, and an AI that actually knows your notes.
+        </p>
+      </div>
+
+      <div class="landing-hero-right">
+        {/* Floating notebook mockup (final visible state) */}
+        <div class="mockup-wrap">
+          <div class="mockup-window">
+            <div class="mockup-chrome">
+              <div class="mock-dots">
+                <span class="mock-dot mock-dot-r"></span>
+                <span class="mock-dot mock-dot-y"></span>
+                <span class="mock-dot mock-dot-g"></span>
+              </div>
+              <span class="mock-url">tabloom.enzolopez.net</span>
+            </div>
+
+            <div class="mockup-body">
+              <div class="mock-sidebar">
+                <div class="mock-sb-brand">
+                  <svg width="14" height="14" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                    <rect width="64" height="64" rx="14" fill="#4f6e3a"></rect>
+                    <g transform="translate(32 30) scale(1.1) translate(-32 -30)">
+                      <path d="M12 22c0-3.3 2.7-6 6-6h14l6 6h-2c-3.3 0-6 2.7-6 6v16c0 1.1-.9 2-2 2H18c-3.3 0-6-2.7-6-6V22z" fill="#fdfcf9"></path>
+                      <circle cx="40" cy="18" r="5" fill="#e3eed7"></circle>
+                      <circle cx="47" cy="25" r="5" fill="#e3eed7" opacity="0.9"></circle>
+                      <circle cx="36" cy="26" r="5" fill="#e3eed7" opacity="0.75"></circle>
+                      <circle cx="42" cy="22" r="2.2" fill="#4f6e3a"></circle>
+                    </g>
+                  </svg>
+                  <span>Tabloom</span>
+                </div>
+                <div class="mock-nb-item mock-nb-active">
+                  <span class="mock-nb-dot" style="background: #c08856;"></span>
+                  🏡 Patio Project
+                </div>
+                <div class="mock-nb-item">
+                  <span class="mock-nb-dot" style="background: var(--accent);"></span>
+                  💡 Ideas
+                </div>
+                <div class="mock-nb-item">
+                  <span class="mock-nb-dot" style="background: #6a7fd6;"></span>
+                  📝 Journal
+                </div>
+                <div class="mock-nb-sep"></div>
+                <div class="mock-nb-item mock-nb-muted">🔍 Search</div>
+                <div class="mock-nb-item mock-nb-muted">✨ Ask notes</div>
+              </div>
+
+              <div class="mock-page">
+                <div class="mock-page-title">Welcome to Tabloom</div>
+                <div class="mock-tags-row">
+                  <span class="mock-tag" style="background: oklch(93% 0.025 145); color: oklch(28% 0.06 145);">#patio</span>
+                  <span class="mock-tag" style="background: oklch(93% 0.025 50); color: #7a4e28;">#planning</span>
+                </div>
+                <div class="mock-line" style="width: 92%;"></div>
+                <div class="mock-line" style="width: 78%;"></div>
+                <div class="mock-callout-block">
+                  <span>✨</span>
+                  <span class="mock-callout-txt">Use callouts for key insights</span>
+                </div>
+                <div class="mock-line" style="width: 85%;"></div>
+                <div class="mock-line" style="width: 60%;"></div>
+                <div class="mock-checklist">
+                  <span class="mock-check done"></span>
+                  <span class="mock-check-txt mock-strike">Site prep complete</span>
+                </div>
+                <div class="mock-checklist">
+                  <span class="mock-check"></span>
+                  <span class="mock-check-txt">Order flagstone</span>
+                </div>
+                <div class="mock-checklist">
+                  <span class="mock-check"></span>
+                  <span class="mock-check-txt">Schedule delivery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mockup-ai-badge">
+            <span>✨</span> Ask your notes
+          </div>
+          <div class="mockup-save-badge">✓ Saved</div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Scroll indicator ── */}
+    <div class="scroll-hint">↓</div>
+
+    {/* ── Features ── */}
+    <section class="landing-features">
+      <div class="section-header">
+        <h2 class="section-h2">Everything you need to think clearly.</h2>
+        <p class="section-sub">
+          Built around the way ideas actually work — quick capture, deep
+          reading, and fast retrieval.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        {FEATURES.map((f) => (
+          <div class="feature-card">
+            <div class="feature-emoji-wrap" style={`background: ${f.color}18;`}>
+              <span class="feature-emoji">{f.emoji}</span>
+            </div>
+            <h3 class="feature-title">{f.title}</h3>
+            <p class="feature-desc">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ── Inkbox highlight ── */}
+    <section class="landing-inkbox-section">
+      <div class="inkbox-section-inner">
+        <div class="inkbox-section-left">
+          <div class="inkbox-pill">📷 New — Inkbox</div>
+          <h2 class="inkbox-section-h2">
+            Paper notes,
+            <br />
+            instantly <em>digital.</em>
+          </h2>
+          <p class="inkbox-section-p">
+            Snap a photo of any handwritten page. Tabloom reads the handwriting
+            with Claude AI, generates a smart title, and files a clean typed page
+            in your Inkbox notebook — with the original scan and a PDF transcript
+            attached.
+          </p>
+          <ul class="inkbox-bullets">
+            <li><span class="inkbox-bullet-dot"></span>Works on any phone — just tap the camera icon</li>
+            <li><span class="inkbox-bullet-dot"></span>Handles cursive, messy, and mixed handwriting</li>
+            <li><span class="inkbox-bullet-dot"></span>Auto date-tagged and full-text searchable</li>
+            <li><span class="inkbox-bullet-dot"></span>PDF transcript generated automatically</li>
+          </ul>
+        </div>
+
+        <div class="inkbox-section-right">
+          <div class="inkbox-demo">
+            <div class="inkbox-phase-label">Filed in Inkbox ✓</div>
+
+            <div class="inkbox-panel">
+              <div class="inkbox-photo-side">
+                <div class="inkbox-photo">
+                  {HANDWRITTEN_LINES.map((line) => (
+                    <div class="inkbox-hw-line">{line}</div>
+                  ))}
+                </div>
+                <div class="inkbox-photo-label">📷 Original photo</div>
+              </div>
+
+              <div class="inkbox-arrow">→</div>
+
+              <div class="inkbox-result-side">
+                <div class="inkbox-result-page">
+                  <div class="inkbox-result-title">Q2 Review Notes</div>
+                  <div class="inkbox-result-tag">#review</div>
+                  {TYPED_LINES.map((line) =>
+                    line ? (
+                      <div class="inkbox-result-line">{line}</div>
+                    ) : (
+                      <div style="height: 8px;"></div>
+                    )
+                  )}
+                  <div class="inkbox-result-attachments">
+                    <span class="inkbox-thumb-chip">🖼 scan</span>
+                    <span class="inkbox-thumb-chip">📄 pdf</span>
+                  </div>
+                </div>
+                <div class="inkbox-photo-label">✏️ Inkbox page</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── AI highlight ── */}
+    <section class="landing-ai-section">
+      <div class="ai-section-inner">
+        <div class="ai-section-left">
+          <div class="ai-pill">✨ AI-Powered</div>
+          <h2 class="ai-section-h2">
+            Your notes have a memory.
+            <br />
+            Now they can <em>answer</em>.
+          </h2>
+          <p class="ai-section-p">
+            Ask your notes anything in plain English. Tabloom uses semantic
+            embeddings to find the most relevant pages and streams a grounded
+            answer — not a generic LLM response, but your own thinking, surfaced.
+          </p>
+          <ul class="ai-bullets">
+            <li>
+              <span class="ai-bullet-dot"></span>
+              Semantic search over every page you've written
+            </li>
+            <li>
+              <span class="ai-bullet-dot"></span>
+              AI summarize, rewrite, expand or shorten any selection
+            </li>
+            <li>
+              <span class="ai-bullet-dot"></span>
+              Auto-suggest tags and notebooks as you write
+            </li>
+          </ul>
+        </div>
+
+        <div class="ai-section-right">
+          <div class="ai-demo-window">
+            <div class="ai-demo-chrome">
+              <span class="ai-demo-dot"></span>
+              <span class="ai-demo-dot"></span>
+              <span class="ai-demo-dot"></span>
+              <span class="ai-demo-label">Ask your notes</span>
+            </div>
+            <div class="ai-demo-body">
+              <div class="ai-question-row">
+                <span class="ai-avatar">You</span>
+                <div class="ai-question-bubble">{aiDemo.q}</div>
+              </div>
+              <div class="ai-answer-row">
+                <span class="ai-avatar ai-avatar-bot">AI</span>
+                <div class="ai-answer-bubble">{aiDemo.a}</div>
+              </div>
+            </div>
+            <div class="ai-demo-dots">
+              <span class="ai-dot-pip active"></span>
+              <span class="ai-dot-pip"></span>
+              <span class="ai-dot-pip"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Detail strip ── */}
+    <section class="landing-details">
+      {DETAILS.map((item) => (
+        <div class="detail-item">
+          <span class="detail-icon">{item.icon}</span>
+          <div>
+            <strong>{item.title}</strong>
+            <p>{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    {/* ── Bottom (auth removed) ── */}
+    <section class="landing-bottom-cta">
+      <div>
+        <svg width="52" height="52" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#4f6e3a"></rect>
+          <g transform="translate(32 30) scale(1.1) translate(-32 -30)">
+            <path d="M12 22c0-3.3 2.7-6 6-6h14l6 6h-2c-3.3 0-6 2.7-6 6v16c0 1.1-.9 2-2 2H18c-3.3 0-6-2.7-6-6V22z" fill="#fdfcf9"></path>
+            <circle cx="40" cy="18" r="5" fill="#e3eed7"></circle>
+            <circle cx="47" cy="25" r="5" fill="#e3eed7" opacity="0.9"></circle>
+            <circle cx="36" cy="26" r="5" fill="#e3eed7" opacity="0.75"></circle>
+            <circle cx="42" cy="22" r="2.2" fill="#4f6e3a"></circle>
+          </g>
+        </svg>
+        <h2 class="bottom-cta-h2">A workspace that grows with you.</h2>
+        <p class="bottom-cta-sub">
+          Everything you capture — typed, scanned, or clipped — organized,
+          searchable, and ready when you are.
+        </p>
+      </div>
+    </section>
+
+    {/* ── Privacy line ── */}
+    <p class="landing-privacy-line">
+      Questions about your data? Read the
+      <a href="/tabloom/privacy">Tabloom Privacy Policy</a>.
+    </p>
+  </div>
+</BaseLayout>

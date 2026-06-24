@@ -1,0 +1,68 @@
+---
+import type { App } from '../data/apps';
+import MockShell from './MockShell.astro';
+import Cairn from './mocks/Cairn.astro';
+import Tare from './mocks/Tare.astro';
+import PulseWire from './mocks/PulseWire.astro';
+import Puzzlebox from './mocks/Puzzlebox.astro';
+import Hearth from './mocks/Hearth.astro';
+import ShopKeep from './mocks/ShopKeep.astro';
+import Tabloom from './mocks/Tabloom.astro';
+import Workshop from './mocks/Workshop.astro';
+
+interface Props {
+  app: App;
+  index: number;
+}
+const { app, index } = Astro.props;
+// Alternate the mockup to the left on odd rows for rhythm.
+const reverse = index % 2 === 1;
+
+const bodies: Record<string, any> = {
+  cairn: Cairn,
+  tare: Tare,
+  pulsewire: PulseWire,
+  puzzlebox: Puzzlebox,
+  hearth: Hearth,
+  shopkeep: ShopKeep,
+  tabloom: Tabloom,
+  workshop: Workshop,
+};
+const Body = bodies[app.slug];
+---
+
+<section class={`promo${reverse ? ' reverse' : ''}`}>
+  <div class="container">
+    <div class="promo-grid">
+      <div class="promo-text reveal">
+        <span class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          {app.category}
+        </span>
+        <h2 class="promo-title">
+          <span style="display:block">{app.headline.lead}</span>
+          <span style="display:block"><span class="em">{app.headline.em}</span></span>
+        </h2>
+        <p class="promo-sub">{app.description}</p>
+        <div class="promo-meta">
+          <span class="promo-app">
+            <img src={`/apps/${app.slug}.png`} alt={`${app.name} icon`} width="30" height="30" />
+            {app.name}
+          </span>
+          <span class="promo-quiet">{app.quiet}</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <MockShell
+          title={app.mockup.title}
+          subtitle={app.mockup.subtitle}
+          chip={app.mockup.chip}
+          live={app.mockup.live}
+        >
+          <Body />
+        </MockShell>
+      </div>
+    </div>
+  </div>
+</section>

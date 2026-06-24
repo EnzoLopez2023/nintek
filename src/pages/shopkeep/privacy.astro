@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getApp, COMPANY } from '../../data/apps';
+
+const app = getApp('shopkeep')!;
+const lastUpdated = 'June 24, 2026';
+---
+
+<BaseLayout
+  title={`${app.name} Privacy Policy — ${COMPANY.name}`}
+  description={`How ${app.name} collects, uses, and protects your information.`}
+  path={`/${app.slug}/privacy`}
+  noindex={true}
+>
+  <article class="prose container">
+    <a class="back-link" href="/shopkeep">← {app.name}</a>
+    <h1>{app.name} Privacy Policy</h1>
+    <p class="updated">Last updated: {lastUpdated} · <strong>DRAFT</strong></p>
+
+    <p>
+      This Privacy Policy explains how {COMPANY.name} (“we”, “us”) handles
+      information in connection with the {app.name} application and website
+      (the “Service”) — a workshop tool and inventory manager. We aim to
+      collect as little as possible and to keep what we do collect private and
+      secure.
+    </p>
+
+    <h2>Information we collect</h2>
+    <ul>
+      <li>
+        <strong>Account information.</strong> When you sign in, we use Microsoft
+        identity services. We receive a unique account identifier and basic
+        profile details such as your name and email address so we can create and
+        secure your account.
+      </li>
+      <li>
+        <strong>Inventory data you create.</strong> Content you generate in the
+        app — such as your tool inventory, categories and brands, storage
+        locations, checkout and loan status, maintenance and warranty records,
+        photos, attached documents (manuals, warranties, receipts/invoices), and
+        valuations — so the Service can catalog your shop and answer questions
+        about it.
+      </li>
+      <li>
+        <strong>Limited technical data.</strong> Basic operational logs (such as
+        request timestamps, AI-call records, and error information) needed to
+        run, secure, and troubleshoot the Service.
+      </li>
+    </ul>
+    <p>
+      We do <strong>not</strong> collect precise location, contacts, or device
+      advertising identifiers, and we do not use third-party advertising or
+      cross-app tracking.
+    </p>
+
+    <h2>How we use information</h2>
+    <ul>
+      <li>To provide, maintain, and secure your account and the Service.</li>
+      <li>
+        To catalog your tools and let you search, organize, check out, and
+        report on your inventory.
+      </li>
+      <li>
+        To read receipts and invoices you provide and turn them into inventory
+        entries, and to answer natural-language questions about your shop.
+      </li>
+      <li>To diagnose problems and improve reliability and performance.</li>
+    </ul>
+
+    <h2>How your information is stored and protected</h2>
+    <p>
+      Your inventory data is stored in your own per-user, private SQLite
+      database — isolated from other users. Information is encrypted in transit
+      using HTTPS, and the Service is hosted on Microsoft Azure. Access is
+      limited to what is necessary to operate the Service.
+    </p>
+
+    <h2>AI processing</h2>
+    <p>
+      Receipt and invoice parsing, tool enrichment, and natural-language search
+      are powered by Anthropic’s Claude. Only the content needed to fulfill your
+      request is sent for processing, and it is not used to train third-party
+      models.
+    </p>
+
+    <h2>Sharing</h2>
+    <p>
+      We do not sell your personal information. We share information only with
+      infrastructure providers that host and secure the Service (for example,
+      Microsoft Azure for hosting and identity, and Anthropic for AI
+      processing), and only as needed to operate it, or where required by law.
+    </p>
+
+    <h2>Data retention and deletion</h2>
+    <p>
+      We retain your information for as long as your account is active. You may
+      request access to, or deletion of, your account and associated data by
+      emailing
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+    </p>
+
+    <h2>Children’s privacy</h2>
+    <p>
+      The Service is intended for a general, adult audience and is not directed
+      to children. We do not knowingly collect personal information from
+      children.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      We may update this policy from time to time. Material changes will be
+      reflected by updating the “Last updated” date above. This document is a
+      <strong>DRAFT</strong> and may change before launch.
+    </p>
+
+    <h2>Contact us</h2>
+    <p>
+      Questions about this policy or your data? Email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+    </p>
+  </article>
+</BaseLayout>

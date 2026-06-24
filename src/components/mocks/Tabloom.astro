@@ -1,0 +1,56 @@
+---
+const books = [
+  { name: 'Field Notes', count: 64, active: true },
+  { name: 'Reading', count: 28, active: false },
+  { name: 'Projects', count: 41, active: false },
+  { name: 'Journal', count: 85, active: false },
+];
+const lines = [88, 96, 72, 90, 60];
+---
+
+<div class="tb">
+  <div class="tb-side">
+    {books.map((b) => (
+      <div class={`tb-book ${b.active ? 'on' : ''}`}>
+        <span class="tb-book-dot"></span>
+        <span class="tb-book-name">{b.name}</span>
+        <span class="tb-book-n">{b.count}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="tb-page">
+    <div class="tb-page-title">Trip planning — Dolomites</div>
+    <div class="tb-tags">
+      <span class="tb-tag">travel</span>
+      <span class="tb-tag">2026</span>
+    </div>
+    <div class="tb-lines">
+      {lines.map((w) => <span class="tb-line" style={`width:${w}%`}></span>)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .tb { display: grid; grid-template-columns: 116px 1fr; gap: 12px; }
+  .tb-side { display: flex; flex-direction: column; gap: 4px; }
+  .tb-book {
+    display: flex; align-items: center; gap: 8px; padding: 8px 9px;
+    border-radius: 9px; font-size: 12px; color: var(--ink-soft);
+  }
+  .tb-book.on { background: var(--copper-soft); color: var(--accent-deep); font-weight: 600; }
+  .tb-book-dot { width: 7px; height: 7px; border-radius: 99px; background: var(--border-strong); flex: none; }
+  .tb-book.on .tb-book-dot { background: var(--accent); }
+  .tb-book-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tb-book-n { font-size: 10.5px; color: var(--ink-muted); }
+  .tb-page {
+    border: 1px solid var(--border); border-radius: var(--r-md);
+    background: var(--cream-soft); padding: 14px;
+  }
+  .tb-page-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .tb-tags { display: flex; gap: 6px; margin: 8px 0 12px; }
+  .tb-tag { font-size: 10px; font-weight: 600; color: var(--accent-deep); background: var(--copper-soft); border: 1px solid var(--copper-edge); padding: 2px 8px; border-radius: 99px; }
+  .tb-lines { display: flex; flex-direction: column; gap: 9px; }
+  .tb-line { height: 7px; border-radius: 99px; background: var(--border); }
+  .tb-line:first-child { background: var(--border-strong); }
+</style>

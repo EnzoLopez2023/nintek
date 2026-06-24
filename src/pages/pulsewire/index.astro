@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/pulsewire-landing.css';
+
+/* ── Static demo articles ─────────────────────────────────────────────────
+   The PulseWire app renders its public landing from a live 6-feed demo DB.
+   At build time there is no database, so the real-looking "warming up" empty
+   state is replaced with a fixed set of representative cards that mirror the
+   DemoArticle shape (feedTitle, age, signal score, source-trust tier, an
+   AI TL;DR brief, and a "why it matters" line).
+   ──────────────────────────────────────────────────────────────────────── */
+type Trust = 'high' | 'medium' | 'low';
+
+interface DemoCard {
+  feedTitle: string;
+  age: string;
+  signal: number;
+  trust: Trust;
+  title: string;
+  url: string;
+  tldr: string;
+  whyItMatters: string;
+}
+
+const demoArticles: DemoCard[] = [
+  {
+    feedTitle: 'BBC World',
+    age: '18m ago',
+    signal: 86,
+    trust: 'high',
+    title: 'Ceasefire talks resume as both sides signal cautious openness to a phased deal',
+    url: 'https://www.bbc.com/news/world',
+    tldr: 'Negotiators reconvened overnight; a staged framework with monitored checkpoints is back on the table after weeks of stalled diplomacy.',
+    whyItMatters: 'A durable pause would reshape regional supply routes and energy pricing within days.',
+  },
+  {
+    feedTitle: 'NPR',
+    age: '42m ago',
+    signal: 73,
+    trust: 'high',
+    title: 'New federal rule reshapes how clinics report drug-shortage data',
+    url: 'https://www.npr.org/sections/health-shots',
+    tldr: 'Providers must now file near-real-time shortage notices, replacing the old quarterly cadence that lagged actual stock-outs.',
+    whyItMatters: 'Faster signals could blunt the panic-buying cycles that deepen shortages downstream.',
+  },
+  {
+    feedTitle: 'Ars Technica',
+    age: '1h ago',
+    signal: 68,
+    trust: 'high',
+    title: 'Researchers demonstrate a practical side-channel against widely deployed TLS libraries',
+    url: 'https://arstechnica.com/information-technology/',
+    tldr: 'A timing leak in a popular handshake path lets a co-located attacker recover key material in hours, not weeks; patches are already shipping.',
+    whyItMatters: 'Anything sharing the same host — cloud tenants especially — should prioritize the update.',
+  },
+  {
+    feedTitle: 'NASA',
+    age: '2h ago',
+    signal: 61,
+    trust: 'high',
+    title: 'Europa Clipper returns first calibration imagery ahead of its science phase',
+    url: 'https://www.nasa.gov/news/',
+    tldr: 'Instrument check-out frames show the imaging suite healthy; the team confirms the icy-moon flyby sequence stays on schedule.',
+    whyItMatters: 'Clean calibration de-risks the subsurface-ocean survey that the mission was built around.',
+  },
+  {
+    feedTitle: 'OpenAI',
+    age: '3h ago',
+    signal: 54,
+    trust: 'medium',
+    title: 'New model tier adds longer context and lower latency for retrieval workloads',
+    url: 'https://openai.com/news/',
+    tldr: 'The release pairs an expanded context window with cost cuts aimed squarely at document-heavy and agentic pipelines.',
+    whyItMatters: 'Cheaper long-context inference nudges more RAG products from prototype to production.',
+  },
+  {
+    feedTitle: 'Bloomberg Markets',
+    age: '4h ago',
+    signal: 38,
+    trust: 'medium',
+    title: 'Treasuries steady as traders trim bets on a near-term rate move',
+    url: 'https://www.bloomberg.com/markets',
+    tldr: 'Yields drifted in a narrow band; soft positioning data cooled expectations for an imminent cut without flipping the broader trend.',
+    whyItMatters: 'A flatter rate path keeps duration trades crowded and risk appetite finely balanced.',
+  },
+];
+
+const signalClass = (s: number) =>
+  s >= 70 ? 'pw-signal--high' : s >= 40 ? 'pw-signal--mid' : 'pw-signal--low';
+const trustClass = (t: Trust) => `pw-trust--${t}`;
+const trustLabel = (t: Trust) => (t === 'high' ? 'HI' : t === 'medium' ? 'MED' : 'LO');
+---
+
+<BaseLayout
+  bare
+  noindex
+  path="/pulsewire"
+  title="PulseWire — One pane of glass for everything you read."
+  description="An AI-native RSS reader. A live 6-feed demo with signal scores, source-trust ratings, and AI-generated executive briefs — no signup required."
+>
+  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+  />
+
+  <div class="pw-root">
+    {/* ── Ambient blur orbs ── */}
+    <div class="pw-bg" aria-hidden="true">
+      <div class="pw-orb pw-orb--violet"></div>
+      <div class="pw-orb pw-orb--cyan"></div>
+    </div>
+
+    <div class="pw-shell">
+      {/* ── Header: gradient wordmark only (auth elements removed) ── */}
+      <header class="pw-header">
+        <a href="/pulsewire" class="pw-brand">
+          <span class="pw-gradient">PulseWire</span>
+        </a>
+      </header>
+
+      {/* ── Hero ── */}
+      <section class="pw-hero">
+        <p class="pw-eyebrow">AI-native RSS · 6-feed demo · no signup required</p>
+        <h1 class="pw-hero__title">
+          One pane of glass for{' '}
+          <span class="pw-gradient">everything you read</span>.
+        </h1>
+        <p class="pw-hero__sub">
+          A live preview from BBC World, NPR, Ars Technica, NASA, OpenAI, and
+          Bloomberg Markets. Each card carries a signal score, source trust, and
+          an AI-generated executive brief.
+        </p>
+      </section>
+
+      {/* ── Demo article grid ── */}
+      <section class="pw-feed">
+        <ul class="pw-grid">
+          {demoArticles.map((a) => (
+            <li class="pw-card">
+              <div class="pw-card__meta">
+                <span class="pw-card__feed">{a.feedTitle}</span>
+                <span aria-hidden="true">·</span>
+                <span>{a.age}</span>
+                <div class="pw-card__badges">
+                  <span class={`pw-badge pw-badge--signal ${signalClass(a.signal)}`}>
+                    {a.signal}
+                  </span>
+                  <span class={`pw-badge ${trustClass(a.trust)}`}>{trustLabel(a.trust)}</span>
+                </div>
+              </div>
+              <h3 class="pw-card__title">
+                <a href={a.url} target="_blank" rel="noopener noreferrer">{a.title}</a>
+              </h3>
+              <div class="pw-card__tldr">
+                <span class="pw-tag">TL;DR</span>{a.tldr}
+              </div>
+              <p class="pw-card__why">
+                <span class="pw-tag">Why it matters</span>{a.whyItMatters}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── Footer + privacy line ── */}
+      <footer class="pw-foot">
+        <p class="pw-foot__note">
+          Questions about your data? Read the{' '}
+          <a href="/pulsewire/privacy">PulseWire Privacy Policy</a>.
+        </p>
+      </footer>
+    </div>
+  </div>
+</BaseLayout>

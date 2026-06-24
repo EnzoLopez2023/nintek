@@ -1,0 +1,82 @@
+---
+const domains = [
+  { name: 'Networking', pct: 91 },
+  { name: 'Identity & Governance', pct: 78 },
+  { name: 'Storage', pct: 64 },
+];
+const r = 26;
+const c = 2 * Math.PI * r;
+const ready = 82;
+const dash = (ready / 100) * c;
+---
+
+<div class="ck">
+  <div class="ck-top">
+    <div class="ck-ring">
+      <svg viewBox="0 0 64 64" width="64" height="64">
+        <circle cx="32" cy="32" r={r} class="ck-track" />
+        <circle
+          cx="32"
+          cy="32"
+          r={r}
+          class="ck-fill"
+          stroke-dasharray={`${dash} ${c}`}
+          transform="rotate(-90 32 32)"
+        />
+      </svg>
+      <span class="ck-ring-num">{ready}%</span>
+    </div>
+    <div>
+      <div class="ck-h">Exam readiness</div>
+      <div class="ck-sub">12 active recall sessions</div>
+      <div class="ck-meta">Test scheduled in 12 days</div>
+    </div>
+  </div>
+
+  <div class="ck-rows">
+    {domains.map((d) => (
+      <div class="ck-row">
+        <span class="ck-name">{d.name}</span>
+        <span class="ck-bar"><span class="ck-barfill" style={`width:${d.pct}%`}></span></span>
+        <span class="ck-pct">{d.pct}%</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="ck-due">
+    <span class="ck-due-l"><span class="ck-due-dot"></span>24 cards due today</span>
+    <span class="ck-btn">Review</span>
+  </div>
+</div>
+
+<style>
+  .ck { display: flex; flex-direction: column; gap: 16px; }
+  .ck-top { display: flex; align-items: center; gap: 16px; }
+  .ck-ring { position: relative; width: 64px; height: 64px; flex: none; }
+  .ck-track { fill: none; stroke: var(--border); stroke-width: 6; }
+  .ck-fill { fill: none; stroke: var(--accent); stroke-width: 6; stroke-linecap: round; }
+  .ck-ring-num {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-size: 14px; font-weight: 700; color: var(--ink);
+  }
+  .ck-h { font-weight: 700; color: var(--ink); font-size: 15px; }
+  .ck-sub { font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; }
+  .ck-meta { font-size: 11.5px; color: var(--ink-muted); margin-top: 4px; }
+  .ck-rows { display: flex; flex-direction: column; gap: 10px; }
+  .ck-row { display: grid; grid-template-columns: 1fr 84px 34px; align-items: center; gap: 10px; }
+  .ck-name { font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ck-bar { height: 7px; border-radius: 99px; background: var(--border); overflow: hidden; }
+  .ck-barfill { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--copper), var(--accent)); }
+  .ck-pct { font-size: 12px; font-weight: 600; color: var(--ink); text-align: right; }
+  .ck-due {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px; border-radius: var(--r-md);
+    background: var(--copper-soft); border: 1px solid var(--copper-edge);
+  }
+  .ck-due-l { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--accent-deep); }
+  .ck-due-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--accent); }
+  .ck-btn {
+    font-size: 12px; font-weight: 600; color: #fff; background: var(--accent);
+    padding: 6px 14px; border-radius: 99px;
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AppCard from '../components/AppCard.astro';
+import AppPromo from '../components/AppPromo.astro';
 import { apps, COMPANY } from '../data/apps';
 ---
 
@@ -10,27 +10,36 @@ import { apps, COMPANY } from '../data/apps';
   path="/"
 >
   <section class="hero container">
-    <h1>Small, thoughtful software for everyday life.</h1>
+    <span class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      An independent software studio
+    </span>
+    <h1>
+      Small, thoughtful software
+      <span class="em">for everyday life.</span>
+    </h1>
     <p>
-      {COMPANY.name} is an independent studio building focused apps that do one
-      thing well — for learning, health, home, and play.
+      {COMPANY.name} builds focused apps that each do one thing well — for
+      learning, health, home, and play. Private by default, fast, and a pleasure
+      to use.
     </p>
   </section>
 
-  <section id="apps" class="section container">
-    <h2 class="section-title">Our apps</h2>
-    <div class="app-grid">
-      {apps.map((app) => <AppCard app={app} />)}
+  <div id="apps">
+    {apps.map((app, i) => <AppPromo app={app} index={i} />)}
+  </div>
+
+  <section id="about" class="container" style="padding: 56px 0;">
+    <div class="reveal" style="max-width: 64ch;">
+      <h2 class="promo-title" style="font-size: clamp(1.8rem, 4vw, 2.6rem);">
+        About {COMPANY.name}
+      </h2>
+      <p class="muted">
+        {COMPANY.name} is a one-person studio. Every app is designed to be
+        private by default, fast, and pleasant to use — no clutter, no dark
+        patterns. Have a question or some feedback?
+        <a href={`mailto:${COMPANY.email}`}>Get in touch</a>.
+      </p>
     </div>
-  </section>
-
-  <section id="about" class="section container">
-    <h2 class="section-title">About {COMPANY.name}</h2>
-    <p class="muted" style="max-width: 64ch;">
-      {COMPANY.name} is a one-person software studio. Every app is designed to be
-      private by default, fast, and pleasant to use — no clutter, no dark
-      patterns. Have a question or some feedback?
-      <a href={`mailto:${COMPANY.email}`}>Get in touch</a>.
-    </p>
   </section>
 </BaseLayout>

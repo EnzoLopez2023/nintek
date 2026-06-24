@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+import type { Mockup } from '../data/apps';
+
+interface Props extends Mockup {}
+const { title, subtitle, chip, live = 'Live' } = Astro.props;
+---
+
+<div class="mockup-wrap" data-parallax data-speed="-0.05">
+  <div class="mockup-ambient"></div>
+  <div class="mockup">
+    <div class="mockup-head">
+      <div>
+        <p class="mockup-h1">{title}</p>
+        <div class="mockup-hsub">{subtitle}</div>
+      </div>
+      <div class="mockup-dots">
+        <span class="mockup-dot r"></span>
+        <span class="mockup-dot y"></span>
+        <span class="mockup-dot g"></span>
+      </div>
+    </div>
+    <slot />
+  </div>
+  <div class="chip"><span class="chip-icon"><Icon name="check" size={12} /></span>{chip}</div>
+  <div class="chip-live"><span class="chip-live-dot"></span>{live}</div>
+</div>

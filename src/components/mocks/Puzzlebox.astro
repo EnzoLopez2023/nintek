@@ -1,0 +1,56 @@
+---
+const tiles = [
+  { ab: 'Wd', name: 'Word Ladder', tone: 'a', done: true },
+  { ab: 'Su', name: 'Sudoku', tone: 'b', done: true },
+  { ab: 'Cr', name: 'Crossword', tone: 'c', done: false },
+  { ab: 'An', name: 'Anagram', tone: 'd', done: false },
+  { ab: 'Lo', name: 'Logic Grid', tone: 'e', done: false },
+  { ab: 'Nm', name: 'Number Maze', tone: 'f', done: false },
+];
+---
+
+<div class="pz">
+  <div class="pz-grid">
+    {tiles.map((t) => (
+      <div class={`pz-tile pz-${t.tone}`}>
+        <span class="pz-ab">{t.ab}</span>
+        {t.done && <span class="pz-check">✓</span>}
+        <span class="pz-name">{t.name}</span>
+      </div>
+    ))}
+  </div>
+  <div class="pz-foot">
+    <span class="pz-streak"><span class="pz-fire">🔥</span> 9-day streak</span>
+    <span class="pz-prog">2 / 6 solved today</span>
+  </div>
+</div>
+
+<style>
+  .pz { display: flex; flex-direction: column; gap: 14px; }
+  .pz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pz-tile {
+    position: relative; border-radius: var(--r-md); padding: 12px 10px;
+    min-height: 74px; display: flex; flex-direction: column; justify-content: space-between;
+    color: #fff; overflow: hidden;
+  }
+  .pz-ab { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; opacity: 0.95; }
+  .pz-name { font-size: 10.5px; font-weight: 600; opacity: 0.95; }
+  .pz-check {
+    position: absolute; top: 8px; right: 8px; width: 16px; height: 16px;
+    border-radius: 99px; background: rgba(255,255,255,0.28); color: #fff;
+    font-size: 10px; display: grid; place-items: center;
+  }
+  .pz-a { background: linear-gradient(150deg, #c17a2e, #8b4513); }
+  .pz-b { background: linear-gradient(150deg, #2f6f8f, #20506a); }
+  .pz-c { background: linear-gradient(150deg, #6d5bd0, #4e3fa6); }
+  .pz-d { background: linear-gradient(150deg, #1f9d6b, #15734e); }
+  .pz-e { background: linear-gradient(150deg, #d08a3a, #a85f1f); }
+  .pz-f { background: linear-gradient(150deg, #b8557a, #8c3a59); }
+  .pz-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px; border-radius: var(--r-md);
+    background: var(--copper-soft); border: 1px solid var(--copper-edge);
+  }
+  .pz-streak { font-size: 12.5px; font-weight: 700; color: var(--accent-deep); display: flex; align-items: center; gap: 6px; }
+  .pz-prog { font-size: 11.5px; color: var(--ink-soft); }
+</style>

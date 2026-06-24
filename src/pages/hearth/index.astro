@@ -1,0 +1,488 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/hearth-landing.css';
+
+/* ── Drifting embers (rendered statically; CSS drift loop is guarded by
+   prefers-reduced-motion). Ports the original Framer-Motion ember set. ── */
+const embers = [
+  { left: '8%',  top: '22%', delay: 0,   dur: 14 },
+  { left: '85%', top: '14%', delay: 2.5, dur: 18 },
+  { left: '70%', top: '70%', delay: 5,   dur: 16 },
+  { left: '18%', top: '78%', delay: 1.4, dur: 20 },
+  { left: '50%', top: '36%', delay: 7,   dur: 22 },
+  { left: '92%', top: '52%', delay: 3.8, dur: 15 },
+];
+
+/* ── The "Right now in your home" feed — shown in its final, settled state.
+   Each line is a real thing Hearth tracks; the last line carries the cursor. ── */
+const feed = [
+  { key: 'Furnace filter',         val: 'last changed 11 weeks ago — due in ', emp: '12 days',                                          tone: 'amber' },
+  { key: 'Lawn',                   val: 'mowed 6 days ago — fertilizer next ', emp: 'Saturday',                                         tone: 'good' },
+  { key: 'This week',              val: 'saved 3 — ',                          emp: 'Sourdough · Cast-Iron Chicken · Apple Galette',    tone: 'rust' },
+  { key: 'Plex library',           val: '847 movies, ',                        emp: '12 4K duplicates flagged',                         tone: 'info' },
+];
+---
+
+<BaseLayout
+  bare
+  noindex
+  path="/hearth"
+  title="Hearth — Your home, all in one place."
+  description="A warm household hub for the records that keep your home running — recipes, maintenance, inventory, the lawn calendar, your Plex library, and an AI assistant."
+>
+  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+  />
+
+  <div class="hl">
+    {/* atmosphere */}
+    <div class="hl-atmos" aria-hidden="true"></div>
+    {embers.map((e) => (
+      <div
+        class="hl-ember"
+        aria-hidden="true"
+        style={`left:${e.left};top:${e.top};animation-duration:${e.dur}s;animation-delay:${e.delay}s;`}
+      ></div>
+    ))}
+
+    {/* ── Nav (brand only) ── */}
+    <nav class="hl-nav">
+      <div class="hl-nav-brand">
+        <span class="hl-nav-mark">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <svg x="-5.33" y="4" width="64" height="64" viewBox="0 0 24 24">
+              <path
+                d="M12 3c1.7 2.4 3.8 4 3.8 6.3 0 1.5-1.1 2.7-2.5 2.7-1.3 0-2.3-.9-2.3-2.2 0-.5.2-1 .5-1.4-1.6 1-2.5 2.7-2.5 4.6 0 2.9 2.3 5 5 5s5-2.3 5-5C19 8 15.5 5 12 3z"
+                fill="#FFFFFF"
+              ></path>
+            </svg>
+          </svg>
+        </span>
+        <span class="hl-nav-name">Hearth</span>
+        <span class="hl-nav-tag">a place for the home you keep</span>
+      </div>
+    </nav>
+
+    {/* ── Hero ── */}
+    <section class="hl-hero">
+      <div class="hl-container">
+        <div class="hl-hero-grid">
+          <div>
+            <div class="hl-eyebrow">
+              <span class="hl-eyebrow-dot"></span>
+              A household hub
+            </div>
+
+            <h1 class="hl-hero-title">
+              The home you keep — <em>kept warm</em>, in one place.
+            </h1>
+
+            <p class="hl-hero-sub">
+              Hearth holds your recipes, your maintenance log, your home
+              inventory, the lawn calendar, the Plex library, and an AI
+              assistant — under one warm, calm interface. Not a productivity
+              tool. A place for the records that keep your home running.
+            </p>
+
+            <div class="hl-cta-row">
+              <a class="hl-btn-secondary" href="#hl-now-section">
+                Take a look
+              </a>
+            </div>
+
+            <p class="hl-cta-fine">
+              Private to your household · per-user database · press{' '}
+              <kbd>Ctrl</kbd> <kbd>K</kbd> to jump anywhere
+            </p>
+          </div>
+
+          {/* ── Mockup: a stylized version of the real Dashboard ── */}
+          <div class="hl-mockup-wrap">
+            <div class="hl-mockup">
+              <div class="hl-mock-topbar">
+                <div class="hl-mock-topbar-left">
+                  <span class="hl-mock-name">Hearth</span>
+                  <span class="hl-mock-pill">v2.0.41</span>
+                </div>
+                <span class="hl-mock-greet">Welcome back, Enzo</span>
+              </div>
+
+              <div class="hl-mock-body">
+                <h3 class="hl-mock-h1">Hearth</h3>
+                <p class="hl-mock-tag">
+                  The home you keep — recipes, maintenance, yard, media, all
+                  in one place.
+                </p>
+
+                <div class="hl-mock-eyebrow">At a Glance</div>
+                <div class="hl-mock-glance">
+                  <div class="hl-mock-glance-card">
+                    <div class="hl-mock-glance-label">Next task</div>
+                    <div class="hl-mock-glance-val">Furnace filter</div>
+                    <div class="hl-mock-glance-meta --rust">due in 12 days</div>
+                  </div>
+                  <div class="hl-mock-glance-card">
+                    <div class="hl-mock-glance-label">Lawn</div>
+                    <div class="hl-mock-glance-val">6 days</div>
+                    <div class="hl-mock-glance-meta --good">since last mow</div>
+                  </div>
+                  <div class="hl-mock-glance-card">
+                    <div class="hl-mock-glance-label">Recipes</div>
+                    <div class="hl-mock-glance-val">127</div>
+                    <div class="hl-mock-glance-meta">3 new this week</div>
+                  </div>
+                </div>
+
+                <div class="hl-mock-divider"></div>
+
+                <div class="hl-mock-eyebrow">Quick Access</div>
+                <div class="hl-mock-grid">
+                  <div class="hl-mock-tile">
+                    <div class="hl-mock-tile-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 4h12a4 4 0 0 1 0 8h-2v8H8a4 4 0 0 1-4-4V4z"></path>
+                        <line x1="8" y1="8" x2="12" y2="8"></line>
+                        <line x1="8" y1="12" x2="12" y2="12"></line>
+                        <line x1="8" y1="16" x2="11" y2="16"></line>
+                      </svg>
+                    </div>
+                    <div class="hl-mock-tile-label">Recipe Manager</div>
+                    <div class="hl-mock-tile-desc">Your recipe collection</div>
+                  </div>
+                  <div class="hl-mock-tile">
+                    <div class="hl-mock-tile-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 21l3-3 7-7-3-3-7 7-3 3z"></path>
+                        <path d="M14 5l5 5"></path>
+                        <path d="M17 2l5 5-4 4-5-5z"></path>
+                      </svg>
+                    </div>
+                    <div class="hl-mock-tile-label">Home Maintenance</div>
+                    <div class="hl-mock-tile-desc">Tasks &amp; warranties</div>
+                  </div>
+                  <div class="hl-mock-tile">
+                    <div class="hl-mock-tile-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 21h14"></path>
+                        <path d="M7 21V11l5-7 5 7v10"></path>
+                        <path d="M10 21v-5h4v5"></path>
+                      </svg>
+                    </div>
+                    <div class="hl-mock-tile-label">Yard Maintenance</div>
+                    <div class="hl-mock-tile-desc">Lawn calendar &amp; care</div>
+                  </div>
+                  <div class="hl-mock-tile">
+                    <div class="hl-mock-tile-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                        <path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"></path>
+                      </svg>
+                    </div>
+                    <div class="hl-mock-tile-label">Media Library</div>
+                    <div class="hl-mock-tile-desc">Plex movie insights</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Live "Right now" feed (final settled state) ── */}
+    <section class="hl-now" id="hl-now-section">
+      <div class="hl-container">
+        <div class="hl-now-grid">
+          <div class="hl-now-text">
+            <div class="hl-eyebrow">
+              <span class="hl-eyebrow-dot"></span>
+              Right now
+            </div>
+            <h2>
+              What Hearth knows about <em style="font-style: italic; color: var(--rust);">your home</em> today.
+            </h2>
+            <p>
+              Filters that need changing. Lawn that needs mowing. The recipes
+              you saved this week. The 4K duplicates in your Plex library.
+              The QR label on the bin in the garage.
+            </p>
+            <p>
+              Hearth keeps track so you don&rsquo;t have to remember — and so the
+              state of your home is one calm screen away, in serif type,
+              across every domain that touches it.
+            </p>
+          </div>
+
+          <div class="hl-now-card">
+            <div class="hl-now-windowdots">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span class="hl-now-windowtitle">hearth · live feed</span>
+            </div>
+
+            {feed.map((line, i) => (
+              <div class="hl-now-line">
+                <span class={`hl-now-dot --${line.tone}`}></span>
+                <span class="hl-now-text-line">
+                  <span class="hl-now-key">{line.key}: </span>
+                  <span class="hl-now-val">{line.val}</span>
+                  <span class="hl-now-emp">{line.emp}</span>
+                  {i === feed.length - 1 && <span class="hl-now-cursor"></span>}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Features ── */}
+    <section class="hl-features">
+      <div class="hl-container">
+        <div class="hl-section-head">
+          <div class="hl-eyebrow" style="justify-content: center;">
+            <span class="hl-eyebrow-dot"></span>
+            Six rooms, one house
+          </div>
+          <h2>Everything for the home you keep.</h2>
+          <p>
+            Six domains stitched into one calm interface. Each one is a real
+            tool — not a placeholder. Add a recipe, log a quarterly filter
+            change, drop a QR label on a storage bin, pull up tonight&rsquo;s lawn
+            window, scrub your Plex library for 4K dupes, ask Hearth&rsquo;s AI
+            what to cook with what&rsquo;s in the pantry.
+          </p>
+        </div>
+
+        <div class="hl-feat-grid">
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h12a4 4 0 0 1 0 8h-2v8H8a4 4 0 0 1-4-4V4z"></path>
+                <line x1="8" y1="8" x2="12" y2="8"></line>
+                <line x1="8" y1="12" x2="12" y2="12"></line>
+                <line x1="8" y1="16" x2="11" y2="16"></line>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Recipe Manager</h3>
+            <p class="hl-feat-desc">
+              Your recipe collection with drag-to-reorder ingredients,
+              fraction-aware quantities (½ cup, ¾ tsp), and AI-extracted
+              nutrition data per serving.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Nutrition AI</span>
+              <span class="hl-feat-tag">Favorites</span>
+              <span class="hl-feat-tag">Search</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 21l3-3 7-7-3-3-7 7-3 3z"></path>
+                <path d="M14 5l5 5"></path>
+                <path d="M17 2l5 5-4 4-5-5z"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Home Maintenance</h3>
+            <p class="hl-feat-desc">
+              Track quarterly tasks, warranty windows, expense receipts, and
+              before/after photos for every system in the house. No more
+              hunting through email for the HVAC paperwork.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Tasks</span>
+              <span class="hl-feat-tag">Warranties</span>
+              <span class="hl-feat-tag">Receipts</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="7" width="18" height="13" rx="2"></rect>
+                <path d="M3 11h18"></path>
+                <path d="M7 7V4h10v3"></path>
+                <circle cx="12" cy="16" r="1.5"></circle>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Home Inventory</h3>
+            <p class="hl-feat-desc">
+              Items, bins, room locations, insurance values. Generate QR
+              labels you can stick on storage bins and scan from your phone
+              to see what&rsquo;s inside.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">QR labels</span>
+              <span class="hl-feat-tag">Scanner</span>
+              <span class="hl-feat-tag">Bins</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 21h14"></path>
+                <path d="M7 21V11l5-7 5 7v10"></path>
+                <path d="M10 21v-5h4v5"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Yard Maintenance</h3>
+            <p class="hl-feat-desc">
+              The lawn calendar — mowing, fertilizing, watering, overseeding
+              — laid out by season for your USDA zone, with weather-aware
+              windows and care notes for every plant you&rsquo;ve added.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Lawn calendar</span>
+              <span class="hl-feat-tag">Seasonal</span>
+              <span class="hl-feat-tag">Notes</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Plex Command Center</h3>
+            <p class="hl-feat-desc">
+              Live streams, watch history, per-user analytics, and a
+              resolution-aware duplicate finder that flags 4K vs 1080p
+              copies of the same film across overlapping libraries.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Duplicates</span>
+              <span class="hl-feat-tag">Live streams</span>
+              <span class="hl-feat-tag">Audit log</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l1.6 3.4L17 8l-3.4 1.6L12 13l-1.6-3.4L7 8l3.4-1.6L12 3z"></path>
+                <path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z"></path>
+                <path d="M19 14l.7 1.5L21 16l-1.3.5L19 18l-.7-1.5L17 16l1.3-.5L19 14z"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">AI Assistant</h3>
+            <p class="hl-feat-desc">
+              Anthropic Claude + Azure OpenAI side-by-side, with streaming
+              replies and a model-comparison lab. Ask what to cook, what
+              bulb fits the fridge, what to plant in October.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Claude</span>
+              <span class="hl-feat-tag">GPT</span>
+              <span class="hl-feat-tag">Streaming</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Trust strip ── */}
+    <section class="hl-trust">
+      <div class="hl-container">
+        <div class="hl-trust-grid">
+          <div class="hl-trust-item">
+            <div class="hl-trust-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="hl-trust-text-h">Verified identity</h4>
+              <p class="hl-trust-text-p">
+                Secure identity auth · tokens validated server-side · no
+                passwords to manage.
+              </p>
+            </div>
+          </div>
+
+          <div class="hl-trust-item">
+            <div class="hl-trust-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="hl-trust-text-h">Your records, your file</h4>
+              <p class="hl-trust-text-p">
+                Per-user SQLite isolation — your data lives in its own
+                database, scoped to your account.
+              </p>
+            </div>
+          </div>
+
+          <div class="hl-trust-item">
+            <div class="hl-trust-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="13 2 3 14 11 14 9 22 21 9 13 9 15 2" fill="currentColor" stroke="none"></polygon>
+              </svg>
+            </div>
+            <div>
+              <h4 class="hl-trust-text-h">Fast and always there</h4>
+              <p class="hl-trust-text-p">
+                Azure App Service · code-split lazy chunks · sub-second
+                navigation between rooms.
+              </p>
+            </div>
+          </div>
+
+          <div class="hl-trust-item">
+            <div class="hl-trust-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 4.5A1.5 1.5 0 0 1 3.5 3H11v17H3.5A1.5 1.5 0 0 0 2 21.5v-17z"></path>
+                <path d="M22 4.5A1.5 1.5 0 0 0 20.5 3H13v17h7.5A1.5 1.5 0 0 1 22 21.5v-17z"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="hl-trust-text-h">29 long-form guides built in</h4>
+              <p class="hl-trust-text-p">
+                Knowledge Base covering React, Vite, Azure, AI, Plex,
+                TipTap — searchable in-app.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Bottom CTA ── */}
+    <section class="hl-cta">
+      <div class="hl-container">
+        <div class="hl-cta-inner">
+          <div class="hl-cta-eyebrow">Come in. The fire&rsquo;s lit.</div>
+          <h2 class="hl-cta-title">Welcome home.</h2>
+          <p class="hl-cta-sub">
+            Hearth is private to you — no signup form, no email list, just
+            your house and the records that keep it running.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Footer ── */}
+    <footer class="hl-foot">
+      <div class="hl-container">
+        <p>Hearth — a household hub for the records that keep yours running.</p>
+        <p>Recipes · Maintenance · Inventory · Yard · Media · AI · Knowledge · Study</p>
+        <p class="hl-foot-privacy">
+          Questions about your data? Read the <a href="/hearth/privacy">Hearth Privacy Policy</a>.
+        </p>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>

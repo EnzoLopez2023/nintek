@@ -1,68 +1,410 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandMark from '../../components/BrandMark.astro';
+import Icon from '../../components/Icon.astro';
 import { getApp } from '../../data/apps';
+import '../../styles/cairn-landing.css';
 
 const app = getApp('cairn')!;
 
-const features = [
-  {
-    title: 'Spaced-repetition flashcards',
-    body: 'An SM-2 scheduling engine surfaces cards right before you forget them, so study time compounds.',
-  },
-  {
-    title: 'Realistic practice exams',
-    body: 'Timed, domain-weighted practice tests that mirror the real certification experience.',
-  },
-  {
-    title: 'Curated cert tracks',
-    body: 'Structured paths across major cloud and platform certifications, with clear next steps.',
-  },
-  {
-    title: 'Progress you can see',
-    body: 'Readiness scoring and per-domain breakdowns show exactly where to focus next.',
-  },
-  {
-    title: 'Private by default',
-    body: 'Your study data lives in your own protected space and is never sold or used for ads.',
-  },
-  {
-    title: 'Built for exam day',
-    body: 'A quality gate keeps content accurate, so you practice on questions that count.',
-  },
+const tickerCodes = [
+  'AZ-104', 'AZ-305', 'AZ-400', 'AZ-500', 'AZ-700', 'AI-102', 'AI-900',
+  'DP-203', 'DP-300', 'DP-600', 'DP-700', 'SC-100', 'SC-200', 'SC-300',
+  'SC-900', 'PL-300', 'PL-400', 'PL-900', 'MS-102', 'MD-102',
 ];
+
+const demo = {
+  domain: 'Domain 1 · Responsible AI',
+  prompt: 'Which of the following are Microsoft Responsible AI principles?',
+  options: ['Fairness', 'Privacy and Security', 'Transparency', 'Maximum throughput'],
+  correct: [0, 1, 2],
+  explanation:
+    'The six Microsoft Responsible AI principles are Fairness, Reliability and Safety, Privacy and Security, Inclusiveness, Transparency, and Accountability. “Maximum throughput” is a performance metric, not a principle.',
+};
 ---
 
 <BaseLayout
-  title={`${app.name} — ${app.tagline}`}
+  title={`${app.name} — Your Microsoft certification study companion`}
   description={app.description}
   path={`/${app.slug}`}
   noindex={true}
+  bare={true}
+  fonts={true}
 >
-  <section class="product-hero container">
-    <img class="icon" src={app.icon} alt={`${app.name} icon`} width="104" height="104" />
-    <div>
-      <h1>{app.name}</h1>
-      <p>{app.description}</p>
+  <div class="lp">
+    {/* ── Background atmosphere ── */}
+    <div class="lp__bg" aria-hidden="true">
+      <div class="lp__bg-grain"></div>
+      <div class="lp__bg-orb lp__bg-orb--a"></div>
+      <div class="lp__bg-orb lp__bg-orb--b"></div>
+      <div class="lp__bg-orb lp__bg-orb--c"></div>
     </div>
-  </section>
 
-  <section class="container">
-    <div class="feature-list">
-      {
-        features.map((f) => (
-          <div class="feature">
-            <h3>{f.title}</h3>
-            <p>{f.body}</p>
+    {/* ── Nav (brand only — no sign-in) ── */}
+    <header class="lp__nav">
+      <span class="lp__brand">
+        <BrandMark />
+        Cairn
+      </span>
+    </header>
+
+    {/* ── Hero ── */}
+    <section class="lp__hero">
+      <div class="lp__container">
+        <div class="lp__hero-grid">
+          <div class="lp__hero-text">
+            <span class="lp__eyebrow">A trail through Microsoft certifications</span>
+            <h1 class="lp__h1">
+              Place every stone.
+              <br />
+              <em>Reach the summit.</em>
+            </h1>
+            <p class="lp__hero-lede">
+              Cairn is a focused study companion for 20+ Microsoft exams — guided
+              readings with analogies and diagrams, an adaptive drill engine that
+              hunts your weak spots, and a timed sandbox that tells you, honestly,
+              whether you&rsquo;re ready.
+            </p>
+            <div class="lp__cta-row">
+              <span class="lp__cta-meta">
+                <span class="lp__cta-meta-dot"></span>
+                Progress synced across every device.
+              </span>
+            </div>
           </div>
-        ))
-      }
-    </div>
-  </section>
 
-  <section class="container" style="padding: 24px 0 8px;">
-    <p class="muted">
-      Questions about your data? Read the
-      <a href="/cairn/privacy">{app.name} Privacy Policy</a>.
-    </p>
-  </section>
+          {/* The cairn */}
+          <div class="lp__cairn-wrap" data-parallax data-speed="-0.05" aria-hidden="true">
+            <div class="lp__cairn-glow"></div>
+            <div class="lp__cairn">
+              <div class="lp__stone lp__stone--1">AZ-104</div>
+              <div class="lp__stone lp__stone--2">SC-900</div>
+              <div class="lp__stone lp__stone--3">DP-700</div>
+              <div class="lp__stone lp__stone--4">AZ-400</div>
+              <div class="lp__stone lp__stone--5">AI-901</div>
+            </div>
+
+            <div class="lp__capstone">
+              <span class="lp__capstone-pulse"></span>
+              READY · 82%
+            </div>
+
+            <div class="lp__cairn-ground"></div>
+
+            <div class="lp__cairn-caption">
+              <span><strong>5 stones placed.</strong> More certifications waiting on the trail.</span>
+            </div>
+
+            <div class="lp__ticker">
+              <div class="lp__ticker-track">
+                {[...tickerCodes, ...tickerCodes].map((code) => (
+                  <span>{code}<span class="lp__ticker-dot"> · </span></span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Trust strip ── */}
+    <section class="lp__trust">
+      <div class="lp__container">
+        <div class="lp__trust-grid">
+          <div class="lp__trust-item">
+            <div class="lp__trust-num"><em>20+</em></div>
+            <div class="lp__trust-label">Microsoft certification tracks, from Fundamentals to Expert.</div>
+          </div>
+          <div class="lp__trust-item">
+            <div class="lp__trust-num"><em>1,000+</em></div>
+            <div class="lp__trust-label">Practice questions across domains — written, explained, scored.</div>
+          </div>
+          <div class="lp__trust-item">
+            <div class="lp__trust-num"><em>Adaptive</em></div>
+            <div class="lp__trust-label">Drill engine surfaces the weakest subdomain on every session.</div>
+          </div>
+          <div class="lp__trust-item">
+            <div class="lp__trust-num"><em>Timed</em></div>
+            <div class="lp__trust-label">Microsoft-style sandbox mirrors the real exam format, every type.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Live demo ── */}
+    <section class="lp__section">
+      <div class="lp__container">
+        <div class="lp__section-head">
+          <span class="lp__section-eyebrow">A live look at practice</span>
+          <h2 class="lp__section-title">Drill mode learns the question you almost got right.</h2>
+          <p class="lp__section-sub">
+            Every answer feeds the weak-spot engine. Get a Responsible AI question wrong
+            and Responsible AI shows up more often tomorrow, weighted toward the things
+            you guessed at rather than the things you knew cold.
+          </p>
+        </div>
+
+        <div class="lp__demo-frame">
+          <div class="lp__demo-chrome">
+            <div class="lp__demo-tabs">
+              <span>Study Guide</span>
+              <span class="lp__demo-tab--active">Practice</span>
+              <span>Flashcards</span>
+              <span>Sandbox</span>
+              <span>Diagnostic</span>
+            </div>
+            <span class="lp__demo-meta">AI-901 · Adaptive mode</span>
+          </div>
+
+          <div class="lp__demo-body">
+            <div class="lp__demo-domain">
+              <Icon name="star" size={13} />
+              {demo.domain}
+            </div>
+
+            <h3 class="lp__demo-question">{demo.prompt}</h3>
+
+            <div class="lp__demo-options">
+              {demo.options.map((opt, i) => {
+                const isCorrect = demo.correct.includes(i);
+                return (
+                  <div class={`lp__demo-opt${isCorrect ? ' lp__demo-opt--correct' : ''}`}>
+                    <span class="lp__demo-opt-check">
+                      {isCorrect && <Icon name="check" size={14} />}
+                    </span>
+                    {opt}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div class="lp__demo-explanation">{demo.explanation}</div>
+
+            <div class="lp__demo-toast">
+              <span class="lp__demo-toast-dot"></span>
+              Responsible AI confidence ↑ · queued for review in 3 days
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Feature bento ── */}
+    <section class="lp__section" style="padding-top: 0;">
+      <div class="lp__container">
+        <div class="lp__section-head">
+          <span class="lp__section-eyebrow">What the app gives you</span>
+          <h2 class="lp__section-title">Five surfaces. One outcome.</h2>
+          <p class="lp__section-sub">
+            Each cert track ships the same five tools, tuned to the exam&rsquo;s real
+            domain weights and question formats.
+          </p>
+        </div>
+
+        <div class="lp__bento">
+          <div class="lp__bento-card lp__bento-card--guide">
+            <div class="lp__bento-icon"><Icon name="book" size={22} /></div>
+            <h3 class="lp__bento-title">A study guide written to stick.</h3>
+            <p class="lp__bento-desc">
+              Every concept gets an analogy, a Mermaid diagram, and an exam tip pointing
+              at the way Microsoft tends to phrase it. Section quizzes prove you got it,
+              then unlock the next stone.
+            </p>
+            <div class="lp__bento-illu">
+              <div class="lp__bento-illu-row">
+                <span class="lp__bento-illu-badge">Analogy</span>
+                <span>Tokens are syllables, not whole words.</span>
+              </div>
+              <div class="lp__bento-illu-row">
+                <span class="lp__bento-illu-badge">Exam tip</span>
+                <span>Grounding vs. fine-tuning — trick wording.</span>
+              </div>
+              <div class="lp__bento-illu-row">
+                <span class="lp__bento-illu-badge">Diagram</span>
+                <span>How a retrieval-augmented chat call flows.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lp__bento-card lp__bento-card--practice">
+            <div class="lp__bento-icon"><Icon name="check" size={22} /></div>
+            <h3 class="lp__bento-title">Practice that hunts weak spots.</h3>
+            <p class="lp__bento-desc">
+              Filter by domain, drill by confidence, or let adaptive mode pick the next
+              question for you. Daily warm-up keeps the streak alive.
+            </p>
+          </div>
+
+          <div class="lp__bento-card lp__bento-card--flashcards">
+            <div class="lp__bento-icon"><Icon name="layers" size={22} /></div>
+            <h3 class="lp__bento-title">Flashcards on a spacing schedule.</h3>
+            <p class="lp__bento-desc">
+              Concept cards graduate from new → learning → review on an SM-2-style
+              interval. Cards you flunk land back in tomorrow&rsquo;s deck.
+            </p>
+          </div>
+
+          <div class="lp__bento-card lp__bento-card--sandbox">
+            <div class="lp__bento-icon"><Icon name="calendar" size={22} /></div>
+            <h3 class="lp__bento-title">A sandbox that feels like exam day.</h3>
+            <p class="lp__bento-desc">
+              Timer, flagging, navigator, every Microsoft question type — case study,
+              hot-area, drag-match, ordering. Scaled score at the end, just like the real one.
+            </p>
+          </div>
+
+          <div class="lp__bento-card lp__bento-card--diagnostic">
+            <div class="lp__bento-icon"><Icon name="gauge" size={22} /></div>
+            <h3 class="lp__bento-title">A diagnostic that&rsquo;s honest.</h3>
+            <p class="lp__bento-desc">
+              Domain-weighted accuracy maps to an estimated scaled score against the 700
+              pass line. No green checkmark until the numbers earn it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Dashboard mockup ── */}
+    <section class="lp__section" style="padding-top: 0;">
+      <div class="lp__container">
+        <div class="lp__section-head">
+          <span class="lp__section-eyebrow">Your hub inside the app</span>
+          <h2 class="lp__section-title">A dashboard that remembers where you stopped.</h2>
+          <p class="lp__section-sub">
+            Stat row up top, resume widget on the left, certification tiers on the
+            right — one click puts you back in the section you left at 2 a.m.
+          </p>
+        </div>
+
+        <div class="lp__mockup-wrap">
+          <div class="lp__mockup">
+            <div class="lp__mockup-chrome">
+              <span class="lp__mockup-brand">
+                <BrandMark size={16} />
+                Cairn
+              </span>
+              <span class="lp__mockup-pill">
+                <span class="lp__mockup-pill-dot"></span>
+                12-day streak
+              </span>
+            </div>
+
+            <div class="lp__mockup-hero">
+              <div class="lp__mockup-welcome">Welcome back, Enzo.</div>
+              <h3 class="lp__mockup-h">
+                Your Microsoft certification
+                <br />
+                <em>study companion.</em>
+              </h3>
+            </div>
+
+            <div class="lp__mockup-stats">
+              <div class="lp__mockup-stat">
+                <div class="lp__mockup-stat-num">37</div>
+                <div class="lp__mockup-stat-label">Sections</div>
+                <div class="lp__mockup-stat-meta">across 4 tracks</div>
+              </div>
+              <div class="lp__mockup-stat">
+                <div class="lp__mockup-stat-num">412</div>
+                <div class="lp__mockup-stat-label">Practice Qs</div>
+                <div class="lp__mockup-stat-meta">questions answered</div>
+              </div>
+              <div class="lp__mockup-stat lp__mockup-stat--accent">
+                <div class="lp__mockup-stat-num">748</div>
+                <div class="lp__mockup-stat-label">Best Score</div>
+                <div class="lp__mockup-stat-meta">tap for AI insights</div>
+              </div>
+            </div>
+
+            <div class="lp__mockup-body">
+              <div class="lp__mockup-resume">
+                <span class="lp__mockup-resume-label">Resume where you left</span>
+                <span class="lp__mockup-resume-title">Generative AI &amp; Agents</span>
+                <span class="lp__mockup-resume-code">AI-901 · Study Guide · §5</span>
+                <div class="lp__mockup-bar">
+                  <div class="lp__mockup-bar-fill" style="width: 64%;"></div>
+                </div>
+                <div class="lp__mockup-resume-foot">
+                  <span>64% through this section</span>
+                  <strong>Continue</strong>
+                </div>
+              </div>
+
+              <div class="lp__mockup-levels">
+                <div class="lp__mockup-level lp__mockup-level--active">
+                  <div>
+                    <span class="lp__mockup-level-title">
+                      Fundamentals <span class="lp__mockup-level-dot"></span>
+                    </span>
+                    <div class="lp__mockup-level-sub">Entry-level certs. Cloud, AI, data.</div>
+                  </div>
+                  <div>
+                    <div class="lp__mockup-level-foot">
+                      <span class="lp__mockup-level-num">7</span>
+                      <span class="lp__mockup-level-meta">active · 9 total</span>
+                    </div>
+                    <div class="lp__mockup-level-progress">2 in progress</div>
+                  </div>
+                </div>
+                <div class="lp__mockup-level">
+                  <div>
+                    <span class="lp__mockup-level-title">Associate</span>
+                    <div class="lp__mockup-level-sub">Day-to-day operator credentials.</div>
+                  </div>
+                  <div class="lp__mockup-level-foot">
+                    <span class="lp__mockup-level-num">14</span>
+                    <span class="lp__mockup-level-meta">active</span>
+                  </div>
+                </div>
+                <div class="lp__mockup-level">
+                  <div>
+                    <span class="lp__mockup-level-title">Specialty</span>
+                    <div class="lp__mockup-level-sub">Domain-specialist credentials.</div>
+                  </div>
+                  <div class="lp__mockup-level-foot">
+                    <span class="lp__mockup-level-num">5</span>
+                    <span class="lp__mockup-level-meta">active</span>
+                  </div>
+                </div>
+                <div class="lp__mockup-level lp__mockup-level--active">
+                  <div>
+                    <span class="lp__mockup-level-title">
+                      Expert <span class="lp__mockup-level-dot"></span>
+                    </span>
+                    <div class="lp__mockup-level-sub">Architect + cross-domain capstones.</div>
+                  </div>
+                  <div>
+                    <div class="lp__mockup-level-foot">
+                      <span class="lp__mockup-level-num">4</span>
+                      <span class="lp__mockup-level-meta">active</span>
+                    </div>
+                    <div class="lp__mockup-level-progress">1 in progress</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Finale + privacy link ── */}
+    <section class="lp__finale">
+      <div class="lp__container">
+        <h2 class="lp__finale-h">Stack <em>your</em> first stone.</h2>
+        <p class="lp__finale-sub">
+          One place for every track, your progress carried with you. Built for the
+          person studying alone at the kitchen table.
+        </p>
+        <p class="lp__footer-meta">
+          Cairn · Built for working engineers studying at the kitchen table.
+        </p>
+        <p class="lp__privacy-line">
+          Questions about your data? Read the
+          <a href="/cairn/privacy">{app.name} Privacy Policy</a>.
+        </p>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

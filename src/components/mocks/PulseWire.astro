@@ -1,0 +1,54 @@
+---
+const stories = [
+  { tone: 'a', cat: 'Technology', title: 'AI chipmakers race to meet surging demand', n: 14 },
+  { tone: 'b', cat: 'Markets', title: 'Global stocks rally as inflation cools', n: 9 },
+  { tone: 'c', cat: 'Science', title: 'Reusable rocket completes its tenth flight', n: 6 },
+  { tone: 'd', cat: 'World', title: 'Climate summit reaches a landmark accord', n: 5 },
+];
+---
+
+<div class="pw">
+  {stories.map((s, i) => (
+    <div class="pw-row">
+      <span class={`pw-rank pw-${s.tone}`}>{i + 1}</span>
+      <div class="pw-main">
+        <div class="pw-title">{s.title}</div>
+        <div class="pw-meta">{s.cat} · {s.n} sources</div>
+      </div>
+      <span class={`pw-badge pw-${s.tone}`}>{s.n}</span>
+    </div>
+  ))}
+  <div class="pw-foot">Clustered from 142 outlets · ranked by signal</div>
+</div>
+
+<style>
+  .pw { display: flex; flex-direction: column; gap: 8px; }
+  .pw-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border: 1px solid var(--border);
+    border-radius: var(--r-md); background: var(--cream-soft);
+  }
+  .pw-rank {
+    width: 24px; height: 24px; flex: none; border-radius: 8px;
+    display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;
+  }
+  .pw-main { min-width: 0; flex: 1; }
+  .pw-title {
+    font-size: 13px; font-weight: 600; color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .pw-meta { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+  .pw-badge {
+    font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px; flex: none;
+    background: var(--copper-soft); color: var(--accent-deep);
+  }
+  .pw-a { background: var(--accent); }
+  .pw-b { background: #2f6f8f; }
+  .pw-c { background: #6d5bd0; }
+  .pw-d { background: #1f9d6b; }
+  .pw-badge.pw-a { background: var(--copper-soft); color: var(--accent-deep); }
+  .pw-badge.pw-b { background: #e6f0f5; color: #2f6f8f; }
+  .pw-badge.pw-c { background: #ece9fa; color: #6d5bd0; }
+  .pw-badge.pw-d { background: #e4f5ee; color: #1f9d6b; }
+  .pw-foot { font-size: 11px; color: var(--ink-muted); padding: 4px 2px 0; }
+</style>

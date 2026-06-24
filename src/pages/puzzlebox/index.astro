@@ -1,0 +1,358 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/puzzlebox-landing.css';
+
+/* ── Brand ─────────────────────────────────────────────────────────────── */
+const BRAND = { name: 'Puzzlebox' };
+// Four logo tiles (one per game family) — pulled from the app's brand.
+const LOGO_TILES = ['#3b82f6', '#10b981', '#8b5cf6', '#fbbf24'];
+
+/* ── Game registry (static mirror of the app's GAMES) ──────────────────── */
+const GAMES = [
+  { id: 'sudoku', name: 'Sudoku', icon: '#', badge: null,
+    blurb: 'Fill the grid so every row, column, and box holds 1–9. Six difficulties, notes, and a per-puzzle compete mode.',
+    accent: { primary: '#3b82f6', light: '#60a5fa', glow: 'rgba(59,130,246,0.35)', onAccent: '#ffffff', gradient: 'linear-gradient(160deg,#60a5fa,#2563eb)' } },
+  { id: 'number-sums', name: 'Number Sums', icon: 'Σ', badge: null,
+    blurb: 'Circle the numbers that add up to each row and column total. Miss three and it’s over.',
+    accent: { primary: '#10b981', light: '#34d399', glow: 'rgba(16,185,129,0.35)', onAccent: '#ffffff', gradient: 'linear-gradient(160deg,#34d399,#059669)' } },
+  { id: 'wordsearch', name: 'Word Search', icon: '🧭', badge: null,
+    blurb: 'Themed grids of letters — drag to find every hidden word. Each one lights up in its own color.',
+    accent: { primary: '#22d3ee', light: '#67e8f9', glow: 'rgba(34,211,238,0.35)', onAccent: '#062430', gradient: 'linear-gradient(160deg,#67e8f9,#0891b2)' } },
+  { id: 'scrabble', name: 'Scrabble', icon: 'S', badge: null,
+    blurb: 'The full 15×15 board — play against the computer or pass-and-play with a friend.',
+    accent: { primary: '#fbbf24', light: '#fde68a', glow: 'rgba(251,191,36,0.35)', onAccent: '#1e1b4b', gradient: 'linear-gradient(160deg,#fde68a,#f59e0b)' } },
+  { id: 'word-rush', name: 'Word Rush', icon: 'W', badge: null,
+    blurb: 'Guess the hidden word against the clock — variable word lengths, a reveal power-up, and score-ranked compete puzzles.',
+    accent: { primary: '#8b5cf6', light: '#a78bfa', glow: 'rgba(139,92,246,0.35)', onAccent: '#ffffff', gradient: 'linear-gradient(160deg,#a78bfa,#d946ef)' } },
+  { id: 'lights-out', name: 'Lights Out', icon: '💡', badge: 'beta',
+    blurb: 'Tap a cell to flip it and its neighbors. Clear the board in as few moves as you can.',
+    accent: { primary: '#facc15', light: '#fde047', glow: 'rgba(250,204,21,0.35)', onAccent: '#1e293b', gradient: 'linear-gradient(160deg,#fde047,#eab308)' } },
+  { id: 'tower-defense', name: 'Tower Defense', icon: '🛡️', badge: 'beta',
+    blurb: 'Build turrets along the path, blast the waves, bank the bounty, and survive to the last wave.',
+    accent: { primary: '#f97316', light: '#fdba74', glow: 'rgba(249,115,22,0.35)', onAccent: '#1a0a02', gradient: 'linear-gradient(160deg,#fdba74,#c2410c)' } },
+  { id: 'city-war', name: 'City War', icon: '🏙️', badge: null,
+    blurb: 'Start with one tower. Drag to open supply lines, route troops around terrain — rivers, walls, forests — and capture every tower across 100 hand-built maps.',
+    accent: { primary: '#7c3aed', light: '#a78bfa', glow: 'rgba(124,58,237,0.35)', onAccent: '#ffffff', gradient: 'linear-gradient(160deg,#a78bfa,#22d3ee)' } },
+];
+
+/* ── Hero fanned deck geometry (final settled state) ───────────────────── */
+const deckN = GAMES.length;
+const deck = GAMES.map((g, i) => {
+  const t = i - (deckN - 1) / 2; // centered offset
+  return {
+    g,
+    style:
+      `--glow:${g.accent.glow};` +
+      `transform:translateX(${t * 52}px) translateY(${Math.abs(t) * 7}px) rotate(${t * 8}deg);` +
+      `z-index:${20 - Math.round(Math.abs(t) * 2)};`,
+  };
+});
+
+/* ── Sudoku demo board — rendered in its final solved state ────────────── */
+const SOLUTION = [
+  [5, 3, 4, 6, 7, 8, 9, 1, 2],
+  [6, 7, 2, 1, 9, 5, 3, 4, 8],
+  [1, 9, 8, 3, 4, 2, 5, 6, 7],
+  [8, 5, 9, 7, 6, 1, 4, 2, 3],
+  [4, 2, 6, 8, 5, 3, 7, 9, 1],
+  [7, 1, 3, 9, 2, 4, 8, 5, 6],
+  [9, 6, 1, 5, 3, 7, 2, 8, 4],
+  [2, 8, 7, 4, 1, 9, 6, 3, 5],
+  [3, 4, 5, 2, 8, 6, 1, 7, 9],
+];
+const GIVEN_POS = new Set([
+  '0,0','0,3','0,6','0,7',
+  '1,1','1,2','1,5','1,8',
+  '2,0','2,2','2,3','2,4',
+  '3,0','3,3','3,6','3,7',
+  '4,1','4,4','4,7',
+  '5,1','5,5','5,6','5,8',
+  '6,0','6,1','6,5','6,6',
+  '7,3','7,4','7,6','7,7',
+  '8,0','8,1','8,4','8,5',
+]);
+// Final solved board: 'given' cells dark, everything the solver placed is 'player'.
+const demoCells = Array.from({ length: 81 }, (_, i) => {
+  const r = Math.floor(i / 9), c = i % 9;
+  const given = GIVEN_POS.has(`${r},${c}`);
+  return { value: SOLUTION[r][c], type: given ? 'given' : 'player' };
+});
+function cellClass(type: string) {
+  return type === 'given'
+    ? 'lp-sudoku-cell lp-sudoku-cell--given'
+    : 'lp-sudoku-cell lp-sudoku-cell--player';
+}
+
+/* ── Per-puzzle leaderboard (static visual) ────────────────────────────── */
+const leaderboard = [
+  { rank: '👑', name: 'You', time: '02:18', you: true, pb: true },
+  { rank: '2',  name: 'Alex R.', time: '03:05', you: false, pb: false },
+  { rank: '3',  name: 'Sam T.',  time: '04:41', you: false, pb: false },
+];
+
+/* ── Features ──────────────────────────────────────────────────────────── */
+const FEATURES = [
+  { emoji: '🎮', title: 'Eight Games in One', desc: 'Logic, words, numbers, and real-time strategy — Sudoku, Number Sums, Word Rush, Scrabble, Word Search, Lights Out, Tower Defense and City War, all in one tidy box.' },
+  { emoji: '🏆', title: 'Compete Mode', desc: 'Race friends on the exact same puzzle. Per-puzzle leaderboards show who solved it fastest across Sudoku, Number Sums and Word Rush.' },
+  { emoji: '🤖', title: 'Play the Computer', desc: 'Take on a real word-finding AI in Scrabble at three difficulty levels — or pass-and-play with a friend on one device.' },
+  { emoji: '📊', title: 'Bests & Streaks', desc: 'Every solve is timed and saved per game. Beat your previous best, protect your streak, and watch your stats grow.' },
+  { emoji: '📱', title: 'Installs Like an App', desc: 'Add Puzzlebox to your home screen for a full-screen, native-feeling experience on phone, tablet, or desktop.' },
+  { emoji: '✨', title: 'No Ads, Always Free', desc: 'No subscriptions, no ads, no daily-puzzle paywalls. Just the games.' },
+];
+
+/* ── Trust strip (reworded — no auth language) ─────────────────────────── */
+const TRUST_ITEMS = [
+  { icon: '🔐', label: 'Private by default', desc: 'Verified identity on every request — no new passwords to remember, and your data is never sold.' },
+  { icon: '📊', label: 'Persistent stats', desc: 'Every solve is recorded server-side. Your best times and streaks persist across sessions and devices.' },
+  { icon: '🏁', label: 'Per-puzzle compete', desc: 'Leaderboards are per-puzzle, not all-time — so you race on specific puzzles rather than a single mega-table.' },
+  { icon: '✨', label: 'Always free', desc: 'Just open and play. No subscriptions, no ads, no timers on daily puzzles. Just the games.' },
+];
+---
+
+<BaseLayout
+  bare
+  noindex
+  path="/puzzlebox"
+  title="Puzzlebox — One little box."
+  description="Eight brain games in one tidy box — Sudoku, Number Sums, Word Rush, Scrabble, Word Search, Lights Out and more, with personal-best tracking and live compete modes."
+>
+  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap"
+  />
+
+  <div class="lp-root">
+    {/* ── Nav (brand only) ── */}
+    <nav class="lp-nav lp-nav--scrolled">
+      <div class="lp-nav__brand">
+        <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#1e293b"></rect>
+          <rect x="4"  y="4"  width="11" height="11" rx="3" fill={LOGO_TILES[0]}></rect>
+          <rect x="17" y="4"  width="11" height="11" rx="3" fill={LOGO_TILES[1]}></rect>
+          <rect x="4"  y="17" width="11" height="11" rx="3" fill={LOGO_TILES[2]}></rect>
+          <rect x="17" y="17" width="11" height="11" rx="3" fill={LOGO_TILES[3]}></rect>
+        </svg>
+        <span class="lp-nav__name">{BRAND.name}</span>
+      </div>
+    </nav>
+
+    {/* ── Hero ── */}
+    <section class="lp-hero">
+      <div class="lp-hero__bg" aria-hidden="true">
+        <div class="lp-orb lp-orb--blue"></div>
+        <div class="lp-orb lp-orb--green"></div>
+        <div class="lp-orb lp-orb--violet"></div>
+      </div>
+
+      <div class="lp-hero__inner">
+        {/* Text */}
+        <div class="lp-hero__text">
+          <div class="lp-hero__badges">
+            <span class="lp-badge lp-badge--brand">🧩 {BRAND.name}</span>
+            <span class="lp-badge">8 games</span>
+          </div>
+
+          <h1 class="lp-hero__h1">
+            Eight brain games.<br />
+            <span class="lp-hero__accent">One little box.</span>
+          </h1>
+
+          <p class="lp-hero__sub">
+            Sudoku, Number Sums, Word Rush, Scrabble, Word Search and Lights Out —
+            one tidy arcade with personal-best tracking and live compete modes.
+          </p>
+        </div>
+
+        {/* Fanned deck of the games */}
+        <div class="lp-hero__mockup">
+          <div class="lp-deck">
+            {deck.map(({ g, style }) => (
+              <div class="lp-deck__card" style={style}>
+                <div class="lp-deck__icon" style={`background:${g.accent.gradient};`}>
+                  <span style={`color:${g.accent.onAccent};`}>{g.icon}</span>
+                </div>
+                <span class="lp-deck__name">{g.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Games ── */}
+    <section class="lp-section lp-section--blend">
+      <div class="lp-container">
+        <div>
+          <span class="lp-eyebrow">Eight games</span>
+          <h2 class="lp-section-title">One box. Eight ways to play.</h2>
+          <p class="lp-section-sub">
+            Logic, words, and numbers — each game has its own rhythm and its own
+            look. Pick the one that fits your mood; they all reward coming back.
+          </p>
+        </div>
+
+        <div class="lp-games__grid lp-games__grid--six">
+          {GAMES.map((g) => (
+            <div
+              class="lp-game-card"
+              style={`--lp-accent:${g.accent.primary};--lp-accent-l:${g.accent.light};--lp-accent-glow:${g.accent.glow};`}
+            >
+              <div class="lp-game-card__icon" style={`background:${g.accent.gradient};`}>
+                <span style={`color:${g.accent.onAccent};`}>{g.icon}</span>
+              </div>
+              <h3 class="lp-game-card__title">
+                {g.name}
+                {g.badge === 'beta' && <span class="lp-game-card__beta">Beta</span>}
+              </h3>
+              <p class="lp-game-card__desc">{g.blurb}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Compete ── */}
+    <section class="lp-section lp-section--dark">
+      <div class="lp-container">
+        <div class="lp-compete__inner">
+          {/* Leaderboard visual */}
+          <div>
+            <div class="lp-leaderboard">
+              <div class="lp-lb__header">
+                <span class="lp-lb__tag">Puzzle Leaderboard</span>
+                <span class="lp-lb__puzzle">Expert #12</span>
+              </div>
+              {leaderboard.map((row) => (
+                <div class="lp-lb__row">
+                  <span class="lp-lb__rank">{row.rank}</span>
+                  <span class={`lp-lb__name${row.you ? ' lp-lb__name--you' : ''}`}>
+                    {row.name}{row.you ? ' (you)' : ''}
+                  </span>
+                  {row.pb && <span class="lp-lb__pb">★ Record</span>}
+                  <span class="lp-lb__time">{row.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Text */}
+          <div>
+            <span class="lp-eyebrow lp-eyebrow--yellow">Compete mode</span>
+            <h2 class="lp-section-title">Same puzzle.<br />Different times.</h2>
+            <p class="lp-section-sub">
+              When you play a Compete puzzle, everyone plays the exact same grid.
+              Submit your solve time and see where you land on a per-puzzle leaderboard
+              — Sudoku, Number Sums, and Word Rush each have their own compete tracks.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Live demo (rendered solved) ── */}
+    <section class="lp-section lp-section--blend">
+      <div class="lp-container">
+        <div class="lp-demo__inner">
+          <div>
+            <span class="lp-eyebrow">Live demo</span>
+            <h2 class="lp-section-title">Watch it solve.</h2>
+            <p class="lp-section-sub" style="margin: 0 auto; text-align: center;">
+              Medium difficulty — 46 cells to fill. Every second ticks.
+            </p>
+          </div>
+
+          <div class="lp-demo__device-wrap">
+            <div class="lp-demo__device">
+              <div class="lp-demo__dheader">
+                <span class="lp-demo__back">← Menu</span>
+                <span class="lp-demo__diff">Medium</span>
+                <span class="lp-demo__timer">02:18</span>
+              </div>
+              <div class="lp-demo__board">
+                <div class="lp-sudoku-grid">
+                  {demoCells.map((cell) => (
+                    <div class={cellClass(cell.type)}>
+                      <span class="lp-cell-val">{cell.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Features ── */}
+    <section class="lp-section">
+      <div class="lp-container">
+        <div>
+          <span class="lp-eyebrow">Features</span>
+          <h2 class="lp-section-title">Built for serious play.</h2>
+          <p class="lp-section-sub">
+            Every detail exists because it makes the game better, not because it was
+            easy to add.
+          </p>
+        </div>
+
+        <div class="lp-features__grid">
+          {FEATURES.map((f) => (
+            <div class="lp-feat">
+              <span class="lp-feat__emoji">{f.emoji}</span>
+              <h3 class="lp-feat__title">{f.title}</h3>
+              <p class="lp-feat__desc">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Trust strip ── */}
+    <div class="lp-trust">
+      <div class="lp-container">
+        <div class="lp-trust__grid">
+          {TRUST_ITEMS.map((item) => (
+            <div class="lp-trust__item">
+              <span class="lp-trust__icon">{item.icon}</span>
+              <span class="lp-trust__label">{item.label}</span>
+              <p class="lp-trust__desc">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* ── Finale ── */}
+    <section class="lp-cta">
+      <div class="lp-cta__glow" aria-hidden="true"></div>
+      <div class="lp-container">
+        <div class="lp-cta__inner">
+          <svg width="84" height="84" viewBox="0 0 32 32" class="lp-cta__logo" aria-hidden="true">
+            <rect width="32" height="32" rx="9" fill="#1e293b"></rect>
+            <rect x="4"  y="4"  width="11" height="11" rx="3" fill={LOGO_TILES[0]}></rect>
+            <rect x="17" y="4"  width="11" height="11" rx="3" fill={LOGO_TILES[1]}></rect>
+            <rect x="4"  y="17" width="11" height="11" rx="3" fill={LOGO_TILES[2]}></rect>
+            <rect x="17" y="17" width="11" height="11" rx="3" fill={LOGO_TILES[3]}></rect>
+          </svg>
+
+          <h2 class="lp-cta__h2">
+            Your next best time<br />is waiting.
+          </h2>
+          <p class="lp-cta__sub">
+            Eight games, one box — pick a puzzle and track your progress.
+          </p>
+
+          <p class="lp-privacy">
+            Questions about your data? Read the
+            <a href="/puzzlebox/privacy">Puzzlebox Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="lp-footer">{BRAND.name}</footer>
+  </div>
+</BaseLayout>

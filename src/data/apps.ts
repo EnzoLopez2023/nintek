@@ -1,134 +1,194 @@
-// Central registry for every Nintek product.
-// The home page renders all apps; only apps with `hasPage: true` link to a
-// dedicated /<slug> marketing page. Add a new app by appending an entry here.
+export type IconKey =
+  | 'layers' | 'flame' | 'gauge' | 'check' | 'drop' | 'calendar' | 'news'
+  | 'bookmark' | 'grid' | 'trophy' | 'star' | 'book' | 'package' | 'alert'
+  | 'user' | 'dollar' | 'tag' | 'hammer' | 'percent' | 'heart';
 
-export type App = {
-  /** URL slug under www.nintek.com/<slug> */
+/** Marketing copy for the floating product mock. The body itself is rendered
+ *  by a bespoke per-app component under components/mocks. */
+export interface Mockup {
+  title: string;
+  subtitle: string;
+  chip: string;
+  live?: string;
+}
+
+export interface App {
   slug: string;
-  /** Public product name */
   name: string;
-  /** One-line positioning statement for cards */
-  tagline: string;
-  /** Longer description for the product page hero */
-  description: string;
-  /** Square brand icon under /public/apps/<file> */
-  icon: string;
-  /** Accent color used on the product page */
-  accent: string;
-  /** App Store bundle identifier (reverse-DNS) */
-  bundleId: string;
-  /** Whether a dedicated marketing/privacy page exists yet */
-  hasPage: boolean;
-  /** Short category label */
   category: string;
+  tagline: string;
+  headline: { lead: string; em: string };
+  description: string;
+  quiet: string;
+  icon: IconKey;
+  bundleId: string;
+  hasPage: boolean;
+  mockup: Mockup;
+}
+
+export const COMPANY = {
+  name: 'Nintek',
+  domain: 'nintek.com',
+  email: 'hello@nintek.com',
+  privacyEmail: 'privacy@nintek.com',
+  tagline: 'Small, thoughtful software for everyday life.',
 };
 
 export const apps: App[] = [
   {
     slug: 'cairn',
     name: 'Cairn',
-    tagline: 'Guided prep for the certifications that move your career.',
+    category: 'Study & Certification',
+    tagline: 'Pass the exam. Keep the knowledge.',
+    headline: { lead: 'Study with intent.', em: 'Walk in ready.' },
     description:
-      'Cairn is a focused study hub for cloud and platform certifications. Spaced-repetition flashcards, realistic practice exams, and progress tracking keep you on a steady path to exam day.',
-    icon: '/apps/cairn.png',
-    accent: '#7C3E1F',
+      'Adaptive flashcards and practice exams that track every objective domain, so you always know exactly where you stand before test day.',
+    quiet: 'Spaced repetition that adapts to what you keep getting wrong.',
+    icon: 'layers',
     bundleId: 'com.nintek.cairn',
     hasPage: true,
-    category: 'Learning',
+    mockup: {
+      title: 'Exam Readiness',
+      subtitle: 'AZ-104 · Azure Administrator',
+      chip: 'Quiz complete · +120 XP',
+      live: 'Studying',
+    },
   },
   {
     slug: 'tare',
     name: 'Tare',
-    tagline: 'A calm, complete companion for GLP-1 health journeys.',
+    category: 'Health & Wellness',
+    tagline: 'Your weight journey, weighed honestly.',
+    headline: { lead: 'Every number tells a story.', em: 'Read the trend.' },
     description:
-      'Tare brings injections, glucose, weight, nutrition, side effects, and well-being into one private place, with optional AI insights.',
-    icon: '/apps/tare.png',
-    accent: '#b86c1e',
+      'Track weight, doses and the metrics that matter on a GLP-1 journey — with smoothing that cuts through the daily noise and shows the real direction.',
+    quiet: 'Private by default. Your health data never leaves your control.',
+    icon: 'drop',
     bundleId: 'com.nintek.tare',
-    hasPage: false,
-    category: 'Health',
+    hasPage: true,
+    mockup: {
+      title: 'This Month',
+      subtitle: 'Trend · weight & doses',
+      chip: 'Logged · 184.2 lb',
+      live: 'On track',
+    },
   },
   {
     slug: 'pulsewire',
     name: 'PulseWire',
-    tagline: 'An AI-native reader that clusters the news that matters.',
+    category: 'News & Reading',
+    tagline: 'The signal, not the noise.',
+    headline: { lead: 'A hundred sources.', em: 'One clear briefing.' },
     description:
-      'PulseWire dedupes, clusters, and scores stories across your feeds so you read the signal, not the noise.',
-    icon: '/apps/pulsewire.png',
-    accent: '#7c3aed',
+      'PulseWire clusters the day’s reporting into the stories that actually matter, ranked by how many independent outlets are covering them.',
+    quiet: 'No infinite scroll. Just today, summarised and ranked.',
+    icon: 'news',
     bundleId: 'com.nintek.pulsewire',
-    hasPage: false,
-    category: 'Productivity',
+    hasPage: true,
+    mockup: {
+      title: 'Today’s Briefing',
+      subtitle: 'Ranked by signal',
+      chip: 'Updated · 6 min ago',
+      live: 'Live',
+    },
   },
   {
     slug: 'puzzlebox',
     name: 'Puzzlebox',
-    tagline: 'A cozy arcade of classic puzzles and word games.',
+    category: 'Games & Puzzles',
+    tagline: 'A new puzzle every day.',
+    headline: { lead: 'One box.', em: 'A dozen ways to play.' },
     description:
-      'Sudoku, word search, number sums, and more — with leaderboards and a few friends-only multiplayer surprises.',
-    icon: '/apps/puzzlebox.png',
-    accent: '#3b82f6',
+      'A cosy collection of daily word and number puzzles with streaks, stats and a fresh challenge waiting every morning.',
+    quiet: 'Keep your streak alive. One quick puzzle a day.',
+    icon: 'grid',
     bundleId: 'com.nintek.puzzlebox',
-    hasPage: false,
-    category: 'Games',
+    hasPage: true,
+    mockup: {
+      title: 'Daily Lineup',
+      subtitle: 'Six puzzles · resets at midnight',
+      chip: 'Streak saved · 9 days',
+      live: 'New today',
+    },
   },
   {
     slug: 'hearth',
     name: 'Hearth',
-    tagline: 'The warm center of a well-run home.',
+    category: 'Home & Family',
+    tagline: 'The whole household, on the same page.',
+    headline: { lead: 'Meals, chores, plans.', em: 'All under one roof.' },
     description:
-      'Recipes, home and yard maintenance, and media tools come together in one family hub with a helpful assistant.',
-    icon: '/apps/hearth.png',
-    accent: '#5C2A4A',
+      'Shared meal plans, recurring chores and a family calendar that keeps everyone in sync without a single group chat reminder.',
+    quiet: 'One shared space the whole family can actually keep up with.',
+    icon: 'flame',
     bundleId: 'com.nintek.hearth',
-    hasPage: false,
-    category: 'Home',
+    hasPage: true,
+    mockup: {
+      title: 'This Week at Home',
+      subtitle: 'Meals & shared tasks',
+      chip: 'Dinner planned · Saturday',
+      live: 'Shared',
+    },
   },
   {
     slug: 'shopkeep',
     name: 'ShopKeep',
-    tagline: 'Know every tool you own — and where it lives.',
+    category: 'For Makers & Workshops',
+    tagline: 'Every tool. Every drawer.',
+    headline: { lead: 'Every tool. Every drawer.', em: 'Right where you left it.' },
     description:
-      'A smart inventory for your garage or workshop, with QR labels, barcode scanning, and AI-assisted entry.',
-    icon: '/apps/shopkeep.png',
-    accent: '#7A3D12',
+      'Inventory the whole workshop — tools, materials and their value — and know in a glance what needs attention before you start the next build.',
+    quiet: 'Snap a receipt; your new tools are already logged.',
+    icon: 'hammer',
     bundleId: 'com.nintek.shopkeep',
-    hasPage: false,
-    category: 'Utilities',
+    hasPage: true,
+    mockup: {
+      title: 'Workshop Dashboard',
+      subtitle: 'Tools & materials',
+      chip: 'Receipt imported · 3 tools added',
+      live: 'Live',
+    },
   },
   {
     slug: 'tabloom',
-    name: 'tabloom',
-    tagline: 'The notebook that grows with your ideas.',
+    name: 'Tabloom',
+    category: 'Notes & Writing',
+    tagline: 'Notebooks that grow with your thinking.',
+    headline: { lead: 'Capture the spark.', em: 'Find it again later.' },
     description:
-      'A rich, searchable notebook with notebooks, pages, tags, OCR, and AI assistance — built for thinking, not filing.',
-    icon: '/apps/tabloom.png',
-    accent: '#4f6e3a',
+      'Organised notebooks with rich text, tags and instant search — a calm home for everything you want to remember and nothing you don’t.',
+    quiet: 'Everything you write, one search away.',
+    icon: 'book',
     bundleId: 'com.nintek.tabloom',
-    hasPage: false,
-    category: 'Productivity',
+    hasPage: true,
+    mockup: {
+      title: 'Field Notes',
+      subtitle: '4 notebooks · 218 notes',
+      chip: 'Saved · just now',
+      live: 'Synced',
+    },
   },
   {
     slug: 'workshop',
     name: 'Workshop',
-    tagline: 'From cut list to finished build, beautifully tracked.',
+    category: 'Woodworking & Projects',
+    tagline: 'From cut list to finished piece.',
+    headline: { lead: 'Plan the cuts.', em: 'Build with confidence.' },
     description:
-      'Plan woodworking projects with cut lists, an optimizing cut planner, materials and cost tracking, and build logs.',
-    icon: '/apps/workshop.png',
-    accent: '#8a5a2b',
+      'Plan a build end to end — cut lists, board layout and progress — so every project moves from sketch to sawdust without the guesswork.',
+    quiet: 'Optimised cut layouts that waste less of every board.',
+    icon: 'package',
     bundleId: 'com.nintek.workshop',
-    hasPage: false,
-    category: 'Hobby',
+    hasPage: true,
+    mockup: {
+      title: 'Walnut Bench',
+      subtitle: 'Cut list & progress',
+      chip: 'Cut list optimised · 4% waste',
+      live: 'In progress',
+    },
   },
 ];
 
-export const getApp = (slug: string): App | undefined =>
-  apps.find((a) => a.slug === slug);
-
-export const COMPANY = {
-  name: 'Nintek',
-  domain: 'www.nintek.com',
-  email: 'hello@nintek.com',
-  privacyEmail: 'privacy@nintek.com',
-  tagline: 'Small, thoughtful software for everyday life.',
-};
+export function getApp(slug: string): App | undefined {
+  return apps.find((a) => a.slug === slug);
+}
