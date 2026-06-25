@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import NintekBack from '../../components/NintekBack.astro';
 import '../../styles/shopkeep-landing.css';
 
 /* ── Receipt → inventory demo, rendered in its final "Filed" state ── */
@@ -75,6 +76,7 @@ const trust = [
     {/* ── Top nav (brand only) ── */}
     <nav class="lp-nav">
       <div class="lp-nav-inner">
+        <NintekBack />
         <div class="lp-nav-brand">
           <span class="lp-nav-mark">
             <svg width="32" height="32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

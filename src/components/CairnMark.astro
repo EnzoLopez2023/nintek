@@ -1,0 +1,21 @@
+---
+interface Props {
+  size?: number;
+}
+const { size = 22 } = Astro.props;
+const gid = `cairn-stone-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:inline-block;flex-shrink:0">
+  <defs>
+    <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#B17153" />
+      <stop offset="0.55" stop-color="#A0522D" />
+      <stop offset="1"    stop-color="#703920" />
+    </linearGradient>
+  </defs>
+  <ellipse cx="12" cy="19"  rx="9"   ry="2.4" fill={`url(#${gid})`} />
+  <ellipse cx="12" cy="13"  rx="7"   ry="2.2" fill={`url(#${gid})`} />
+  <ellipse cx="12" cy="7.5" rx="5"   ry="2"   fill={`url(#${gid})`} />
+  <ellipse cx="12" cy="3"   rx="2.6" ry="1.4" fill={`url(#${gid})`} />
+</svg>

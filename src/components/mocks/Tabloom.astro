@@ -1,56 +1,108 @@
 ---
-const books = [
-  { name: 'Field Notes', count: 64, active: true },
-  { name: 'Reading', count: 28, active: false },
-  { name: 'Projects', count: 41, active: false },
-  { name: 'Journal', count: 85, active: false },
+const nav = [
+  { icon: '🏡', label: 'Patio Project', active: true },
+  { icon: '💡', label: 'Ideas',          active: false },
+  { icon: '📄', label: 'Journal',        active: false },
 ];
-const lines = [88, 96, 72, 90, 60];
 ---
 
 <div class="tb">
   <div class="tb-side">
-    {books.map((b) => (
-      <div class={`tb-book ${b.active ? 'on' : ''}`}>
-        <span class="tb-book-dot"></span>
-        <span class="tb-book-name">{b.name}</span>
-        <span class="tb-book-n">{b.count}</span>
+    {nav.map((n) => (
+      <div class={`tb-nav ${n.active ? 'on' : ''}`}>
+        <span class="tb-nav-icon">{n.icon}</span>
+        <span class="tb-nav-label">{n.label}</span>
       </div>
     ))}
+    <div class="tb-sep"></div>
+    <div class="tb-nav tb-search">
+      <span class="tb-search-icon">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l2.5 2.5"/>
+        </svg>
+      </span>
+      <span class="tb-nav-label">Search</span>
+    </div>
+    <div class="tb-nav tb-ask">
+      <span class="tb-ask-icon">✦</span>
+      <span class="tb-nav-label">Ask notes</span>
+    </div>
   </div>
 
   <div class="tb-page">
-    <div class="tb-page-title">Trip planning — Dolomites</div>
+    <div class="tb-save"><span class="tb-save-check">✓</span> Saved</div>
+    <div class="tb-title">Welcome to Tabloom</div>
     <div class="tb-tags">
-      <span class="tb-tag">travel</span>
-      <span class="tb-tag">2026</span>
+      <span class="tb-tag">#patio</span>
+      <span class="tb-tag">#planning</span>
     </div>
-    <div class="tb-lines">
-      {lines.map((w) => <span class="tb-line" style={`width:${w}%`}></span>)}
+    <div class="tb-callout">Use callouts for key insights</div>
+    <div class="tb-checks">
+      <div class="tb-check done">
+        <span class="tb-box checked">✓</span>
+        <span class="tb-check-t struck">Site prep complete</span>
+      </div>
+      <div class="tb-check">
+        <span class="tb-box"></span>
+        <span class="tb-check-t">Order flagstone</span>
+      </div>
+      <div class="tb-check">
+        <span class="tb-box"></span>
+        <span class="tb-check-t">Schedule delivery</span>
+      </div>
     </div>
   </div>
 </div>
 
 <style>
-  .tb { display: grid; grid-template-columns: 116px 1fr; gap: 12px; }
-  .tb-side { display: flex; flex-direction: column; gap: 4px; }
-  .tb-book {
-    display: flex; align-items: center; gap: 8px; padding: 8px 9px;
-    border-radius: 9px; font-size: 12px; color: var(--ink-soft);
+  .tb { display: grid; grid-template-columns: 108px 1fr; gap: 10px; }
+
+  .tb-side { display: flex; flex-direction: column; gap: 2px; }
+  .tb-nav {
+    display: flex; align-items: center; gap: 7px; padding: 7px 8px;
+    border-radius: 8px; font-size: 11.5px; color: var(--ink-soft); cursor: default;
   }
-  .tb-book.on { background: var(--copper-soft); color: var(--accent-deep); font-weight: 600; }
-  .tb-book-dot { width: 7px; height: 7px; border-radius: 99px; background: var(--border-strong); flex: none; }
-  .tb-book.on .tb-book-dot { background: var(--accent); }
-  .tb-book-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tb-book-n { font-size: 10.5px; color: var(--ink-muted); }
+  .tb-nav.on { background: #dcfce7; color: #14532d; font-weight: 600; }
+  .tb-nav-icon { font-size: 13px; flex: none; }
+  .tb-nav-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .tb-sep { height: 1px; background: var(--border); margin: 4px 0; }
+
+  .tb-search, .tb-ask { color: var(--ink-muted); font-size: 11.5px; }
+  .tb-search-icon { width: 14px; height: 14px; flex: none; display: grid; place-items: center; }
+  .tb-search-icon svg { width: 100%; height: 100%; }
+  .tb-ask-icon { font-size: 11px; flex: none; color: #16a34a; width: 14px; text-align: center; }
+
   .tb-page {
     border: 1px solid var(--border); border-radius: var(--r-md);
-    background: var(--cream-soft); padding: 14px;
+    background: var(--cream-soft); padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 7px;
   }
-  .tb-page-title { font-size: 14px; font-weight: 700; color: var(--ink); }
-  .tb-tags { display: flex; gap: 6px; margin: 8px 0 12px; }
-  .tb-tag { font-size: 10px; font-weight: 600; color: var(--accent-deep); background: var(--copper-soft); border: 1px solid var(--copper-edge); padding: 2px 8px; border-radius: 99px; }
-  .tb-lines { display: flex; flex-direction: column; gap: 9px; }
-  .tb-line { height: 7px; border-radius: 99px; background: var(--border); }
-  .tb-line:first-child { background: var(--border-strong); }
+  .tb-save {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 600; color: #16a34a;
+  }
+  .tb-save-check { font-size: 9px; }
+  .tb-title { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .tb-tags { display: flex; gap: 5px; }
+  .tb-tag {
+    font-size: 10px; font-weight: 600; color: #14532d;
+    background: #dcfce7; border: 1px solid #bbf7d0;
+    padding: 2px 7px; border-radius: 99px;
+  }
+  .tb-callout {
+    font-size: 11.5px; font-weight: 600; color: #14532d;
+    background: #dcfce7; border-left: 3px solid #4ade80;
+    padding: 6px 10px; border-radius: 0 6px 6px 0;
+  }
+  .tb-checks { display: flex; flex-direction: column; gap: 6px; }
+  .tb-check  { display: flex; align-items: center; gap: 7px; }
+  .tb-box {
+    width: 14px; height: 14px; flex: none; border-radius: 4px;
+    border: 1.5px solid var(--border-strong); display: grid; place-items: center;
+    font-size: 9px; color: #fff;
+  }
+  .tb-box.checked { background: #16a34a; border-color: #16a34a; }
+  .tb-check-t { font-size: 11.5px; color: var(--ink-soft); }
+  .tb-check-t.struck { text-decoration: line-through; color: var(--ink-muted); }
 </style>

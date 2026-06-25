@@ -45,10 +45,10 @@ const Body = bodies[app.slug];
         </h2>
         <p class="promo-sub">{app.description}</p>
         <div class="promo-meta">
-          <span class="promo-app">
+          <a class="promo-app" href={`/${app.slug}`}>
             <img src={`/apps/${app.slug}.png`} alt={`${app.name} icon`} width="30" height="30" />
             {app.name}
-          </span>
+          </a>
           <span class="promo-quiet">{app.quiet}</span>
         </div>
       </div>

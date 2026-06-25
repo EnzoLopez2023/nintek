@@ -3,19 +3,31 @@ interface Props {
   size?: number;
 }
 const { size = 22 } = Astro.props;
-const gid = `cairn-stone-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:inline-block">
-  <defs>
-    <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#B17153" />
-      <stop offset="0.55" stop-color="#A0522D" />
-      <stop offset="1" stop-color="#703920" />
-    </linearGradient>
-  </defs>
-  <ellipse cx="12" cy="19" rx="9" ry="2.4" fill={`url(#${gid})`} />
-  <ellipse cx="12" cy="13" rx="7" ry="2.2" fill={`url(#${gid})`} />
-  <ellipse cx="12" cy="7.5" rx="5" ry="2" fill={`url(#${gid})`} />
-  <ellipse cx="12" cy="3" rx="2.6" ry="1.4" fill={`url(#${gid})`} />
+<!--
+  Nintek brand mark — 3×3 dot grid where 7 amber dots trace the letter N.
+  Grid: r=12, gap=7, edge=7 on a 100×100 viewBox.
+  N pattern: cream dots at top-center (50,19) and bottom-center (50,81).
+-->
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 100 100"
+  fill="none"
+  aria-hidden="true"
+  style="display:inline-block;flex-shrink:0"
+>
+  <!-- Row 1: amber · cream · amber -->
+  <circle cx="19" cy="19" r="12" fill="#C17A2E" />
+  <circle cx="50" cy="19" r="12" fill="#9c8476" />
+  <circle cx="81" cy="19" r="12" fill="#C17A2E" />
+  <!-- Row 2: amber · amber · amber  (the diagonal of N) -->
+  <circle cx="19" cy="50" r="12" fill="#C17A2E" />
+  <circle cx="50" cy="50" r="12" fill="#C17A2E" />
+  <circle cx="81" cy="50" r="12" fill="#C17A2E" />
+  <!-- Row 3: amber · cream · amber -->
+  <circle cx="19" cy="81" r="12" fill="#C17A2E" />
+  <circle cx="50" cy="81" r="12" fill="#9c8476" />
+  <circle cx="81" cy="81" r="12" fill="#C17A2E" />
 </svg>

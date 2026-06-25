@@ -1,64 +1,63 @@
 ---
-const pts = '0,16 36,22 72,15 108,30 144,26 180,40 216,38 252,50 288,48';
-const area = `0,70 ${pts} 288,70`;
-const tiles = [
-  { label: 'Next dose', value: '2 days' },
-  { label: 'Streak', value: '31 days' },
-  { label: 'Protein', value: '112 g' },
+const days = [
+  { val: '312', unit: 'days', label: 'Dx',        bg: '#fce7f3', fg: '#9d174d', bar: '#f472b6' },
+  { val: '96',  unit: 'days', label: 'Keto',      bg: '#dcfce7', fg: '#166534', bar: '#4ade80' },
+  { val: '58',  unit: 'days', label: 'Mounjaro',  bg: '#ede9fe', fg: '#5b21b6', bar: '#a78bfa' },
+];
+
+const metrics = [
+  { section: 'NEXT DOSE',   value: 'Sun 8:30', sub: 'Mounjaro · 7.5 mg',    icon: '💉' },
+  { section: 'WEIGHT',      value: '248.4',    sub: 'lb · −1.6 this month', icon: '⚖' },
+  { section: 'GLUCOSE',     value: '108',      sub: 'mg/dL · fasting',       icon: '💧' },
+  { section: 'WELL-BEING',  value: '7',        sub: 'mood · energy 6',       icon: '〜' },
 ];
 ---
 
-<div class="th">
-  <div class="th-top">
-    <div>
-      <div class="th-big">184.2 <span>lb</span></div>
-      <div class="th-trend"><span class="th-arrow">▼</span> 12.4 lb this month</div>
-    </div>
-    <div class="th-glu">
-      <div class="th-glu-num">98</div>
-      <div class="th-glu-cap">fasting glucose</div>
-    </div>
+<div class="tr">
+  <div class="tr-days">
+    {days.map((d) => (
+      <div class="tr-day" style={`background:${d.bg};`}>
+        <div class="tr-day-val" style={`color:${d.fg}`}>{d.val}</div>
+        <div class="tr-day-unit" style={`color:${d.fg}`}>{d.unit}</div>
+        <div class="tr-day-label" style={`color:${d.fg}`}>{d.label}</div>
+        <div class="tr-day-bar" style={`background:${d.bar}`}></div>
+      </div>
+    ))}
   </div>
 
-  <div class="th-chart">
-    <svg viewBox="0 0 288 70" preserveAspectRatio="none" width="100%" height="70">
-      <polygon points={area} class="th-area" />
-      <polyline points={pts} class="th-line" />
-    </svg>
-    <div class="th-axis"><span>Jun 1</span><span>Today</span></div>
-  </div>
-
-  <div class="th-tiles">
-    {tiles.map((t) => (
-      <div class="th-tile">
-        <div class="th-tile-v">{t.value}</div>
-        <div class="th-tile-l">{t.label}</div>
+  <div class="tr-grid">
+    {metrics.map((m) => (
+      <div class="tr-metric">
+        <div class="tr-metric-l">{m.section}</div>
+        <div class="tr-metric-v">{m.value}</div>
+        <div class="tr-metric-sub">{m.sub}</div>
       </div>
     ))}
   </div>
 </div>
 
 <style>
-  .th { display: flex; flex-direction: column; gap: 16px; }
-  .th-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-  .th-big { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
-  .th-big span { font-size: 14px; font-weight: 600; color: var(--ink-muted); }
-  .th-trend { margin-top: 6px; font-size: 12.5px; font-weight: 600; color: #1f9d6b; }
-  .th-arrow { font-size: 10px; }
-  .th-glu { text-align: right; }
-  .th-glu-num {
-    font-size: 22px; font-weight: 800; color: var(--accent-deep);
+  .tr { display: flex; flex-direction: column; gap: 12px; }
+
+  .tr-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tr-day {
+    border-radius: var(--r-md); padding: 10px 11px 8px;
+    position: relative; overflow: hidden;
   }
-  .th-glu-cap { font-size: 10.5px; color: var(--ink-muted); margin-top: 2px; }
-  .th-chart {
-    border-radius: var(--r-md); background: var(--copper-soft);
-    border: 1px solid var(--copper-edge); padding: 10px 12px 8px;
+  .tr-day-val  { font-size: 20px; font-weight: 800; line-height: 1; }
+  .tr-day-unit { font-size: 10px; font-weight: 600; margin-top: 1px; opacity: 0.7; }
+  .tr-day-label{ font-size: 11px; font-weight: 700; margin-top: 4px; }
+  .tr-day-bar  { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; opacity: 0.5; }
+
+  .tr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tr-metric {
+    border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 10px 12px; background: var(--cream-soft);
   }
-  .th-area { fill: rgba(193, 122, 46, 0.14); }
-  .th-line { fill: none; stroke: var(--copper); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-  .th-axis { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--ink-muted); margin-top: 4px; }
-  .th-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .th-tile { border: 1px solid var(--border); border-radius: var(--r-md); padding: 10px; background: var(--cream-soft); }
-  .th-tile-v { font-size: 15px; font-weight: 700; color: var(--ink); }
-  .th-tile-l { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+  .tr-metric-l {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-muted); margin-bottom: 3px;
+  }
+  .tr-metric-v   { font-size: 17px; font-weight: 800; color: var(--ink); line-height: 1.1; }
+  .tr-metric-sub { font-size: 10.5px; color: var(--ink-muted); margin-top: 2px; }
 </style>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import NintekBack from '../../components/NintekBack.astro';
 import '../../styles/hearth-landing.css';
 
 /* ── Drifting embers (rendered statically; CSS drift loop is guarded by
@@ -51,6 +52,7 @@ const feed = [
 
     {/* ── Nav (brand only) ── */}
     <nav class="hl-nav">
+      <NintekBack />
       <div class="hl-nav-brand">
         <span class="hl-nav-mark">
           <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">

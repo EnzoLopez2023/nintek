@@ -1,54 +1,97 @@
 ---
-const stories = [
-  { tone: 'a', cat: 'Technology', title: 'AI chipmakers race to meet surging demand', n: 14 },
-  { tone: 'b', cat: 'Markets', title: 'Global stocks rally as inflation cools', n: 9 },
-  { tone: 'c', cat: 'Science', title: 'Reusable rocket completes its tenth flight', n: 6 },
-  { tone: 'd', cat: 'World', title: 'Climate summit reaches a landmark accord', n: 5 },
+const articles = [
+  {
+    source: 'ARS TECHNICA', ago: '18H AGO', score: 82,
+    title: 'Hotly anticipated Grand Theft Auto VI will cost more than other AAA games',
+    snippet: 'Industry analysts note the barrier to making (albeit not necessarily making money on) smaller studios keeps falling…',
+  },
+  {
+    source: 'BBC WORLD NEWS', ago: '1H AGO', score: 77,
+    title: "Europe's heatwave shifts east as France raises health alert to highest level",
+    snippet: 'Heatwave conditions that left Spain and France are moving eastward, with temperatures expected to peak across central Europe…',
+  },
+  {
+    source: 'ARS TECHNICA', ago: '18H AGO', score: 75,
+    title: 'OpenAI and Broadcom announce chip designed for LLM inference at scale',
+    snippet: 'The company behind ChatGPT and Codex announced a new chip design powered by Jalapeño, targeting large-model inference…',
+  },
+  {
+    source: 'BBC WORLD NEWS', ago: '7H AGO', score: 71,
+    title: "IBM hails new 'block of flats' design breakthrough for ultra tiny chips",
+    snippet: "IBM's new sub-1 nm chip crams almost 100 billion transistors onto a surface the size of a fingernail…",
+  },
 ];
 ---
 
 <div class="pw">
-  {stories.map((s, i) => (
-    <div class="pw-row">
-      <span class={`pw-rank pw-${s.tone}`}>{i + 1}</span>
-      <div class="pw-main">
-        <div class="pw-title">{s.title}</div>
-        <div class="pw-meta">{s.cat} · {s.n} sources</div>
+  <div class="pw-strip">
+    <span>AI-NATIVE RSS</span>
+    <span class="pw-dot">·</span>
+    <span>6-FEED DEMO</span>
+    <span class="pw-dot">·</span>
+    <span>NO SIGNUP REQUIRED</span>
+  </div>
+
+  <div class="pw-grid">
+    {articles.map((a) => (
+      <div class="pw-card">
+        <div class="pw-card-head">
+          <span class="pw-source">{a.source}</span>
+          <span class="pw-ago">{a.ago}</span>
+          <span class="pw-score">{a.score} <span class="pw-hi">HI</span></span>
+        </div>
+        <div class="pw-title">{a.title}</div>
+        <div class="pw-snippet">{a.snippet}</div>
       </div>
-      <span class={`pw-badge pw-${s.tone}`}>{s.n}</span>
-    </div>
-  ))}
-  <div class="pw-foot">Clustered from 142 outlets · ranked by signal</div>
+    ))}
+  </div>
 </div>
 
 <style>
-  .pw { display: flex; flex-direction: column; gap: 8px; }
-  .pw-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 12px; border: 1px solid var(--border);
-    border-radius: var(--r-md); background: var(--cream-soft);
+  /* bleed dark bg to mockup edges */
+  .pw {
+    margin: 0 -22px -22px;
+    border-radius: 0 0 20px 20px;
+    background: #0b1020;
+    padding: 12px 18px 18px;
+    display: flex; flex-direction: column; gap: 10px;
   }
-  .pw-rank {
-    width: 24px; height: 24px; flex: none; border-radius: 8px;
-    display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;
+
+  .pw-strip {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(0,229,255,0.7);
   }
-  .pw-main { min-width: 0; flex: 1; }
+  .pw-dot { opacity: 0.4; }
+
+  .pw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pw-card {
+    background: #121826; border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px; padding: 10px 11px;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .pw-card-head {
+    display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+  }
+  .pw-source {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: #94a3b8;
+  }
+  .pw-ago    { font-size: 9px; color: #64748b; margin-left: auto; }
+  .pw-score  {
+    font-size: 10px; font-weight: 700; color: #fff;
+    background: rgba(0,229,255,0.15); border: 1px solid rgba(0,229,255,0.25);
+    padding: 1px 6px; border-radius: 4px; white-space: nowrap;
+  }
+  .pw-hi { font-size: 8px; color: rgba(0,229,255,0.8); }
   .pw-title {
-    font-size: 13px; font-weight: 600; color: var(--ink);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-size: 11.5px; font-weight: 600; color: #f1f5f9;
+    line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
   }
-  .pw-meta { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
-  .pw-badge {
-    font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px; flex: none;
-    background: var(--copper-soft); color: var(--accent-deep);
+  .pw-snippet {
+    font-size: 10px; color: #64748b; line-height: 1.4;
+    display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
   }
-  .pw-a { background: var(--accent); }
-  .pw-b { background: #2f6f8f; }
-  .pw-c { background: #6d5bd0; }
-  .pw-d { background: #1f9d6b; }
-  .pw-badge.pw-a { background: var(--copper-soft); color: var(--accent-deep); }
-  .pw-badge.pw-b { background: #e6f0f5; color: #2f6f8f; }
-  .pw-badge.pw-c { background: #ece9fa; color: #6d5bd0; }
-  .pw-badge.pw-d { background: #e4f5ee; color: #1f9d6b; }
-  .pw-foot { font-size: 11px; color: var(--ink-muted); padding: 4px 2px 0; }
 </style>

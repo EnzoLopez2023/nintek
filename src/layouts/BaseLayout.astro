@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { COMPANY } from '../data/apps';
+import BrandMark from '../components/BrandMark.astro';
 
 interface Props {
   title: string;
@@ -63,17 +64,16 @@ const year = new Date().getFullYear();
       ) : (
         <>
           <div class="bg-decor" aria-hidden="true">
-            <div class="orb orb-1" data-parallax data-speed="-0.12" />
-            <div class="orb orb-2" data-parallax data-speed="0.10" />
-            <div class="orb orb-3" data-parallax data-speed="-0.08" />
             <div class="grain" />
           </div>
 
           <header class="site-header">
             <div class="container">
               <a class="brand" href="/">
-                <span class="brand-dot" aria-hidden="true" />
-                {COMPANY.name}
+                <BrandMark size={24} />
+                <span class="brand-word" aria-label={COMPANY.name}>
+                  <span class="brand-em">n</span><span class="brand-dim">in</span><span class="brand-em">t</span><span class="brand-dim">ek</span>
+                </span>
               </a>
               <nav class="nav">
                 <a href="/#apps">Apps</a>

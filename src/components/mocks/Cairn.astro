@@ -1,82 +1,92 @@
 ---
-const domains = [
-  { name: 'Networking', pct: 91 },
-  { name: 'Identity & Governance', pct: 78 },
-  { name: 'Storage', pct: 64 },
+const stats = [
+  { label: 'SECTIONS',    value: '37',  sub: 'across 4 tracks' },
+  { label: 'PRACTICE QS', value: '412', sub: 'questions answered' },
+  { label: 'BEST SCORE',  value: '748', sub: 'tap for AI insights', hi: true },
 ];
-const r = 26;
-const c = 2 * Math.PI * r;
-const ready = 82;
-const dash = (ready / 100) * c;
+
+const tracks = [
+  { name: 'Fundamentals', desc: 'Entry-level certs. Cloud, AI, data.', count: '7 active · 9 total', badge: '2 in progress' },
+  { name: 'Associate',    desc: 'Day-to-day operator credentials.',    count: '14 active',          badge: '' },
+  { name: 'Specialty',    desc: 'Domain-specialist credentials.',      count: '5 active',           badge: '' },
+  { name: 'Expert',       desc: 'Architect + cross-domain capstones.', count: '4 active',           badge: '1 in progress', hi: true },
+];
 ---
 
 <div class="ck">
-  <div class="ck-top">
-    <div class="ck-ring">
-      <svg viewBox="0 0 64 64" width="64" height="64">
-        <circle cx="32" cy="32" r={r} class="ck-track" />
-        <circle
-          cx="32"
-          cy="32"
-          r={r}
-          class="ck-fill"
-          stroke-dasharray={`${dash} ${c}`}
-          transform="rotate(-90 32 32)"
-        />
-      </svg>
-      <span class="ck-ring-num">{ready}%</span>
-    </div>
-    <div>
-      <div class="ck-h">Exam readiness</div>
-      <div class="ck-sub">12 active recall sessions</div>
-      <div class="ck-meta">Test scheduled in 12 days</div>
-    </div>
-  </div>
+  <div class="ck-greet">Welcome back, Enzo.</div>
 
-  <div class="ck-rows">
-    {domains.map((d) => (
-      <div class="ck-row">
-        <span class="ck-name">{d.name}</span>
-        <span class="ck-bar"><span class="ck-barfill" style={`width:${d.pct}%`}></span></span>
-        <span class="ck-pct">{d.pct}%</span>
+  <div class="ck-stats">
+    {stats.map((s) => (
+      <div class={`ck-stat${s.hi ? ' hi' : ''}`}>
+        <div class="ck-stat-l">{s.label}</div>
+        <div class="ck-stat-v">{s.value}</div>
+        <div class="ck-stat-sub">{s.sub}</div>
       </div>
     ))}
   </div>
 
-  <div class="ck-due">
-    <span class="ck-due-l"><span class="ck-due-dot"></span>24 cards due today</span>
-    <span class="ck-btn">Review</span>
+  <div class="ck-resume">
+    <div class="ck-resume-l">RESUME WHERE YOU LEFT</div>
+    <div class="ck-resume-title">Generative AI &amp; Agents</div>
+    <div class="ck-resume-sub">AI-901 · Study Guide · §5</div>
+    <div class="ck-bar-wrap">
+      <span class="ck-bar-fill" style="width:64%"></span>
+    </div>
+    <div class="ck-resume-foot">
+      <span class="ck-resume-pct">64% through this section</span>
+      <span class="ck-continue">Continue →</span>
+    </div>
+  </div>
+
+  <div class="ck-tracks">
+    {tracks.map((t) => (
+      <div class={`ck-track${t.hi ? ' hi' : ''}`}>
+        <div class="ck-track-name">{t.name}</div>
+        <div class="ck-track-desc">{t.desc}</div>
+        <div class="ck-track-count">{t.count}</div>
+        {t.badge && <div class="ck-track-badge">{t.badge}</div>}
+      </div>
+    ))}
   </div>
 </div>
 
 <style>
-  .ck { display: flex; flex-direction: column; gap: 16px; }
-  .ck-top { display: flex; align-items: center; gap: 16px; }
-  .ck-ring { position: relative; width: 64px; height: 64px; flex: none; }
-  .ck-track { fill: none; stroke: var(--border); stroke-width: 6; }
-  .ck-fill { fill: none; stroke: var(--accent); stroke-width: 6; stroke-linecap: round; }
-  .ck-ring-num {
-    position: absolute; inset: 0; display: grid; place-items: center;
-    font-size: 14px; font-weight: 700; color: var(--ink);
+  .ck { display: flex; flex-direction: column; gap: 11px; }
+
+  .ck-greet { font-size: 11px; color: var(--ink-muted); }
+
+  .ck-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .ck-stat {
+    border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 10px 11px; background: var(--cream-soft);
   }
-  .ck-h { font-weight: 700; color: var(--ink); font-size: 15px; }
-  .ck-sub { font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; }
-  .ck-meta { font-size: 11.5px; color: var(--ink-muted); margin-top: 4px; }
-  .ck-rows { display: flex; flex-direction: column; gap: 10px; }
-  .ck-row { display: grid; grid-template-columns: 1fr 84px 34px; align-items: center; gap: 10px; }
-  .ck-name { font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .ck-bar { height: 7px; border-radius: 99px; background: var(--border); overflow: hidden; }
-  .ck-barfill { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--copper), var(--accent)); }
-  .ck-pct { font-size: 12px; font-weight: 600; color: var(--ink); text-align: right; }
-  .ck-due {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 12px; border-radius: var(--r-md);
-    background: var(--copper-soft); border: 1px solid var(--copper-edge);
+  .ck-stat.hi { background: var(--copper-soft); border-color: var(--copper-edge); }
+  .ck-stat-l { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
+  .ck-stat-v { font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1; }
+  .ck-stat-sub { font-size: 9.5px; color: var(--ink-muted); margin-top: 2px; }
+
+  .ck-resume {
+    background: var(--cream-soft); border: 1px solid var(--border);
+    border-radius: var(--r-md); padding: 11px 13px;
   }
-  .ck-due-l { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--accent-deep); }
-  .ck-due-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--accent); }
-  .ck-btn {
-    font-size: 12px; font-weight: 600; color: #fff; background: var(--accent);
-    padding: 6px 14px; border-radius: 99px;
+  .ck-resume-l { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 5px; }
+  .ck-resume-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .ck-resume-sub   { font-size: 11px; color: var(--ink-soft); margin-top: 1px; margin-bottom: 8px; }
+  .ck-bar-wrap { height: 6px; border-radius: 99px; background: var(--border); overflow: hidden; margin-bottom: 6px; }
+  .ck-bar-fill { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
+  .ck-resume-foot { display: flex; align-items: center; justify-content: space-between; }
+  .ck-resume-pct  { font-size: 10.5px; color: var(--ink-muted); }
+  .ck-continue    { font-size: 11px; font-weight: 600; color: var(--accent-deep); }
+
+  .ck-tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ck-track {
+    border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 10px 11px; background: var(--cream-soft);
   }
+  .ck-track.hi { border-color: var(--copper-edge); background: var(--copper-soft); }
+  .ck-track-name  { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .ck-track-desc  { font-size: 10px; color: var(--ink-muted); margin: 2px 0 5px; }
+  .ck-track-count { font-size: 10.5px; color: var(--ink-soft); font-weight: 600; }
+  .ck-track-badge { font-size: 10px; font-weight: 600; color: var(--accent-deep); margin-top: 3px; }
 </style>

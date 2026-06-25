@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import NintekBack from '../../components/NintekBack.astro';
 import '../../styles/workshop-landing.css';
 
 /* ── Hero project cards (final, settled fan-out) ── */
@@ -84,6 +85,7 @@ const details = [
   <div class="landing-root">
     {/* ── Sticky glass nav (brand only) ── */}
     <nav class="landing-nav">
+      <NintekBack />
       <div class="landing-nav-brand">
         <svg class="landing-nav-icon" viewBox="0 0 180 180" role="img" aria-label="The Workshop">
           <defs>

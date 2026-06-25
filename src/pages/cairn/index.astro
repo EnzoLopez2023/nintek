@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BrandMark from '../../components/BrandMark.astro';
+import BrandMark from '../../components/CairnMark.astro';
+import NintekBack from '../../components/NintekBack.astro';
 import Icon from '../../components/Icon.astro';
 import { getApp } from '../../data/apps';
 import '../../styles/cairn-landing.css';
@@ -42,6 +43,7 @@ const demo = {
 
     {/* ── Nav (brand only — no sign-in) ── */}
     <header class="lp__nav">
+      <NintekBack />
       <span class="lp__brand">
         <BrandMark />
         Cairn

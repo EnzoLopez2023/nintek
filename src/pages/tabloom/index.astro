@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import NintekBack from '../../components/NintekBack.astro';
 import '../../styles/tabloom-landing.css';
 
 /* ── Feature data (ported verbatim from Tabloom's landing) ── */
@@ -111,6 +112,7 @@ const HANDWRITTEN_LINES = [
 
     {/* ── Nav (brand only) ── */}
     <nav class="landing-nav">
+      <NintekBack />
       <div class="landing-nav-brand">
         <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
           <rect width="64" height="64" rx="14" fill="#4f6e3a"></rect>
