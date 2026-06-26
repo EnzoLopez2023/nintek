@@ -1,0 +1,327 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { COMPANY } from '../data/apps';
+---
+
+<BaseLayout
+  title={`About — ${COMPANY.name}`}
+  description="Nintek is a one-person studio built around a real life — an SRE career, a woodworking hobby, a health journey, daily games, and keeping a home."
+  path="/about"
+>
+  <section class="about-hero container reveal">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          The maker behind the apps
+        </span>
+        <h1>
+          Built for the life
+          <span class="em">I'm actually living.</span>
+        </h1>
+        <p class="about-lead">
+          I'm an SRE by trade, a woodworker by weekend, and someone who went
+          looking for software that fit my actual life — not a sanitized version
+          of it. When I couldn't find it, I built it. That's Nintek.
+        </p>
+      </div>
+      <div class="hero-photo">
+        <img src="/maker.png" alt="Enzo, the maker behind Nintek" width="220" height="220" />
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="about-story">
+
+      <section class="story-section reveal">
+        <span class="story-eyebrow">Work</span>
+        <h2>An SRE who lives in terminals and docs.</h2>
+        <p>
+          My day job is keeping systems running. That means notes — a lot of
+          them. Incident timelines, runbook tweaks, things I figured out at
+          2am that I absolutely cannot lose. I tried every notes app and none
+          of them felt right: too cluttered, too eager to sync everything to
+          someone else's cloud, too slow to open when I'm already in the
+          middle of something.
+        </p>
+        <p>
+          <a href="/tabloom">Tabloom</a> started as a personal experiment in what
+          notes could feel like if speed and privacy came first. <a href="/pulsewire">Pulswire</a>
+          came from a similar frustration — staying current in tech is part of
+          the job, but the signal-to-noise ratio on the internet is brutal. And
+          <a href="/cairn">Cairn</a>? Certifications don't stop being important
+          once you're senior. If anything, they matter more. I built Cairn to
+          keep my study habit alive without turning it into a second job.
+        </p>
+        <div class="story-apps">
+          <a href="/tabloom" class="story-app-pill">Tabloom</a>
+          <a href="/pulsewire" class="story-app-pill">Pulswire</a>
+          <a href="/cairn" class="story-app-pill">Cairn</a>
+        </div>
+      </section>
+
+      <section class="story-section reveal">
+        <span class="story-eyebrow">Craft</span>
+        <h2>A hobbyist with a disorganized shop.</h2>
+        <p>
+          I've been doing woodworking long enough to have a real shop — table
+          saw, router table, the works. And long enough to know the frustration
+          of starting a project without being able to answer basic questions:
+          do I have enough walnut for this? Where did I put the pocket hole
+          jig? What were the measurements on that last cut list?
+        </p>
+        <p>
+          <a href="/workshop">Workshop</a> is a build log — projects, cut lists,
+          material counts, the notes I used to scribble on scrap wood and then
+          lose. <a href="/shopkeep">ShopKeep</a> is the inventory layer: what's
+          in the shop, where it lives, and when I'm running low on something.
+          Together they're the shop foreman I never had.
+        </p>
+        <div class="story-apps">
+          <a href="/workshop" class="story-app-pill">Workshop</a>
+          <a href="/shopkeep" class="story-app-pill">ShopKeep</a>
+        </div>
+      </section>
+
+      <section class="story-section reveal">
+        <span class="story-eyebrow">Health</span>
+        <h2>When the numbers started to matter.</h2>
+        <p>
+          A while back, I started a new health chapter — the kind where you
+          suddenly have metrics to track that you'd never paid attention to
+          before. Weight trends, doses, how you're actually feeling week over
+          week. I went looking for an app to help me stay on top of it and
+          found the same thing everywhere: designs that felt clinical, privacy
+          policies that read like a data harvest, and UX clearly made for
+          someone who wasn't me.
+        </p>
+        <p>
+          <a href="/tare">Tare</a> is the app I wished I had. It tracks the metrics
+          that matter on a GLP-1 journey, smooths out the daily noise so you
+          can see the actual trend, and keeps everything local. No accounts.
+          No cloud sync. Your health data is yours.
+        </p>
+        <div class="story-apps">
+          <a href="/tare" class="story-app-pill">Tare</a>
+        </div>
+      </section>
+
+      <section class="story-section reveal">
+        <span class="story-eyebrow">Play</span>
+        <h2>An avid gamer who needed a reset.</h2>
+        <p>
+          I've been playing games my whole life — consoles, PC, all of it.
+          But there are days when a full session isn't in the cards. What I
+          wanted was something to decompress with during lunch or after dinner
+          that didn't ask for more time than I had — something that used a
+          different part of my brain than a workday does.
+        </p>
+        <p>
+          <a href="/puzzlebox">Puzzlebox</a> is eight daily games in one place.
+          Sudoku, word puzzles, logic grids — the kind of mental reset that
+          fits in five minutes or fifty. Your call.
+        </p>
+        <div class="story-apps">
+          <a href="/puzzlebox" class="story-app-pill">Puzzlebox</a>
+        </div>
+      </section>
+
+      <section class="story-section reveal">
+        <span class="story-eyebrow">Home</span>
+        <h2>The household that runs on lost receipts.</h2>
+        <p>
+          I cook, I do my own maintenance, and I've got a property with
+          opinions about when things need attention. The problem is the paper
+          trail — or the lack of one. Where's the HVAC filter size? When was
+          the last time the water heater was serviced? What was in that
+          marinade everyone loved?
+        </p>
+        <p>
+          <a href="/hearth">Hearth</a> is a household records hub. Appliances and
+          their maintenance history, home documents, cooking notes — the stuff
+          that's currently spread across your junk drawer, your email, and
+          your fading memory.
+        </p>
+        <div class="story-apps">
+          <a href="/hearth" class="story-app-pill">Hearth</a>
+        </div>
+      </section>
+
+      <section class="story-close reveal">
+        <p>
+          Nintek is a one-person studio. Every app is private by default,
+          built to last, and made because I needed it first. If any of this
+          resonates — or if you've got something you're missing —
+          <a href={`mailto:${COMPANY.email}`}>get in touch</a>.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding-top: 80px;
+    padding-bottom: 72px;
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 72ch;
+  }
+
+  .hero-text {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .hero-photo {
+    flex: 0 0 auto;
+  }
+
+  .hero-photo img {
+    width: 198px;
+    height: 198px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid color-mix(in srgb, var(--copper) 30%, transparent);
+    box-shadow: var(--shadow-float);
+  }
+
+  @media (max-width: 600px) {
+    .hero-inner {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+    .hero-photo img {
+      width: 132px;
+      height: 132px;
+    }
+  }
+
+  .about-hero h1 {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .about-hero h1 .em {
+    color: var(--copper);
+    display: block;
+  }
+
+  .about-lead {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  .about-story {
+    max-width: 68ch;
+    padding-bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .story-section {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+
+  .story-eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 0.75rem;
+  }
+
+  .story-section h2 {
+    font-size: clamp(1.3rem, 3vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .story-section p {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+
+  .story-section p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .story-section p a {
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--copper) 40%, transparent);
+    transition: text-decoration-color 0.15s;
+  }
+
+  .story-section p a:hover {
+    text-decoration-color: var(--copper);
+  }
+
+  .story-apps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .story-app-pill {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--copper) 10%, transparent);
+    color: var(--copper);
+    border: 1px solid color-mix(in srgb, var(--copper) 25%, transparent);
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .story-app-pill:hover {
+    background: color-mix(in srgb, var(--copper) 18%, transparent);
+    border-color: color-mix(in srgb, var(--copper) 45%, transparent);
+  }
+
+  .story-close {
+    padding-top: 56px;
+    border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+
+  .story-close p {
+    font-size: 1.05rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+  }
+
+  .story-close a {
+    color: var(--ink);
+    font-weight: 500;
+    text-underline-offset: 3px;
+  }
+</style>
