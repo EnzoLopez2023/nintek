@@ -137,7 +137,7 @@ export const apps: App[] = [
     tagline: 'Notebooks that grow with your thinking.',
     headline: { lead: 'Capture the spark.', em: 'Find it again later.' },
     description:
-      'Organised notebooks with rich text, tags and instant search — a calm home for everything you want to remember and nothing you don't.',
+      'Organised notebooks with rich text, tags and instant search — a calm home for everything you want to remember and nothing you don\'t.',
     quiet: 'Everything you write, one search away.',
     icon: 'book',
     bundleId: 'com.nintek.tabloom',
@@ -156,13 +156,13 @@ export const apps: App[] = [
     tagline: 'The signal, not the noise.',
     headline: { lead: 'A hundred sources.', em: 'One clear briefing.' },
     description:
-      'PulseWire clusters the day's reporting into the stories that actually matter, ranked by how many independent outlets are covering them.',
+      'PulseWire clusters the day\'s reporting into the stories that actually matter, ranked by how many independent outlets are covering them.',
     quiet: 'No infinite scroll. Just today, summarised and ranked.',
     icon: 'news',
     bundleId: 'com.nintek.pulsewire',
     hasPage: true,
     mockup: {
-      title: 'Today's Briefing',
+      title: 'Today\'s Briefing',
       subtitle: 'Ranked by signal',
       chip: 'Updated · 6 min ago',
       live: 'Live',
