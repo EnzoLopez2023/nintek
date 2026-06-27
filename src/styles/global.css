@@ -314,6 +314,7 @@ h3 {
 .mockup-wrap {
   position: relative;
   will-change: transform;
+  container-type: inline-size;
 }
 .mockup-ambient {
   position: absolute;
@@ -645,6 +646,14 @@ h3 {
 @media (max-width: 560px) {
   .stat-row {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@container (max-width: 420px) {
+  .stat-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stat-value {
+    font-size: 0.9rem;
   }
 }
 
