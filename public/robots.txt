@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /$
 Allow: /index.html
+Allow: /ios
+Allow: /about
 
 # Per-app marketing and legal pages are intentionally not indexed.
 # They remain publicly reachable (e.g. for App Store privacy URLs).

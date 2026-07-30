@@ -1,12 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AppPromo from '../components/AppPromo.astro';
+import NativeShowcase from '../components/NativeShowcase.astro';
 import { apps, COMPANY } from '../data/apps';
+
+const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const w = (n: number) => words[n] ?? String(n);
+const webCount = apps.filter((a) => a.platforms.web).length;
+const iosCount = apps.filter((a) => a.platforms.ios).length;
 ---
 
 <BaseLayout
   title={`${COMPANY.name} — ${COMPANY.tagline}`}
-  description={`${COMPANY.name} builds small, thoughtful apps for learning, health, home, and play.`}
+  description={`${COMPANY.name} builds small, thoughtful apps for learning, health, home, and play — on the web, and now natively on iPhone and iPad.`}
   path="/"
 >
   <section class="hero container">
@@ -20,10 +26,13 @@ import { apps, COMPANY } from '../data/apps';
     </h1>
     <p>
       {COMPANY.name} builds focused apps that each do one thing well — for
-      learning, health, home, and play. Private by default, fast, and a pleasure
-      to use.
+      learning, health, home, and play. {w(apps.length)[0].toUpperCase() + w(apps.length).slice(1)}
+      of them so far: {w(webCount)} on the web, and {w(iosCount)} running natively
+      on iPhone and iPad.
     </p>
   </section>
+
+  <NativeShowcase />
 
   <div id="apps">
     {apps.map((app, i) => <AppPromo app={app} index={i} />)}
@@ -44,6 +53,8 @@ import { apps, COMPANY } from '../data/apps';
       </p>
       <p class="muted" style="margin-top: 1rem;">
         <a href="/about">Read the full story →</a>
+        &ensp;·&ensp;
+        <a href="/ios">The native iOS apps</a>
         &ensp;·&ensp;
         <a href={`mailto:${COMPANY.email}`}>Get in touch</a>
       </p>

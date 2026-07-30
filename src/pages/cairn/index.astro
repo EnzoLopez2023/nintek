@@ -3,10 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandMark from '../../components/CairnMark.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import Icon from '../../components/Icon.astro';
+import PhoneMock from '../../components/PhoneMock.astro';
+import CairnPhone from '../../components/mocks/ios/Cairn.astro';
 import { getApp } from '../../data/apps';
 import '../../styles/cairn-landing.css';
 
 const app = getApp('cairn')!;
+const native = app.native!;
 
 const tickerCodes = [
   'AZ-104', 'AZ-305', 'AZ-400', 'AZ-500', 'AZ-700', 'AI-102', 'AI-900',
@@ -386,6 +389,53 @@ const demo = {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Native iOS ── */}
+    <section class="lp__native">
+      <div class="lp__container">
+        <div class="lp__native-grid">
+          <div class="lp__native-text">
+            <span class="lp__native-eyebrow">
+              <span class="lp__native-dot"></span>
+              Now on iPhone and iPad
+            </span>
+            <h2 class="lp__native-title">
+              Cairn went native — and left the server behind.
+            </h2>
+            <p class="lp__native-sub">{native.intro}</p>
+
+            <div class="lp__native-list">
+              {
+                native.highlights.map((h) => (
+                  <div class="lp__native-item">
+                    <span class="lp__native-icon">
+                      <Icon name={h.icon} size={15} />
+                    </span>
+                    <div>
+                      <strong>{h.title}</strong>
+                      <span>{h.body}</span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+
+            <p class="lp__native-meta">
+              <span class="lp__native-beta">TestFlight beta</span>
+              {native.minOS} or later · {native.devices}
+              &ensp;·&ensp;
+              <a href="/ios#cairn">More about the native apps</a>
+            </p>
+          </div>
+
+          <div class="lp__native-phone" aria-hidden="true">
+            <PhoneMock tone="dark">
+              <CairnPhone />
+            </PhoneMock>
           </div>
         </div>
       </div>

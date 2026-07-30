@@ -1,7 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import Icon from '../../components/Icon.astro';
+import PhoneMock from '../../components/PhoneMock.astro';
+import ShopKeepPhone from '../../components/mocks/ios/ShopKeep.astro';
+import { getApp } from '../../data/apps';
 import '../../styles/shopkeep-landing.css';
+
+const skApp = getApp('shopkeep')!;
+const skNative = skApp.native!;
 
 /* ── Receipt → inventory demo, rendered in its final "Filed" state ── */
 const receipt = {
@@ -495,6 +502,53 @@ const trust = [
             </div>
             <div class="lp-trust-title">{trust[3].title}</div>
             <div class="lp-trust-desc">{trust[3].desc}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Native iOS ── */}
+    <section class="lp-native">
+      <div class="lp-container">
+        <div class="lp-native-grid">
+          <div class="lp-native-phone" aria-hidden="true">
+            <PhoneMock tone="light">
+              <ShopKeepPhone />
+            </PhoneMock>
+          </div>
+
+          <div class="lp-native-text">
+            <span class="lp-native-eyebrow">
+              <span class="lp-native-dot"></span>
+              Now on iPhone and iPad
+            </span>
+            <h2 class="lp-native-title">
+              The camera does the filing.
+            </h2>
+            <p class="lp-native-sub">{skNative.intro}</p>
+
+            <div class="lp-native-list">
+              {
+                skNative.highlights.map((h) => (
+                  <div class="lp-native-item">
+                    <span class="lp-native-icon">
+                      <Icon name={h.icon} size={15} />
+                    </span>
+                    <div>
+                      <strong>{h.title}</strong>
+                      <span>{h.body}</span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+
+            <p class="lp-native-meta">
+              <span class="lp-native-beta">TestFlight beta</span>
+              {skNative.minOS} or later · {skNative.devices}
+              &ensp;·&ensp;
+              <a href="/ios#shopkeep">More about the native apps</a>
+            </p>
           </div>
         </div>
       </div>

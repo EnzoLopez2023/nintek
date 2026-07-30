@@ -1,0 +1,722 @@
+/* ==========================================================================
+   /ios — the native chapter
+   Uses the shared tokens from global.css; adds a dark editorial rhythm so the
+   native story reads as its own chapter without leaving the house style.
+   ========================================================================== */
+
+/* The fixed background art is beautiful but loud in places; a cream veil keeps
+   long-form copy legible without flattening it out entirely. */
+.ios-page {
+  position: relative;
+}
+.ios-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--cream) 86%, transparent) calc(100% - 220px),
+    color-mix(in srgb, var(--cream) 0%, transparent) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.ios-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+
+.ih {
+  position: relative;
+  background: var(--walnut);
+  color: var(--walnut-text);
+  padding: 104px 0 108px;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+.ih::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      70% 90% at 78% 12%,
+      rgba(193, 122, 46, 0.24),
+      transparent 62%
+    ),
+    radial-gradient(
+      55% 70% at 8% 96%,
+      rgba(160, 82, 45, 0.16),
+      transparent 66%
+    );
+  pointer-events: none;
+}
+.ih > .container {
+  position: relative;
+  z-index: 1;
+}
+.ih-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 56px;
+  align-items: center;
+}
+.ih-eyebrow {
+  color: var(--copper);
+  border-color: rgba(193, 122, 46, 0.32);
+  background: rgba(193, 122, 46, 0.09);
+}
+.ih-eyebrow .eyebrow-dot {
+  background: var(--copper);
+}
+.ih-title {
+  color: var(--walnut-text);
+  font-family: var(--font-brand);
+  font-size: clamp(2.5rem, 6.2vw, 4.3rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  margin: 22px 0 26px;
+}
+.ih-title .em {
+  display: block;
+  color: var(--copper);
+  font-style: italic;
+}
+.ih-lede {
+  max-width: 56ch;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: rgba(245, 237, 224, 0.76);
+  margin: 0 0 18px;
+}
+.ih-lede strong {
+  color: var(--walnut-text);
+  font-weight: 600;
+}
+
+.ih-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 30px 0 28px;
+}
+.ih-stat {
+  flex: 1 1 130px;
+  padding: 16px 18px;
+  border: 1px solid rgba(245, 237, 224, 0.13);
+  border-radius: var(--r-md);
+  background: rgba(245, 237, 224, 0.04);
+}
+.ih-stat-num {
+  display: block;
+  font-family: var(--font-brand);
+  font-size: 1.85rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--copper);
+  line-height: 1;
+}
+.ih-stat-cap {
+  display: block;
+  margin-top: 7px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(245, 237, 224, 0.5);
+}
+
+.ih-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.ih-jump-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 15px 8px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 237, 224, 0.14);
+  background: rgba(245, 237, 224, 0.05);
+  color: rgba(245, 237, 224, 0.85);
+  font-size: 0.86rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+.ih-jump-item img {
+  border-radius: 7px;
+  display: block;
+}
+.ih-jump-item:hover {
+  background: rgba(193, 122, 46, 0.16);
+  border-color: rgba(193, 122, 46, 0.42);
+  color: var(--walnut-text);
+  transform: translateY(-2px);
+}
+
+.ih-phones {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 460px;
+}
+.ih-phone {
+  position: absolute;
+}
+.ih-phone.back {
+  transform: translate(-46%, -9%) rotate(-8deg) scale(0.88);
+  filter: brightness(0.92);
+}
+.ih-phone.front {
+  transform: translate(34%, 9%) rotate(5deg);
+  z-index: 2;
+}
+.ih-phone .phone {
+  width: 234px;
+}
+
+/* ── Generic section scaffolding ────────────────────────────────────────── */
+
+.isec {
+  padding: 104px 0 20px;
+}
+.isec-head {
+  max-width: 60ch;
+  margin-bottom: 52px;
+}
+.isec-title {
+  font-family: var(--font-brand);
+  font-size: clamp(1.9rem, 4.4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 20px 0 18px;
+}
+.isec-lede {
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ── Why native ─────────────────────────────────────────────────────────── */
+
+.ithesis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 22px;
+}
+.ithesis-card {
+  padding: 28px 26px 26px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+.ithesis-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--copper-edge);
+}
+.ithesis-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--copper-soft);
+  color: var(--accent);
+  margin-bottom: 17px;
+}
+.ithesis-card h3 {
+  font-family: var(--font-brand);
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.ithesis-card p {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* ── NintekKit band ─────────────────────────────────────────────────────── */
+
+.ikit {
+  position: relative;
+  margin-top: 100px;
+  padding: 96px 0 92px;
+  background: var(--walnut-mid);
+  color: var(--walnut-text);
+  overflow: hidden;
+}
+.ikit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    62% 78% at 88% 6%,
+    rgba(193, 122, 46, 0.18),
+    transparent 64%
+  );
+  pointer-events: none;
+}
+.ikit > .container {
+  position: relative;
+  z-index: 1;
+}
+.ikit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 60px;
+  align-items: start;
+}
+.ikit-title {
+  color: var(--walnut-text);
+  font-family: var(--font-brand);
+  font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 20px 0 20px;
+}
+.ikit-title .em {
+  display: block;
+  color: var(--copper);
+  font-style: italic;
+}
+.ikit-lede {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(245, 237, 224, 0.78);
+  margin: 0 0 18px;
+}
+.ikit-note {
+  font-size: 0.93rem;
+  line-height: 1.72;
+  color: rgba(245, 237, 224, 0.52);
+  margin: 0;
+  padding-left: 18px;
+  border-left: 2px solid rgba(193, 122, 46, 0.42);
+}
+
+.ikit-points {
+  display: grid;
+  gap: 16px;
+}
+.ikit-point {
+  display: flex;
+  gap: 16px;
+  padding: 22px 22px 20px;
+  border: 1px solid rgba(245, 237, 224, 0.11);
+  border-radius: var(--r-md);
+  background: rgba(245, 237, 224, 0.035);
+  transition:
+    background 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+.ikit-point:hover {
+  background: rgba(245, 237, 224, 0.06);
+  border-color: rgba(193, 122, 46, 0.34);
+}
+.ikit-point-icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(193, 122, 46, 0.16);
+  color: var(--copper);
+}
+.ikit-point h3 {
+  color: var(--walnut-text);
+  font-family: var(--font-brand);
+  font-size: 1rem;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  margin: 2px 0 7px;
+}
+.ikit-point p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.68;
+  color: rgba(245, 237, 224, 0.62);
+}
+
+.ikit-caveat {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin: 46px 0 0;
+  padding: 18px 22px;
+  border-radius: var(--r-md);
+  border: 1px dashed rgba(245, 237, 224, 0.18);
+  font-size: 0.9rem;
+  line-height: 1.68;
+  color: rgba(245, 237, 224, 0.6);
+  max-width: 78ch;
+}
+.ikit-caveat-mark {
+  flex: none;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--copper);
+  padding-top: 3px;
+}
+
+/* ── Per-app deep dives ─────────────────────────────────────────────────── */
+
+.iapps {
+  padding: 8px 0 0;
+}
+.iapp {
+  padding: 92px 0;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 90px;
+}
+.iapp:last-child {
+  border-bottom: none;
+}
+.iapp-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 64px;
+  align-items: start;
+}
+.iapp.reverse .iapp-grid {
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+}
+.iapp.reverse .iapp-text {
+  order: 2;
+}
+.iapp.reverse .iapp-phone {
+  order: 1;
+}
+
+.iapp-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.iapp-head img {
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  display: block;
+}
+.iapp-name {
+  font-family: var(--font-brand);
+  font-size: clamp(1.7rem, 3.6vw, 2.35rem);
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 0 0 8px;
+  line-height: 1;
+}
+.iapp-beta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.iapp-beta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--copper);
+  box-shadow: 0 0 0 0 rgba(193, 122, 46, 0.55);
+  animation: pbadge-pulse 2.4s var(--ease) infinite;
+}
+
+.iapp-thesis {
+  font-family: var(--font-brand);
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.32;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 16px;
+  max-width: 30ch;
+}
+.iapp-intro {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0 0 34px;
+  max-width: 60ch;
+}
+
+.iapp-feats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 28px;
+}
+.iapp-feat {
+  display: flex;
+  gap: 13px;
+}
+.iapp-feat-icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--copper-soft);
+  color: var(--accent);
+  margin-top: 1px;
+}
+.iapp-feat h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 4px 0 6px;
+}
+.iapp-feat p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.iapp-foot {
+  margin-top: 36px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
+}
+.iapp-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.iapp-chip {
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--cream-soft);
+  color: var(--ink-soft);
+}
+.iapp-req {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+.iapp-req a {
+  color: var(--accent);
+}
+
+.iapp-phone-sticky {
+  position: sticky;
+  top: 104px;
+  display: flex;
+  justify-content: center;
+}
+.iapp-phone .phone {
+  width: 268px;
+}
+
+/* ── Up next ────────────────────────────────────────────────────────────── */
+
+.inext {
+  padding: 92px 0 0;
+}
+.inext-card {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 34px 34px 32px;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--copper-edge);
+  background: linear-gradient(
+    135deg,
+    var(--copper-soft),
+    var(--paper) 72%
+  );
+}
+.inext-card > img {
+  border-radius: 15px;
+  box-shadow: var(--shadow-card);
+  display: block;
+  flex: none;
+}
+.inext-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.inext-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--copper);
+}
+.inext-card h2 {
+  font-family: var(--font-brand);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  letter-spacing: -0.028em;
+  font-weight: 600;
+  margin: 12px 0 12px;
+  line-height: 1.14;
+}
+.inext-card p {
+  margin: 0;
+  font-size: 0.97rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+/* ── Closing ────────────────────────────────────────────────────────────── */
+
+.iend {
+  padding: 84px 0 118px;
+}
+.iend h2 {
+  font-family: var(--font-brand);
+  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+.iend p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 62ch;
+}
+.iend-links {
+  margin-top: 20px !important;
+  font-size: 0.95rem !important;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 980px) {
+  .ih {
+    padding: 76px 0 84px;
+  }
+  .ih-grid {
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+  .ih-phones {
+    min-height: 420px;
+  }
+  .ih-phone.back {
+    transform: translate(-44%, -5%) rotate(-8deg) scale(0.86);
+  }
+  .ih-phone.front {
+    transform: translate(32%, 6%) rotate(5deg);
+  }
+
+  .ikit-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .iapp-grid,
+  .iapp.reverse .iapp-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .iapp.reverse .iapp-text,
+  .iapp.reverse .iapp-phone {
+    order: initial;
+  }
+  .iapp-phone-sticky {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .isec {
+    padding: 76px 0 12px;
+  }
+  .ikit {
+    margin-top: 72px;
+    padding: 74px 0 70px;
+  }
+  .iapp {
+    padding: 68px 0;
+  }
+  .iapp-feats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .inext {
+    padding: 68px 0 0;
+  }
+  .inext-card {
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px 24px 24px;
+  }
+  .iend {
+    padding: 68px 0 96px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ih-phones {
+    min-height: 380px;
+  }
+  .ih-phone .phone {
+    width: 200px;
+  }
+  .ih-phone.back {
+    transform: translate(-36%, -4%) rotate(-8deg) scale(0.86);
+  }
+  .ih-phone.front {
+    transform: translate(26%, 6%) rotate(5deg);
+  }
+  .ih-stats {
+    gap: 10px;
+  }
+  .ih-stat {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 13px 12px;
+  }
+  .ih-stat-num {
+    font-size: 1.5rem;
+  }
+  .ih-stat-cap {
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+  }
+  .iapp-phone .phone {
+    width: 240px;
+  }
+}

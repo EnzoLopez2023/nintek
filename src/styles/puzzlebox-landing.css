@@ -729,3 +729,159 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Cortex — the native iOS sibling ─────────────────────────────────────── */
+
+.lp-cortex {
+  position: relative;
+  padding: 96px 0;
+  background: linear-gradient(160deg, var(--lp-bg2), var(--lp-bg) 62%);
+  border-top: 1px solid var(--lp-border);
+  overflow: hidden;
+}
+.lp-cortex::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(58% 70% at 84% 6%, rgba(139, 92, 246, 0.22), transparent 66%),
+    radial-gradient(52% 64% at 8% 96%, rgba(59, 130, 246, 0.16), transparent 68%);
+  pointer-events: none;
+}
+.lp-cortex > .lp-container {
+  position: relative;
+  z-index: 1;
+}
+.lp-cortex__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 60px;
+  align-items: center;
+}
+.lp-cortex__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px 6px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.14);
+  color: #c4b5fd;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.lp-cortex__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a78bfa;
+}
+.lp-cortex__title {
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--lp-white);
+  margin: 20px 0 16px;
+  max-width: 20ch;
+}
+.lp-cortex__accent {
+  color: #a78bfa;
+}
+.lp-cortex__sub {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--lp-dim);
+  margin: 0 0 30px;
+  max-width: 58ch;
+}
+.lp-cortex__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.lp-cortex__stat {
+  flex: 1 1 150px;
+  padding: 16px 18px;
+  border: 1px solid var(--lp-border2);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+.lp-cortex__stat strong {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #a78bfa;
+  line-height: 1;
+}
+.lp-cortex__stat span {
+  display: block;
+  margin-top: 7px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+.lp-cortex__meta {
+  margin: 0 0 14px;
+  padding-top: 20px;
+  border-top: 1px solid var(--lp-border);
+  font-size: 0.84rem;
+  color: var(--lp-muted);
+}
+.lp-cortex__meta a {
+  color: #a78bfa;
+}
+.lp-cortex__beta {
+  display: inline-block;
+  margin-right: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lp-cortex__note {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--lp-border2);
+  font-size: 0.85rem;
+  line-height: 1.68;
+  color: var(--lp-faint);
+  max-width: 56ch;
+}
+.lp-cortex__phone {
+  display: flex;
+  justify-content: center;
+}
+.lp-cortex__phone .phone {
+  width: 262px;
+}
+
+@media (max-width: 900px) {
+  .lp-cortex {
+    padding: 72px 0;
+  }
+  .lp-cortex__grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .lp-cortex__phone {
+    order: -1;
+  }
+}
+@media (max-width: 620px) {
+  .lp-cortex__stat {
+    flex-basis: 100%;
+  }
+  .lp-cortex__phone .phone {
+    width: 232px;
+  }
+}

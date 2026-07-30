@@ -47,7 +47,7 @@ import { COMPANY } from '../data/apps';
         </p>
         <p>
           <a href="/tabloom">Tabloom</a> started as a personal experiment in what
-          notes could feel like if speed and privacy came first. <a href="/pulsewire">Pulswire</a>
+          notes could feel like if speed and privacy came first. <a href="/pulsewire">PulseWire</a>
           came from a similar frustration — staying current in tech is part of
           the job, but the signal-to-noise ratio on the internet is brutal. And
           <a href="/cairn">Cairn</a>? Certifications don't stop being important
@@ -56,7 +56,7 @@ import { COMPANY } from '../data/apps';
         </p>
         <div class="story-apps">
           <a href="/tabloom" class="story-app-pill">Tabloom</a>
-          <a href="/pulsewire" class="story-app-pill">Pulswire</a>
+          <a href="/pulsewire" class="story-app-pill">PulseWire</a>
           <a href="/cairn" class="story-app-pill">Cairn</a>
         </div>
       </section>
@@ -118,9 +118,12 @@ import { COMPANY } from '../data/apps';
           different part of my brain than a workday does.
         </p>
         <p>
-          <a href="/puzzlebox">Puzzlebox</a> is eight daily games in one place.
-          Sudoku, word puzzles, logic grids — the kind of mental reset that
-          fits in five minutes or fifty. Your call.
+          <a href="/puzzlebox">Puzzlebox</a> started as eight daily games in one
+          place — Sudoku, word puzzles, logic grids. It kept growing. There's a
+          30-wave tower defense campaign now, a stock-trading sim running on real
+          market data, themed slot machines, and a 3D room with a playable arcade
+          cabinet in it. The kind of mental reset that fits in five minutes or
+          fifty. Your call.
         </p>
         <div class="story-apps">
           <a href="/puzzlebox" class="story-app-pill">Puzzlebox</a>
@@ -141,10 +144,64 @@ import { COMPANY } from '../data/apps';
           <a href="/hearth">Hearth</a> is a household records hub. Appliances and
           their maintenance history, home documents, cooking notes — the stuff
           that's currently spread across your junk drawer, your email, and
-          your fading memory.
+          your fading memory. It has since grown a garden planner with a
+          to-scale bed layout and a harvest log, and a corner that watches the
+          home infrastructure I'd otherwise forget about until it broke.
         </p>
         <div class="story-apps">
           <a href="/hearth" class="story-app-pill">Hearth</a>
+        </div>
+      </section>
+
+      <section class="story-section story-native reveal">
+        <span class="story-eyebrow">Direction</span>
+        <h2>Then the apps started leaving the browser.</h2>
+        <p>
+          Everything above was built for the web, and the web is a genuinely
+          good place for most of it. But I kept running into the same wall.
+          Cairn's whole point is studying in the gaps of a day, and a browser
+          tab can't put your streak on a Home Screen. Workshop is used standing
+          at a table saw, where a Lock Screen checklist beats a laptop every
+          time. ShopKeep spent years asking me to type in numbers that were
+          printed on the box in a barcode.
+        </p>
+        <p>
+          So I learned SwiftUI and started porting. <a href="/cairn">Cairn</a>
+          went first and went furthest — the native version has no sign-in and no
+          server at all, with every question bundled into the app and progress
+          living in your own iCloud.
+          <a href="/shopkeep">ShopKeep</a> turned the camera into the filing
+          system. <a href="/workshop">Workshop</a> moved its cut-plan optimiser
+          onto the device, so the math that used to be a server round trip now
+          happens in your hand.
+        </p>
+        <p>
+          The interesting part wasn't any single app — it was what accumulated
+          between them. A shared Swift package called NintekKit now holds the
+          models, the API clients, the widget plumbing and the ported
+          algorithms, so each port costs less than the one before it. That's the
+          difference between a pile of apps and an ecosystem.
+        </p>
+        <p>
+          And then there's <strong>Cortex</strong>, which broke the pattern. It's
+          not a port of Puzzlebox — five puzzles came across, and three more got
+          written from scratch for iOS, including one running on a game engine
+          embedded inside the app. It has Game Center leaderboards, real haptics,
+          no account, and no network. It's the most fun I've had building
+          anything in a while.
+        </p>
+        <p>
+          All four are in TestFlight beta now. <a href="/tare">Tare</a> is next —
+          it's the one that most wants to live on a phone.
+        </p>
+        <div class="story-apps">
+          <a href="/ios" class="story-app-pill story-app-pill--strong">
+            The native apps →
+          </a>
+          <a href="/ios#cairn" class="story-app-pill">Cairn</a>
+          <a href="/ios#shopkeep" class="story-app-pill">ShopKeep</a>
+          <a href="/ios#workshop" class="story-app-pill">Workshop</a>
+          <a href="/ios#cortex" class="story-app-pill">Cortex</a>
         </div>
       </section>
 
@@ -306,6 +363,22 @@ import { COMPANY } from '../data/apps';
   .story-app-pill:hover {
     background: color-mix(in srgb, var(--copper) 18%, transparent);
     border-color: color-mix(in srgb, var(--copper) 45%, transparent);
+  }
+
+  .story-app-pill--strong {
+    background: var(--copper);
+    color: #fff;
+    border-color: var(--copper);
+  }
+
+  .story-app-pill--strong:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .story-native p strong {
+    color: var(--ink);
+    font-weight: 600;
   }
 
   .story-close {

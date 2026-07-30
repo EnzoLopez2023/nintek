@@ -1,7 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import PhoneMock from '../../components/PhoneMock.astro';
+import CortexPhone from '../../components/mocks/ios/Cortex.astro';
+import { getApp } from '../../data/apps';
 import '../../styles/puzzlebox-landing.css';
+
+const cortex = getApp('cortex')!;
 
 /* ── Brand ─────────────────────────────────────────────────────────────── */
 const BRAND = { name: 'Puzzlebox' };
@@ -326,6 +331,62 @@ const TRUST_ITEMS = [
         </div>
       </div>
     </div>
+
+    {/* ── Sibling: Cortex on iOS ── */}
+    <section class="lp-cortex">
+      <div class="lp-container">
+        <div class="lp-cortex__grid">
+          <div class="lp-cortex__text">
+            <span class="lp-cortex__pill">
+              <span class="lp-cortex__dot"></span>
+              There is a native one too
+            </span>
+            <h2 class="lp-cortex__title">
+              Meet <span class="lp-cortex__accent">Cortex</span> — Puzzlebox&rsquo;s
+              iOS sibling.
+            </h2>
+            <p class="lp-cortex__sub">
+              Cortex is a separate app, not a port. Five puzzles came across from
+              Puzzlebox — Sudoku Fight, Number Sums, Word Search, Word Rush and
+              Scrabble — and three were written for iOS from scratch: Pixel Flow,
+              Neon Drop and Block Blast. Game Center handles leaderboards and
+              achievements, and none of it needs an account or a connection.
+            </p>
+            <div class="lp-cortex__stats">
+              <div class="lp-cortex__stat">
+                <strong>8</strong>
+                <span>games in one hub</span>
+              </div>
+              <div class="lp-cortex__stat">
+                <strong>15</strong>
+                <span>Game Center leaderboards</span>
+              </div>
+              <div class="lp-cortex__stat">
+                <strong>9</strong>
+                <span>achievements to chase</span>
+              </div>
+            </div>
+            <p class="lp-cortex__meta">
+              <span class="lp-cortex__beta">TestFlight beta</span>
+              {cortex.native!.minOS} or later · {cortex.native!.devices}
+              &ensp;·&ensp;
+              <a href="/ios#cortex">See what Cortex does</a>
+            </p>
+            <p class="lp-cortex__note">
+              Tower Defense, Bull Run, Reelverse, Lights Out and the 3D arcade
+              room stay right here on the web — the two apps are deliberately
+              different animals.
+            </p>
+          </div>
+
+          <div class="lp-cortex__phone" aria-hidden="true">
+            <PhoneMock tone="dark">
+              <CortexPhone />
+            </PhoneMock>
+          </div>
+        </div>
+      </div>
+    </section>
 
     {/* ── Finale ── */}
     <section class="lp-cta">

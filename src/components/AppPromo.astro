@@ -1,6 +1,8 @@
 ---
 import type { App } from '../data/apps';
 import MockShell from './MockShell.astro';
+import PhoneMock from './PhoneMock.astro';
+import PlatformBadges from './PlatformBadges.astro';
 import Cairn from './mocks/Cairn.astro';
 import Tare from './mocks/Tare.astro';
 import PulseWire from './mocks/PulseWire.astro';
@@ -9,6 +11,7 @@ import Hearth from './mocks/Hearth.astro';
 import ShopKeep from './mocks/ShopKeep.astro';
 import Tabloom from './mocks/Tabloom.astro';
 import Workshop from './mocks/Workshop.astro';
+import CortexPhone from './mocks/ios/Cortex.astro';
 
 interface Props {
   app: App;
@@ -28,7 +31,15 @@ const bodies: Record<string, any> = {
   tabloom: Tabloom,
   workshop: Workshop,
 };
+
+/** iOS-only apps get a device frame instead of browser chrome. */
+const phoneBodies: Record<string, any> = {
+  cortex: CortexPhone,
+};
+
+const PhoneBody = phoneBodies[app.slug];
 const Body = bodies[app.slug];
+const isNativeBeta = app.native?.status === 'testflight';
 ---
 
 <section class={`promo${reverse ? ' reverse' : ''}`}>
@@ -44,24 +55,77 @@ const Body = bodies[app.slug];
           <span style="display:block"><span class="em">{app.headline.em}</span></span>
         </h2>
         <p class="promo-sub">{app.description}</p>
+        <PlatformBadges app={app} />
         <div class="promo-meta">
-          <a class="promo-app" href={`/${app.slug}`}>
-            <img src={`/apps/${app.slug}.png`} alt={`${app.name} icon`} width="30" height="30" />
-            {app.name}
-          </a>
+          {
+            app.hasPage ? (
+              <a class="promo-app" href={`/${app.slug}`}>
+                <img
+                  src={`/apps/${app.slug}.png`}
+                  alt={`${app.name} icon`}
+                  width="30"
+                  height="30"
+                />
+                {app.name}
+              </a>
+            ) : (
+              <span class="promo-app">
+                <img
+                  src={`/apps/${app.slug}.png`}
+                  alt={`${app.name} icon`}
+                  width="30"
+                  height="30"
+                />
+                {app.name}
+              </span>
+            )
+          }
           <span class="promo-quiet">{app.quiet}</span>
         </div>
+        {
+          isNativeBeta && (
+            <a class="promo-native" href={`/ios#${app.slug}`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="6" y="2" width="12" height="20" rx="3" />
+                <path d="M11 18.5h2" />
+              </svg>
+              {app.native!.thesis}
+              <span class="arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+          )
+        }
       </div>
 
       <div class="reveal">
-        <MockShell
-          title={app.mockup.title}
-          subtitle={app.mockup.subtitle}
-          chip={app.mockup.chip}
-          live={app.mockup.live}
-        >
-          <Body />
-        </MockShell>
+        {
+          PhoneBody ? (
+            <PhoneMock tone="dark" chip={app.mockup.chip} live={app.mockup.live}>
+              <PhoneBody />
+            </PhoneMock>
+          ) : (
+            <MockShell
+              title={app.mockup.title}
+              subtitle={app.mockup.subtitle}
+              chip={app.mockup.chip}
+              live={app.mockup.live}
+            >
+              <Body />
+            </MockShell>
+          )
+        }
       </div>
     </div>
   </div>

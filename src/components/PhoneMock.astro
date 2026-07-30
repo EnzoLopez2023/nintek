@@ -1,0 +1,71 @@
+---
+interface Props {
+  /** Chip pinned to the bottom-left of the device. */
+  chip?: string;
+  /** Small live pill pinned to the top-right. */
+  live?: string;
+  /** Time shown in the status bar. */
+  time?: string;
+  /** Dark phones read as a Lock Screen; light ones as an app. */
+  tone?: 'light' | 'dark';
+}
+const { chip, live, time = '9:41', tone = 'light' } = Astro.props;
+---
+
+<div class="phone-wrap">
+  <div class="phone-ambient"></div>
+  <div class={`phone ${tone}`}>
+    <div class="phone-screen">
+      <div class="phone-island"></div>
+      <div class="phone-status">
+        <span class="phone-time">{time}</span>
+        <span class="phone-status-icons" aria-hidden="true">
+          <svg width="15" height="10" viewBox="0 0 15 10" fill="currentColor">
+            <rect x="0" y="6.5" width="2.4" height="3.5" rx="0.6"></rect>
+            <rect x="3.6" y="4.5" width="2.4" height="5.5" rx="0.6"></rect>
+            <rect x="7.2" y="2.5" width="2.4" height="7.5" rx="0.6"></rect>
+            <rect x="10.8" y="0.5" width="2.4" height="9.5" rx="0.6"></rect>
+          </svg>
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="currentColor">
+            <path d="M6 9.2 4.2 7.4a2.6 2.6 0 0 1 3.6 0z"></path>
+            <path
+              d="M6 5.6c1 0 2 .4 2.8 1.1l1-1A5.4 5.4 0 0 0 6 4.1c-1.4 0-2.8.5-3.8 1.5l1 1A4 4 0 0 1 6 5.6z"
+            ></path>
+            <path
+              d="M6 2.1c1.9 0 3.7.7 5 2l1-1A9 9 0 0 0 6 .6 9 9 0 0 0 0 3.1l1 1a7.4 7.4 0 0 1 5-2z"
+            ></path>
+          </svg>
+          <svg width="19" height="10" viewBox="0 0 19 10" fill="none">
+            <rect
+              x="0.6"
+              y="0.6"
+              width="15"
+              height="8.8"
+              rx="2.6"
+              stroke="currentColor"
+              stroke-opacity="0.45"
+              stroke-width="1"></rect>
+            <rect x="2.1" y="2.1" width="10.5" height="5.8" rx="1.5" fill="currentColor"
+            ></rect>
+            <path
+              d="M17.2 3.4v3.2a1.8 1.8 0 0 0 0-3.2z"
+              fill="currentColor"
+              fill-opacity="0.45"></path>
+          </svg>
+        </span>
+      </div>
+      <div class="phone-body">
+        <slot />
+      </div>
+    </div>
+  </div>
+  {
+    chip && (
+      <div class="phone-chip">
+        <span class="phone-chip-dot" />
+        {chip}
+      </div>
+    )
+  }
+  {live && <div class="phone-live">{live}</div>}
+</div>

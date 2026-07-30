@@ -1040,3 +1040,154 @@
     animation: none !important;
   }
 }
+
+/* ── Native iOS band ─────────────────────────────────────────────────────── */
+
+.lp__native {
+  position: relative;
+  padding: 96px 0;
+  background: linear-gradient(160deg, #1c0f07, #2b1a0d 62%, #24140a);
+  color: var(--cream);
+  overflow: hidden;
+}
+.lp__native::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    64% 76% at 82% 8%,
+    rgba(196, 118, 74, 0.22),
+    transparent 66%
+  );
+  pointer-events: none;
+}
+.lp__native > .lp__container {
+  position: relative;
+  z-index: 1;
+}
+.lp__native-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 60px;
+  align-items: center;
+}
+.lp__native-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px 6px 11px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(196, 118, 74, 0.4);
+  background: rgba(196, 118, 74, 0.12);
+  color: var(--rust-light);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.lp__native-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rust-light);
+}
+.lp__native-title {
+  color: var(--cream);
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 20px 0 16px;
+  max-width: 20ch;
+}
+.lp__native-sub {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(245, 240, 234, 0.7);
+  margin: 0 0 32px;
+  max-width: 58ch;
+}
+.lp__native-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 26px;
+}
+.lp__native-item {
+  display: flex;
+  gap: 12px;
+}
+.lp__native-icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: rgba(196, 118, 74, 0.16);
+  color: var(--rust-light);
+  margin-top: 2px;
+}
+.lp__native-item strong {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.lp__native-item span {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.62;
+  color: rgba(245, 240, 234, 0.56);
+}
+.lp__native-meta {
+  margin: 32px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(245, 240, 234, 0.12);
+  font-size: 0.84rem;
+  color: rgba(245, 240, 234, 0.5);
+}
+.lp__native-meta a {
+  color: var(--rust-light);
+}
+.lp__native-beta {
+  display: inline-block;
+  margin-right: 12px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: rgba(196, 118, 74, 0.2);
+  color: var(--rust-light);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lp__native-phone {
+  display: flex;
+  justify-content: center;
+}
+.lp__native-phone .phone {
+  width: 262px;
+}
+
+@media (max-width: 900px) {
+  .lp__native {
+    padding: 72px 0;
+  }
+  .lp__native-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .lp__native-phone {
+    order: -1;
+  }
+}
+@media (max-width: 620px) {
+  .lp__native-list {
+    grid-template-columns: 1fr;
+  }
+  .lp__native-phone .phone {
+    width: 232px;
+  }
+}

@@ -1,7 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import Icon from '../../components/Icon.astro';
+import PhoneMock from '../../components/PhoneMock.astro';
+import WorkshopPhone from '../../components/mocks/ios/Workshop.astro';
+import { getApp } from '../../data/apps';
 import '../../styles/workshop-landing.css';
+
+const wkApp = getApp('workshop')!;
+const wkNative = wkApp.native!;
 
 /* ── Hero project cards (final, settled fan-out) ── */
 const heroCards = [
@@ -263,6 +270,52 @@ const details = [
           </div>
         </div>
       ))}
+    </section>
+
+    {/* ── Native iOS ── */}
+    <section class="landing-native">
+      <div class="landing-native-inner">
+        <div class="landing-native-copy">
+          <span class="landing-native-pill">
+            <span class="landing-native-dot"></span>
+            Now on iPhone and iPad
+          </span>
+          <h2 class="landing-native-h2">
+            The plan leaves the desk
+            <span class="landing-native-accent">and goes to the saw.</span>
+          </h2>
+          <p class="landing-native-sub">{wkNative.intro}</p>
+
+          <div class="landing-native-grid">
+            {
+              wkNative.highlights.map((h) => (
+                <div class="landing-native-item">
+                  <span class="landing-native-icon">
+                    <Icon name={h.icon} size={15} />
+                  </span>
+                  <div>
+                    <strong>{h.title}</strong>
+                    <p>{h.body}</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <p class="landing-native-meta">
+            <span class="landing-native-beta">TestFlight beta</span>
+            {wkNative.minOS} or later · {wkNative.devices}
+            &ensp;·&ensp;
+            <a href="/ios#workshop">More about the native apps</a>
+          </p>
+        </div>
+
+        <div class="landing-native-phone" aria-hidden="true">
+          <PhoneMock tone="dark">
+            <WorkshopPhone />
+          </PhoneMock>
+        </div>
+      </div>
     </section>
 
     {/* ── Bottom strip ── */}

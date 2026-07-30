@@ -1,0 +1,93 @@
+---
+import PhoneMock from './PhoneMock.astro';
+import CairnPhone from './mocks/ios/Cairn.astro';
+import ShopKeepPhone from './mocks/ios/ShopKeep.astro';
+import WorkshopPhone from './mocks/ios/Workshop.astro';
+import CortexPhone from './mocks/ios/Cortex.astro';
+import { nativeApps, nextNativeApp } from '../data/apps';
+
+const phones: Record<string, any> = {
+  cairn: CairnPhone,
+  shopkeep: ShopKeepPhone,
+  workshop: WorkshopPhone,
+  cortex: CortexPhone,
+};
+
+const tones: Record<string, 'light' | 'dark'> = {
+  cairn: 'dark',
+  shopkeep: 'light',
+  workshop: 'dark',
+  cortex: 'dark',
+};
+
+const blurbs: Record<string, string> = {
+  cairn: 'No account. No network. The whole exam library on your phone.',
+  shopkeep: 'Point the camera at a barcode and the shop files itself.',
+  workshop: 'Cut plans computed on device, cut list on your Lock Screen.',
+  cortex: 'Eight games and Game Center, all of it offline.',
+};
+---
+
+<section class="ns">
+  <div class="container">
+    <div class="ns-head reveal">
+      <span class="eyebrow ns-eyebrow">
+        <span class="eyebrow-dot"></span>
+        The direction
+      </span>
+      <h2 class="ns-title">
+        Nintek is going <span class="em">native.</span>
+      </h2>
+      <p class="ns-lede">
+        The web apps aren&rsquo;t going anywhere — but four of them now have real
+        SwiftUI counterparts on iPhone and iPad, sharing one Swift foundation and
+        doing the things only a native app can. All four are in TestFlight beta.
+      </p>
+    </div>
+
+    <div class="ns-rail">
+      {
+        nativeApps.map((app) => {
+          const Phone = phones[app.slug];
+          return (
+            <a class="ns-card reveal" href={`/ios#${app.slug}`}>
+              <div class="ns-phone">
+                <PhoneMock tone={tones[app.slug] ?? 'dark'}>
+                  <Phone />
+                </PhoneMock>
+              </div>
+              <div class="ns-card-foot">
+                <img
+                  src={`/apps/${app.slug}.png`}
+                  alt=""
+                  width="34"
+                  height="34"
+                  loading="lazy"
+                />
+                <div>
+                  <p class="ns-card-name">{app.name}</p>
+                  <p class="ns-card-blurb">{blurbs[app.slug]}</p>
+                </div>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <div class="ns-cta reveal">
+      <a class="ns-btn" href="/ios">
+        See what the native apps do
+        <span aria-hidden="true">→</span>
+      </a>
+      {
+        nextNativeApp && (
+          <span class="ns-next">
+            <span class="ns-next-dot" />
+            {nextNativeApp.name} is next.
+          </span>
+        )
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+---
+// Workshop on the Lock Screen: the cut-list Live Activity you tick off at the saw.
+const parts = [
+  { name: 'Leg', dim: '27 1/2 × 3 × 3', done: true },
+  { name: 'Apron, long', dim: '46 × 4 × 3/4', done: true },
+  { name: 'Apron, short', dim: '14 × 4 × 3/4', done: false },
+  { name: 'Top slat', dim: '52 × 5 1/4 × 7/8', done: false },
+];
+---
+
+<div class="ios ios-lock">
+  <div class="ios-lock-clock tight">
+    <span class="ios-lock-date">Saturday, 14 June</span>
+    <span class="ios-lock-time">10:12</span>
+  </div>
+
+  <div class="ios-la">
+    <div class="ios-la-head">
+      <span class="ios-la-app">
+        <span class="ios-la-mark ws" aria-hidden="true"></span>
+        Workshop
+      </span>
+      <span class="ios-la-code">4 of 11 cut</span>
+    </div>
+    <p class="ios-la-title">Walnut Bench</p>
+    <ul class="ios-cuts">
+      {
+        parts.map((p) => (
+          <li class={p.done ? 'done' : ''}>
+            <span class="ios-cut-box" aria-hidden="true">
+              {p.done && (
+                <svg
+                  width="9"
+                  height="9"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              )}
+            </span>
+            <span class="ios-cut-name">{p.name}</span>
+            <span class="ios-cut-dim">{p.dim}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="ios-widget-row solo">
+    <div class="ios-widget">
+      <span class="ios-widget-cap">Sheet 1 of 2 · optimised</span>
+      <div class="ios-sheetplan" aria-hidden="true">
+        <span style="--x: 2%; --y: 6%; --w: 44%; --h: 40%"></span>
+        <span style="--x: 48%; --y: 6%; --w: 30%; --h: 40%"></span>
+        <span style="--x: 80%; --y: 6%; --w: 18%; --h: 40%"></span>
+        <span style="--x: 2%; --y: 50%; --w: 62%; --h: 26%"></span>
+        <span style="--x: 66%; --y: 50%; --w: 32%; --h: 26%"></span>
+        <span class="waste" style="--x: 2%; --y: 80%; --w: 96%; --h: 16%"></span>
+      </div>
+      <span class="ios-widget-foot">4% waste</span>
+    </div>
+  </div>
+</div>

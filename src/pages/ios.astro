@@ -1,0 +1,347 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PhoneMock from '../components/PhoneMock.astro';
+import Icon from '../components/Icon.astro';
+import CairnPhone from '../components/mocks/ios/Cairn.astro';
+import ShopKeepPhone from '../components/mocks/ios/ShopKeep.astro';
+import WorkshopPhone from '../components/mocks/ios/Workshop.astro';
+import CortexPhone from '../components/mocks/ios/Cortex.astro';
+import { COMPANY, ECOSYSTEM, nativeApps, nextNativeApp } from '../data/apps';
+import type { IconKey } from '../data/apps';
+import '../styles/ios.css';
+
+const phones: Record<string, any> = {
+  cairn: CairnPhone,
+  shopkeep: ShopKeepPhone,
+  workshop: WorkshopPhone,
+  cortex: CortexPhone,
+};
+
+const tones: Record<string, 'light' | 'dark'> = {
+  cairn: 'dark',
+  shopkeep: 'light',
+  workshop: 'dark',
+  cortex: 'dark',
+};
+
+/** Why the ports are worth doing at all. Each of these is something at least one
+ *  of the shipping apps actually does. */
+const thesis: { icon: IconKey; title: string; body: string }[] = [
+  {
+    icon: 'widget',
+    title: 'The app before you open it',
+    body:
+      'Every one of them puts something useful on your Home Screen — a study streak, tools that need attention, a build in progress, a game you were halfway through. Some of them go further and let you act on it right there, without launching anything.',
+  },
+  {
+    icon: 'lock',
+    title: 'Live on the Lock Screen',
+    body:
+      'A timed exam counts down in the Dynamic Island. A cut list sits on your Lock Screen so you can tick off parts at the saw. Live Activities are the difference between an app you check and an app that keeps up with you.',
+  },
+  {
+    icon: 'scan',
+    title: 'A camera beats a keyboard',
+    body:
+      'VisionKit reads a barcode off a box, a QR label off a drawer, or a fraction off a tape measure. Every one of those is a form field you no longer have to fill in with sawdust on your hands.',
+  },
+  {
+    icon: 'gauge',
+    title: 'Compute that moved on device',
+    body:
+      'The cut-plan optimiser and the spaced-repetition scheduler were ported to Swift and unit-tested against the originals. What used to be a server round trip now happens instantly, offline, in your hand.',
+  },
+  {
+    icon: 'sparkle',
+    title: 'Siri, Spotlight and Shortcuts',
+    body:
+      'Ask for a study session, jump straight to the scanner, pull up a project by name from system search, or wire any of it into a Shortcut. The apps became part of the system instead of sitting behind a browser tab.',
+  },
+  {
+    icon: 'cloud',
+    title: 'Less infrastructure, not more',
+    body:
+      'Going native let two of these apps drop their backends entirely. Cairn has no account and no server. Cortex has no network at all. Fewer moving parts is a feature, not a compromise.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Native on iOS — ${COMPANY.name}`}
+  description="Nintek's apps are going native. Four SwiftUI apps for iPhone and iPad — Cairn, ShopKeep, Workshop and Cortex — built on one shared Swift foundation, with widgets, Live Activities, on-device compute and Game Center."
+  path="/ios"
+>
+  <div class="ios-page">
+  {/* ── Hero ── */}
+  <section class="ih">
+    <div class="container">
+      <div class="ih-grid">
+        <div class="ih-text reveal">
+          <span class="eyebrow ih-eyebrow">
+            <span class="eyebrow-dot"></span>
+            A new chapter
+          </span>
+          <h1 class="ih-title">
+            The apps are
+            <span class="em">going native.</span>
+          </h1>
+          <p class="ih-lede">
+            {COMPANY.name} started as web apps, and they are still here. But over
+            the last few months four of them grew real SwiftUI counterparts for
+            iPhone and iPad — not wrappers around a website, but proper native
+            apps that use the camera, the Lock Screen, Siri, Game Center, and a
+            shared Swift foundation underneath.
+          </p>
+          <p class="ih-lede">
+            All four are in <strong>TestFlight beta</strong> right now.
+          </p>
+          <div class="ih-stats">
+            <div class="ih-stat">
+              <span class="ih-stat-num">{nativeApps.length}</span>
+              <span class="ih-stat-cap">apps in beta</span>
+            </div>
+            <div class="ih-stat">
+              <span class="ih-stat-num">1</span>
+              <span class="ih-stat-cap">shared Swift package</span>
+            </div>
+            <div class="ih-stat">
+              <span class="ih-stat-num">0</span>
+              <span class="ih-stat-cap">third-party dependencies</span>
+            </div>
+          </div>
+          <div class="ih-jump">
+            {
+              nativeApps.map((app) => (
+                <a class="ih-jump-item" href={`#${app.slug}`}>
+                  <img
+                    src={`/apps/${app.slug}.png`}
+                    alt=""
+                    width="26"
+                    height="26"
+                    loading="lazy"
+                  />
+                  {app.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="ih-phones reveal" aria-hidden="true">
+          <div class="ih-phone back">
+            <PhoneMock tone="light">
+              <ShopKeepPhone />
+            </PhoneMock>
+          </div>
+          <div class="ih-phone front">
+            <PhoneMock tone="dark">
+              <CairnPhone />
+            </PhoneMock>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Why native ── */}
+  <section class="isec container">
+    <div class="isec-head reveal">
+      <span class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Why bother
+      </span>
+      <h2 class="isec-title">
+        A browser tab can only do so much.
+      </h2>
+      <p class="isec-lede">
+        None of these ports exist for the sake of having an app in the store.
+        Each one earns its place by doing something the web version genuinely
+        cannot.
+      </p>
+    </div>
+
+    <div class="ithesis">
+      {
+        thesis.map((t) => (
+          <div class="ithesis-card reveal">
+            <span class="ithesis-icon">
+              <Icon name={t.icon} size={19} />
+            </span>
+            <h3>{t.title}</h3>
+            <p>{t.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* ── NintekKit ── */}
+  <section class="ikit">
+    <div class="container">
+      <div class="ikit-grid">
+        <div class="ikit-text reveal">
+          <span class="eyebrow ih-eyebrow">
+            <span class="eyebrow-dot"></span>
+            The foundation
+          </span>
+          <h2 class="ikit-title">
+            One package underneath
+            <span class="em">all of them.</span>
+          </h2>
+          <p class="ikit-lede">{ECOSYSTEM.kitSummary}</p>
+          <p class="ikit-note">
+            The first port taught the expensive lessons. The second one reused
+            them. By the third, most of the plumbing already existed — which is
+            the entire point of building an ecosystem instead of a pile of
+            unrelated apps.
+          </p>
+        </div>
+
+        <div class="ikit-points">
+          {
+            ECOSYSTEM.kitPoints.map((p) => (
+              <div class="ikit-point reveal">
+                <span class="ikit-point-icon">
+                  <Icon name={p.icon} size={17} />
+                </span>
+                <div>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <p class="ikit-caveat reveal">
+        <span class="ikit-caveat-mark">Note</span>
+        Cortex is the exception — it is a self-contained game hub with no backend
+        and no shared package. It gets to break the rules because it does not
+        need any of them.
+      </p>
+    </div>
+  </section>
+
+  {/* ── Per-app deep dives ── */}
+  <div class="iapps">
+    {
+      nativeApps.map((app, i) => {
+        const Phone = phones[app.slug];
+        const native = app.native!;
+        return (
+          <section class={`iapp${i % 2 === 1 ? ' reverse' : ''}`} id={app.slug}>
+            <div class="container">
+              <div class="iapp-grid">
+                <div class="iapp-text">
+                  <div class="iapp-head reveal">
+                    <img
+                      src={`/apps/${app.slug}.png`}
+                      alt=""
+                      width="56"
+                      height="56"
+                      loading="lazy"
+                    />
+                    <div>
+                      <h2 class="iapp-name">{app.name}</h2>
+                      <span class="iapp-beta">
+                        <span class="iapp-beta-dot" />
+                        TestFlight beta
+                      </span>
+                    </div>
+                  </div>
+                  <p class="iapp-thesis reveal">{native.thesis}</p>
+                  <p class="iapp-intro reveal">{native.intro}</p>
+
+                  <div class="iapp-feats">
+                    {native.highlights.map((h) => (
+                      <div class="iapp-feat reveal">
+                        <span class="iapp-feat-icon">
+                          <Icon name={h.icon} size={16} />
+                        </span>
+                        <div>
+                          <h3>{h.title}</h3>
+                          <p>{h.body}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div class="iapp-foot reveal">
+                    <div class="iapp-tech">
+                      {native.tech.map((t) => (
+                        <span class="iapp-chip">{t}</span>
+                      ))}
+                    </div>
+                    <p class="iapp-req">
+                      {native.minOS} or later · {native.devices}
+                      {app.hasPage && (
+                        <>
+                          {' · '}
+                          <a href={`/${app.slug}`}>About {app.name}</a>
+                        </>
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="iapp-phone reveal">
+                  <div class="iapp-phone-sticky">
+                    <PhoneMock tone={tones[app.slug] ?? 'dark'}>
+                      <Phone />
+                    </PhoneMock>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })
+    }
+  </div>
+
+  {/* ── What's next ── */}
+  {
+    nextNativeApp && (
+      <section class="inext container">
+        <div class="inext-card reveal">
+          <img
+            src={`/apps/${nextNativeApp.slug}.png`}
+            alt=""
+            width="60"
+            height="60"
+            loading="lazy"
+          />
+          <div>
+            <span class="inext-eyebrow">
+              <span class="inext-dot" />
+              Up next
+            </span>
+            <h2>{nextNativeApp.name} is the next port.</h2>
+            <p>{nextNativeApp.native!.intro}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {/* ── Closing ── */}
+  <section class="iend container">
+    <div class="reveal">
+      <h2>Everything else is still on the web.</h2>
+      <p>
+        The web apps are actively developed and going nowhere — going native was
+        about adding a surface, not replacing one. Have a look at the whole
+        catalogue, or read how any of this started.
+      </p>
+      <p class="iend-links">
+        <a href="/#apps">Browse the apps →</a>
+        &ensp;·&ensp;
+        <a href="/about">The story behind them</a>
+        &ensp;·&ensp;
+        <a href={`mailto:${COMPANY.email}`}>Get in touch</a>
+      </p>
+    </div>
+  </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,68 @@
+---
+import type { App } from '../data/apps';
+
+interface Props {
+  app: App;
+  /** Render smaller pills — for use inside dense cards. */
+  compact?: boolean;
+}
+const { app, compact = false } = Astro.props;
+
+const beta = app.native?.status === 'testflight';
+---
+
+<div class={`pbadges${compact ? ' compact' : ''}`}>
+  {
+    app.platforms.web && (
+      <span class="pbadge">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
+        </svg>
+        Web app
+      </span>
+    )
+  }
+  {
+    app.platforms.ios && (
+      <span class={`pbadge${beta ? ' beta' : ''}`}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="6" y="2" width="12" height="20" rx="3" />
+          <path d="M11 18.5h2" />
+        </svg>
+        {beta ? 'iOS · TestFlight beta' : 'iOS app'}
+      </span>
+    )
+  }
+  {
+    app.native?.status === 'next' && (
+      <span class="pbadge next">
+        <span class="pbadge-pulse" />
+        iOS app in the works
+      </span>
+    )
+  }
+</div>
