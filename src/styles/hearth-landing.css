@@ -483,6 +483,7 @@
 .hl-now {
   position: relative;
   padding: clamp(72px, 12vh, 120px) 0;
+  scroll-margin-top: 88px;
 }
 .hl-now-grid {
   display: grid;
@@ -537,10 +538,13 @@
   display: flex;
   gap: 6px;
   margin-bottom: 24px;
-  height: 12px;
+  min-height: 12px;
   align-items: center;
 }
-.hl-now-windowdots span {
+/* Class-scoped, not `span`: the window title is also a span in this row and
+   was being collapsed into a 10px circle. */
+.hl-now-windowdot {
+  flex: none;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -649,6 +653,8 @@
   padding: 26px 24px 28px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   transition: transform var(--t-base) var(--e-out), box-shadow var(--t-base) var(--e-out), border-color var(--t-base) var(--e-out);
 }
 .hl-feat-card::before {
@@ -698,6 +704,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  /* Pin tag rows to the card floor so they align across a grid row
+     regardless of description length. */
+  margin-top: auto;
+  padding-top: 4px;
 }
 .hl-feat-tag {
   font-size: 0.7rem;
@@ -798,7 +808,7 @@
   font-size: 1.1rem;
   color: var(--ink-soft);
   line-height: 1.55;
-  margin: 0 0 36px;
+  margin: 0;
 }
 .hl-cta-row-center {
   display: flex;
@@ -843,6 +853,12 @@
     animation: none;
     opacity: 0.22;
   }
+}
+
+/* The hero's only action is an in-page jump; glide to it instead of cutting.
+   Opt-in via no-preference so reduced-motion keeps the instant jump. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.hl) { scroll-behavior: smooth; }
 }
 
 /* --- Mobile small-tuning --- */
@@ -1022,7 +1038,9 @@
 .hl-look {
   position: relative;
   padding: clamp(72px, 11vh, 116px) 0;
-  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+  /* Resolves back to --cream so it meets the trust strip's ground cleanly,
+     matching .hl-features. Ending on --cream-2 left a visible step. */
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 50%, var(--cream) 100%);
 }
 .hl-look-grid {
   display: grid;
