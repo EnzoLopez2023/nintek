@@ -15,12 +15,16 @@ const embers = [
 ];
 
 /* ── The "Right now in your home" feed — shown in its final, settled state.
-   Each line is a real thing Hearth tracks; the last line carries the cursor. ── */
+   Each line is a real thing Hearth tracks; the last line carries the cursor.
+   The spread is deliberate: two household lines, two growing-season lines,
+   two infrastructure lines — the same range the app itself covers. ── */
 const feed = [
-  { key: 'Furnace filter',         val: 'last changed 11 weeks ago — due in ', emp: '12 days',                                          tone: 'amber' },
-  { key: 'Lawn',                   val: 'mowed 6 days ago — fertilizer next ', emp: 'Saturday',                                         tone: 'good' },
-  { key: 'This week',              val: 'saved 3 — ',                          emp: 'Sourdough · Cast-Iron Chicken · Apple Galette',    tone: 'rust' },
-  { key: 'Plex library',           val: '847 movies, ',                        emp: '12 4K duplicates flagged',                         tone: 'info' },
+  { key: 'Furnace filter',         val: 'last changed 11 weeks ago — due in ',  emp: '12 days',                    tone: 'amber' },
+  { key: 'Lawn',                   val: 'mowed 6 days ago — fertilizer next ',  emp: 'Saturday',                   tone: 'good' },
+  { key: 'Tomatoes',               val: 'transplanted 3 weeks ago — first pick ', emp: 'around June 14',           tone: 'good' },
+  { key: 'Pool',                   val: 'free chlorine 1.8 ppm — ',             emp: 'under the 2–4 window',       tone: 'rust' },
+  { key: 'UPS Tower',              val: 'on mains, 100% — ',                    emp: '47 min runtime',             tone: 'info' },
+  { key: 'DS1821+',                val: '68% full — ',                          emp: 'about 14 months of headroom', tone: 'info' },
 ];
 ---
 
@@ -29,7 +33,7 @@ const feed = [
   noindex
   path="/hearth"
   title="Hearth — Your home, all in one place."
-  description="A warm household hub for the records that keep your home running — recipes, maintenance, inventory, the lawn calendar, your Plex library, and an AI assistant."
+  description="A household hub that grew into a home operations centre — recipes, maintenance, the garden plan, the pool's water chemistry, and read-only monitoring for the UPS, network, cameras and NAS."
 >
   <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
   <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -84,10 +88,11 @@ const feed = [
             </h1>
 
             <p class="hl-hero-sub">
-              Hearth holds your recipes, your maintenance log, your home
-              inventory, the lawn calendar, the Plex library, and an AI
-              assistant — under one warm, calm interface. Not a productivity
-              tool. A place for the records that keep your home running.
+              Hearth started with recipes and a filter-change log. It now
+              plans the garden bed by bed, reads the pool&rsquo;s water tests,
+              and quietly watches the UPS, the network, the cameras and the
+              NAS. Twenty-seven views, one warm interface — a place for the
+              records that keep a house running.
             </p>
 
             <div class="hl-cta-row">
@@ -108,7 +113,7 @@ const feed = [
               <div class="hl-mock-topbar">
                 <div class="hl-mock-topbar-left">
                   <span class="hl-mock-name">Hearth</span>
-                  <span class="hl-mock-pill">v2.0.41</span>
+                  <span class="hl-mock-pill">v2.13.2</span>
                 </div>
                 <span class="hl-mock-greet">Welcome back, Enzo</span>
               </div>
@@ -116,11 +121,11 @@ const feed = [
               <div class="hl-mock-body">
                 <h3 class="hl-mock-h1">Hearth</h3>
                 <p class="hl-mock-tag">
-                  The home you keep — recipes, maintenance, yard, media, all
-                  in one place.
+                  The home you keep — kitchen, garden, pool and the systems
+                  that keep the lights on.
                 </p>
 
-                <div class="hl-mock-eyebrow">At a Glance</div>
+                <div class="hl-mock-eyebrow">Live Status</div>
                 <div class="hl-mock-glance">
                   <div class="hl-mock-glance-card">
                     <div class="hl-mock-glance-label">Next task</div>
@@ -128,14 +133,14 @@ const feed = [
                     <div class="hl-mock-glance-meta --rust">due in 12 days</div>
                   </div>
                   <div class="hl-mock-glance-card">
-                    <div class="hl-mock-glance-label">Lawn</div>
-                    <div class="hl-mock-glance-val">6 days</div>
-                    <div class="hl-mock-glance-meta --good">since last mow</div>
+                    <div class="hl-mock-glance-label">UPS Tower</div>
+                    <div class="hl-mock-glance-val">100%</div>
+                    <div class="hl-mock-glance-meta --good">on mains · 47 min</div>
                   </div>
                   <div class="hl-mock-glance-card">
-                    <div class="hl-mock-glance-label">Recipes</div>
-                    <div class="hl-mock-glance-val">127</div>
-                    <div class="hl-mock-glance-meta">3 new this week</div>
+                    <div class="hl-mock-glance-label">Network</div>
+                    <div class="hl-mock-glance-val">42</div>
+                    <div class="hl-mock-glance-meta">clients online</div>
                   </div>
                 </div>
 
@@ -169,23 +174,24 @@ const feed = [
                   <div class="hl-mock-tile">
                     <div class="hl-mock-tile-icon">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 21h14"></path>
-                        <path d="M7 21V11l5-7 5 7v10"></path>
-                        <path d="M10 21v-5h4v5"></path>
+                        <path d="M12 21v-8"></path>
+                        <path d="M12 13c0-4 3-7 8-7 0 5-3 8-8 7z"></path>
+                        <path d="M12 16c0-3-2.5-5.5-6-5.5 0 3.6 2.4 6 6 5.5z"></path>
                       </svg>
                     </div>
-                    <div class="hl-mock-tile-label">Yard Maintenance</div>
-                    <div class="hl-mock-tile-desc">Lawn calendar &amp; care</div>
+                    <div class="hl-mock-tile-label">Garden Planner</div>
+                    <div class="hl-mock-tile-desc">Beds &amp; sowing calendar</div>
                   </div>
                   <div class="hl-mock-tile">
                     <div class="hl-mock-tile-icon">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                        <path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"></path>
+                        <rect x="2" y="8" width="16" height="9" rx="2"></rect>
+                        <path d="M22 11v3"></path>
+                        <path d="M10 10.5 8 13h3l-2 2.5" stroke-width="1.6"></path>
                       </svg>
                     </div>
-                    <div class="hl-mock-tile-label">Media Library</div>
-                    <div class="hl-mock-tile-desc">Plex movie insights</div>
+                    <div class="hl-mock-tile-label">Power Monitor</div>
+                    <div class="hl-mock-tile-desc">Both UPS units</div>
                   </div>
                 </div>
               </div>
@@ -208,9 +214,10 @@ const feed = [
               What Hearth knows about <em style="font-style: italic; color: var(--rust);">your home</em> today.
             </h2>
             <p>
-              Filters that need changing. Lawn that needs mowing. The recipes
-              you saved this week. The 4K duplicates in your Plex library.
-              The QR label on the bin in the garage.
+              Filters that need changing. Lawn that needs mowing. Which bed
+              the tomatoes went in and when they&rsquo;ll be ready. Whether the
+              pool&rsquo;s chlorine drifted under range. How long the UPS would
+              last if the power went now.
             </p>
             <p>
               Hearth keeps track so you don&rsquo;t have to remember — and so the
@@ -244,20 +251,20 @@ const feed = [
     </section>
 
     {/* ── Features ── */}
+    {/* ── The house ── */}
     <section class="hl-features">
       <div class="hl-container">
         <div class="hl-section-head">
           <div class="hl-eyebrow" style="justify-content: center;">
             <span class="hl-eyebrow-dot"></span>
-            Six rooms, one house
+            The house itself
           </div>
           <h2>Everything for the home you keep.</h2>
           <p>
-            Six domains stitched into one calm interface. Each one is a real
-            tool — not a placeholder. Add a recipe, log a quarterly filter
-            change, drop a QR label on a storage bin, pull up tonight&rsquo;s lawn
-            window, scrub your Plex library for 4K dupes, ask Hearth&rsquo;s AI
-            what to cook with what&rsquo;s in the pantry.
+            The domestic half of Hearth — the records that go stale if nobody
+            writes them down. Log a quarterly filter change, plan the beds
+            before the seed order, drop in the pool store&rsquo;s PDF and let it
+            read itself, pull up tonight&rsquo;s mowing window.
           </p>
         </div>
 
@@ -273,14 +280,14 @@ const feed = [
             </div>
             <h3 class="hl-feat-h3">Recipe Manager</h3>
             <p class="hl-feat-desc">
-              Your recipe collection with drag-to-reorder ingredients,
-              fraction-aware quantities (½ cup, ¾ tsp), and AI-extracted
-              nutrition data per serving.
+              Recipes with photos, scalable ingredients, AI nutrition analysis
+              and lower-carb rewrites. The ingredient field autocompletes from
+              whatever you have actually harvested out of the garden.
             </p>
             <div class="hl-feat-meta">
               <span class="hl-feat-tag">Nutrition AI</span>
-              <span class="hl-feat-tag">Favorites</span>
-              <span class="hl-feat-tag">Search</span>
+              <span class="hl-feat-tag">Scaling</span>
+              <span class="hl-feat-tag">Carb planner</span>
             </div>
           </article>
 
@@ -294,36 +301,59 @@ const feed = [
             </div>
             <h3 class="hl-feat-h3">Home Maintenance</h3>
             <p class="hl-feat-desc">
-              Track quarterly tasks, warranty windows, expense receipts, and
-              before/after photos for every system in the house. No more
-              hunting through email for the HVAC paperwork.
+              Every item in the house with its own service history — recurring
+              tasks, warranty expiry, receipts, photos and what the upkeep has
+              cost you so far.
             </p>
             <div class="hl-feat-meta">
-              <span class="hl-feat-tag">Tasks</span>
+              <span class="hl-feat-tag">Recurring tasks</span>
               <span class="hl-feat-tag">Warranties</span>
-              <span class="hl-feat-tag">Receipts</span>
+              <span class="hl-feat-tag">Costs</span>
             </div>
           </article>
 
-          <article class="hl-feat-card">
+          <article class="hl-feat-card hl-feat-card--new">
+            <span class="hl-feat-new">New</span>
             <div class="hl-feat-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="7" width="18" height="13" rx="2"></rect>
-                <path d="M3 11h18"></path>
-                <path d="M7 7V4h10v3"></path>
-                <circle cx="12" cy="16" r="1.5"></circle>
+                <path d="M12 21v-8"></path>
+                <path d="M12 13c0-4 3-7 8-7 0 5-3 8-8 7z"></path>
+                <path d="M12 16c0-3-2.5-5.5-6-5.5 0 3.6 2.4 6 6 5.5z"></path>
               </svg>
             </div>
-            <h3 class="hl-feat-h3">Home Inventory</h3>
+            <h3 class="hl-feat-h3">Garden Planner</h3>
             <p class="hl-feat-desc">
-              Items, bins, room locations, insurance values. Generate QR
-              labels you can stick on storage bins and scan from your phone
-              to see what&rsquo;s inside.
+              Lay out beds to scale and drag plants into them — positions are
+              held in real inches, so it flags two plants crowding each other,
+              anything overhanging a bed edge, and a family you already grew
+              there in the last three seasons.
             </p>
             <div class="hl-feat-meta">
-              <span class="hl-feat-tag">QR labels</span>
-              <span class="hl-feat-tag">Scanner</span>
-              <span class="hl-feat-tag">Bins</span>
+              <span class="hl-feat-tag">27 vegetables</span>
+              <span class="hl-feat-tag">Rotation warnings</span>
+              <span class="hl-feat-tag">Harvest analytics</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card hl-feat-card--new">
+            <span class="hl-feat-new">New</span>
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3s5.5 6 5.5 9.5a5.5 5.5 0 0 1-11 0C6.5 9 12 3 12 3z"></path>
+                <path d="M3 19c1.6 0 1.6 1.4 3.2 1.4S7.8 19 9.4 19s1.6 1.4 3.2 1.4S14.2 19 15.8 19s1.6 1.4 3.2 1.4"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Pool Maintenance</h3>
+            <p class="hl-feat-desc">
+              Drop in the water-test PDF from the pool store and Claude reads
+              it — parameters, treatment steps, the analyst&rsquo;s handwriting and
+              all. Or enter a Taylor K-2005 test by drop count and get dosing
+              worked against the chemicals you actually keep in the shed.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">AI-read reports</span>
+              <span class="hl-feat-tag">Taylor K-2005</span>
+              <span class="hl-feat-tag">Weather-correlated trends</span>
             </div>
           </article>
 
@@ -337,14 +367,288 @@ const feed = [
             </div>
             <h3 class="hl-feat-h3">Yard Maintenance</h3>
             <p class="hl-feat-desc">
-              The lawn calendar — mowing, fertilizing, watering, overseeding
-              — laid out by season for your USDA zone, with weather-aware
-              windows and care notes for every plant you&rsquo;ve added.
+              A lawn calendar that knows where you live. One ZIP sets the
+              hardiness zone, the frost dates and the local pest pressure —
+              and the garden borrows the same profile rather than asking twice.
             </p>
             <div class="hl-feat-meta">
-              <span class="hl-feat-tag">Lawn calendar</span>
-              <span class="hl-feat-tag">Seasonal</span>
-              <span class="hl-feat-tag">Notes</span>
+              <span class="hl-feat-tag">Zone profile</span>
+              <span class="hl-feat-tag">Frost dates</span>
+              <span class="hl-feat-tag">Lawn diary</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card hl-feat-card--wip">
+            <span class="hl-feat-new hl-feat-new--wip">Taking shape</span>
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 7l9-4 9 4-9 4-9-4z"></path>
+                <path d="M3 12l9 4 9-4"></path>
+                <path d="M3 17l9 4 9-4"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Home Inventory</h3>
+            <p class="hl-feat-desc">
+              What you own, where it lives and what it is worth — categories,
+              nested locations, condition and replacement value. The database
+              underneath is finished; the screens on top of it are still being
+              built out.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Categories</span>
+              <span class="hl-feat-tag">Locations</span>
+              <span class="hl-feat-tag">In progress</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Infrastructure ── */}
+    <section class="hl-infra" id="hl-infra">
+      <div class="hl-container">
+        <div class="hl-infra-head">
+          <div class="hl-eyebrow hl-eyebrow--dark">
+            <span class="hl-eyebrow-dot"></span>
+            The other half
+          </div>
+          <h2 class="hl-infra-title">
+            And then it started watching <em>the house itself.</em>
+          </h2>
+          <p class="hl-infra-lede">
+            A power cut took the network down while nobody was home, and it
+            turned out nothing in the house could say what had happened or how
+            close the batteries had come to empty. So Hearth grew a second
+            half: three small agents on a machine in the office, reporting in
+            on what the hardware is doing.
+          </p>
+        </div>
+
+        <div class="hl-infra-grid">
+          <article class="hl-infra-card">
+            <h3>Power</h3>
+            <p>
+              Both UPS units over NUT — charge, load, runtime, input and output
+              volts, temperature, and every raw variable the unit reports. It
+              samples every fifteen seconds normally and drops to every thirty
+              while running on battery, because an outage is exactly the part
+              that was going unrecorded.
+            </p>
+            <div class="hl-infra-tags">
+              <span>Outage timeline</span>
+              <span>90 days</span>
+            </div>
+          </article>
+
+          <article class="hl-infra-card">
+            <h3>Power topology</h3>
+            <p>
+              A wiring diagram for the house: what is plugged into what, which
+              outlets are battery-backed and which are only surge-protected,
+              grouped into zones. Drag a cable to a different bank and the
+              diagram follows. Exports to PNG, SVG or PDF.
+            </p>
+            <div class="hl-infra-tags">
+              <span>Editable</span>
+              <span>Live plug status</span>
+            </div>
+          </article>
+
+          <article class="hl-infra-card">
+            <h3>Network</h3>
+            <p>
+              Every UniFi device and client — port matrices with PoE state,
+              throughput sparklines, top talkers, and an auto-drawn topology
+              wired by real uplinks. A separate page reads the whole
+              configuration, with WPA keys and RADIUS secrets stripped by the
+              agent before they ever reach the database.
+            </p>
+            <div class="hl-infra-tags">
+              <span>Topology</span>
+              <span>Per-port detail</span>
+            </div>
+          </article>
+
+          <article class="hl-infra-card">
+            <h3>Cameras</h3>
+            <p>
+              UniFi Protect fleet health — which cameras are up, NVR drive
+              temperatures and SMART state, contact and leak sensors, battery
+              levels. An activity heatmap by camera and hour, and a recording
+              forecast that regresses against real disk history to tell you
+              when it will start overwriting.
+            </p>
+            <div class="hl-infra-tags">
+              <span>Fleet uptime</span>
+              <span>Storage forecast</span>
+            </div>
+          </article>
+
+          <article class="hl-infra-card">
+            <h3>Storage</h3>
+            <p>
+              Two Synology units — a DS1821+ and a DS1513+ — with volume fill
+              rates, per-disk SMART and temperature, share growth over ninety
+              days, and backup run history. It checks the boring things that
+              only matter once: whether the NAS will restart when mains
+              returns, and whether that bond really has both legs.
+            </p>
+            <div class="hl-infra-tags">
+              <span>Fill-rate forecast</span>
+              <span>Backup history</span>
+            </div>
+          </article>
+
+          <article class="hl-infra-card">
+            <h3>Addressing</h3>
+            <p>
+              A tracker for the long job of moving every device onto a planned
+              static address — done a few at a time, over weeks. It knows the
+              difference between an address that is genuinely pinned and one
+              that merely happens to be right today on a lease that has not
+              renewed yet.
+            </p>
+            <div class="hl-infra-tags">
+              <span>Per-device state</span>
+              <span>Resume cold</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="hl-infra-notes">
+          <div class="hl-infra-note">
+            <h4>It watches. It does not touch.</h4>
+            <p>
+              Every monitoring page is read-only and says so in its own
+              subtitle. There is no reboot button, no port toggle, no camera
+              control. The agents make outbound calls only — nothing from
+              outside reaches into the network.
+            </p>
+          </div>
+          <div class="hl-infra-note">
+            <h4>Except the one thing that should act.</h4>
+            <p>
+              A watchdog sits beside the UPS and will shut the machine down
+              cleanly before the battery dies — but only on battery, only past
+              a charge or runtime floor, and only after three consecutive
+              readings agree. If mains returns while the countdown runs, it
+              cancels itself.
+            </p>
+          </div>
+          <div class="hl-infra-note">
+            <h4>And it can reach your pocket.</h4>
+            <p>
+              When a subsystem changes state — the internet, the network, the
+              power, the NAS, the cameras — Hearth pushes a notification. It
+              fires on the change, not on the condition, so a long outage
+              never turns into a stream of alerts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── The desk ── */}
+    <section class="hl-features hl-features--desk">
+      <div class="hl-container">
+        <div class="hl-section-head">
+          <div class="hl-eyebrow" style="justify-content: center;">
+            <span class="hl-eyebrow-dot"></span>
+            The desk in the corner
+          </div>
+          <h2>The rest of what accumulated.</h2>
+          <p>
+            A household hub is a convenient place to put things. Over time it
+            collected the study material, the reference library, the media
+            tooling and a small laboratory for comparing models against each
+            other.
+          </p>
+        </div>
+
+        <div class="hl-feat-grid">
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l1.6 3.4L17 8l-3.4 1.6L12 13l-1.6-3.4L7 8l3.4-1.6L12 3z"></path>
+                <path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z"></path>
+                <path d="M19 14l.7 1.5L21 16l-1.3.5L19 18l-.7-1.5L17 16l1.3-.5L19 14z"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">AI Assistant</h3>
+            <p class="hl-feat-desc">
+              Chat with the house. It can look things up rather than guess —
+              warranties and what upkeep has cost, pool chemistry history, the
+              network, the cameras — and answer in plain language. History and
+              uploaded images persist per conversation.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Streaming</span>
+              <span class="hl-feat-tag">Queries your data</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 3v6l-5 8.5A2 2 0 0 0 5.7 21h12.6a2 2 0 0 0 1.7-3.5L15 9V3"></path>
+                <path d="M8 3h8"></path>
+                <path d="M7 14h10"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Model labs</h3>
+            <p class="hl-feat-desc">
+              One prompt, six text models side by side with timings and token
+              counts — then Claude Opus reads all six answers and writes up how
+              they differed. A companion lab does the same for three image
+              models, with export presets for real screen sizes.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">6 text models</span>
+              <span class="hl-feat-tag">3 image models</span>
+              <span class="hl-feat-tag">Cross-analysis</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 4.5A1.5 1.5 0 0 1 3.5 3H11v17H3.5A1.5 1.5 0 0 0 2 21.5v-17z"></path>
+                <path d="M22 4.5A1.5 1.5 0 0 0 20.5 3H13v17h7.5A1.5 1.5 0 0 1 22 21.5v-17z"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Knowledge Base</h3>
+            <p class="hl-feat-desc">
+              Fifty-one long-form technical guides with diagrams, tabbed code
+              and copy buttons — and a narrator. Azure Neural voices read any
+              guide aloud, skipping the code blocks and diagrams, and remember
+              where you stopped.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">51 guides</span>
+              <span class="hl-feat-tag">10 voices</span>
+              <span class="hl-feat-tag">Resume</span>
+            </div>
+          </article>
+
+          <article class="hl-feat-card">
+            <div class="hl-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 9L12 4 2 9l10 5 10-5z"></path>
+                <path d="M6 11.5V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"></path>
+              </svg>
+            </div>
+            <h3 class="hl-feat-h3">Study Hub</h3>
+            <p class="hl-feat-desc">
+              Fourteen tracks of exam prep built for a house with a student in
+              it — end-of-course subjects, the SAT with a properly adaptive
+              two-module test, and the state learner&rsquo;s permit down to the road
+              signs. Flashcards, drills that re-queue what you missed, and
+              timed sandboxes.
+            </p>
+            <div class="hl-feat-meta">
+              <span class="hl-feat-tag">14 tracks</span>
+              <span class="hl-feat-tag">2,000+ questions</span>
+              <span class="hl-feat-tag">640+ flashcards</span>
             </div>
           </article>
 
@@ -357,37 +661,77 @@ const feed = [
             </div>
             <h3 class="hl-feat-h3">Plex Command Center</h3>
             <p class="hl-feat-desc">
-              Live streams, watch history, per-user analytics, and a
-              resolution-aware duplicate finder that flags 4K vs 1080p
-              copies of the same film across overlapping libraries.
+              Who is watching what right now, whether it is direct-playing or
+              transcoding, and where the hours have gone this year. Plus a
+              duplicate finder that knows a 4K copy from a 1080p one and logs
+              every deletion it makes.
             </p>
             <div class="hl-feat-meta">
+              <span class="hl-feat-tag">Live sessions</span>
               <span class="hl-feat-tag">Duplicates</span>
-              <span class="hl-feat-tag">Live streams</span>
-              <span class="hl-feat-tag">Audit log</span>
+              <span class="hl-feat-tag">History</span>
             </div>
           </article>
 
           <article class="hl-feat-card">
             <div class="hl-feat-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 3l1.6 3.4L17 8l-3.4 1.6L12 13l-1.6-3.4L7 8l3.4-1.6L12 3z"></path>
-                <path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z"></path>
-                <path d="M19 14l.7 1.5L21 16l-1.3.5L19 18l-.7-1.5L17 16l1.3-.5L19 14z"></path>
+                <path d="M18 10h-1.3A5 5 0 0 0 7 8.5 4 4 0 0 0 6.5 16H18a3 3 0 0 0 0-6z"></path>
+                <path d="M12 13v6"></path>
+                <path d="M9.5 16.5 12 19l2.5-2.5"></path>
               </svg>
             </div>
-            <h3 class="hl-feat-h3">AI Assistant</h3>
+            <h3 class="hl-feat-h3">Azure Command Center</h3>
             <p class="hl-feat-desc">
-              Anthropic Claude + Azure OpenAI side-by-side, with streaming
-              replies and a model-comparison lab. Ask what to cook, what
-              bulb fits the fridge, what to plant in October.
+              The subscription that runs all of this, watching itself — web
+              apps and their memory and error counts, container registry
+              builds, which AI deployments exist, and what the month is
+              costing against budget.
             </p>
             <div class="hl-feat-meta">
-              <span class="hl-feat-tag">Claude</span>
-              <span class="hl-feat-tag">GPT</span>
-              <span class="hl-feat-tag">Streaming</span>
+              <span class="hl-feat-tag">Live metrics</span>
+              <span class="hl-feat-tag">Spend vs. budget</span>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Appearance ── */}
+    <section class="hl-look">
+      <div class="hl-container">
+        <div class="hl-look-grid">
+          <div class="hl-look-text">
+            <div class="hl-eyebrow">
+              <span class="hl-eyebrow-dot"></span>
+              A room should feel like itself
+            </div>
+            <h2 class="hl-look-title">
+              Every page gets its <em>own light.</em>
+            </h2>
+            <p>
+              The pool page is cool and wet. The garden is green. The cinema
+              room is dark. Each view carries its own photograph and its own
+              palette, and any of it can be re-pinned from a flyout in the
+              corner without touching the rest of the app.
+            </p>
+            <p>
+              Fifty-one palettes, each with a light and a dark rendering.
+              Twenty-six background photographs. Eight typeface pairings and a
+              contrast check that tells you when a choice has gone too far.
+            </p>
+          </div>
+
+          <div class="hl-look-swatches">
+            <div class="hl-look-chip" style="--c1:#5C2A4A;--c2:#C8A569;">Wine</div>
+            <div class="hl-look-chip" style="--c1:#1F6F78;--c2:#7FD4C1;">Pool</div>
+            <div class="hl-look-chip" style="--c1:#3F6B32;--c2:#A8C97F;">Garden</div>
+            <div class="hl-look-chip" style="--c1:#1B1B24;--c2:#C9A227;">Cinema</div>
+            <div class="hl-look-chip" style="--c1:#2E4A6B;--c2:#8FB8E0;">Scholar</div>
+            <div class="hl-look-chip" style="--c1:#5A3A22;--c2:#D8A76A;">Kraft</div>
+            <div class="hl-look-chip" style="--c1:#243447;--c2:#6FD3E8;">Circuit</div>
+            <div class="hl-look-chip" style="--c1:#12131A;--c2:#7C8CF8;">Midnight</div>
+          </div>
         </div>
       </div>
     </section>
@@ -435,10 +779,10 @@ const feed = [
               </svg>
             </div>
             <div>
-              <h4 class="hl-trust-text-h">Fast and always there</h4>
+              <h4 class="hl-trust-text-h">Nothing reaches in</h4>
               <p class="hl-trust-text-p">
-                Azure App Service · code-split lazy chunks · sub-second
-                navigation between rooms.
+                The on-site agents only ever call out to Hearth — no inbound
+                port, no tunnel into the network.
               </p>
             </div>
           </div>
@@ -451,10 +795,10 @@ const feed = [
               </svg>
             </div>
             <div>
-              <h4 class="hl-trust-text-h">29 long-form guides built in</h4>
+              <h4 class="hl-trust-text-h">51 long-form guides built in</h4>
               <p class="hl-trust-text-p">
-                Knowledge Base covering React, Vite, Azure, AI, Plex,
-                TipTap — searchable in-app.
+                Knowledge Base covering Swift, React, Azure, SQLite, Godot
+                and more — searchable, and read aloud on request.
               </p>
             </div>
           </div>
@@ -470,7 +814,8 @@ const feed = [
           <h2 class="hl-cta-title">Welcome home.</h2>
           <p class="hl-cta-sub">
             Hearth is private to you — no signup form, no email list, just
-            your house and the records that keep it running.
+            your house, the things growing in it, and the machines keeping
+            the lights on.
           </p>
         </div>
       </div>
@@ -480,7 +825,7 @@ const feed = [
     <footer class="hl-foot">
       <div class="hl-container">
         <p>Hearth — a household hub for the records that keep yours running.</p>
-        <p>Recipes · Maintenance · Inventory · Yard · Media · AI · Knowledge · Study</p>
+        <p>Kitchen · Maintenance · Garden · Pool · Yard · Power · Network · Cameras · Storage · Media · AI · Knowledge · Study</p>
         <p class="hl-foot-privacy">
           Questions about your data? Read the <a href="/hearth/privacy">Hearth Privacy Policy</a>.
         </p>

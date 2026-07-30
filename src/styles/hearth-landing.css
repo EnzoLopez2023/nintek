@@ -849,3 +849,254 @@
 @media (max-width: 720px) {
   .hl-mockup { transform: none; }
 }
+
+/* ============================================================
+   Additions for the expanded page: "New" flags on feature cards,
+   the dark Infrastructure band, the second (desk) feature grid,
+   and the appearance/palette band.
+   Everything below reuses the .hl token set defined at the top.
+   ============================================================ */
+
+/* --- "New" / "Taking shape" flags on feature cards --- */
+.hl-feat-new {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--rust);
+  border-radius: var(--r-pill);
+  padding: 4px 10px;
+  line-height: 1;
+}
+.hl-feat-new--wip {
+  color: var(--ink-soft);
+  background: var(--cream-2);
+  border: 1px solid var(--line);
+}
+.hl-feat-card--new::before { transform: scaleX(1); }
+.hl-feat-card--wip { border-style: dashed; }
+
+/* The desk grid sits on flat parchment so it reads as a second movement
+   rather than a repeat of the first band. */
+.hl-features--desk {
+  background: var(--cream);
+  padding-top: clamp(64px, 10vh, 104px);
+}
+
+/* --- Infrastructure band (dark) --- */
+.hl-infra {
+  position: relative;
+  padding: clamp(80px, 13vh, 132px) 0;
+  background:
+    radial-gradient(120% 80% at 12% 0%, rgba(122, 63, 96, 0.42) 0%, transparent 62%),
+    linear-gradient(180deg, #241220 0%, #1A0D18 55%, #150A14 100%);
+  color: #E8DCC4;
+  overflow: hidden;
+}
+.hl-infra::before {
+  /* faint ember wash so the band belongs to the same world as the hero */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 40% at 82% 88%, rgba(200, 165, 105, 0.16) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hl-infra-head {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 0 clamp(40px, 6vh, 60px);
+}
+.hl-eyebrow--dark { color: var(--champagne); }
+.hl-eyebrow--dark .hl-eyebrow-dot {
+  background: var(--champagne);
+  box-shadow: 0 0 0 4px rgba(200, 165, 105, 0.20);
+}
+.hl-infra-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw, 2.95rem);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: #F6ECD9;
+  margin: 0 0 18px;
+}
+.hl-infra-title em {
+  font-style: italic;
+  color: var(--champagne);
+}
+.hl-infra-lede {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(232, 220, 196, 0.78);
+  margin: 0;
+}
+
+.hl-infra-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 640px) {
+  .hl-infra-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 980px) {
+  .hl-infra-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.hl-infra-card {
+  background: rgba(247, 236, 217, 0.045);
+  border: 1px solid rgba(200, 165, 105, 0.18);
+  border-radius: 18px;
+  padding: 24px 22px 22px;
+  transition: transform var(--t-base) var(--e-out), border-color var(--t-base) var(--e-out), background var(--t-base) var(--e-out);
+}
+.hl-infra-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 165, 105, 0.42);
+  background: rgba(247, 236, 217, 0.075);
+}
+.hl-infra-card h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  color: #F6ECD9;
+  margin: 0 0 10px;
+}
+.hl-infra-card p {
+  font-size: 0.92rem;
+  line-height: 1.58;
+  color: rgba(232, 220, 196, 0.72);
+  margin: 0 0 14px;
+}
+.hl-infra-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.hl-infra-tags span {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--champagne);
+  background: rgba(200, 165, 105, 0.10);
+  border: 1px solid rgba(200, 165, 105, 0.24);
+  border-radius: var(--r-pill);
+  padding: 3px 9px;
+}
+
+.hl-infra-notes {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: clamp(36px, 5vh, 52px);
+  padding-top: clamp(32px, 4vh, 44px);
+  border-top: 1px solid rgba(200, 165, 105, 0.20);
+}
+@media (min-width: 860px) {
+  .hl-infra-notes { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+}
+.hl-infra-note h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--champagne);
+  margin: 0 0 8px;
+}
+.hl-infra-note p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(232, 220, 196, 0.70);
+  margin: 0;
+}
+
+/* --- Appearance / palette band --- */
+.hl-look {
+  position: relative;
+  padding: clamp(72px, 11vh, 116px) 0;
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+}
+.hl-look-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(36px, 6vw, 64px);
+  align-items: center;
+}
+@media (min-width: 920px) {
+  .hl-look-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+}
+.hl-look-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.hl-look-title em {
+  font-style: italic;
+  color: var(--rust);
+}
+.hl-look-text p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.hl-look-text p:last-child { margin-bottom: 0; }
+
+.hl-look-swatches {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 560px) {
+  .hl-look-swatches { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 920px) {
+  .hl-look-swatches { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1100px) {
+  .hl-look-swatches { grid-template-columns: repeat(4, 1fr); }
+}
+.hl-look-chip {
+  position: relative;
+  border-radius: 14px;
+  padding: 14px 12px 12px;
+  min-height: 84px;
+  display: flex;
+  align-items: flex-end;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #FBF5E6;
+  background: linear-gradient(150deg, var(--c1) 0%, var(--c1) 55%, var(--c2) 100%);
+  border: 1px solid var(--ink-tint-08);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-base) var(--e-out), box-shadow var(--t-base) var(--e-out);
+}
+.hl-look-chip::after {
+  /* the light/dark pairing every palette ships */
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #FBF5E6 0 50%, #1A0D18 50% 100%);
+  border: 1px solid rgba(251, 245, 230, 0.55);
+}
+.hl-look-chip:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
