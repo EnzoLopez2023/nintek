@@ -3,126 +3,177 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tare')!;
-const lastUpdated = 'June 24, 2026';
+const lastUpdated = 'August 3, 2026';
 ---
 
 <BaseLayout
   title={`${app.name} Privacy Policy — ${COMPANY.name}`}
-  description={`How ${app.name} collects, uses, and protects your information.`}
+  description={`How ${app.name} handles your health information.`}
   path={`/${app.slug}/privacy`}
-  noindex={true}
 >
   <article class="prose container">
     <a class="back-link" href="/tare">← {app.name}</a>
     <h1>{app.name} Privacy Policy</h1>
     <p class="updated">Last updated: {lastUpdated}</p>
 
-    <p
-      style="padding: 12px 14px; border: 1px solid #f0d28a; background: #fdf6e3; border-radius: 10px; font-weight: 600;"
-    >
-      DRAFT — This policy is a working draft pending legal review. It describes
-      how {app.name} is intended to handle your information and may change before
-      publication.
-    </p>
-
     <p>
-      This Privacy Policy explains how {COMPANY.name} (“we”, “us”) handles
-      information in connection with the {app.name} application and website
-      (the “Service”). {app.name} is a GLP-1 and metabolic-health tracker, so
-      much of the information you enter is health-related. We aim to collect as
-      little as possible and to keep what we do collect private and secure.
+      This policy explains how {COMPANY.name} (“we”, “us”) handles information in
+      {app.name} for iOS. {app.name} is a GLP-1 and metabolic-health tracker, so
+      most of what you enter is health information — some of the most personal
+      information there is. This policy is written to be specific about where it
+      goes rather than reassuring about it.
     </p>
 
-    <h2>Information we collect</h2>
+    <p class="callout">
+      <strong>The short version.</strong> {app.name} has no account and no
+      sign-in. Your health data is stored on your device, and in your own
+      private iCloud account if you have iCloud on — we cannot read either one.
+      Nothing is sent to us unless you turn on the optional AI features, and if
+      you do, only the specific figures named on the consent screen are sent,
+      only when you ask a question, and nothing about them is stored afterwards.
+      There is no advertising, no analytics and no tracking of any kind.
+    </p>
+
+    <h2>What stays on your device</h2>
+    <p>
+      Everything you log — weights, blood-glucose readings, injections and doses,
+      meals and macros, well-being and mood, side effects, body measurements,
+      lab results, vitals, diagnoses, medications, procedures, progress photos
+      and meal photos — is written to a database on your iPhone.
+    </p>
+    <p>
+      If iCloud is enabled on your device, that database also syncs through
+      <strong>your own private iCloud account</strong> so your data is available
+      on your other devices and survives a lost phone. That data lives in your
+      Apple account, under Apple’s encryption, and we have no access to it. We
+      operate no server that holds your health records, and we could not produce
+      a copy of your data if we were asked to.
+    </p>
+
+    <h2>What leaves your device, and only if you turn it on</h2>
+    <p>
+      {app.name} includes optional AI features — the analyst that answers
+      questions about your data, the summaries on the Insights and Doctor Report
+      screens, meal estimates from a name or a photo, lab-document import, and
+      the knowledge base.
+    </p>
+    <p>
+      <strong>These are off until you turn them on.</strong> The first time you
+      use one, {app.name} shows a screen naming exactly which fields would be
+      sent, and nothing is sent unless you accept it. You can turn it back off
+      at any time in Settings → Privacy, and if we ever change what would be
+      sent, we ask again rather than relying on the answer you gave to a
+      different question.
+    </p>
+    <p>When the features are on, and only when you ask for something:</p>
     <ul>
       <li>
-        <strong>Account information.</strong> When you sign in, we use Microsoft
-        identity services. We receive a unique account identifier and basic
-        profile details such as your name and email address so we can create and
-        secure your account.
+        The relevant figures for that request are sent over an encrypted
+        connection to a small relay service we operate.
       </li>
       <li>
-        <strong>Health data you create.</strong> Content and activity you enter
-        in the app — such as blood-glucose readings, medication and injection
-        logs, weight and body measurements, well-being and mood notes, vitals,
-        lab results, diagnoses, and medical-record entries — so the Service can
-        track your journey and show your trends.
+        The relay forwards them to <strong>Anthropic</strong>, which generates
+        the answer, and returns it to your device.
       </li>
       <li>
-        <strong>AI summaries.</strong> If you ask for an insight, we send the
-        relevant readings you logged to an AI provider to generate a summary
-        grounded in your own data. Your data is not used to train AI models.
+        <strong>The relay does not store your request or the answer.</strong> It
+        keeps no database and writes no copy of them; it records error messages
+        only, which do not contain your data.
       </li>
       <li>
-        <strong>Limited technical data.</strong> Basic operational logs (such as
-        request timestamps and error information) needed to run, secure, and
-        troubleshoot the Service.
+        Anthropic processes the request under its commercial terms and does not
+        use it to train models. Anthropic may retain inputs for a limited period
+        for safety and abuse-prevention purposes, which is why the App Store
+        privacy label for {app.name} lists health data as collected even though
+        we ourselves keep none of it.
       </li>
     </ul>
     <p>
-      We do <strong>not</strong> collect precise location, contacts, or device
-      advertising identifiers, and we do not use third-party advertising or
-      cross-app tracking.
+      To stop the relay being abused by anyone other than the app, it verifies
+      that requests come from a genuine copy of {app.name} using Apple’s App
+      Attest. That checks the <em>app</em>, not you. It is not an account, it
+      carries no name or email, and it is not used to build any profile.
+    </p>
+    <p>
+      Some things are never sent, whatever you have turned on: your profile
+      details, your progress photos, and any meal photo you have not
+      specifically chosen to analyse.
     </p>
 
-    <h2>How we use information</h2>
-    <ul>
-      <li>To provide, maintain, and secure your account and the Service.</li>
-      <li>To save your logs and show your weight, glucose, and journey trends.</li>
-      <li>
-        To generate AI summaries grounded in the data you choose to share, only
-        when you request them.
-      </li>
-      <li>To diagnose problems and improve reliability and performance.</li>
-    </ul>
-
-    <h2>How your information is stored and protected</h2>
+    <h2>Apple Health</h2>
     <p>
-      Your health data is stored in your own per-user private SQLite database —
-      your own file, not a shared multi-tenant database. Information is encrypted
-      in transit using HTTPS, and the Service is hosted on Microsoft Azure.
-      Access is limited to what is necessary to operate the Service.
+      If you allow it, {app.name} can read weight, glucose, sleep and step data
+      from Apple Health so you do not have to enter it twice, and write back the
+      weights, glucose readings and doses you log. That exchange is between
+      {app.name} and Health on your own device. We never receive it, and Health
+      data is not included in anything sent to the AI features unless it is also
+      a record you logged in {app.name}.
     </p>
 
-    <h2>Sharing</h2>
+    <h2>Backups and export</h2>
     <p>
-      We do not sell your personal information. We share information only with
-      infrastructure providers that host and secure the Service (for example,
-      Microsoft Azure for hosting and identity, and an AI provider for the
-      summaries you request), and only as needed to operate it, or where
-      required by law.
+      {app.name} can write a complete backup of your data to a file, and restore
+      from one. Those files are created on your device and go wherever you choose
+      to put them. If you save one to a third-party service, that service’s
+      privacy policy applies to it, not this one.
     </p>
 
-    <h2>Data retention and deletion</h2>
+    <h2>What we do not collect</h2>
     <p>
-      We retain your information for as long as your account is active. You can
-      export your data as JSON at any time, and you may request access to, or
-      deletion of, your account and associated data by emailing
+      No advertising identifiers, no location, no contacts, no analytics, no
+      crash reporting, no usage tracking, and no third-party software
+      development kits of any kind. {app.name} does not track you across apps or
+      websites, and there is nothing in it that could.
+    </p>
+
+    <h2>Keeping and deleting your data</h2>
+    <p>
+      Because we hold nothing, there is no account to close and no deletion
+      request to make. Deleting the app removes the data on that device;
+      deleting {app.name}’s iCloud data in iOS Settings removes the synced copy.
+      You can export everything to a file first if you want to keep it.
+    </p>
+    <p>
+      If you have a question about any of this, or believe we hold something we
+      have said we do not, email
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
     </p>
 
     <h2>Children’s privacy</h2>
     <p>
-      The Service is intended for a general, adult audience and is not directed
-      to children. We do not knowingly collect personal information from
-      children.
+      {app.name} is intended for a general, adult audience and is not directed to
+      children. We do not knowingly collect personal information from children.
     </p>
 
     <h2>Not medical advice</h2>
     <p>
       {app.name} helps you record and review your own health information,
-      including optional AI-generated summaries. It does not provide medical
-      advice, diagnosis, or treatment. Always consult a qualified healthcare
-      professional about your care.
+      including optional AI-generated summaries. Those summaries are generated by
+      software and can be wrong. {app.name} does not provide medical advice,
+      diagnosis or treatment, and will not tell you what dose to take. Always
+      consult a qualified healthcare professional about your care.
+    </p>
+
+    <h2>The earlier web version</h2>
+    <p>
+      {app.name} began as a web application that used a Microsoft account to sign
+      in and stored data in a private per-user database hosted on Microsoft
+      Azure. That version is being retired in favour of the iOS app described
+      above. While it remains available, the health data you entered there is
+      held in that per-user database, encrypted in transit, and you may request
+      access to or deletion of it at
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>. It
+      is not connected to the iOS app, which keeps its own copy on your device.
     </p>
 
     <h2>Changes to this policy</h2>
     <p>
-      We may update this policy from time to time. Material changes will be
-      reflected by updating the “Last updated” date above.
+      We may update this policy from time to time. Material changes are reflected
+      by updating the “Last updated” date above, and a change to what leaves your
+      device also re-triggers the consent screen inside the app.
     </p>
 
-    <h2>Contact us</h2>
+    <h2>Contact</h2>
     <p>
       Questions about this policy or your data? Email
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.

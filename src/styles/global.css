@@ -607,10 +607,17 @@ h3 {
 }
 
 /* ---- Legal / prose ---- */
+/* Sits on its own surface: .bg-decor is position:fixed, so body copy would
+   otherwise scroll through the dark region of the artwork. */
 .prose {
-  max-width: 72ch;
-  margin: 0 auto;
-  padding: 56px 0;
+  max-width: 76ch;
+  width: auto;
+  margin: 40px auto 64px;
+  padding: 48px 44px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card);
 }
 .prose h1 {
   font-size: 2rem;
@@ -627,8 +634,14 @@ h3 {
   margin: 0.3em 0;
 }
 .prose .updated {
-  color: var(--ink-muted);
+  color: var(--ink-soft);
   font-size: 0.9rem;
+}
+.prose .callout {
+  padding: 14px 16px;
+  border: 1px solid var(--copper-edge);
+  background: var(--copper-soft);
+  border-radius: var(--r-sm);
 }
 .back-link {
   display: inline-block;
@@ -1671,6 +1684,11 @@ h3 {
     grid-template-columns: 1fr;
     max-width: 320px;
     margin: 40px auto 36px;
+  }
+  .prose {
+    margin: 20px 16px 40px;
+    padding: 32px 22px;
+    border-radius: var(--r-md);
   }
 }
 @container (max-width: 420px) {
