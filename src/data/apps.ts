@@ -311,78 +311,89 @@ export const apps: App[] = [
     slug: 'workshop',
     name: 'Workshop',
     category: 'Woodworking & Projects',
-    tagline: 'From cut list to finished piece.',
-    headline: { lead: 'Plan the cuts.', em: 'Build with confidence.' },
+    tagline: 'Read your shop like a departure board.',
+    headline: { lead: 'Every build,', em: 'on the board.' },
     description:
-      'Plan a build end to end — cut lists, board layout and progress — so every project moves from sketch to sawdust without the guesswork.',
-    quiet: 'On iPhone the cut list rides on your Lock Screen while you work.',
+      'A woodworking shop record read like a Solari departure board. Every project is a row that flips into its new state — what is moving, what is queued, what is done — with the cut list, the board layout, the materials and the build log underneath it.',
+    quiet: 'Paste a plan URL and it comes back as a cut list with real dimensions.',
     icon: 'package',
     bundleId: 'com.nintek.workshop',
     hasPage: true,
     platforms: { web: true, ios: true },
     mockup: {
-      title: 'Walnut Bench',
-      subtitle: 'Cut list & progress',
-      chip: 'Cut list optimised · 4% waste',
+      title: 'Shop Board',
+      subtitle: 'Every build, at a glance',
+      chip: 'Cut plan optimised · 96% yield',
       live: 'In progress',
     },
     native: {
       status: 'testflight',
       thesis:
-        'The cut plan runs on your phone, and the cut list lives on your Lock Screen while you work.',
+        'The optimiser runs in your hand, and the cut list stays on your Lock Screen while you work.',
       intro:
-        'Workshop is the app that needed to leave the desk. Nobody plans a build at a keyboard — you plan it standing at the saw with sawdust on your hands. The native version puts the optimiser in your pocket and the checklist on your Lock Screen.',
+        'Workshop is the app that needed to leave the desk. Nobody plans a build at a keyboard — you plan it standing at the saw with sawdust on your hands. The native version carries the whole board onto the phone: the optimiser runs on device, the cut list lives on the Lock Screen, and the shop reads from the Home Screen before you unlock anything.',
       highlights: [
         {
           icon: 'gauge',
           title: 'Cut plans computed on device',
           body:
-            'The guillotine packing optimiser is a direct Swift port of the web algorithm, unit-tested against the original so the layouts match exactly. It runs in your hand — no round trip, no spinner, no signal required.',
+            'The guillotine packing optimiser is a direct Swift port of the web algorithm, unit-tested against the original so the layouts match exactly. It runs in your hand — no round trip, no spinner, no signal required — and exports the same multi-page PDF.',
         },
         {
           icon: 'lock',
-          title: 'Check off cuts from the Lock Screen',
+          title: 'Two Live Activities, not a notification',
           body:
-            'A Live Activity keeps the cut list on your Lock Screen and in the Dynamic Island. Tick parts off at the saw without unlocking the phone or switching apps.',
+            'Track a cut list on the Lock Screen and in the Dynamic Island, ticking parts off at the saw without unlocking. A second one runs the shopping list in the aisle, where checking an item off is a real purchase, not a scratch pad.',
         },
         {
           icon: 'widget',
-          title: 'A shopping list you can tap',
+          title: 'Widgets that hold their own',
           body:
-            'Three widgets: project stats, builds in progress, and a shopping list you can actually tick off from the Home Screen. The app reconciles the change next time you open it.',
-        },
-        {
-          icon: 'share',
-          title: 'Add to Workshop',
-          body:
-            'Share a link from Safari or a photo from your library straight into the app. Inspiration gets captured where you find it, instead of in a note you never revisit.',
-        },
-        {
-          icon: 'pencil',
-          title: 'Sketch with Apple Pencil',
-          body:
-            'On iPad, draw the plan directly onto the project instead of photographing a napkin.',
+            'Shop stats, builds in progress, and a shopping list you can tick straight from the Home Screen — plus accessory widgets for the Lock Screen and StandBy. A background refresh task keeps them current even if the app is never opened.',
         },
         {
           icon: 'ruler',
-          title: 'Read the tape measure',
+          title: 'Read the tape, not the keyboard',
           body:
-            'Point the camera at a tape or a printed cut sheet and tap the dimension you want, instead of typing “27 1/2” with one clean finger.',
+            'Point the camera at a tape measure or a printed cut sheet and tap the dimension you want. Live Text runs on photos already in a project too, so a number written on a scrap of plywood is selectable months later.',
+        },
+        {
+          icon: 'pencil',
+          title: 'iPad as a drafting table',
+          body:
+            'Sketch the plan onto the project with Apple Pencil instead of photographing a napkin, and drag parts straight onto the cut list from another app in Split View.',
+        },
+        {
+          icon: 'bell',
+          title: 'The finish schedule chases you',
+          body:
+            'Log a coat and the app schedules the recoat window as a local notification — with a Snooze action on the notification itself, because a shop day rarely runs to plan.',
         },
         {
           icon: 'search',
-          title: 'Find a build from anywhere',
+          title: 'Part of the system, not a tab',
           body:
-            'Projects are indexed in Spotlight, so a system search lands you on the right build — and Siri can open your dashboard or shopping list on command.',
+            'Projects are indexed in Spotlight, Siri opens your dashboard or shopping list on command, Home Screen quick actions jump straight to a new project, and Handoff passes a build from the Mac to the phone on the way out to the garage.',
         },
         {
           icon: 'chart',
           title: 'Insights the web does not have',
           body:
-            'Swift Charts breaks down spend over time, cost by project, and how often you are actually out in the shop.',
+            'Swift Charts breaks down spend over time, cost by project, and how often you are actually out in the shop. Share a link or a photo into the app from anywhere with the share extension.',
         },
       ],
-      tech: ['SwiftUI', 'WidgetKit', 'ActivityKit', 'App Intents', 'VisionKit', 'PencilKit', 'Swift Charts'],
+      tech: [
+        'SwiftUI',
+        'WidgetKit',
+        'ActivityKit',
+        'App Intents',
+        'VisionKit',
+        'PencilKit',
+        'Swift Charts',
+        'Core Spotlight',
+        'BackgroundTasks',
+        'Journaling Suggestions',
+      ],
       minOS: 'iOS 17',
       devices: 'iPhone and iPad',
     },

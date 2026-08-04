@@ -10,352 +10,438 @@ import '../../styles/workshop-landing.css';
 const wkApp = getApp('workshop')!;
 const wkNative = wkApp.native!;
 
-/* ── Hero project cards (final, settled fan-out) ── */
-const heroCards = [
-  { title: 'Walnut Floating Shelf', status: 'In Progress', parts: 6,  hours: '~12h', accent: '#A0522D' },
-  { title: 'Garage Workbench',      status: 'Planning',    parts: 14, hours: '~28h', accent: '#7C3E1F' },
-  { title: 'Cedar Planter Box',     status: 'Complete',    parts: 8,  hours: '6h',   accent: '#5a7a3a' },
+/* ── The shop board: the app opens straight onto this, so the page does too ── */
+const boardCells = [
+  { label: 'In Progress', value: '02', sub: 'active builds', tone: 'amber' },
+  { label: 'In Queue', value: '18', sub: 'ideas & plans', tone: 'ink' },
+  { label: 'Total Parts', value: '085', sub: 'across active projects', tone: 'ink' },
+  { label: 'Est. Value', value: '$1353', sub: 'in materials', tone: 'green' },
 ];
 
-/* ── URL-paste demo, rendered in its final extracted state ── */
-const demo = {
-  url:       'shaper.studio/projects/walnut-floating-shelf',
-  name:      'Walnut Floating Shelf',
-  parts:     6,
-  boards:    2,
-  hours:     12,
-  materials: 'Walnut, Cherry',
-  cuts:      [91, 76],
-};
-
-const demoStats = [
-  { v: String(demo.parts),  l: 'Parts'     },
-  { v: String(demo.boards), l: 'Boards'    },
-  { v: `${demo.hours}h`,    l: 'Est. time' },
-  { v: demo.materials,      l: 'Materials' },
-];
-
-/* ── Three pillars: Plan / Build / Curate ── */
-const pillars = [
+/* ── What a project actually is, as departure rows. The rail is the heading;
+      there are no icon-and-heading cards anywhere in this system. ── */
+const departures = [
   {
-    icon: '📐',
-    label: 'Plan',
-    headline: 'Cut lists that\ndo the math.',
-    body: 'Enter your dimensions and available stock — Workshop generates an optimized cut plan, calculates waste, and tells you exactly how many boards to buy.',
+    track: 'Track 01',
+    title: 'Capture',
+    flag: { text: 'Idea', tone: 'idle' },
+    body:
+      'Paste a plan URL from Kreg, Ana White or Shaper Hub and it comes back as a structured project — title, difficulty, wood types, and a cut list with real dimensions. Or share a link or photo straight in from Safari. Everything arrives pre-filled and stays editable.',
   },
   {
-    icon: '🔨',
-    label: 'Build',
-    headline: 'Log every step,\nforget nothing.',
-    body: 'Timestamped build entries with photos and finish records. Your complete project history — what you used, what worked, what to do differently next time.',
+    track: 'Track 02',
+    title: 'Plan the cuts',
+    flag: { text: 'Planning', tone: 'steel' },
+    body:
+      'The optimiser runs a real board-layout pass over your parts — kerf, stock length and grain direction included — and shows the boards it would buy and the offcuts it would leave. Print it as a monospace manifest or export the sheets as a PDF.',
   },
   {
-    icon: '📖',
-    label: 'Curate',
-    headline: 'Import projects,\nnot screenshots.',
-    body: 'Paste a Shaper Hub link and Workshop extracts the full part list automatically. A connected notebook keeps your ideas and reference material alongside every build.',
+    track: 'Track 03',
+    title: 'Build',
+    flag: { text: 'In Progress', tone: 'amber' },
+    body:
+      'A timestamped build log with photos, a materials list that rolls up into one shopping list across every active project, and finish records for the stain and topcoat schedule — including the recoat window.',
+  },
+  {
+    track: 'Track 04',
+    title: 'Keep the record',
+    flag: { text: 'Complete', tone: 'green' },
+    body:
+      'The record outlives the build. Come back in two years and the dimensions, the offcuts, the finish schedule and the photographs are all still there — and any project can be saved as a template and cloned into the next one.',
   },
 ];
 
-/* ── Supporting features ── */
-const supporting = [
-  { icon: '🛒', title: 'Shopping List',  desc: 'Materials consolidated across every active build. Check items off as you shop.' },
-  { icon: '📷', title: 'Finish Records', desc: 'Log your stain, topcoat, and application notes. Never forget what worked.' },
-  { icon: '📖', title: 'Notebook',       desc: 'A connected freeform layer for ideas, reference material, and project notes.' },
-  { icon: '🔗', title: 'Shaper Hub',     desc: 'Direct import from Shaper Origin projects — parts, dimensions, bit info pre-filled.' },
+/* ── The extracted result of a paste, shown in its settled state ── */
+const extraction = [
+  { label: 'Parts', value: '11' },
+  { label: 'Boards', value: '02' },
+  { label: 'Est. time', value: '12H' },
 ];
 
-/* ── Detail strip ── */
-const details = [
-  { icon: '🔒', title: 'Private by default', desc: 'Your own per-user data store — your projects stay yours.' },
-  { icon: '📱', title: 'Works everywhere',   desc: 'Responsive across phone, tablet, and desktop.' },
-  { icon: '⚡', title: 'Instant save',        desc: 'Every change persisted automatically. Nothing slips through.' },
-  { icon: '🌙', title: 'Dark mode ready',     desc: 'A warm palette that holds up in any light.' },
+/* The payload of an import: real parts at real dimensions */
+const extractedParts = [
+  { name: 'Carcass side', dim: '¾" × 15" × 34"', qty: '×2' },
+  { name: 'Fixed shelf', dim: '¾" × 14¼" × 30½"', qty: '×3' },
+  { name: 'Face frame stile', dim: '¾" × 1½" × 34"', qty: '×2' },
+  { name: 'Back panel', dim: '¼" × 30½" × 34"', qty: '×1' },
 ];
+
+/* ── One optimised sheet. Lamp colours, not wood tones — every part reads as
+      a lit cell on the board (the palette is CutPlanSheet.tsx's). ── */
+const sheet = [
+  { x: '1.5%', y: '3%', w: '30%', h: '44%', c: '#D69A2E', label: 'Side' },
+  { x: '32.5%', y: '3%', w: '30%', h: '44%', c: '#5590B5', label: 'Side' },
+  { x: '63.5%', y: '3%', w: '35%', h: '44%', c: '#5E9E72', label: 'Back' },
+  { x: '1.5%', y: '48%', w: '46%', h: '30%', c: '#C4776B', label: 'Shelf' },
+  { x: '48.5%', y: '48%', w: '25%', h: '30%', c: '#8A78B8', label: 'Divider' },
+  { x: '74.5%', y: '48%', w: '24%', h: '30%', c: '#B8792C', label: 'Rail' },
+];
+
+/* ── Everything a project holds. A manifest, not a feature grid. ── */
+const manifest = [
+  { row: 'Cut list', detail: 'Parts with fractional dimensions, quantities, kerf and grain direction.', where: 'Web · iOS' },
+  { row: 'Cut plan', detail: 'A guillotine packing optimiser over your real stock, with yield and offcuts.', where: 'Web · iOS' },
+  { row: 'Materials', detail: 'Per-project material lists that consolidate into one shopping list.', where: 'Web · iOS' },
+  { row: 'Build log', detail: 'Timestamped entries with photographs of the work as it happened.', where: 'Web · iOS' },
+  { row: 'Finish records', detail: 'Stain, topcoat and application notes, with recoat reminders on iOS.', where: 'Web · iOS' },
+  { row: 'Shaper Hub', detail: 'A parallel project type for CNC work — parts, bit info and design files.', where: 'Web · iOS' },
+  { row: 'Notebook', detail: 'An editable window onto Tabloom, synced as Markdown both ways.', where: 'Web' },
+  { row: 'Conversion tables', detail: 'A live mm ↔ inch calculator and fractional reference tables.', where: 'Web · iOS' },
+  { row: 'Templates', detail: 'Save any project as a template and clone it into a fresh build.', where: 'Web' },
+  { row: 'Command palette', detail: 'Search and navigate the whole shop record from ⌘K.', where: 'Web' },
+  { row: 'Signal lamp', detail: 'Five selectable accent lamps — amber, signal, platform, beacon, violet.', where: 'Web' },
+  { row: 'Insights', detail: 'Spend over time, cost by project, and how often you are in the shop.', where: 'iOS' },
+];
+
+const flapChars = (v: string) => v.split('');
 ---
 
 <BaseLayout
   bare
   noindex
+  boardFonts
   path="/workshop"
-  title="Workshop — From rough sketch to finished build."
-  description="A single-user companion for woodworking. Cut lists, build logs, Shaper Hub imports, and an AI that fills in the details — so you can spend less time planning and more time building."
+  title="The Workshop — Read your shop like a departure board."
+  description="A woodworking shop record read like a Solari departure board. Cut lists that become cutting plans, build logs, Shaper Hub imports, and a native iPhone and iPad app that carries the whole board out to the saw."
 >
-  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
-  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    slot="head"
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap"
-  />
-
-  <div class="landing-root">
-    {/* ── Sticky glass nav (brand only) ── */}
-    <nav class="landing-nav">
+  <div class="wk-root">
+    {/* ── Steel band ── */}
+    <nav class="wk-nav">
       <NintekBack />
-      <div class="landing-nav-brand">
-        <svg class="landing-nav-icon" viewBox="0 0 180 180" role="img" aria-label="The Workshop">
+      <span class="wk-nav-brand">
+        <svg class="wk-nav-mark" viewBox="0 0 180 180" role="img" aria-label="The Workshop">
           <defs>
-            <linearGradient id="wk-bg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#D49A5C" />
-              <stop offset="1" stop-color="#3D2817" />
+            <linearGradient id="wkm-steel" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4E5A62" />
+              <stop offset="0.45" stop-color="#2B3238" />
+              <stop offset="1" stop-color="#1A2025" />
             </linearGradient>
-            <radialGradient id="wk-top" cx="50%" cy="-15%" r="85%">
-              <stop offset="0" stop-color="#fff" stop-opacity="0.55" />
-              <stop offset="0.55" stop-color="#fff" stop-opacity="0" />
-            </radialGradient>
+            <linearGradient id="wkm-flap" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#394248" />
+              <stop offset="0.4999" stop-color="#2E363B" />
+              <stop offset="0.5" stop-color="#242B2F" />
+              <stop offset="1" stop-color="#1D2327" />
+            </linearGradient>
           </defs>
-          <rect width="180" height="180" rx="42" fill="url(#wk-bg)" />
-          <rect width="180" height="180" rx="42" fill="url(#wk-top)" />
-          <g
-            transform="translate(28.35 28.35) scale(5.137)"
+          <rect width="180" height="180" rx="10" fill="url(#wkm-steel)" />
+          <rect
+            x="0.75"
+            y="0.75"
+            width="178.5"
+            height="178.5"
+            rx="9.5"
             fill="none"
             stroke="#ffffff"
-            stroke-width="2.2"
+            stroke-opacity="0.16"
+            stroke-width="1.5"
+          />
+          <rect x="22" y="26" width="136" height="112" rx="3" fill="url(#wkm-flap)" />
+          <path
+            d="M46 56 L68 108 L90 70 L112 108 L134 56"
+            fill="none"
+            stroke="#F2F4F1"
+            stroke-width="14"
             stroke-linecap="round"
             stroke-linejoin="round"
-          >
-            <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
-            <path d="m18 15 4-4" />
-            <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
-          </g>
+          />
+          <rect x="22" y="82" width="136" height="56" fill="#000000" fill-opacity="0.16" />
+          <path d="M22 82 H158" stroke="#000000" stroke-opacity="0.78" stroke-width="3" />
+          <path d="M22 84.5 H158" stroke="#ffffff" stroke-opacity="0.10" stroke-width="2" />
+          <rect x="22" y="146" width="136" height="9" rx="1.5" fill="#FFB400" />
         </svg>
-        <span>The Workshop</span>
-      </div>
+        The Workshop
+      </span>
+      <span class="wk-nav-track">
+        <span class="wk-lamp" aria-hidden="true"></span>
+        Project Companion
+      </span>
     </nav>
 
-    {/* ── Hero — centered ── */}
-    <section class="landing-hero">
-      <div class="landing-hero-copy">
-        <p class="landing-eyebrow">
-          <span class="eyebrow-dot"></span>
-          Plan · Build · Curate
-        </p>
-
-        <h1 class="landing-h1">
-          From rough sketch
-          <br />
-          <em class="landing-h1-accent">to finished build.</em>
-        </h1>
-
-        <p class="landing-sub">
-          A single-user companion for woodworking. Cut lists, build logs,
-          Shaper Hub imports, and an AI that fills in the details — so you
-          can spend less time planning and more time building.
-        </p>
-      </div>
-
-      {/* Project cards spread out like folders on a workbench */}
-      <div class="hero-cards">
-        {heroCards.map((card) => (
-          <div class="hero-card" style={`--card-accent:${card.accent}`}>
-            <div class="hero-card-status">
-              <span class="hero-card-dot" style={`background:${card.accent}`}></span>
-              <span style={`color:${card.accent}`}>{card.status}</span>
-            </div>
-            <div class="hero-card-title">{card.title}</div>
-            <div class="hero-card-meta">
-              <span>{card.parts} parts</span>
-              <span class="hero-card-sep">·</span>
-              <span>{card.hours} est.</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* ── Scroll cue ── */}
-    <div class="scroll-hint">
-      <span>↓</span>
-    </div>
-
-    {/* ── Three pillars: Plan / Build / Curate ── */}
-    <section class="landing-pillars">
-      {pillars.map((p) => (
-        <div class="pillar-card">
-          <span class="pillar-icon">{p.icon}</span>
-          <span class="pillar-label">{p.label}</span>
-          <h3 class="pillar-headline">{p.headline}</h3>
-          <p class="pillar-body">{p.body}</p>
-        </div>
-      ))}
-    </section>
-
-    {/* ── URL paste / AI import ── */}
-    <section class="landing-paste-section">
-      <div class="paste-section-inner">
-        <div class="paste-copy">
-          <span class="paste-pill">✨ AI Import</span>
-          <h2 class="paste-h2">
-            Drop a link.
-            <br />
-            Get a <em>cut plan</em>.
-          </h2>
-          <p class="paste-desc">
-            Paste any Shaper Hub project URL. Workshop's AI reads the page,
-            extracts every part and dimension, and generates your cut list —
-            ready to print and take to the shop.
+    {/* ── Hero: the board is the hero. ── */}
+    <header class="wk-hero">
+      <div class="wk-wrap wk-hero-inner">
+        <div>
+          <h1 class="wk-h1">
+            <span>Read your shop like a</span>
+            <span class="lit">departure board.</span>
+          </h1>
+          <p class="wk-hero-sub">
+            Every project is a row that flips into its new state — what is
+            moving, what is queued, what is done, legible from across the
+            room. Underneath each row sits the cut list, the board layout,
+            the materials and the build log.
           </p>
-          <ul class="paste-bullets">
-            <li><span class="bullet-dot"></span>Parts, dimensions, and bit info auto-extracted</li>
-            <li><span class="bullet-dot"></span>Cut plan optimized for your available stock</li>
-            <li><span class="bullet-dot"></span>Materials and build-time estimate included</li>
-          </ul>
-        </div>
-
-        <div class="paste-demo-wrap">
-          <div class="paste-demo">
-            {/* URL input row — shown in its final, analyzed state */}
-            <div class="paste-field-wrap">
-              <div class="paste-field paste-field--active">
-                <span class="paste-icon">🔗</span>
-                <div class="paste-url-area">
-                  <span class="paste-url-text">{demo.url}</span>
-                </div>
-                <div class="paste-check">✓</div>
-              </div>
-            </div>
-
-            {/* Extracted results */}
-            <div class="paste-results">
-              <div class="paste-result-name">{demo.name}</div>
-
-              <div class="paste-stats">
-                {demoStats.map((s) => (
-                  <div class="paste-stat">
-                    <span class="paste-stat-val">{s.v}</span>
-                    <span class="paste-stat-lbl">{s.l}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div class="paste-cut-plan">
-                <span class="paste-cut-lbl">Cut plan generated</span>
-                <div class="paste-boards">
-                  {demo.cuts.map((pct) => (
-                    <div class="paste-board-row">
-                      <div class="paste-board-fill" style={`width:${pct}%`}></div>
-                      <div class="paste-board-waste" style={`width:${100 - pct}%`}></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div class="wk-hero-meta">
+            <span class="wk-chip">Web app</span>
+            <span class="wk-chip">iPhone &amp; iPad</span>
+            <span class="wk-chip">Light &amp; night renditions</span>
           </div>
         </div>
-      </div>
-    </section>
 
-    {/* ── Supporting features ── */}
-    <section class="landing-supporting">
-      <div class="supporting-grid">
-        {supporting.map((f) => (
-          <div class="supporting-card">
-            <span class="supporting-icon">{f.icon}</span>
-            <h4 class="supporting-title">{f.title}</h4>
-            <p class="supporting-desc">{f.desc}</p>
+        <div class="wk-board wk-shopboard">
+          <div class="wk-rail">
+            <span>Shop Board</span>
+            <span class="wk-rail-count">Tue Aug 4 · 17:54</span>
           </div>
-        ))}
-      </div>
-    </section>
-
-    {/* ── Detail strip ── */}
-    <section class="landing-details">
-      {details.map((item) => (
-        <div class="detail-item">
-          <span class="detail-icon">{item.icon}</span>
-          <div>
-            <strong>{item.title}</strong>
-            <p>{item.desc}</p>
-          </div>
-        </div>
-      ))}
-    </section>
-
-    {/* ── Native iOS ── */}
-    <section class="landing-native">
-      <div class="landing-native-inner">
-        <div class="landing-native-copy">
-          <span class="landing-native-pill">
-            <span class="landing-native-dot"></span>
-            Now on iPhone and iPad
-          </span>
-          <h2 class="landing-native-h2">
-            The plan leaves the desk
-            <span class="landing-native-accent">and goes to the saw.</span>
-          </h2>
-          <p class="landing-native-sub">{wkNative.intro}</p>
-
-          <div class="landing-native-grid">
+          <div class="wk-dash">
             {
-              wkNative.highlights.map((h) => (
-                <div class="landing-native-item">
-                  <span class="landing-native-icon">
-                    <Icon name={h.icon} size={15} />
+              boardCells.map((c, ci) => (
+                <div class="wk-dash-cell">
+                  <span class="wk-label">{c.label}</span>
+                  <span class="wk-flaps">
+                    {flapChars(c.value).map((ch, i) => (
+                      <span
+                        class={`wk-flap roll t-${c.tone}`}
+                        style={`animation-delay:${ci * 90 + i * 55}ms`}
+                      >
+                        {ch}
+                      </span>
+                    ))}
                   </span>
-                  <div>
-                    <strong>{h.title}</strong>
-                    <p>{h.body}</p>
-                  </div>
+                  <span class="wk-dash-sub">{c.sub}</span>
                 </div>
               ))
             }
           </div>
-
-          <p class="landing-native-meta">
-            <span class="landing-native-beta">TestFlight beta</span>
-            {wkNative.minOS} or later · {wkNative.devices}
-            &ensp;·&ensp;
-            <a href="/ios#workshop">More about the native apps</a>
-          </p>
         </div>
+      </div>
+    </header>
 
-        <div class="landing-native-phone" aria-hidden="true">
-          <PhoneMock tone="dark">
-            <WorkshopPhone />
-          </PhoneMock>
+    {/* ── The departure board: how a build moves ── */}
+    <section class="wk-section">
+      <div class="wk-wrap">
+        <div class="wk-board">
+          <div class="wk-rail">
+            <span>How a build moves</span>
+            <span class="wk-rail-count">04</span>
+          </div>
+          <div class="wk-board-rows">
+            {
+              departures.map((d) => (
+                <div class="wk-depart">
+                  <span class="wk-depart-track">{d.track}</span>
+                  <span>
+                    <span class="wk-depart-title">{d.title}</span>
+                    <p class="wk-depart-body">{d.body}</p>
+                  </span>
+                  <span class="wk-depart-flag">
+                    <span class={`wk-flag f-${d.flag.tone}`}>{d.flag.text}</span>
+                  </span>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </section>
 
-    {/* ── Bottom strip ── */}
-    <section class="landing-bottom-cta">
-      <div class="bottom-cta-inner">
-        <svg class="bottom-cta-icon" viewBox="0 0 180 180" role="img" aria-label="The Workshop">
+    {/* ── The two mechanisms a notes app could not copy ── */}
+    <section class="wk-section">
+      <div class="wk-wrap">
+        <div class="wk-mech">
+          <article class="wk-mech-panel">
+            <div class="wk-mech-copy">
+              <span class="wk-label">Mechanism 01</span>
+              <h2 class="wk-mech-h">Paste a link, get a project</h2>
+              <p class="wk-body wk-measure">
+                Drop in any plan page and the app reads it, then hands back a
+                real project: every part, every dimension, the wood types and
+                the materials. Nothing is decided for you — it arrives
+                pre-filled and every field stays editable.
+              </p>
+            </div>
+            <div class="wk-mech-figure">
+              <div class="wk-url">
+                <Icon name="layers" size={13} />
+                <span class="wk-url-text">kregtool.com/plans/under-workbench-storage</span>
+                <span class="wk-url-ok" aria-label="Extracted"><Icon name="check" size={13} /></span>
+              </div>
+              <div class="wk-extract">
+                {
+                  extraction.map((e) => (
+                    <div class="wk-extract-row">
+                      <span class="wk-label">{e.label}</span>
+                      <span class="wk-readout">{e.value}</span>
+                    </div>
+                  ))
+                }
+              </div>
+              <div class="wk-parts">
+                {
+                  extractedParts.map((p) => (
+                    <div class="wk-parts-row">
+                      <span>{p.name}</span>
+                      <span class="wk-parts-dim">{p.dim}</span>
+                      <span class="wk-parts-qty">{p.qty}</span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </article>
+
+          <article class="wk-mech-panel">
+            <div class="wk-mech-copy">
+              <span class="wk-label">Mechanism 02</span>
+              <h2 class="wk-mech-h">A cut list that becomes a cutting plan</h2>
+              <p class="wk-body wk-measure">
+                A real board-layout optimiser packs your parts onto the stock
+                you actually have, accounting for kerf, length and grain. It
+                tells you how many boards to buy and exactly what it will
+                leave over — the same algorithm on the web and in your hand.
+              </p>
+            </div>
+            <div class="wk-mech-figure">
+              <div class="wk-sheet" role="img" aria-label="An optimised cut plan sheet at 96% yield">
+                {
+                  sheet.map((p) => (
+                    <span
+                      style={`--x:${p.x};--y:${p.y};--w:${p.w};--h:${p.h};background:${p.c}`}
+                    >
+                      {p.label}
+                    </span>
+                  ))
+                }
+                <span class="waste" style="--x:1.5%;--y:80%;--w:97%;--h:17%">Offcut</span>
+              </div>
+              <div class="wk-sheet-foot">
+                <span class="wk-label">Sheet 01 of 02 · 48" × 96"</span>
+                <span class="wk-flag f-green" style="margin-left:auto">96% yield</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    {/* ── The manifest ── */}
+    <section class="wk-section">
+      <div class="wk-wrap">
+        <div class="wk-board">
+          <div class="wk-rail">
+            <span>What a project holds</span>
+            <span class="wk-rail-count">{String(manifest.length).padStart(2, '0')}</span>
+          </div>
+          <table class="wk-manifest">
+            <thead>
+              <tr>
+                <th scope="col">Section</th>
+                <th scope="col">Detail</th>
+                <th scope="col">Where</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                manifest.map((m) => (
+                  <tr>
+                    <td>{m.row}</td>
+                    <td>{m.detail}</td>
+                    <td>{m.where}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Native iOS ── */}
+    <section class="wk-section">
+      <div class="wk-wrap">
+        <div class="wk-native">
+          <div class="wk-rail">
+            <span>Native on iPhone and iPad</span>
+            <span class="wk-rail-count">TestFlight</span>
+          </div>
+          <div class="wk-native-inner">
+            <div>
+              <span class="wk-label" style="color:#9daaa6">The plan leaves the desk</span>
+              <h2 class="wk-native-h">
+                Nobody plans a build at a keyboard.
+                <span>They plan it standing at the saw.</span>
+              </h2>
+              <p class="wk-native-sub">{wkNative.intro}</p>
+
+              <div class="wk-native-grid">
+                {
+                  wkNative.highlights.map((h) => (
+                    <div class="wk-native-item">
+                      <span class="wk-native-ico">
+                        <Icon name={h.icon} size={13} />
+                      </span>
+                      <div>
+                        <strong>{h.title}</strong>
+                        <p>{h.body}</p>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+
+              <p class="wk-native-foot">
+                <span class="wk-flag f-amber">TestFlight beta</span>
+                <span>{wkNative.minOS} or later · {wkNative.devices}</span>
+                <a href="/ios#workshop">More about the native apps →</a>
+              </p>
+            </div>
+
+            <div class="wk-native-phone" aria-hidden="true">
+              <PhoneMock tone="dark">
+                <WorkshopPhone />
+              </PhoneMock>
+            </div>
+          </div>
+          <div class="wk-tech">
+            {wkNative.tech.map((t) => <span class="wk-chip">{t}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── The stamped plate ── */}
+    <footer class="wk-plate">
+      <div class="wk-wrap">
+        <svg class="wk-plate-mark" viewBox="0 0 180 180" role="img" aria-label="The Workshop">
           <defs>
-            <linearGradient id="wk-bg2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#D49A5C" />
-              <stop offset="1" stop-color="#3D2817" />
+            <linearGradient id="wkp-steel" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4E5A62" />
+              <stop offset="0.45" stop-color="#2B3238" />
+              <stop offset="1" stop-color="#1A2025" />
             </linearGradient>
-            <radialGradient id="wk-top2" cx="50%" cy="-15%" r="85%">
-              <stop offset="0" stop-color="#fff" stop-opacity="0.55" />
-              <stop offset="0.55" stop-color="#fff" stop-opacity="0" />
-            </radialGradient>
+            <linearGradient id="wkp-flap" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#394248" />
+              <stop offset="0.4999" stop-color="#2E363B" />
+              <stop offset="0.5" stop-color="#242B2F" />
+              <stop offset="1" stop-color="#1D2327" />
+            </linearGradient>
           </defs>
-          <rect width="180" height="180" rx="42" fill="url(#wk-bg2)" />
-          <rect width="180" height="180" rx="42" fill="url(#wk-top2)" />
-          <g
-            transform="translate(28.35 28.35) scale(5.137)"
+          <rect width="180" height="180" rx="10" fill="url(#wkp-steel)" />
+          <rect x="22" y="26" width="136" height="112" rx="3" fill="url(#wkp-flap)" />
+          <path
+            d="M46 56 L68 108 L90 70 L112 108 L134 56"
             fill="none"
-            stroke="#ffffff"
-            stroke-width="2.2"
+            stroke="#F2F4F1"
+            stroke-width="14"
             stroke-linecap="round"
             stroke-linejoin="round"
-          >
-            <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
-            <path d="m18 15 4-4" />
-            <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
-          </g>
+          />
+          <rect x="22" y="82" width="136" height="56" fill="#000000" fill-opacity="0.16" />
+          <path d="M22 82 H158" stroke="#000000" stroke-opacity="0.78" stroke-width="3" />
+          <path d="M22 84.5 H158" stroke="#ffffff" stroke-opacity="0.10" stroke-width="2" />
+          <rect x="22" y="146" width="136" height="9" rx="1.5" fill="#FFB400" />
         </svg>
-        <h2 class="bottom-cta-h2">Your next project is waiting.</h2>
-        <p class="bottom-cta-sub">
-          Cut lists, build logs, and Shaper Hub imports — your whole
-          workshop, organized in one place.
+        <h2 class="wk-plate-h">The record outlives the build.</h2>
+        <p class="wk-plate-sub">
+          One shop, one board. Every dimension, every offcut, every coat of
+          finish still legible years after the sawdust is swept up.
         </p>
-        <p class="landing-privacy-note">
-          Questions about your data? Read the <a href="/workshop/privacy">Workshop Privacy Policy</a>.
+        <span class="wk-plate-stamp">Measure twice · Cut once</span>
+        <p class="wk-plate-legal">
+          Questions about your data? Read the
+          <a href="/workshop/privacy">Workshop Privacy Policy</a>.
         </p>
       </div>
-    </section>
+    </footer>
   </div>
 </BaseLayout>

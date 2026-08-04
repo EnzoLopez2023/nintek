@@ -12,6 +12,8 @@ interface Props {
   bare?: boolean;
   /** Load the Cairn editorial fonts (Playfair Display + Inter). */
   fonts?: boolean;
+  /** Load the Workshop board faces (Martian Mono + Archivo). */
+  boardFonts?: boolean;
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   path = '/',
   bare = false,
   fonts = false,
+  boardFonts = false,
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
@@ -47,6 +50,18 @@ const year = new Date().getFullYear();
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+          />
+        </>
+      )
+    }
+    {
+      boardFonts && (
+        <>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..112,400..700&family=Martian+Mono:wdth,wght@75..112,400..800&display=swap"
           />
         </>
       )
