@@ -4,6 +4,7 @@ import CairnPhone from './mocks/ios/Cairn.astro';
 import ShopKeepPhone from './mocks/ios/ShopKeep.astro';
 import WorkshopPhone from './mocks/ios/Workshop.astro';
 import CortexPhone from './mocks/ios/Cortex.astro';
+import TarePhone from './mocks/ios/Tare.astro';
 import { nativeApps, nextNativeApp } from '../data/apps';
 
 const phones: Record<string, any> = {
@@ -11,6 +12,7 @@ const phones: Record<string, any> = {
   shopkeep: ShopKeepPhone,
   workshop: WorkshopPhone,
   cortex: CortexPhone,
+  tare: TarePhone,
 };
 
 const tones: Record<string, 'light' | 'dark'> = {
@@ -18,6 +20,7 @@ const tones: Record<string, 'light' | 'dark'> = {
   shopkeep: 'light',
   workshop: 'dark',
   cortex: 'dark',
+  tare: 'light',
 };
 
 const blurbs: Record<string, string> = {
@@ -25,6 +28,7 @@ const blurbs: Record<string, string> = {
   shopkeep: 'Point the camera at a barcode and the shop files itself.',
   workshop: 'Cut plans computed on device, cut list on your Lock Screen.',
   cortex: 'Eight games and Game Center, all of it offline.',
+  tare: 'Months of health data, on your phone, with no account at all.',
 };
 ---
 
@@ -39,9 +43,9 @@ const blurbs: Record<string, string> = {
         Nintek is going <span class="em">native.</span>
       </h2>
       <p class="ns-lede">
-        The web apps aren&rsquo;t going anywhere — but four of them now have real
+        The web apps aren&rsquo;t going anywhere &mdash; but five of them now have real
         SwiftUI counterparts on iPhone and iPad, sharing one Swift foundation and
-        doing the things only a native app can. All four are in TestFlight beta.
+        doing the things only a native app can. All five are in TestFlight beta.
       </p>
     </div>
 

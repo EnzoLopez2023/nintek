@@ -6,6 +6,7 @@ import CairnPhone from '../components/mocks/ios/Cairn.astro';
 import ShopKeepPhone from '../components/mocks/ios/ShopKeep.astro';
 import WorkshopPhone from '../components/mocks/ios/Workshop.astro';
 import CortexPhone from '../components/mocks/ios/Cortex.astro';
+import TarePhone from '../components/mocks/ios/Tare.astro';
 import { COMPANY, ECOSYSTEM, nativeApps, nextNativeApp } from '../data/apps';
 import type { IconKey } from '../data/apps';
 import '../styles/ios.css';
@@ -15,6 +16,7 @@ const phones: Record<string, any> = {
   shopkeep: ShopKeepPhone,
   workshop: WorkshopPhone,
   cortex: CortexPhone,
+  tare: TarePhone,
 };
 
 const tones: Record<string, 'light' | 'dark'> = {
@@ -22,6 +24,7 @@ const tones: Record<string, 'light' | 'dark'> = {
   shopkeep: 'light',
   workshop: 'dark',
   cortex: 'dark',
+  tare: 'light',
 };
 
 /** Why the ports are worth doing at all. Each of these is something at least one
@@ -68,7 +71,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
 
 <BaseLayout
   title={`Native on iOS — ${COMPANY.name}`}
-  description="Nintek's apps are going native. Four SwiftUI apps for iPhone and iPad — Cairn, ShopKeep, Workshop and Cortex — built on one shared Swift foundation, with widgets, Live Activities, on-device compute and Game Center."
+  description="Nintek's apps are going native. Five SwiftUI apps for iPhone and iPad — Cairn, ShopKeep, Workshop, Cortex and Tare — built on one shared Swift foundation, with widgets, Live Activities, on-device compute and Game Center."
   path="/ios"
 >
   <div class="ios-page">
@@ -87,13 +90,13 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
           </h1>
           <p class="ih-lede">
             {COMPANY.name} started as web apps, and they are still here. But over
-            the last few months four of them grew real SwiftUI counterparts for
+            the last few months five of them grew real SwiftUI counterparts for
             iPhone and iPad — not wrappers around a website, but proper native
             apps that use the camera, the Lock Screen, Siri, Game Center, and a
             shared Swift foundation underneath.
           </p>
           <p class="ih-lede">
-            All four are in <strong>TestFlight beta</strong> right now.
+            All five are in <strong>TestFlight beta</strong> right now.
           </p>
           <div class="ih-stats">
             <div class="ih-stat">

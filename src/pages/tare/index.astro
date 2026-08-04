@@ -1,7 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import Icon from '../../components/Icon.astro';
+import PhoneMock from '../../components/PhoneMock.astro';
+import TarePhone from '../../components/mocks/ios/Tare.astro';
+import { getApp } from '../../data/apps';
 import '../../styles/tare-landing.css';
+
+const native = getApp('tare')!.native!;
 
 /* ── Trust strip (identity copy reworded; no auth language) ── */
 const trust = [
@@ -478,6 +484,51 @@ const vitals = [
               </p>
             </div>
           </article>
+        </div>
+      </section>
+
+      {/* ── Native iOS ── */}
+      <section class="lp-native">
+        <div class="lp-native__grid">
+          <div class="lp-native__phone" aria-hidden="true">
+            <PhoneMock tone="light">
+              <TarePhone />
+            </PhoneMock>
+          </div>
+
+          <div class="lp-native__text">
+            <span class="lp-native__eyebrow">
+              <span class="lp-native__dot"></span>
+              Now on iPhone and iPad
+            </span>
+            <h2 class="lp-native__title">
+              The same history, with <em>no account at all.</em>
+            </h2>
+            <p class="lp-native__sub">{native.intro}</p>
+
+            <div class="lp-native__list">
+              {
+                native.highlights.map((h) => (
+                  <div class="lp-native__item">
+                    <span class="lp-native__icon">
+                      <Icon name={h.icon} size={15} />
+                    </span>
+                    <div>
+                      <strong>{h.title}</strong>
+                      <span>{h.body}</span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+
+            <p class="lp-native__meta">
+              <span class="lp-native__beta">TestFlight beta</span>
+              {native.minOS} or later &middot; {native.devices}
+              &ensp;&middot;&ensp;
+              <a href="/ios#tare">More about the native apps</a>
+            </p>
+          </div>
         </div>
       </section>
 

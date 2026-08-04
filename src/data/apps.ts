@@ -111,11 +111,11 @@ export const apps: App[] = [
     headline: { lead: 'Every number tells a story.', em: 'Read the trend.' },
     description:
       'Track weight, doses, glucose and labs on a GLP-1 journey — then read them together. Ambulatory glucose profiles, zone distributions, kidney and thyroid trends, and an AI analyst that can answer questions about any of it.',
-    quiet: 'Private by default. Your health data never leaves your control.',
+    quiet: 'On iPhone it keeps the whole history without an account at all.',
     icon: 'drop',
     bundleId: 'com.nintek.tare',
     hasPage: true,
-    platforms: { web: true, ios: false },
+    platforms: { web: true, ios: true },
     mockup: {
       title: 'This Month',
       subtitle: 'Trend · weight, doses & glucose',
@@ -123,14 +123,52 @@ export const apps: App[] = [
       live: 'On track',
     },
     native: {
-      status: 'next',
-      thesis: 'Next in line for a native port.',
+      status: 'testflight',
+      thesis:
+        'The longest history of anything in the catalogue, and no account holding it — just your phone and your own iCloud.',
       intro:
-        'Tare is the next app to go native. It is the one that most wants to live on a phone — logging happens in the moment, and the numbers it tracks are the kind you want on a Home Screen rather than behind a browser tab.',
-      highlights: [],
-      tech: [],
-      minOS: '',
-      devices: '',
+        'Tare is the app that gets opened every day, and the one carrying the most history, so the native version was built to hold that history without asking for an account at all. Where the web app signs into Microsoft, this one keeps everything in SwiftData on the device and syncs through your own private iCloud database. Moving across is a single file: export a backup on the web, open it on the phone, and every weight, dose, glucose reading, lab result and photo arrives intact.',
+      highlights: [
+        {
+          icon: 'cloud',
+          title: 'No account, and nothing to sign into',
+          body:
+            'The web app needs a Microsoft login. This one has no sign-in screen at all. Your history lives on the phone and syncs through your own private iCloud database, so there is no server holding a copy and no password to lose.',
+        },
+        {
+          icon: 'package',
+          title: 'Bring the whole history with you',
+          body:
+            'Export a backup from the web app and open it here. Weights, doses, glucose, labs, vitals, diagnoses, side effects, meals, measurements and progress photos all land in one pass — and a copy of whatever is already on the phone is saved first, so the import can be undone.',
+        },
+        {
+          icon: 'chart',
+          title: 'Every chart drawn on the device',
+          body:
+            'Ambulatory glucose profiles, time-in-range bands, weight trends and lab histories are drawn in SwiftUI rather than fetched as images. They redraw the moment you log something, they work with no signal, and changing the range costs nothing.',
+        },
+        {
+          icon: 'sparkle',
+          title: 'An analyst that stays switched off',
+          body:
+            'The doctor report, the insights summary and a chat that can question your own numbers all sit behind one switch that is off until you turn it on, and the switch says plainly what leaves the device first. Off is the default, and off is still a complete app.',
+        },
+        {
+          icon: 'bell',
+          title: 'One reminder, on injection day',
+          body:
+            'Choose the day and the time and the phone schedules the weekly reminder itself. No notification server, no account to attach it to, nothing behind it trying to win back your attention.',
+        },
+        {
+          icon: 'lock',
+          title: 'Shut behind Face ID',
+          body:
+            'An optional lock on launch that takes Face ID or your passcode, never biometrics alone, so a bad match can never strand you outside your own medication history. The app switcher preview is covered too.',
+        },
+      ],
+      tech: ['SwiftUI', 'SwiftData', 'CloudKit', 'Face ID', 'App Attest', 'User Notifications'],
+      minOS: 'iOS 17',
+      devices: 'iPhone and iPad',
     },
   },
   {
