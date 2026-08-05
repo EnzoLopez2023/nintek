@@ -19,12 +19,15 @@ const dro = [
   { label: 'Library value', fig: '$48,621', cap: 'at purchase', tone: 'rest' },
 ];
 
-/* ── The alarms panel: the first four of seven, as the head reports ── */
+/* ── The alarms panel, exactly as LIB.01 ships it: six rows summing to the
+   seven the head reports. The counts have to add up — it is the whole claim. ── */
 const alarms = [
   { state: 'missing', name: 'Overdue checkout', count: '01' },
   { state: 'repair', name: 'Maintenance overdue', count: '01' },
   { state: 'service', name: 'Maintenance due soon', count: '02' },
   { state: 'repair', name: 'Warranty expired', count: '01' },
+  { state: 'service', name: 'Warranty expiring', count: '01' },
+  { state: 'service', name: 'Low stock', count: '01' },
 ];
 
 /* ── A slice of LIB.02, so the register anatomy reads on the page ── */
