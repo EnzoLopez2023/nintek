@@ -1,41 +1,325 @@
 ---
-import Icon from '../Icon.astro';
+// ShopKeep on the web: the Tool Library dashboard, in the same machine-control
+// world the native app ships in. One inset graphite readout across the top,
+// then the register itself as a seated panel.
+//
+// Status is drawn as the move a tool is making — a solid line for a move the
+// shop can account for, a dashed one for a move it cannot, plus an arrowhead
+// once the tool has left the building.
 
-const stats = [
-  { label: 'Total Tools', value: '247', icon: 'package', bg: 'var(--copper-soft)', fg: 'var(--copper)' },
-  { label: 'Needs Attention', value: '3', icon: 'alert', bg: '#fef3e2', fg: '#c2761a' },
-  { label: 'Checked Out', value: '2', icon: 'user', bg: '#ece9fa', fg: '#6d5bd0' },
-  { label: 'Total Value', value: '$14,820', icon: 'dollar', bg: '#e4f5ee', fg: '#1f9d6b' },
-] as const;
-
-const items = [
-  { name: 'Festool TS 55 REQ', sub: 'Track Saws · Festool', badge: 'excellent', icon: 'package' },
-  { name: 'Bessey K-Body Revo', sub: 'Clamps · Bessey', badge: 'good', icon: 'hammer' },
-  { name: 'Lie-Nielsen No. 4', sub: 'Hand Planes · Lie-Nielsen', badge: 'excellent', icon: 'grid' },
+const tools = [
+  {
+    code: 'T-214',
+    name: 'Cordless Hammer Drill',
+    meta: 'Power Tools · DeWalt',
+    state: 'rest',
+    move: 'Available',
+    wear: 4,
+  },
+  {
+    code: 'T-188',
+    name: 'Track Saw TS 55 REQ',
+    meta: 'Saws · Festool',
+    state: 'issued',
+    move: 'Checked out',
+    wear: 3,
+  },
+  {
+    code: 'T-163',
+    name: 'Router RT0701C',
+    meta: 'Power Tools · Makita',
+    state: 'service',
+    move: 'Maintenance',
+    wear: 1,
+  },
 ] as const;
 ---
 
-<div class="stat-row">
-  {stats.map((s) => (
-    <div class="stat">
-      <div class="stat-icon" style={`background:${s.bg};color:${s.fg}`}><Icon name={s.icon} /></div>
-      <div class="stat-label">{s.label}</div>
-      <div class="stat-value">{s.value}</div>
+<div class="skw">
+  {/* ── The readout. One per screen. ── */}
+  <div class="skw-dro">
+    <div class="skw-cell">
+      <span class="skw-cell-label">Tools in library</span>
+      <span class="skw-cell-fig">134</span>
+      <span class="skw-cell-cap">9 categories</span>
     </div>
-  ))}
+    <div class="skw-cell">
+      <span class="skw-cell-label">Checked out</span>
+      <span class="skw-cell-fig issued">003</span>
+      <span class="skw-cell-cap">3 signed out</span>
+    </div>
+    <div class="skw-cell">
+      <span class="skw-cell-label">In service</span>
+      <span class="skw-cell-fig service">007</span>
+      <span class="skw-cell-cap">repair or maintenance</span>
+    </div>
+    <div class="skw-cell">
+      <span class="skw-cell-label">Library value</span>
+      <span class="skw-cell-fig rest">$48,621</span>
+      <span class="skw-cell-cap">USD · insured basis</span>
+    </div>
+  </div>
+
+  {/* ── The register ── */}
+  <div class="skw-panel">
+    <div class="skw-panel-head">
+      <span class="skw-panel-title">Tool library</span>
+      <span class="skw-panel-meta">01–03 of 134</span>
+    </div>
+    {
+      tools.map((t) => (
+        <div class="skw-row">
+          <span class="skw-code">{t.code}</span>
+          <span class="skw-names">
+            <span class="skw-name">{t.name}</span>
+            <span class="skw-meta">{t.meta}</span>
+          </span>
+          <span class="skw-wear" aria-hidden="true">
+            {[0, 1, 2, 3].map((i) => (
+              <i class={i < t.wear ? `on ${t.state}` : ''} />
+            ))}
+          </span>
+          <span class={`skw-move ${t.state}`}>
+            <svg width="28" height="8" viewBox="0 0 28 8" aria-hidden="true">
+              <line
+                x1="0"
+                y1="4"
+                x2={t.state === 'issued' ? '20' : '28'}
+                y2="4"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-dasharray={t.state === 'service' ? '4 3.5' : undefined}
+              />
+              {t.state === 'issued' && (
+                <path d="M20 0.6 27 4l-7 3.4z" fill="currentColor" />
+              )}
+            </svg>
+            {t.move}
+          </span>
+        </div>
+      ))
+    }
+  </div>
 </div>
 
-<div class="itemcards">
-  {items.map((it) => (
-    <div class="itemcard">
-      <div class="itemcard-img">
-        <span class={`itemcard-badge badge-${it.badge}`}>{it.badge === 'excellent' ? 'Excellent' : 'Good'}</span>
-        <Icon name={it.icon} size={24} />
-      </div>
-      <div class="itemcard-body">
-        <div class="itemcard-name">{it.name}</div>
-        <div class="itemcard-sub">{it.sub}</div>
-      </div>
-    </div>
-  ))}
-</div>
+<style>
+  /* ---- library palette, light ----
+     Lifted verbatim from the shipping app's `library` skin. */
+  .skw {
+    --sk-cream-soft: #ebf2ee;
+    --sk-paper: #fafdfb;
+    --sk-ink: #101a17;
+    --sk-ink-soft: #3a4742;
+    --sk-subtle: #5c6c66;
+    --sk-line: #c6d3cd;
+    --sk-line-strong: #9baea7;
+
+    --sk-dro-bg: #101a17;
+    --sk-dro-ink: #e8f2ee;
+    --sk-dro-muted: #8ca39b;
+    --sk-dro-rule: #2a3733;
+
+    --sk-rest: #00764a;
+    --sk-issued: #0a6fa6;
+    --sk-service: #9a6300;
+    --sk-rest-lit: #3ed494;
+    --sk-issued-lit: #4fbaf0;
+    --sk-service-lit: #ffb833;
+
+    --sk-num: 'Martian Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+      monospace;
+
+    color: var(--sk-ink);
+  }
+
+  /* ---- the readout ---- */
+  .skw-dro {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* The hairlines between cells are the rule showing through the gap. */
+    background: var(--sk-dro-rule);
+    gap: 1px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .skw-cell {
+    background: var(--sk-dro-bg);
+    padding: 11px 12px 12px;
+    min-width: 0;
+  }
+  .skw-cell-label {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    line-height: 1.25;
+    color: var(--sk-dro-muted);
+    /* Two lines are always reserved so the figures stay on one baseline. */
+    min-height: 2.5em;
+  }
+  .skw-cell-fig {
+    display: block;
+    font-family: var(--sk-num);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--sk-dro-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .skw-cell-fig.issued {
+    color: var(--sk-issued-lit);
+  }
+  .skw-cell-fig.service {
+    color: var(--sk-service-lit);
+  }
+  .skw-cell-fig.rest {
+    color: var(--sk-rest-lit);
+  }
+  .skw-cell-cap {
+    display: block;
+    font-size: 0.58rem;
+    color: var(--sk-dro-muted);
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ---- the register, seated on the cabinet ---- */
+  .skw-panel {
+    background: var(--sk-paper);
+    border: 1px solid var(--sk-line);
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(16, 26, 23, 0.1);
+    overflow: hidden;
+  }
+  .skw-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 12px;
+    background: var(--sk-cream-soft);
+    border-bottom: 1px solid var(--sk-line);
+  }
+  .skw-panel-title {
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: var(--sk-ink-soft);
+  }
+  .skw-panel-meta {
+    font-family: var(--sk-num);
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--sk-subtle);
+    font-variant-numeric: tabular-nums;
+  }
+  .skw-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+  }
+  .skw-row + .skw-row {
+    border-top: 1px solid var(--sk-line);
+  }
+  .skw-code {
+    font-family: var(--sk-num);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--sk-subtle);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+  .skw-names {
+    flex: 1;
+    min-width: 0;
+  }
+  .skw-name {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--sk-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .skw-meta {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--sk-subtle);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Condition is a quantity, not a pill: four segments filled to what is left. */
+  .skw-wear {
+    display: inline-flex;
+    gap: 2px;
+    flex: none;
+  }
+  .skw-wear i {
+    display: block;
+    width: 5px;
+    height: 11px;
+    box-shadow: inset 0 0 0 1px var(--sk-line-strong);
+  }
+  .skw-wear i.on.rest {
+    background: var(--sk-rest);
+    box-shadow: none;
+  }
+  .skw-wear i.on.issued {
+    background: var(--sk-issued);
+    box-shadow: none;
+  }
+  .skw-wear i.on.service {
+    background: var(--sk-service);
+    box-shadow: none;
+  }
+
+  /* Status is the move the tool is making. */
+  .skw-move {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex: none;
+    width: 116px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+  }
+  .skw-move svg {
+    flex: none;
+  }
+  .skw-move.rest {
+    color: var(--sk-rest);
+  }
+  .skw-move.issued {
+    color: var(--sk-issued);
+  }
+  .skw-move.service {
+    color: var(--sk-service);
+  }
+
+  @container (max-width: 460px) {
+    .skw-dro {
+      grid-template-columns: 1fr 1fr;
+    }
+    .skw-move {
+      width: auto;
+    }
+    .skw-meta {
+      display: none;
+    }
+  }
+</style>

@@ -14,6 +14,8 @@ interface Props {
   fonts?: boolean;
   /** Load the Workshop board faces (Martian Mono + Archivo). */
   boardFonts?: boolean;
+  /** Load the ShopKeep Tool Library faces (Saira + Martian Mono). */
+  libraryFonts?: boolean;
 }
 
 const {
@@ -24,6 +26,7 @@ const {
   bare = false,
   fonts = false,
   boardFonts = false,
+  libraryFonts = false,
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
@@ -62,6 +65,18 @@ const year = new Date().getFullYear();
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..112,400..700&family=Martian+Mono:wdth,wght@75..112,400..800&display=swap"
+          />
+        </>
+      )
+    }
+    {
+      libraryFonts && (
+        <>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400..800&family=Saira:wght@400..800&display=swap"
           />
         </>
       )

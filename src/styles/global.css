@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 /* ============================================================
-   Nintek — warm "ShopKeep" theme (cream / copper / walnut)
+   Nintek — the site's own warm theme (cream / copper / walnut)
+   Note: this is Nintek's identity, not any one app's. ShopKeep now ships
+   in its own Tool Library world — see src/styles/shopkeep-landing.css.
    ============================================================ */
 :root {
   /* surfaces */
@@ -384,111 +386,6 @@ h3 {
 }
 .mockup-dot.g {
   background: #86efac;
-}
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 9px;
-  margin-bottom: 16px;
-}
-.stat {
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  padding: 11px 12px;
-}
-.stat-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-}
-.stat-icon svg {
-  width: 14px;
-  height: 14px;
-}
-.stat-label {
-  font-size: 0.6rem;
-  color: var(--ink-muted);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.stat-value {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-}
-.itemcards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-.itemcard {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  overflow: hidden;
-}
-.itemcard-img {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-}
-.itemcard-img svg {
-  width: 24px;
-  height: 24px;
-  opacity: 0.6;
-}
-.itemcard-badge {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  padding: 2px 8px;
-  border-radius: 9999px;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-.badge-excellent {
-  background: var(--excellent-bg);
-  color: var(--excellent-fg);
-}
-.badge-good {
-  background: var(--good-bg);
-  color: var(--good-fg);
-}
-.itemcard-body {
-  padding: 8px 9px 10px;
-}
-.itemcard-name {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--ink);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.itemcard-sub {
-  font-size: 0.62rem;
-  color: var(--ink-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-top: 1px;
 }
 /* floating chips */
 .chip {
@@ -1124,182 +1021,6 @@ h3 {
   opacity: 1;
 }
 
-/* ---- ShopKeep scanner ---- */
-.ios-scan {
-  gap: 0;
-}
-.ios-scan-frame {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  border-radius: 18px;
-  margin-bottom: 10px;
-  background:
-    radial-gradient(90% 60% at 50% 35%, rgba(255, 255, 255, 0.09), transparent 70%),
-    linear-gradient(165deg, #241a12, #120c07);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  overflow: hidden;
-}
-.ios-scan-corner {
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  border: 2.6px solid rgba(240, 195, 162, 0.95);
-}
-.ios-scan-corner.tl {
-  top: 26px;
-  left: 22px;
-  border-right: 0;
-  border-bottom: 0;
-  border-radius: 8px 0 0 0;
-}
-.ios-scan-corner.tr {
-  top: 26px;
-  right: 22px;
-  border-left: 0;
-  border-bottom: 0;
-  border-radius: 0 8px 0 0;
-}
-.ios-scan-corner.bl {
-  bottom: 26px;
-  left: 22px;
-  border-right: 0;
-  border-top: 0;
-  border-radius: 0 0 0 8px;
-}
-.ios-scan-corner.br {
-  bottom: 26px;
-  right: 22px;
-  border-left: 0;
-  border-top: 0;
-  border-radius: 0 0 8px 0;
-}
-.ios-scan-line {
-  position: absolute;
-  left: 26px;
-  right: 26px;
-  height: 2px;
-  border-radius: 9999px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(240, 195, 162, 0.95),
-    transparent
-  );
-  box-shadow: 0 0 12px rgba(240, 195, 162, 0.7);
-  animation: ios-scan 2.8s var(--ease) infinite;
-}
-@keyframes ios-scan {
-  0%,
-  100% {
-    top: 34px;
-  }
-  50% {
-    bottom: 34px;
-    top: auto;
-  }
-}
-.ios-barcode {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 46px;
-  transform: rotate(-2deg);
-}
-.ios-barcode i {
-  display: block;
-  width: var(--w);
-  height: 100%;
-  background: rgba(246, 239, 230, 0.88);
-  border-radius: 1px;
-}
-.ios-scan-hint {
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: rgba(240, 195, 162, 0.9);
-  font-variant-numeric: tabular-nums;
-}
-.ios-sheet {
-  border-radius: 18px 18px 14px 14px;
-  padding: 8px 11px 11px;
-  background: rgba(253, 250, 247, 0.96);
-  color: var(--ink);
-  box-shadow: 0 -8px 22px -12px rgba(0, 0, 0, 0.6);
-}
-.ios-sheet-grab {
-  display: block;
-  width: 32px;
-  height: 3.5px;
-  border-radius: 9999px;
-  background: var(--border-strong);
-  margin: 0 auto 9px;
-}
-.ios-sheet-row {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-.ios-sheet-thumb {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  background: var(--copper-soft);
-  border: 1px solid var(--copper-edge);
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-}
-.ios-sheet-text {
-  min-width: 0;
-  flex: 1;
-}
-.ios-sheet-name {
-  font-size: 0.68rem;
-  font-weight: 700;
-  line-height: 1.25;
-}
-.ios-sheet-sub {
-  font-size: 0.58rem;
-  color: var(--ink-muted);
-  margin-top: 1px;
-}
-.ios-sheet-check {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--emerald);
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-}
-.ios-sheet-loc {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 9px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
-  font-size: 0.6rem;
-  color: var(--ink-soft);
-}
-.ios-sheet-pin {
-  color: var(--accent);
-  line-height: 0;
-  flex: none;
-}
-.ios-sheet-loc b {
-  color: var(--ink);
-}
-
 /* ---- Cortex game hub ---- */
 .ios-hub {
   gap: 9px;
@@ -1512,45 +1233,6 @@ h3 {
   transform: scale(0.76);
   transform-origin: right center;
 }
-/* The scanner mock is the densest of the four; tighten it at rail scale so the
-   brackets, barcode and caption never collide. */
-.ns-phone .ios-scan-frame {
-  gap: 8px;
-}
-.ns-phone .ios-scan-corner {
-  width: 17px;
-  height: 17px;
-  border-width: 2px;
-}
-.ns-phone .ios-scan-corner.tl,
-.ns-phone .ios-scan-corner.tr {
-  top: 13px;
-}
-.ns-phone .ios-scan-corner.bl,
-.ns-phone .ios-scan-corner.br {
-  bottom: 13px;
-}
-.ns-phone .ios-scan-corner.tl,
-.ns-phone .ios-scan-corner.bl {
-  left: 12px;
-}
-.ns-phone .ios-scan-corner.tr,
-.ns-phone .ios-scan-corner.br {
-  right: 12px;
-}
-.ns-phone .ios-scan-line {
-  left: 14px;
-  right: 14px;
-}
-.ns-phone .ios-barcode {
-  height: 30px;
-}
-.ns-phone .ios-scan-hint {
-  font-size: 0.46rem;
-}
-.ns-phone .ios-sheet-name {
-  font-size: 0.55rem;
-}
 .ns-phone .phone-body {
   padding: 9px 9px 11px;
 }
@@ -1666,9 +1348,6 @@ h3 {
   }
 }
 @media (max-width: 560px) {
-  .stat-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .phone-chip {
     left: 50%;
     bottom: -16px;
@@ -1691,15 +1370,6 @@ h3 {
     border-radius: var(--r-md);
   }
 }
-@container (max-width: 420px) {
-  .stat-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .stat-value {
-    font-size: 0.9rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
