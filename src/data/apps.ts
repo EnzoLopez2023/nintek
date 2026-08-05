@@ -258,16 +258,18 @@ export const apps: App[] = [
     tagline: 'Pass the exam. Keep the knowledge.',
     headline: { lead: 'Study with intent.', em: 'Walk in ready.' },
     description:
-      'Fifty-four Microsoft certification tracks and eight full Microsoft curricula, with practice, flashcards, study guides and timed papers — all bundled into the app, with no account and no network.',
+      'Fifty-four Microsoft certification tracks with practice, flashcards, study guides and timed papers. The iOS app adds eight complete Microsoft curricula and runs with no account and no network at all.',
     quiet: 'No account, no server, no network calls. On iPad it is a two-column app, not a stretched phone.',
     icon: 'layers',
     bundleId: 'com.nintek.cairn',
     hasPage: true,
     platforms: { web: true, ios: true },
+    /* The home-page frame is browser chrome, so it shows the web dashboard.
+       Courses are iOS-only and must not be advertised on a web surface. */
     mockup: {
-      title: 'Open curricula',
-      subtitle: 'Eight Microsoft courses, mirrored offline',
-      chip: 'Offline · no account',
+      title: 'Study sheet',
+      subtitle: 'Certification tiers, resumed where you stopped',
+      chip: '54 tracks · 5,300+ questions',
       live: 'Studying',
     },
     native: {

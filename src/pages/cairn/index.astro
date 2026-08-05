@@ -50,7 +50,8 @@ const demo = {
   path={`/${app.slug}`}
   noindex={true}
   bare={true}
-  fonts={true}
+  cairnFonts={true}
+  themeColor="#edf2f8"
 >
   <div class="lp">
     {/* ── Background atmosphere ── */}
@@ -107,25 +108,27 @@ const demo = {
               <div class="lp__stone lp__stone--5">AI-901</div>
             </div>
 
+            {/* The datum the stack rests on, then the readout below it. */}
+            <div class="lp__cairn-ground"></div>
+
             <div class="lp__capstone">
               <span class="lp__capstone-pulse"></span>
               READY · 82%
             </div>
 
-            <div class="lp__cairn-ground"></div>
-
             <div class="lp__cairn-caption">
               <span><strong>5 stones placed.</strong> More certifications waiting on the trail.</span>
             </div>
-
-            <div class="lp__ticker">
-              <div class="lp__ticker-track">
-                {[...tickerCodes, ...tickerCodes].map((code) => (
-                  <span>{code}<span class="lp__ticker-dot"> · </span></span>
-                ))}
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
+
+      {/* The full registry, running the measure — 34 of the 54 tracks. */}
+      <div class="lp__ticker" aria-hidden="true">
+        <div class="lp__ticker-track">
+          {[...tickerCodes, ...tickerCodes].map((code) => (
+            <span>{code}<span class="lp__ticker-dot"> · </span></span>
+          ))}
         </div>
       </div>
     </section>
@@ -143,11 +146,11 @@ const demo = {
             <div class="lp__trust-label">Practice questions across domains — written, explained, scored.</div>
           </div>
           <div class="lp__trust-item">
-            <div class="lp__trust-num"><em>Adaptive</em></div>
+            <div class="lp__trust-num lp__trust-num--word"><em>Adaptive</em></div>
             <div class="lp__trust-label">Drill engine surfaces the weakest subdomain on every session.</div>
           </div>
           <div class="lp__trust-item">
-            <div class="lp__trust-num"><em>Timed</em></div>
+            <div class="lp__trust-num lp__trust-num--word"><em>Timed</em></div>
             <div class="lp__trust-label">Microsoft-style sandbox mirrors the real exam format, every type.</div>
           </div>
         </div>
@@ -307,103 +310,68 @@ const demo = {
                 <BrandMark size={16} />
                 Cairn
               </span>
-              <span class="lp__mockup-pill">
-                <span class="lp__mockup-pill-dot"></span>
-                12-day streak
-              </span>
-            </div>
-
-            <div class="lp__mockup-hero">
-              <div class="lp__mockup-welcome">Welcome back, Enzo.</div>
-              <h3 class="lp__mockup-h">
-                Your Microsoft certification
-                <br />
-                <em>study companion.</em>
-              </h3>
-            </div>
-
-            <div class="lp__mockup-stats">
-              <div class="lp__mockup-stat">
-                <div class="lp__mockup-stat-num">37</div>
-                <div class="lp__mockup-stat-label">Sections</div>
-                <div class="lp__mockup-stat-meta">across 4 tracks</div>
-              </div>
-              <div class="lp__mockup-stat">
-                <div class="lp__mockup-stat-num">412</div>
-                <div class="lp__mockup-stat-label">Practice Qs</div>
-                <div class="lp__mockup-stat-meta">questions answered</div>
-              </div>
-              <div class="lp__mockup-stat lp__mockup-stat--accent">
-                <div class="lp__mockup-stat-num">748</div>
-                <div class="lp__mockup-stat-label">Best Score</div>
-                <div class="lp__mockup-stat-meta">tap for AI insights</div>
-              </div>
+              <span class="lp__mockup-meta">Study sheet · 2026-08-05</span>
             </div>
 
             <div class="lp__mockup-body">
-              <div class="lp__mockup-resume">
-                <span class="lp__mockup-resume-label">Resume where you left</span>
-                <span class="lp__mockup-resume-title">Generative AI &amp; Agents</span>
-                <span class="lp__mockup-resume-code">AI-901 · Study Guide · §5</span>
-                <div class="lp__mockup-bar">
-                  <div class="lp__mockup-bar-fill" style="width: 64%;"></div>
+              <div class="lp__mockup-welcome">Good morning.</div>
+              <div class="lp__mockup-hero">
+                Your Microsoft certification <em>study companion.</em>
+              </div>
+
+              <div class="lp__mockup-stats">
+                <div class="lp__mockup-stat">
+                  <div class="lp__mockup-stat-label">Sections</div>
+                  <div class="lp__mockup-stat-num">34</div>
+                  <div class="lp__mockup-stat-meta">across 3 tracks</div>
                 </div>
-                <div class="lp__mockup-resume-foot">
-                  <span>64% through this section</span>
-                  <strong>Continue</strong>
+                <div class="lp__mockup-stat">
+                  <div class="lp__mockup-stat-label">Practice Qs</div>
+                  <div class="lp__mockup-stat-num">1,208</div>
+                  <div class="lp__mockup-stat-meta">questions answered</div>
+                </div>
+                <div class="lp__mockup-stat lp__mockup-stat--accent">
+                  <div class="lp__mockup-stat-label">Best score</div>
+                  <div class="lp__mockup-stat-num">812</div>
+                  <div class="lp__mockup-stat-meta">scaled, out of 1000</div>
                 </div>
               </div>
 
-              <div class="lp__mockup-levels">
-                <div class="lp__mockup-level lp__mockup-level--active">
-                  <div>
-                    <span class="lp__mockup-level-title">
-                      Fundamentals <span class="lp__mockup-level-dot"></span>
-                    </span>
-                    <div class="lp__mockup-level-sub">Entry-level certs. Cloud, AI, data.</div>
-                  </div>
-                  <div>
-                    <div class="lp__mockup-level-foot">
-                      <span class="lp__mockup-level-num">7</span>
-                      <span class="lp__mockup-level-meta">active · 9 total</span>
-                    </div>
-                    <div class="lp__mockup-level-progress">2 in progress</div>
-                  </div>
+              <p class="lp__mockup-h">Pick up here</p>
+              <div class="lp__mockup-resume">
+                <span class="lp__mockup-resume-label">Continue · 2 days ago</span>
+                <div class="lp__mockup-resume-title">Generative AI &amp; Agents</div>
+                <div class="lp__mockup-bar">
+                  <span class="lp__mockup-bar-fill" style="width: 64%;"></span>
                 </div>
-                <div class="lp__mockup-level">
-                  <div>
-                    <span class="lp__mockup-level-title">Associate</span>
-                    <div class="lp__mockup-level-sub">Day-to-day operator credentials.</div>
-                  </div>
-                  <div class="lp__mockup-level-foot">
-                    <span class="lp__mockup-level-num">14</span>
-                    <span class="lp__mockup-level-meta">active</span>
-                  </div>
+                <div class="lp__mockup-resume-foot">
+                  <span>AI-901 · Study guide · §5 · 64%</span>
+                  <span>Resume →</span>
                 </div>
-                <div class="lp__mockup-level">
-                  <div>
-                    <span class="lp__mockup-level-title">Specialty</span>
-                    <div class="lp__mockup-level-sub">Domain-specialist credentials.</div>
-                  </div>
-                  <div class="lp__mockup-level-foot">
-                    <span class="lp__mockup-level-num">5</span>
-                    <span class="lp__mockup-level-meta">active</span>
-                  </div>
+              </div>
+
+              <p class="lp__mockup-h" style="margin-top: 20px;">Certification tiers · 05</p>
+              <div class="lp__mockup-tiers">
+                <div class="lp__mockup-tier lp__mockup-tier--hi">
+                  <div class="lp__mockup-tier-name">Fundamentals</div>
+                  <div class="lp__mockup-tier-desc">Entry-level cloud, AI and data concepts.</div>
+                  <div class="lp__mockup-tier-count">08 exams</div>
+                  <div class="lp__mockup-tier-badge">2 in progress</div>
                 </div>
-                <div class="lp__mockup-level lp__mockup-level--active">
-                  <div>
-                    <span class="lp__mockup-level-title">
-                      Expert <span class="lp__mockup-level-dot"></span>
-                    </span>
-                    <div class="lp__mockup-level-sub">Architect + cross-domain capstones.</div>
-                  </div>
-                  <div>
-                    <div class="lp__mockup-level-foot">
-                      <span class="lp__mockup-level-num">4</span>
-                      <span class="lp__mockup-level-meta">active</span>
-                    </div>
-                    <div class="lp__mockup-level-progress">1 in progress</div>
-                  </div>
+                <div class="lp__mockup-tier">
+                  <div class="lp__mockup-tier-name">Associate</div>
+                  <div class="lp__mockup-tier-desc">Day-to-day operator and engineer credentials.</div>
+                  <div class="lp__mockup-tier-count">26 exams</div>
+                </div>
+                <div class="lp__mockup-tier">
+                  <div class="lp__mockup-tier-name">Applied Skills</div>
+                  <div class="lp__mockup-tier-desc">Scenario-based, project-shaped credentials.</div>
+                  <div class="lp__mockup-tier-count">10 exams</div>
+                </div>
+                <div class="lp__mockup-tier">
+                  <div class="lp__mockup-tier-name">Specialty</div>
+                  <div class="lp__mockup-tier-desc">Narrow, deep workloads like SAP and virtual desktop.</div>
+                  <div class="lp__mockup-tier-count">06 exams</div>
                 </div>
               </div>
             </div>
@@ -532,6 +500,7 @@ const demo = {
       </div>
     </section>
   </div>
+
 </BaseLayout>
 
 <style>
@@ -580,19 +549,42 @@ const demo = {
     line-height: 1.55;
     color: var(--muted);
   }
+  /* Framed with registration marks, the way the app frames a panel — not
+     lifted with a shadow or tagged with a coloured side tab. */
   .lp-cx__pad-note {
+    position: relative;
     margin-top: 40px;
-    padding: 24px 26px;
+    padding: 26px 28px;
     border: 1px solid var(--line);
-    border-left: 3px solid var(--rust);
     border-radius: var(--r-md);
     background: var(--paper);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--seat);
+  }
+  .lp-cx__pad-note::before,
+  .lp-cx__pad-note::after {
+    content: '';
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border: 1px solid var(--accent);
+    opacity: 0.55;
+  }
+  .lp-cx__pad-note::before {
+    top: 7px;
+    left: 7px;
+    border-width: 1px 0 0 1px;
+  }
+  .lp-cx__pad-note::after {
+    right: 7px;
+    bottom: 7px;
+    border-width: 0 1px 1px 0;
   }
   .lp-cx__pad-note h3 {
     margin: 0 0 8px;
+    font-family: var(--display);
     font-size: 1.12rem;
     font-weight: 700;
+    letter-spacing: -0.025em;
     color: var(--ink);
   }
   .lp-cx__pad-note p {

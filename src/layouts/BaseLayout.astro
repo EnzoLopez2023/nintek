@@ -10,12 +10,15 @@ interface Props {
   path?: string;
   /** Render without the site header/footer/background — for self-contained pages. */
   bare?: boolean;
-  /** Load the Cairn editorial fonts (Playfair Display + Inter). */
-  fonts?: boolean;
+  /** Load the Cairn Blueprint faces (Archivo + Instrument Sans + IBM Plex Mono). */
+  cairnFonts?: boolean;
   /** Load the Workshop board faces (Martian Mono + Archivo). */
   boardFonts?: boolean;
   /** Load the ShopKeep Tool Library faces (Saira + Martian Mono). */
   libraryFonts?: boolean;
+  /** Browser chrome tint. Defaults to the Nintek house cream; a re-skinned
+      app page should pass its own page colour so the chrome matches. */
+  themeColor?: string;
 }
 
 const {
@@ -24,9 +27,10 @@ const {
   noindex = false,
   path = '/',
   bare = false,
-  fonts = false,
+  cairnFonts = false,
   boardFonts = false,
   libraryFonts = false,
+  themeColor = '#f5f0ea',
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
@@ -46,13 +50,13 @@ const year = new Date().getFullYear();
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {
-      fonts && (
+      cairnFonts && (
         <>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap"
           />
         </>
       )
@@ -86,7 +90,7 @@ const year = new Date().getFullYear();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="theme-color" content="#f5f0ea" />
+    <meta name="theme-color" content={themeColor} />
   </head>
   <body>
     {

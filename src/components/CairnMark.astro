@@ -1,21 +1,63 @@
 ---
+/*
+  The Cairn mark: four stacked stones with a single vermilion capstone — the
+  marker that tells a walker they are still on the route.
+
+  Geometry is the app's `CairnMark` (Cairn/App/Blueprint.swift), which is in
+  turn the favicon's, verbatim, in a 24x24 box. Same object as the app icon and
+  the web app's in-chrome mark. It used to be three flat rust ellipses with no
+  capstone, which matched nothing that shipped.
+
+  One-Drawing Rule: nav, CTAs and mocks all render this component, so the mark
+  changes in one place.
+*/
 interface Props {
   size?: number;
+  /** Flat fill instead of the cobalt gradient — for single-colour contexts. */
+  color?: string;
+  /** The capstone is what makes it a cairn rather than a pile. */
+  capstone?: boolean;
 }
-const { size = 22 } = Astro.props;
+const { size = 22, color, capstone = true } = Astro.props;
 const gid = `cairn-stone-${Math.random().toString(36).slice(2, 8)}`;
+const fill = color ?? `url(#${gid})`;
+
+/* cy, rx, ry — the taper the app draws. */
+const stones = [
+  { cy: 18.9, rx: 8.0, ry: 2.2 },
+  { cy: 13.3, rx: 6.3, ry: 2.0 },
+  { cy: 8.1, rx: 4.5, ry: 1.8 },
+  { cy: 3.65, rx: 2.4, ry: 1.35 },
+];
 ---
 
-<svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:inline-block;flex-shrink:0">
-  <defs>
-    <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"    stop-color="#B17153" />
-      <stop offset="0.55" stop-color="#A0522D" />
-      <stop offset="1"    stop-color="#703920" />
-    </linearGradient>
-  </defs>
-  <ellipse cx="12" cy="19"  rx="9"   ry="2.4" fill={`url(#${gid})`} />
-  <ellipse cx="12" cy="13"  rx="7"   ry="2.2" fill={`url(#${gid})`} />
-  <ellipse cx="12" cy="7.5" rx="5"   ry="2"   fill={`url(#${gid})`} />
-  <ellipse cx="12" cy="3"   rx="2.6" ry="1.4" fill={`url(#${gid})`} />
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  aria-hidden="true"
+  style="display:inline-block;flex-shrink:0"
+>
+  {
+    !color && (
+      <defs>
+        <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3D7DEC" />
+          <stop offset="1" stop-color="#1450BD" />
+        </linearGradient>
+      </defs>
+    )
+  }
+  {
+    stones.map((s, i) => (
+      <ellipse
+        cx="12"
+        cy={s.cy}
+        rx={s.rx}
+        ry={s.ry}
+        fill={i === stones.length - 1 && capstone ? '#E4572E' : fill}
+      />
+    ))
+  }
 </svg>

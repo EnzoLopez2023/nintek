@@ -1,23 +1,37 @@
 ---
-/* Figures track the shipping catalogue: 54 tracks with content across five
-   tiers. Progress numbers are one plausible learner. */
+// Cairn on the web: the study-sheet home. Same surface the React app ships —
+// greeting, three measured readouts, the resume card, then the certification
+// tiers — drawn in the app's Blueprint identity.
+//
+// House rules, taken from Cairn/App/Theme.swift and Blueprint.swift:
+//   · Cobalt #1B5FD9 is structure. Vermilion #E4572E is attention, and is
+//     spent once per screen — here, on the best-score readout and the spine
+//     of the card asking to be resumed.
+//   · IBM Plex Mono is for measured things only: codes, scores, counts.
+//   · Panels are framed with a hairline and corner registration marks, never
+//     lifted with a shadow.
+//   · Radii come from Theme.R — 3 / 6 / 10 / 14 and nothing between.
+
 const stats = [
-  { label: 'SECTIONS',    value: '34',    sub: 'across 3 tracks' },
-  { label: 'PRACTICE QS', value: '1,208', sub: 'questions answered' },
-  { label: 'BEST SCORE',  value: '812',   sub: 'tap for AI insights', hi: true },
+  { label: 'Sections',    value: '34',    sub: 'across 3 tracks' },
+  { label: 'Practice Qs', value: '1,208', sub: 'questions answered' },
+  { label: 'Best score',  value: '812',   sub: 'scaled, out of 1000', hi: true },
 ];
 
-const tracks = [
-  { name: 'Fundamentals',   desc: 'Entry-level certs. Cloud, AI, data.', count: '8 active',  badge: '2 in progress' },
-  { name: 'Associate',      desc: 'Day-to-day operator credentials.',    count: '26 active', badge: '' },
-  { name: 'Applied Skills', desc: 'Scenario-based, project-shaped.',     count: '10 active', badge: '' },
-  { name: 'Specialty',      desc: 'Domain-specialist credentials.',      count: '6 active',  badge: '' },
-  { name: 'Expert',         desc: 'Architect + cross-domain capstones.', count: '4 active',  badge: '1 in progress', hi: true },
+/* Counts are the shipping catalogue: 54 tracks that carry content, across
+   five tiers. Progress belongs to one plausible learner. */
+const tiers = [
+  { name: 'Fundamentals',   desc: 'Entry-level cloud, AI and data concepts.',   count: '08', badge: '2 in progress' },
+  { name: 'Associate',      desc: 'Day-to-day operator and engineer credentials.', count: '26' },
+  { name: 'Applied Skills', desc: 'Scenario-based, project-shaped credentials.', count: '10' },
+  { name: 'Specialty',      desc: 'Narrow, deep workloads like SAP and AVD.',    count: '06' },
+  { name: 'Expert',         desc: 'Architect and cross-domain capstones.',       count: '04', badge: '1 in progress' },
 ];
 ---
 
 <div class="ck">
   <div class="ck-greet">Welcome back, Enzo.</div>
+  <div class="ck-head">Your Microsoft certification <em>study companion.</em></div>
 
   <div class="ck-stats">
     {stats.map((s) => (
@@ -29,69 +43,274 @@ const tracks = [
     ))}
   </div>
 
+  <div class="ck-rule"><span>Pick up here</span></div>
+
   <div class="ck-resume">
-    <div class="ck-resume-l">RESUME WHERE YOU LEFT</div>
+    <div class="ck-resume-l">Continue · 2 days ago</div>
     <div class="ck-resume-title">Generative AI &amp; Agents</div>
-    <div class="ck-resume-sub">AI-901 · Study Guide · §5</div>
-    <div class="ck-bar-wrap">
-      <span class="ck-bar-fill" style="width:64%"></span>
-    </div>
+    <div class="ck-bar"><span style="width:64%"></span></div>
     <div class="ck-resume-foot">
-      <span class="ck-resume-pct">64% through this section</span>
-      <span class="ck-continue">Continue →</span>
+      <span>AI-901 · Study guide · §5 · 64%</span>
+      <span class="ck-continue">Resume →</span>
     </div>
   </div>
 
-  <div class="ck-tracks">
-    {tracks.map((t) => (
-      <div class={`ck-track${t.hi ? ' hi' : ''}`}>
-        <div class="ck-track-name">{t.name}</div>
-        <div class="ck-track-desc">{t.desc}</div>
-        <div class="ck-track-count">{t.count}</div>
-        {t.badge && <div class="ck-track-badge">{t.badge}</div>}
+  <div class="ck-rule"><span>Certification tiers · 05</span></div>
+
+  <div class="ck-tiers">
+    {tiers.map((t) => (
+      <div class="ck-tier">
+        <div class="ck-tier-name">{t.name}</div>
+        <div class="ck-tier-desc">{t.desc}</div>
+        <div class="ck-tier-foot">
+          <span class="ck-tier-count">{t.count} exams</span>
+          {t.badge && <span class="ck-tier-badge">{t.badge}</span>}
+        </div>
       </div>
     ))}
   </div>
 </div>
 
 <style>
-  .ck { display: flex; flex-direction: column; gap: 11px; }
+  /* Local tokens: the mock renders the app, not the site, so it must not
+     inherit the site's theme variables. */
+  .ck {
+    --ck-page: #edf2f8;
+    --ck-paper: #ffffff;
+    --ck-sunken: #f4f8fd;
+    --ck-line: #d5e0ed;
+    --ck-line-strong: #b6c8de;
+    --ck-ink: #0a2540;
+    --ck-ink-soft: #28405c;
+    --ck-muted: #546d8b;
+    --ck-accent: #1b5fd9;
+    --ck-accent-tint: #e8f0fd;
+    --ck-signal: #e4572e;
+    --ck-signal-ink: #c33e17;
+    --ck-signal-tint: #fdefe9;
+    --ck-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --ck-display: 'Archivo', system-ui, -apple-system, sans-serif;
 
-  .ck-greet { font-size: 11px; color: var(--ink-muted); }
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--ck-ink);
+  }
 
-  .ck-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .ck-greet {
+    font-size: 10.5px;
+    color: var(--ck-muted);
+  }
+  .ck-head {
+    font-family: var(--ck-display);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    color: var(--ck-ink);
+    margin-bottom: 3px;
+  }
+  .ck-head em {
+    font-style: normal;
+    color: var(--ck-accent);
+  }
+
+  .ck-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
   .ck-stat {
-    border: 1px solid var(--border); border-radius: var(--r-md);
-    padding: 10px 11px; background: var(--cream-soft);
+    padding: 9px 10px;
+    border: 1px solid var(--ck-line);
+    border-radius: 10px;
+    background: var(--ck-paper);
   }
-  .ck-stat.hi { background: var(--copper-soft); border-color: var(--copper-edge); }
-  .ck-stat-l { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
-  .ck-stat-v { font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1; }
-  .ck-stat-sub { font-size: 9.5px; color: var(--ink-muted); margin-top: 2px; }
+  .ck-stat.hi {
+    border-color: #f3cdbc;
+    background: var(--ck-signal-tint);
+  }
+  .ck-stat-l {
+    font-family: var(--ck-mono);
+    font-size: 8px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ck-muted);
+  }
+  .ck-stat-v {
+    font-family: var(--ck-mono);
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ck-ink);
+  }
+  .ck-stat.hi .ck-stat-v {
+    color: var(--ck-signal-ink);
+  }
+  .ck-stat-sub {
+    font-size: 9px;
+    color: var(--ck-muted);
+  }
 
+  /* SectionRule: a mono label, a hairline running to the end of the measure,
+     and five measurement ticks. This replaces a bold heading. */
+  .ck-rule {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+  }
+  .ck-rule span {
+    flex-shrink: 0;
+    font-family: var(--ck-mono);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ck-muted);
+  }
+  .ck-rule::after {
+    content: '';
+    flex: 1;
+    height: 6px;
+    border-left: 1px solid var(--ck-line);
+    border-right: 1px solid var(--ck-line);
+    background:
+      linear-gradient(var(--ck-line), var(--ck-line)) 0 100% / 100% 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--ck-line) 0 1px, transparent 1px 6px) 100% 0 /
+        26px 100% no-repeat;
+  }
+
+  /* CatalogView.resumeCard is paper, a hairline and CropMarks at 0.32. The
+     app frames this card; it does not tag it with a coloured edge. */
   .ck-resume {
-    background: var(--cream-soft); border: 1px solid var(--border);
-    border-radius: var(--r-md); padding: 11px 13px;
+    position: relative;
+    padding: 10px 12px;
+    border: 1px solid var(--ck-line);
+    border-radius: 14px;
+    background: var(--ck-paper);
   }
-  .ck-resume-l { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 5px; }
-  .ck-resume-title { font-size: 13px; font-weight: 700; color: var(--ink); }
-  .ck-resume-sub   { font-size: 11px; color: var(--ink-soft); margin-top: 1px; margin-bottom: 8px; }
-  .ck-bar-wrap { height: 6px; border-radius: 99px; background: var(--border); overflow: hidden; margin-bottom: 6px; }
-  .ck-bar-fill { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
-  .ck-resume-foot { display: flex; align-items: center; justify-content: space-between; }
-  .ck-resume-pct  { font-size: 10.5px; color: var(--ink-muted); }
-  .ck-continue    { font-size: 11px; font-weight: 600; color: var(--accent-deep); }
+  .ck-resume::before,
+  .ck-resume::after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 1px solid var(--ck-accent);
+    opacity: 0.32;
+  }
+  .ck-resume::before {
+    top: 5px;
+    left: 5px;
+    border-width: 1px 0 0 1px;
+  }
+  .ck-resume::after {
+    right: 5px;
+    bottom: 5px;
+    border-width: 0 1px 1px 0;
+  }
+  .ck-resume-l {
+    font-family: var(--ck-mono);
+    font-size: 8px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ck-accent);
+  }
+  .ck-resume-title {
+    font-family: var(--ck-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ck-ink);
+    margin-top: 2px;
+  }
+  .ck-bar {
+    height: 4px;
+    margin: 8px 0 6px;
+    border-radius: 3px;
+    background: var(--ck-line);
+    overflow: hidden;
+  }
+  .ck-bar span {
+    display: block;
+    height: 100%;
+    border-radius: 3px;
+    background: var(--ck-accent);
+  }
+  .ck-resume-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--ck-mono);
+    font-size: 9px;
+    color: var(--ck-muted);
+  }
+  .ck-continue {
+    color: var(--ck-accent);
+  }
 
-  .ck-tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  /* Five tiers in two columns: the last one takes the full row. */
-  .ck-track:last-child { grid-column: 1 / -1; }
-  .ck-track {
-    border: 1px solid var(--border); border-radius: var(--r-md);
-    padding: 10px 11px; background: var(--cream-soft);
+  .ck-tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
   }
-  .ck-track.hi { border-color: var(--copper-edge); background: var(--copper-soft); }
-  .ck-track-name  { font-size: 12px; font-weight: 700; color: var(--ink); }
-  .ck-track-desc  { font-size: 10px; color: var(--ink-muted); margin: 2px 0 5px; }
-  .ck-track-count { font-size: 10.5px; color: var(--ink-soft); font-weight: 600; }
-  .ck-track-badge { font-size: 10px; font-weight: 600; color: var(--accent-deep); margin-top: 3px; }
+  /* Five tiers in two columns: the last takes the full row. */
+  .ck-tier:last-child {
+    grid-column: 1 / -1;
+  }
+  .ck-tier {
+    position: relative;
+    padding: 9px 10px;
+    border: 1px solid var(--ck-line);
+    border-radius: 10px;
+    background: var(--ck-paper);
+  }
+  /* CropMarks: two corner L-rules per panel, cobalt at 0.55. */
+  .ck-tier::before,
+  .ck-tier::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--ck-accent);
+    opacity: 0.55;
+  }
+  .ck-tier::before {
+    top: 4px;
+    left: 4px;
+    border-width: 1px 0 0 1px;
+  }
+  .ck-tier::after {
+    right: 4px;
+    bottom: 4px;
+    border-width: 0 1px 1px 0;
+  }
+  .ck-tier-name {
+    font-family: var(--ck-display);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ck-ink);
+  }
+  .ck-tier-desc {
+    font-size: 9.5px;
+    line-height: 1.4;
+    color: var(--ck-muted);
+    margin: 1px 0 5px;
+  }
+  .ck-tier-foot {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--ck-mono);
+    font-size: 9px;
+  }
+  .ck-tier-count {
+    color: var(--ck-ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .ck-tier-badge {
+    color: var(--ck-signal-ink);
+  }
 </style>
