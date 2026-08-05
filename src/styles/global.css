@@ -690,6 +690,19 @@ h3 {
     linear-gradient(175deg, #221407, #140c05 60%, #1d1108);
   color: #f6efe6;
 }
+/* Cairn ships a navy blueprint UI, so its shell is graphite rather than walnut
+   and the screen carries the faint plotting grid the app draws behind itself. */
+.phone.navy {
+  background: linear-gradient(150deg, #3c434f, #14181f 45%, #262c36);
+}
+.phone.navy .phone-screen {
+  background:
+    linear-gradient(rgba(122, 162, 224, 0.05) 1px, transparent 1px) 0 0 / 100% 22px,
+    linear-gradient(90deg, rgba(122, 162, 224, 0.05) 1px, transparent 1px) 0 0 / 22px 100%,
+    radial-gradient(130% 70% at 50% 0%, #16233b 0%, transparent 62%),
+    linear-gradient(175deg, #0d1524, #080d17 60%, #0b1220);
+  color: #e8eefb;
+}
 .phone-island {
   position: absolute;
   top: 8px;

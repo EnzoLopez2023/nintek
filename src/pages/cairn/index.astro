@@ -4,7 +4,9 @@ import BrandMark from '../../components/CairnMark.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import Icon from '../../components/Icon.astro';
 import PhoneMock from '../../components/PhoneMock.astro';
+import TabletMock from '../../components/TabletMock.astro';
 import CairnPhone from '../../components/mocks/ios/Cairn.astro';
+import CairnPad from '../../components/mocks/ios/CairnPad.astro';
 import { getApp } from '../../data/apps';
 import '../../styles/cairn-landing.css';
 
@@ -12,9 +14,24 @@ const app = getApp('cairn')!;
 const native = app.native!;
 
 const tickerCodes = [
-  'AZ-104', 'AZ-305', 'AZ-400', 'AZ-500', 'AZ-700', 'AI-102', 'AI-900',
-  'DP-203', 'DP-300', 'DP-600', 'DP-700', 'SC-100', 'SC-200', 'SC-300',
-  'SC-900', 'PL-300', 'PL-400', 'PL-900', 'MS-102', 'MD-102',
+  'AZ-104', 'AZ-305', 'AZ-400', 'AZ-500', 'AZ-700', 'AZ-140', 'AZ-800',
+  'AI-102', 'AI-901', 'DP-300', 'DP-600', 'DP-700', 'DP-900', 'SC-100',
+  'SC-200', 'SC-300', 'SC-401', 'SC-900', 'PL-300', 'PL-400', 'PL-900',
+  'MS-102', 'MS-700', 'MD-102', 'MB-230', 'MB-310', 'MB-330', 'MB-500',
+  'MB-800', 'MB-820', 'GH-100', 'GH-200', 'GH-300', 'GH-500',
+];
+
+/* Courses are iOS-only by design: they are free curricula, not certifications,
+   so they have no pass score, no timed paper and no weighted domains. */
+const courses = [
+  { name: 'AI for Beginners', lessons: 24 },
+  { name: 'Generative AI for Beginners', lessons: 21 },
+  { name: 'Machine Learning for Beginners', lessons: 27 },
+  { name: 'Data Science for Beginners', lessons: 20 },
+  { name: 'Web Development for Beginners', lessons: 25 },
+  { name: 'AI Agents for Beginners', lessons: 18 },
+  { name: 'IoT for Beginners', lessons: 24 },
+  { name: 'MCP for Beginners', lessons: 60 },
 ];
 
 const demo = {
@@ -65,10 +82,11 @@ const demo = {
               <em>Reach the summit.</em>
             </h1>
             <p class="lp__hero-lede">
-              Cairn is a focused study companion for 20+ Microsoft exams — guided
+              Cairn is a focused study companion for 54 Microsoft exams — guided
               readings with analogies and diagrams, an adaptive drill engine that
               hunts your weak spots, and a timed sandbox that tells you, honestly,
-              whether you&rsquo;re ready.
+              whether you&rsquo;re ready. The iOS app adds eight complete Microsoft
+              curricula for learning the ground without chasing a certificate.
             </p>
             <div class="lp__cta-row">
               <span class="lp__cta-meta">
@@ -117,11 +135,11 @@ const demo = {
       <div class="lp__container">
         <div class="lp__trust-grid">
           <div class="lp__trust-item">
-            <div class="lp__trust-num"><em>20+</em></div>
-            <div class="lp__trust-label">Microsoft certification tracks, from Fundamentals to Expert.</div>
+            <div class="lp__trust-num"><em>54</em></div>
+            <div class="lp__trust-label">Microsoft certification tracks, from Fundamentals to Applied Skills.</div>
           </div>
           <div class="lp__trust-item">
-            <div class="lp__trust-num"><em>1,000+</em></div>
+            <div class="lp__trust-num"><em>5,300+</em></div>
             <div class="lp__trust-label">Practice questions across domains — written, explained, scored.</div>
           </div>
           <div class="lp__trust-item">
@@ -394,7 +412,62 @@ const demo = {
       </div>
     </section>
 
-    {/* ── Native iOS ── */}
+    {/* ── Courses + iPad (iOS only) ── */}
+    <section class="lp__section lp-cx" style="padding-top: 0;">
+      <div class="lp__container">
+        <div class="lp__section-head">
+          <span class="lp__section-eyebrow">On iPhone and iPad only</span>
+          <h2 class="lp__section-title">
+            Eight complete curricula, for learning the ground.
+          </h2>
+          <p class="lp__section-sub">
+            Not everyone is chasing a certificate. The iOS app carries Microsoft&rsquo;s
+            free &ldquo;for Beginners&rdquo; courses in full — 219 lessons mirrored word
+            for word, with every diagram, lab, notebook and quiz bundled in. There is no
+            pass score and no timed paper here, and no link ever leaves the app to read
+            the material.
+          </p>
+        </div>
+
+        <div class="lp-cx__grid">
+          <div class="lp-cx__pad">
+            <TabletMock chip="iPad · two columns" live="iPad first">
+              <CairnPad />
+            </TabletMock>
+          </div>
+
+          <div class="lp-cx__side">
+            <ul class="lp-cx__list">
+              {
+                courses.map((c) => (
+                  <li>
+                    <span class="lp-cx__name">{c.name}</span>
+                    <span class="lp-cx__n">{c.lessons} lessons</span>
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="lp-cx__note">
+              Every course is a faithful offline mirror of its Microsoft repository,
+              redistributed under its own MIT licence with the notice intact.
+            </p>
+          </div>
+        </div>
+
+        <div class="lp-cx__pad-note">
+          <h3>The iPad layout came first, not last.</h3>
+          <p>
+            On iPad, navigation moves into the title bar, card grids resolve to two
+            columns, and reading surfaces hold a measured line length rather than running
+            the full width of the display. Column widths are tuned per size class — the
+            grid above is the shipping layout, and its minimum column width exists
+            specifically so an 11-inch iPad in portrait still gets two columns.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
     <section class="lp__native">
       <div class="lp__container">
         <div class="lp__native-grid">
@@ -433,7 +506,7 @@ const demo = {
           </div>
 
           <div class="lp__native-phone" aria-hidden="true">
-            <PhoneMock tone="dark">
+            <PhoneMock tone="navy">
               <CairnPhone />
             </PhoneMock>
           </div>
@@ -460,3 +533,80 @@ const demo = {
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  /* ---- Courses + iPad ---- */
+  .lp-cx__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+    margin-top: 34px;
+  }
+  .lp-cx__pad {
+    min-width: 0;
+  }
+  .lp-cx__side {
+    min-width: 0;
+  }
+  .lp-cx__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .lp-cx__list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 2px;
+    border-bottom: 1px solid var(--line);
+  }
+  .lp-cx__name {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+  .lp-cx__n {
+    flex: none;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .lp-cx__note {
+    margin: 16px 0 0;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .lp-cx__pad-note {
+    margin-top: 40px;
+    padding: 24px 26px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--rust);
+    border-radius: var(--r-md);
+    background: var(--paper);
+    box-shadow: var(--shadow-soft);
+  }
+  .lp-cx__pad-note h3 {
+    margin: 0 0 8px;
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .lp-cx__pad-note p {
+    margin: 0;
+    max-width: 78ch;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 900px) {
+    .lp-cx__grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+</style>

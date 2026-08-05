@@ -1,15 +1,18 @@
 ---
+/* Figures track the shipping catalogue: 54 tracks with content across five
+   tiers. Progress numbers are one plausible learner. */
 const stats = [
-  { label: 'SECTIONS',    value: '37',  sub: 'across 4 tracks' },
-  { label: 'PRACTICE QS', value: '412', sub: 'questions answered' },
-  { label: 'BEST SCORE',  value: '748', sub: 'tap for AI insights', hi: true },
+  { label: 'SECTIONS',    value: '34',    sub: 'across 3 tracks' },
+  { label: 'PRACTICE QS', value: '1,208', sub: 'questions answered' },
+  { label: 'BEST SCORE',  value: '812',   sub: 'tap for AI insights', hi: true },
 ];
 
 const tracks = [
-  { name: 'Fundamentals', desc: 'Entry-level certs. Cloud, AI, data.', count: '7 active · 9 total', badge: '2 in progress' },
-  { name: 'Associate',    desc: 'Day-to-day operator credentials.',    count: '14 active',          badge: '' },
-  { name: 'Specialty',    desc: 'Domain-specialist credentials.',      count: '5 active',           badge: '' },
-  { name: 'Expert',       desc: 'Architect + cross-domain capstones.', count: '4 active',           badge: '1 in progress', hi: true },
+  { name: 'Fundamentals',   desc: 'Entry-level certs. Cloud, AI, data.', count: '8 active',  badge: '2 in progress' },
+  { name: 'Associate',      desc: 'Day-to-day operator credentials.',    count: '26 active', badge: '' },
+  { name: 'Applied Skills', desc: 'Scenario-based, project-shaped.',     count: '10 active', badge: '' },
+  { name: 'Specialty',      desc: 'Domain-specialist credentials.',      count: '6 active',  badge: '' },
+  { name: 'Expert',         desc: 'Architect + cross-domain capstones.', count: '4 active',  badge: '1 in progress', hi: true },
 ];
 ---
 
@@ -80,6 +83,8 @@ const tracks = [
   .ck-continue    { font-size: 11px; font-weight: 600; color: var(--accent-deep); }
 
   .ck-tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  /* Five tiers in two columns: the last one takes the full row. */
+  .ck-track:last-child { grid-column: 1 / -1; }
   .ck-track {
     border: 1px solid var(--border); border-radius: var(--r-md);
     padding: 10px 11px; background: var(--cream-soft);

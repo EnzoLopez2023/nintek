@@ -258,25 +258,37 @@ export const apps: App[] = [
     tagline: 'Pass the exam. Keep the knowledge.',
     headline: { lead: 'Study with intent.', em: 'Walk in ready.' },
     description:
-      'Adaptive flashcards and practice exams that track every objective domain, so you always know exactly where you stand before test day.',
-    quiet: 'On iPhone there is no account at all — and no internet required.',
+      'Fifty-four Microsoft certification tracks and eight full Microsoft curricula, with practice, flashcards, study guides and timed papers — all bundled into the app, with no account and no network.',
+    quiet: 'No account, no server, no network calls. On iPad it is a two-column app, not a stretched phone.',
     icon: 'layers',
     bundleId: 'com.nintek.cairn',
     hasPage: true,
     platforms: { web: true, ios: true },
     mockup: {
-      title: 'Exam Readiness',
-      subtitle: 'AZ-104 · Azure Administrator',
-      chip: 'Quiz complete · +120 XP',
+      title: 'Open curricula',
+      subtitle: 'Eight Microsoft courses, mirrored offline',
+      chip: 'Offline · no account',
       live: 'Studying',
     },
     native: {
       status: 'testflight',
       thesis:
-        'No account, no network, no excuses — the entire exam library lives on your phone.',
+        'No account, no network, no excuses — the entire library lives on your device.',
       intro:
-        'Cairn was the first port, and it went furthest. There is no sign-in, no server and no sync service: your progress lives in your own iCloud account, and every question, flashcard and study guide ships inside the app. It is the version of Cairn that works in a basement, on a plane, or in the twenty minutes before a test.',
+        'Cairn was the first port, and it went furthest. There is no sign-in, no server and no sync service: your progress lives in your own iCloud account, and every question, flashcard, study guide and lesson ships inside the app. iOS is now where Cairn is developed first — the courses below exist here and nowhere else — and the iPad layout was designed alongside the iPhone one rather than after it.',
       highlights: [
+        {
+          icon: 'book',
+          title: 'Eight full curricula, iOS only',
+          body:
+            "Microsoft's free courses — AI, Generative AI, Machine Learning, Data Science, Web Development, AI Agents, IoT and MCP for Beginners — mirrored word for word across 219 lessons, with every image, lab, notebook and quiz. No certification required, and no link ever leaves the app to read the material.",
+        },
+        {
+          icon: 'ruler',
+          title: 'Designed for iPad, not stretched to it',
+          body:
+            'Navigation moves into the title bar, grids resolve to two columns, and reading surfaces hold a measured line length instead of running the full width of the display. The column widths are tuned per size class, down to the 11-inch iPad in portrait.',
+        },
         {
           icon: 'cloud',
           title: 'No login. Ever.',
@@ -285,9 +297,9 @@ export const apps: App[] = [
         },
         {
           icon: 'package',
-          title: 'Every exam, offline',
+          title: 'Everything, offline',
           body:
-            'The full question bank, flashcards, study guides and glossary are bundled into the app. Nothing to download, nothing to wait for, nothing that breaks when the signal drops.',
+            'Question banks, flashcards, study guides, glossaries and whole course curricula are bundled into the app. Nothing to download, nothing to wait for, nothing that breaks when the signal drops.',
         },
         {
           icon: 'widget',
@@ -316,7 +328,7 @@ export const apps: App[] = [
       ],
       tech: ['SwiftUI', 'SwiftData', 'CloudKit', 'WidgetKit', 'ActivityKit', 'App Intents'],
       minOS: 'iOS 17',
-      devices: 'iPhone and iPad',
+      devices: 'iPad and iPhone',
     },
   },
   {

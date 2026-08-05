@@ -19,8 +19,8 @@ const phones: Record<string, any> = {
   tare: TarePhone,
 };
 
-const tones: Record<string, 'light' | 'dark'> = {
-  cairn: 'dark',
+const tones: Record<string, 'light' | 'dark' | 'navy'> = {
+  cairn: 'navy',
   shopkeep: 'light',
   workshop: 'dark',
   cortex: 'dark',
@@ -61,10 +61,22 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
       'Ask for a study session, jump straight to the scanner, pull up a project by name from system search, or wire any of it into a Shortcut. The apps became part of the system instead of sitting behind a browser tab.',
   },
   {
+    icon: 'ruler',
+    title: 'iPad, designed rather than stretched',
+    body:
+      'Cairn moves its navigation into the title bar on iPad, resolves its card grids to two columns, and holds a measured line length on reading surfaces instead of running the full width of the display. Column minimums are tuned per size class, down to the 11-inch iPad in portrait — the size that quietly collapses to one column if you guess.',
+  },
+  {
     icon: 'cloud',
     title: 'Less infrastructure, not more',
     body:
       'Going native let two of these apps drop their backends entirely. Cairn has no account and no server. Cortex has no network at all. Fewer moving parts is a feature, not a compromise.',
+  },
+  {
+    icon: 'book',
+    title: 'Native builds get the new work first',
+    body:
+      'Development now lands on iOS ahead of the web. Cairn is the clearest case: its eight full Microsoft curricula — 219 lessons mirrored offline with every lab, notebook and quiz — exist in the native app and nowhere else. The web apps continue, but they follow.',
   },
 ];
 ---

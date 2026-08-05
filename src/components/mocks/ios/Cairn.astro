@@ -1,46 +1,307 @@
 ---
-// Cairn on the Lock Screen: a timed exam Live Activity plus the streak widget.
+/*
+  Cairn for iOS — the Exams home, drawn from the shipping app.
+
+  Cairn's design language is a drafting sheet: a faint plotting grid, corner
+  brackets instead of drop shadows, mono uppercase micro-labels, and counts
+  zero-padded to a fixed width so a column of them stays in step. Structural
+  colour is blue; anything the learner should act on is vermilion. The app
+  carries both appearances — this is the dark one, which is what the iPad
+  screenshots show and what reads best against the site's cream page.
+
+  Product figures are exact: 54 tracks with content, 5,319 questions, 5 tiers.
+  Progress figures are one plausible learner, not a shipped fixture.
+*/
+
+const stats = [
+  { n: '34', label: 'Sections', foot: 'across 3 tracks' },
+  { n: '1,208', label: 'Practice Qs', foot: 'questions answered' },
+  { n: '812', label: 'Best score', foot: 'scaled, out of 1000', warm: true },
+];
+
+const tiers = [
+  { name: 'Fundamentals', count: '08', blurb: 'Entry-level cloud, AI and data concepts.' },
+  { name: 'Associate', count: '26', blurb: 'Day-to-day operator and engineer credentials.' },
+  { name: 'Expert', count: '04', blurb: 'Architect and administrator ceilings.' },
+  { name: 'Specialty', count: '06', blurb: 'Narrow, deep workloads like SAP and virtual desktop.' },
+  { name: 'Applied Skills', count: '10', blurb: 'Scenario-based, project-shaped credentials.' },
+];
 ---
 
-<div class="ios ios-lock">
-  <div class="ios-lock-clock">
-    <span class="ios-lock-date">Thursday, 12 June</span>
-    <span class="ios-lock-time">9:41</span>
+<div class="ios ckio">
+  <div class="ckio-rule">
+    <span class="ckio-mono">Study sheet · 2026-08-05</span>
+    <span class="ckio-ticks" aria-hidden="true"></span>
   </div>
 
-  <div class="ios-la">
-    <div class="ios-la-head">
-      <span class="ios-la-app">
-        <span class="ios-la-mark" aria-hidden="true"></span>
-        Cairn
-      </span>
-      <span class="ios-la-code">AZ-104</span>
+  <p class="ckio-greet">Good morning.</p>
+  <h3 class="ckio-head">
+    Your Microsoft certification <em>study companion.</em>
+  </h3>
+
+  <div class="ckio-card ckio-stats">
+    <div class="ckio-statrow">
+      {
+        stats.map((s) => (
+          <div class="ckio-stat">
+            <span class:list={['ckio-statnum', s.warm && 'warm']}>{s.n}</span>
+            <span class="ckio-statlabel">{s.label}</span>
+            <span class="ckio-statfoot">{s.foot}</span>
+          </div>
+        ))
+      }
     </div>
-    <div class="ios-la-main">
-      <div>
-        <p class="ios-la-label">Exam sandbox</p>
-        <p class="ios-la-sub">Question 34 of 60</p>
-      </div>
-      <span class="ios-la-timer">42:18</span>
+    <div class="ckio-statfooter">
+      <span class="ckio-mono ckio-link">Full report →</span>
     </div>
-    <div class="ios-la-bar"><span style="width: 57%"></span></div>
   </div>
 
-  <div class="ios-widget-row">
-    <div class="ios-widget">
-      <span class="ios-widget-flame" aria-hidden="true">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2c1 3 4 4.5 4 8a4 4 0 0 1-8 0c0-1 .3-1.8 1-2.5C8 9 9 5 12 2z"
-          ></path>
-        </svg>
-      </span>
-      <span class="ios-widget-num">18</span>
-      <span class="ios-widget-cap">days streak</span>
-    </div>
-    <div class="ios-widget">
-      <span class="ios-widget-cap">Cards due today</span>
-      <span class="ios-widget-num sm">24</span>
-      <span class="ios-widget-foot">Best score · 86%</span>
-    </div>
+  <div class="ckio-rule ckio-rule-sec">
+    <span class="ckio-mono">Pick up here</span>
+    <span class="ckio-ticks" aria-hidden="true"></span>
+  </div>
+
+  <div class="ckio-card ckio-resume">
+    <span class="ckio-mono ckio-accent">Continue · 2 days ago</span>
+    <span class="ckio-code">AI-200</span>
+    <p class="ckio-title">Azure AI Cloud Developer Associate</p>
+    <p class="ckio-sub">You drilled questions here.</p>
+    <span class="ckio-btn">Resume →</span>
+  </div>
+
+  <div class="ckio-rule ckio-rule-sec">
+    <span class="ckio-mono">Certification tiers</span>
+    <span class="ckio-ticks" aria-hidden="true"></span>
+    <span class="ckio-mono">05 tiers</span>
+  </div>
+
+  <div class="ckio-tiers">
+    {
+      tiers.map((t) => (
+        <div class="ckio-card ckio-tier">
+          <span class="ckio-mono ckio-tiercount">{t.count} exams</span>
+          <p class="ckio-tiername">{t.name}</p>
+          <p class="ckio-sub">{t.blurb}</p>
+        </div>
+      ))
+    }
   </div>
 </div>
+
+<style>
+  .ckio {
+    --ck-ink: #eaf1fb;
+    --ck-soft: #b3c4dd;
+    --ck-muted: #7e93b4;
+    --ck-line: rgba(110, 150, 215, 0.22);
+    --ck-line-strong: rgba(120, 165, 235, 0.42);
+    --ck-panel: rgba(19, 32, 53, 0.72);
+    --ck-blue: #4c8dff;
+    --ck-warm: #e4572e;
+    --ck-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+    gap: 0.5em;
+    color: var(--ck-ink);
+    overflow: hidden;
+  }
+
+  /* ---- section rules: a mono label, then ruler ticks to the margin ---- */
+  .ckio-rule {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .ckio-rule-sec {
+    margin-top: 0.15em;
+  }
+  .ckio-ticks {
+    flex: 1;
+    height: 5px;
+    border-left: 1px solid var(--ck-line);
+    border-right: 1px solid var(--ck-line);
+    background: repeating-linear-gradient(
+      90deg,
+      var(--ck-line) 0 1px,
+      transparent 1px 5px
+    );
+  }
+  .ckio-mono {
+    font-family: var(--ck-mono);
+    font-size: 0.62em;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ck-muted);
+    white-space: nowrap;
+  }
+  .ckio-accent {
+    color: var(--ck-blue);
+  }
+  .ckio-link {
+    color: var(--ck-blue);
+    font-weight: 600;
+  }
+
+  /* ---- headline ---- */
+  .ckio-greet {
+    flex: none;
+    color: var(--ck-soft);
+    font-size: 0.92em;
+  }
+  .ckio-head {
+    flex: none;
+    margin: 0;
+    color: var(--ck-ink);
+    font-size: 1.42em;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+  .ckio-head em {
+    font-style: normal;
+    color: var(--ck-blue);
+  }
+
+  /* ---- corner-bracket card: Cairn frames panels, it does not shadow them ---- */
+  .ckio-card {
+    position: relative;
+    flex: none;
+    background: var(--ck-panel);
+    border: 1px solid var(--ck-line);
+    border-radius: 7px;
+    padding: 0.6em;
+  }
+  .ckio-card::before,
+  .ckio-card::after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 1.5px solid var(--ck-line-strong);
+    pointer-events: none;
+  }
+  .ckio-card::before {
+    top: 3px;
+    left: 3px;
+    border-width: 1.5px 0 0 1.5px;
+  }
+  .ckio-card::after {
+    right: 3px;
+    bottom: 3px;
+    border-width: 0 1.5px 1.5px 0;
+  }
+
+  /* ---- stat strip ---- */
+  .ckio-stats {
+    padding: 0;
+  }
+  .ckio-statrow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .ckio-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    padding: 0.62em 0.5em;
+    border-right: 1px solid var(--ck-line);
+  }
+  .ckio-stat:last-child {
+    border-right: 0;
+  }
+  .ckio-statnum {
+    font-size: 1.3em;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .ckio-statnum.warm {
+    color: var(--ck-warm);
+  }
+  .ckio-statlabel {
+    font-weight: 700;
+    font-size: 0.76em;
+  }
+  .ckio-statfoot {
+    font-size: 0.7em;
+    color: var(--ck-muted);
+    line-height: 1.25;
+  }
+  .ckio-statfooter {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.42em 0.6em;
+    border-top: 1px solid var(--ck-line);
+  }
+
+  /* ---- resume card: vermilion spine marks the one live thread ---- */
+  .ckio-resume {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    padding-left: 0.75em;
+    overflow: hidden;
+  }
+  .ckio-resume::before {
+    content: '';
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    height: auto;
+    border: 0;
+    background: var(--ck-warm);
+    border-radius: 7px 0 0 7px;
+  }
+  .ckio-code {
+    font-family: var(--ck-mono);
+    font-size: 0.78em;
+    font-weight: 700;
+    color: var(--ck-soft);
+  }
+  .ckio-title {
+    font-size: 0.94em;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .ckio-sub {
+    font-size: 0.76em;
+    color: var(--ck-muted);
+    line-height: 1.3;
+  }
+  .ckio-btn {
+    margin-top: 0.35em;
+    display: block;
+    text-align: center;
+    padding: 0.42em;
+    border-radius: 5px;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.86em;
+  }
+
+  /* ---- tier grid, clipped by the frame exactly as it is on device ---- */
+  .ckio-tiers {
+    flex: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: start;
+    gap: 0.45em;
+  }
+  .ckio-tier {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+  }
+  .ckio-tiercount {
+    color: var(--ck-warm);
+    font-size: 0.58em;
+  }
+  .ckio-tiername {
+    font-size: 0.9em;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+</style>

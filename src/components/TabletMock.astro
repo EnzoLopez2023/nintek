@@ -1,0 +1,239 @@
+---
+/*
+  iPad frame.
+
+  Cairn is the first app here whose iPad layout is a different composition
+  rather than a stretched phone, so it needed a frame that can actually show
+  two columns. Landscape by default; `orientation="portrait"` for the taller
+  reading surfaces. Self-styled rather than leaning on the .phone tokens,
+  because a tablet has no notch, a thinner uniform bezel and a home indicator
+  that runs the width of the short edge.
+*/
+interface Props {
+  /** Chip pinned to the bottom-left of the device. */
+  chip?: string;
+  /** Small live pill pinned to the top-right. */
+  live?: string;
+  /** Left side of the iPad status bar — it shows time *and* date. */
+  time?: string;
+  date?: string;
+  orientation?: 'landscape' | 'portrait';
+  tone?: 'light' | 'navy';
+}
+const {
+  chip,
+  live,
+  time = '9:41',
+  date = 'Wed Aug 5',
+  orientation = 'landscape',
+  tone = 'navy',
+} = Astro.props;
+---
+
+<div class="pad-wrap">
+  <div class="pad-ambient"></div>
+  <div class={`pad ${tone} ${orientation}`}>
+    <div class="pad-screen">
+      <div class="pad-status">
+        <span class="pad-clock">
+          <span class="pad-time">{time}</span>
+          <span class="pad-date">{date}</span>
+        </span>
+        <span class="pad-status-icons" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="currentColor">
+            <path d="M6 9.2 4.2 7.4a2.6 2.6 0 0 1 3.6 0z"></path>
+            <path
+              d="M6 5.6c1 0 2 .4 2.8 1.1l1-1A5.4 5.4 0 0 0 6 4.1c-1.4 0-2.8.5-3.8 1.5l1 1A4 4 0 0 1 6 5.6z"
+            ></path>
+            <path
+              d="M6 2.1c1.9 0 3.7.7 5 2l1-1A9 9 0 0 0 6 .6 9 9 0 0 0 0 3.1l1 1a7.4 7.4 0 0 1 5-2z"
+            ></path>
+          </svg>
+          <span class="pad-batt">100%</span>
+          <svg width="19" height="10" viewBox="0 0 19 10" fill="none">
+            <rect
+              x="0.6"
+              y="0.6"
+              width="15"
+              height="8.8"
+              rx="2.6"
+              stroke="currentColor"
+              stroke-opacity="0.45"
+              stroke-width="1"></rect>
+            <rect x="2.1" y="2.1" width="12.5" height="5.8" rx="1.5" fill="currentColor"
+            ></rect>
+            <path
+              d="M17.2 3.4v3.2a1.8 1.8 0 0 0 0-3.2z"
+              fill="currentColor"
+              fill-opacity="0.45"></path>
+          </svg>
+        </span>
+      </div>
+      <div class="pad-body">
+        <slot />
+      </div>
+      <span class="pad-home" aria-hidden="true"></span>
+    </div>
+  </div>
+  {
+    chip && (
+      <div class="pad-chip">
+        <span class="phone-chip-dot" />
+        {chip}
+      </div>
+    )
+  }
+  {live && <div class="pad-live">{live}</div>}
+</div>
+
+<style>
+  .pad-wrap {
+    position: relative;
+    width: 100%;
+  }
+  .pad-ambient {
+    position: absolute;
+    inset: -14% -10% -18%;
+    background: radial-gradient(
+      circle at 52% 42%,
+      rgba(76, 141, 255, 0.2),
+      transparent 68%
+    );
+    filter: blur(26px);
+    z-index: 0;
+  }
+  .pad {
+    position: relative;
+    z-index: 1;
+    border-radius: 26px;
+    padding: 11px;
+    box-shadow:
+      var(--shadow-float),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+  .pad.navy {
+    background: linear-gradient(150deg, #3c434f, #14181f 45%, #262c36);
+  }
+  .pad.light {
+    background: linear-gradient(150deg, #d7d2cb, #8d8781 45%, #b9b3ac);
+  }
+  .pad-screen {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: #e8eefb;
+  }
+  .pad.landscape .pad-screen {
+    aspect-ratio: 1376 / 960;
+  }
+  .pad.portrait .pad-screen {
+    aspect-ratio: 960 / 1376;
+  }
+  /* The plotting grid Cairn draws behind its content. */
+  .pad.navy .pad-screen {
+    background:
+      linear-gradient(rgba(122, 162, 224, 0.05) 1px, transparent 1px) 0 0 / 100% 26px,
+      linear-gradient(90deg, rgba(122, 162, 224, 0.05) 1px, transparent 1px) 0 0 / 26px
+        100%,
+      radial-gradient(120% 62% at 50% 0%, #16233b 0%, transparent 62%),
+      linear-gradient(175deg, #0d1524, #080d17 60%, #0b1220);
+  }
+  .pad.light .pad-screen {
+    background: linear-gradient(175deg, #f3f6fb, #e9eef6);
+    color: #0f2033;
+  }
+
+  .pad-status {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 20px 3px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    opacity: 0.85;
+  }
+  .pad-clock {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .pad-date {
+    opacity: 0.8;
+  }
+  .pad-status-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .pad-batt {
+    font-size: 0.55rem;
+    letter-spacing: 0.02em;
+  }
+  .pad-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 6px 16px 16px;
+  }
+  .pad-home {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    width: 22%;
+    height: 3px;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.35;
+  }
+
+  .pad-chip {
+    position: absolute;
+    left: -18px;
+    bottom: 26px;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 13px;
+    border-radius: 9999px;
+    background: #fff;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .pad-live {
+    position: absolute;
+    right: -14px;
+    top: 22px;
+    z-index: 4;
+    padding: 6px 12px;
+    border-radius: 9999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-card);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .pad {
+      border-radius: 18px;
+      padding: 7px;
+    }
+    .pad-chip,
+    .pad-live {
+      display: none;
+    }
+  }
+</style>

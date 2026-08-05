@@ -1,0 +1,372 @@
+---
+/*
+  Cairn on iPad — the Courses grid.
+
+  This is the composition the iPad actually gets: a centred segmented bar in
+  the title area rather than a bottom tab strip, and a two-column card grid.
+  The two-column figure is a real tuning decision in the app — the page caps at
+  1000pt, so a regular width offers at most 944 and an 11-inch portrait iPad
+  only 778. The column minimum is 340 precisely because 400 silently collapsed
+  that iPad to one column.
+
+  Course names, lesson counts and section labels are the shipping eight.
+*/
+
+const tabs = ['Exams', 'Courses', 'Activity', 'Settings'];
+
+const courses = [
+  {
+    title: 'AI for Beginners',
+    blurb:
+      "Microsoft's free 24-lesson AI curriculum — neural networks from the perceptron up, computer vision, NLP through transformers, and a closing lesson on AI ethics.",
+    chips: ['Introduction to AI', 'Symbolic AI', 'Neural Networks'],
+    more: '+4',
+    read: '12',
+    lessons: '24',
+  },
+  {
+    title: 'Generative AI for Beginners',
+    blurb:
+      "Microsoft's free 21-lesson generative AI curriculum — how large language models work, prompt engineering from fundamentals to advanced patterns, then building real applications.",
+    chips: ['Foundations', 'Prompt Engineering', 'Building Applications'],
+    more: '+3',
+    read: '05',
+    lessons: '21',
+  },
+  {
+    title: 'Machine Learning for Beginners',
+    blurb:
+      "Microsoft's free 27-lesson introduction to classical machine learning with Scikit-learn. Regression, classification, clustering, NLP, time series and reinforcement learning.",
+    chips: ['Regression', 'Build a Web App', 'Classification'],
+    more: '+6',
+    read: '00',
+    lessons: '27',
+  },
+  {
+    title: 'Data Science for Beginners',
+    blurb:
+      "Microsoft's free 20-lesson introduction to data science. Defines the field and its ethics, works through relational and non-relational data with Python and Pandas.",
+    chips: ['Working With Data', 'Data Visualization'],
+    more: '+4',
+    read: '00',
+    lessons: '20',
+  },
+  {
+    title: 'Web Development for Beginners',
+    blurb:
+      "Microsoft's free 25-lesson introduction to web development. Programming basics, GitHub and accessibility, JavaScript fundamentals, then six projects to build.",
+    chips: ['Getting Started', 'JavaScript Basics'],
+    more: '+6',
+    read: '00',
+    lessons: '25',
+  },
+  {
+    title: 'AI Agents for Beginners',
+    blurb:
+      "Microsoft's free 18-lesson course on building AI agents. Agentic frameworks and design patterns, tool use and retrieval, planning, then production concerns.",
+    chips: ['Foundations', 'Core Capabilities'],
+    more: '+5',
+    read: '00',
+    lessons: '18',
+  },
+  {
+    title: 'IoT for Beginners',
+    blurb:
+      "Microsoft's free 24-lesson course on the Internet of Things, built around growing, transporting, processing and selling food. Sensors, MQTT, edge ML and a voice assistant.",
+    chips: ['Farming with IoT', 'Transport'],
+    more: '+4',
+    read: '00',
+    lessons: '24',
+  },
+  {
+    title: 'MCP for Beginners',
+    blurb:
+      "Microsoft's free curriculum on the Model Context Protocol — the open standard that lets AI models call tools and read data. Servers and clients across six languages.",
+    chips: ['Fundamentals', 'MCP Tooling'],
+    more: '+4',
+    read: '00',
+    lessons: '60',
+  },
+];
+---
+
+<div class="ios ckpad">
+  <div class="ckpad-nav">
+    <span class="ckpad-mark">
+      <span class="ckpad-glyph" aria-hidden="true"></span>
+      Cairn
+    </span>
+    <span class="ckpad-tabs">
+      {
+        tabs.map((t) => (
+          <span class:list={['ckpad-tab', t === 'Courses' && 'on']}>{t}</span>
+        ))
+      }
+    </span>
+  </div>
+
+  <div class="ckpad-page">
+    <span class="ckpad-mono">Open curricula</span>
+    <h3 class="ckpad-head">Study the ground, <em>not just the exam.</em></h3>
+
+    <div class="ckpad-rule">
+      <span class="ckpad-mono">Available courses</span>
+      <span class="ckpad-ticks" aria-hidden="true"></span>
+      <span class="ckpad-mono">08</span>
+    </div>
+
+    <div class="ckpad-grid">
+      {
+        courses.map((c) => (
+          <article class="ckpad-card">
+            <span class="ckpad-stamps">
+              <span class="ckpad-stamp blue">Microsoft</span>
+              <span class="ckpad-stamp">MIT</span>
+            </span>
+            <h4 class="ckpad-title">{c.title}</h4>
+            <p class="ckpad-blurb">{c.blurb}</p>
+            <span class="ckpad-chips">
+              {c.chips.map((s) => (
+                <span class="ckpad-chip">{s}</span>
+              ))}
+              <span class="ckpad-more">{c.more}</span>
+            </span>
+            <span class="ckpad-foot">
+              <span class="ckpad-count">
+                <b>{c.read}</b> / {c.lessons} lessons
+              </span>
+              <span class="ckpad-arrow" aria-hidden="true">→</span>
+            </span>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .ckpad {
+    --ck-ink: #eaf1fb;
+    --ck-soft: #b3c4dd;
+    --ck-muted: #7e93b4;
+    --ck-line: rgba(110, 150, 215, 0.22);
+    --ck-line-strong: rgba(120, 165, 235, 0.4);
+    --ck-blue: #4c8dff;
+    --ck-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+    gap: 0;
+    font-size: 0.5rem;
+    color: var(--ck-ink);
+    overflow: hidden;
+  }
+  .ckpad-mono {
+    font-family: var(--ck-mono);
+    font-size: 0.86em;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ck-muted);
+    white-space: nowrap;
+  }
+
+  /* ---- iPad puts navigation in the title area, not along the bottom ---- */
+  .ckpad-nav {
+    flex: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.7em;
+    border-bottom: 1px solid var(--ck-line);
+  }
+  .ckpad-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.4em 0.85em;
+    border-radius: 9999px;
+    background: rgba(30, 46, 74, 0.75);
+    border: 1px solid var(--ck-line);
+    color: var(--ck-blue);
+    font-size: 1.28em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  /* The app mark is a stacked cairn. */
+  .ckpad-glyph {
+    width: 0.62em;
+    height: 0.72em;
+    background:
+      linear-gradient(var(--ck-blue) 0 0) 50% 0 / 40% 24% no-repeat,
+      linear-gradient(#e4572e 0 0) 50% 42% / 72% 24% no-repeat,
+      linear-gradient(var(--ck-blue) 0 0) 50% 100% / 100% 24% no-repeat;
+  }
+  .ckpad-tabs {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2em;
+    padding: 0.3em;
+    border-radius: 9999px;
+    background: rgba(24, 38, 62, 0.7);
+    border: 1px solid var(--ck-line);
+  }
+  .ckpad-tab {
+    padding: 0.34em 0.95em;
+    border-radius: 9999px;
+    font-size: 1.16em;
+    font-weight: 600;
+    color: var(--ck-soft);
+  }
+  .ckpad-tab.on {
+    background: rgba(76, 141, 255, 0.16);
+    color: var(--ck-blue);
+    font-weight: 700;
+  }
+
+  .ckpad-page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding-top: 1.1em;
+  }
+  .ckpad-head {
+    margin: 0;
+    color: var(--ck-ink);
+    font-size: 2em;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .ckpad-head em {
+    font-style: normal;
+    color: var(--ck-blue);
+  }
+  .ckpad-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    margin-top: 0.15em;
+  }
+  .ckpad-ticks {
+    flex: 1;
+    height: 5px;
+    border-left: 1px solid var(--ck-line);
+    border-right: 1px solid var(--ck-line);
+    background: repeating-linear-gradient(
+      90deg,
+      var(--ck-line) 0 1px,
+      transparent 1px 5px
+    );
+  }
+
+  /* ---- two columns: the shipped layout at a regular width ---- */
+  .ckpad-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: start;
+    gap: 0.6em;
+  }
+  .ckpad-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.42em;
+    padding: 0.85em 0.9em;
+    border: 1px solid var(--ck-line);
+    border-radius: 8px;
+    background: rgba(19, 32, 53, 0.62);
+  }
+  /* Corner brackets, the way the app frames a card. */
+  .ckpad-card::before,
+  .ckpad-card::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid var(--ck-line-strong);
+  }
+  .ckpad-card::before {
+    top: 4px;
+    left: 4px;
+    border-width: 1.5px 0 0 1.5px;
+  }
+  .ckpad-card::after {
+    right: 4px;
+    bottom: 4px;
+    border-width: 0 1.5px 1.5px 0;
+  }
+  .ckpad-stamps {
+    display: inline-flex;
+    gap: 0.35em;
+  }
+  .ckpad-stamp {
+    font-family: var(--ck-mono);
+    font-size: 0.8em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.16em 0.5em;
+    border: 1px solid var(--ck-line);
+    border-radius: 3px;
+    color: var(--ck-muted);
+  }
+  .ckpad-stamp.blue {
+    color: var(--ck-blue);
+    border-color: rgba(76, 141, 255, 0.4);
+  }
+  .ckpad-title {
+    margin: 0;
+    color: var(--ck-ink);
+    font-size: 1.42em;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .ckpad-blurb {
+    flex: 1;
+    color: var(--ck-soft);
+    font-size: 1.02em;
+    line-height: 1.4;
+  }
+  .ckpad-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3em;
+  }
+  .ckpad-chip {
+    font-family: var(--ck-mono);
+    font-size: 0.84em;
+    padding: 0.2em 0.5em;
+    border: 1px solid var(--ck-line);
+    border-radius: 3px;
+    color: var(--ck-soft);
+    white-space: nowrap;
+  }
+  .ckpad-more {
+    font-size: 0.9em;
+    color: var(--ck-muted);
+  }
+  .ckpad-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.45em;
+    border-top: 1px solid var(--ck-line);
+    font-family: var(--ck-mono);
+    font-size: 0.95em;
+    color: var(--ck-muted);
+  }
+  .ckpad-count b {
+    color: var(--ck-ink);
+    font-weight: 700;
+  }
+  .ckpad-arrow {
+    color: var(--ck-blue);
+    font-size: 1.15em;
+  }
+</style>
