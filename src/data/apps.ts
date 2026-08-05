@@ -175,33 +175,33 @@ export const apps: App[] = [
     slug: 'shopkeep',
     name: 'ShopKeep',
     category: 'For Makers & Workshops',
-    tagline: 'Every tool. Every drawer.',
-    headline: { lead: 'Every tool. Every drawer.', em: 'Right where you left it.' },
+    tagline: 'Every tool on the register.',
+    headline: { lead: 'Every tool numbered.', em: 'Every move accounted for.' },
     description:
-      'Inventory the whole workshop — tools, materials and their value — and know in a glance what needs attention before you start the next build.',
-    quiet: 'On iPhone, the camera does the filing for you.',
+      'A tool library in the machinist’s sense — a numbered register of the whole shop, every tool carrying its own address, specs, location and wear state. One readout says what is out, what is in service and what the shelf is worth.',
+    quiet: 'Built as the machine control it is, not as a workshop scrapbook.',
     icon: 'hammer',
     bundleId: 'com.nintek.shopkeep',
     hasPage: true,
     platforms: { web: true, ios: true },
     mockup: {
-      title: 'Workshop Dashboard',
-      subtitle: 'Tools & materials',
-      chip: 'Receipt imported · 3 tools added',
+      title: 'Shop status',
+      subtitle: 'Tool library · LIB.01',
+      chip: 'Receipt imported · 3 tools on the register',
       live: 'Live',
     },
     native: {
       status: 'testflight',
       thesis:
-        'The camera is the feature. Point it at a barcode or a drawer label and the shop inventories itself.',
+        'The whole register in your pocket, the readout on your Home Screen, and a camera instead of a keyboard.',
       intro:
-        'ShopKeep on the web is a good filing cabinet. ShopKeep on iPhone is a scanner you already own. It signs into the same account and reads the same inventory — it just stops asking you to type in things a camera can already see.',
+        'ShopKeep and its native counterpart are the same instrument on two screens — a pale enamel cabinet, one inset graphite readout per screen, and status drawn as the move a tool is making. What the phone adds is the shop floor: a camera that reads the barcode off the box, widgets that carry the readout onto the Home Screen, and Siri going straight to the scanner.',
       highlights: [
         {
           icon: 'scan',
           title: 'Live barcode scanning',
           body:
-            'VisionKit reads QR plus nine barcode formats — EAN-13 and EAN-8, UPC-E, Code 128, 39 and 93, Aztec, DataMatrix and PDF417 — straight off the box, with a haptic tap the moment it lands.',
+            'VisionKit reads QR plus nine barcode formats — EAN-13 and EAN-8, UPC-E, Code 128, 39 and 93, Aztec, DataMatrix and PDF417 — straight off the box, with a haptic tap the moment it lands. The code goes into inventory search, which matches barcodes and SKUs as readily as it matches a name, brand, model or category.',
         },
         {
           icon: 'tag',
@@ -211,21 +211,33 @@ export const apps: App[] = [
         },
         {
           icon: 'widget',
-          title: 'The shop at a glance',
+          title: 'The readout on your Home Screen',
           body:
-            'Home Screen widgets for totals, categories and recent tools — plus Lock Screen and StandBy accessories showing how many tools need attention. Tap one and land on that exact filtered list.',
+            'Inventory Stats carries the total and the needs-attention count at small size, and four tiles at medium. Workshop Overview goes large with the stats, the tools you added last and a category bar. Needs Attention runs as a Lock Screen and StandBy accessory. All of them read from a stored snapshot, so nothing waits on the network to draw.',
         },
         {
           icon: 'sparkle',
           title: 'Straight to the scanner',
           body:
-            '“Scan a tool in ShopKeep” from Siri or Spotlight opens the camera without a single tap on the way.',
+            '“Scan a Tool” is an App Shortcut, so Siri and Spotlight open the camera without a single tap on the way. Tapping a widget follows a shopkeep:// link to the right tab and, where it matters, to the exact filtered list — everything needing attention, or a search already run.',
         },
         {
           icon: 'chart',
           title: 'Reports you can drill into',
           body:
-            'Swift Charts renders yearly spend, cumulative investment, monthly and quarterly breakdowns — filterable by brand and category, and tappable all the way down to the individual tool.',
+            'Swift Charts renders yearly spend, cumulative investment, monthly and quarterly breakdowns, behind a real filter bar — top N brands, a year range, a brand picker and category chips — and every mark is tappable all the way down to the individual tool.',
+        },
+        {
+          icon: 'package',
+          title: 'The register, maintained',
+          body:
+            'Categories and locations are editable in place, so the taxonomy is yours rather than a fixed list. Deleted tools go to a trash you can restore from. Manuals, receipts and warranty documents attach to the tool record itself.',
+        },
+        {
+          icon: 'layers',
+          title: 'Eight palettes, one structure',
+          body:
+            'Tool Library is the default and the identity — the machine control panel the app is built as. ShopKeep, GitHub, Fox, IC Orange PPL, Monochrome, Noctis Azureus and Notionish are inherited skins you can switch to in Settings. Only the token values change; the structure never does.',
         },
         {
           icon: 'apple',
