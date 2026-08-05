@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tare')!;
-const lastUpdated = 'August 3, 2026';
+const lastUpdated = 'August 5, 2026';
 ---
 
 <BaseLayout
@@ -72,6 +72,13 @@ const lastUpdated = 'August 3, 2026';
         connection to a small relay service we operate.
       </li>
       <li>
+        For questions about your own records, the assistant does not receive
+        your database. It writes a query, your device runs that query against
+        its own copy, and only the rows that come back — the specific figures
+        needed to answer what you asked — are returned to it. There is no bulk
+        upload and no export.
+      </li>
+      <li>
         The relay forwards them to <strong>Anthropic</strong>, which generates
         the answer, and returns it to your device.
       </li>
@@ -104,10 +111,29 @@ const lastUpdated = 'August 3, 2026';
     <p>
       If you allow it, {app.name} can read weight, glucose, sleep and step data
       from Apple Health so you do not have to enter it twice, and write back the
-      weights, glucose readings and doses you log. That exchange is between
-      {app.name} and Health on your own device. We never receive it, and Health
-      data is not included in anything sent to the AI features unless it is also
-      a record you logged in {app.name}.
+      weights and glucose readings you log. Nothing else is written — your
+      doses, meals, well-being check-ins and medical records stay inside
+      {app.name}. That exchange is between {app.name} and Health on your own
+      device, and it happens when you ask for it rather than in the background.
+      We never receive it, and Health data is not included in anything sent to
+      the AI features unless it is also a record you logged in {app.name}.
+    </p>
+
+    <h2>Widgets, complications and the Apple Watch</h2>
+    <p>
+      To draw a widget or a watch complication, iOS runs a separate small
+      program that cannot read {app.name}’s database. So {app.name} writes a
+      short summary — the few figures those faces actually show, such as your
+      latest weight and glucose and the days until your next dose — into a
+      shared container on your device that only {app.name} and its own
+      extensions can open. It contains no history and no records, and it never
+      leaves the device.
+    </p>
+    <p>
+      The Apple Watch app receives that same summary from your iPhone directly,
+      over Apple’s device-to-device link. It does not use iCloud and does not
+      talk to any server. When you log something on the watch, the entry is held
+      on the watch and handed to the iPhone, which is what actually records it.
     </p>
 
     <h2>Backups and export</h2>

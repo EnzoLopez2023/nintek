@@ -1,58 +1,84 @@
 /* ── Tare landing page ────────────────────────────────────────────────────
-   Ported faithfully from the Tare app's in-app landing stylesheet. Fully
-   self-contained: every token is defined locally on `.lp-root`, and all
+   Themed to the *shipped iOS app*, whose design system is called "The Balance
+   Room": an enamel page ground, white instrument plates, engraved tracked-caps
+   labels, struck numerals, and exactly one saturated colour.
+
+   Every token below is lifted from `Tare/Theme/Palette.swift` in
+   https://github.com/EnzoLopez2023/Tare-for-iOS, which is normative. The one
+   governing rule, quoted from that file:
+
+       PASTEL CARRIES IDENTITY. FULL SATURATION IS RESERVED FOR STATUS.
+
+   So a domain surface is pale, and the vermilion index is never decorative.
+   The page previously wore the retiring React app's amber-and-cream palette;
+   it was rethemed in Aug 2026 when the iOS app became the product this page
+   sells.
+
+   Fully self-contained: every token is defined locally on `.lp-root`, and all
    class names keep the original `lp-` prefix so nothing collides with the
    marketing site's global.css. Motion is guarded by prefers-reduced-motion.
    ──────────────────────────────────────────────────────────────────────── */
 
 .lp-root {
-  /* ── Palette (matches the app's tailwind theme) ─────────────────────── */
-  --lp-cream:    #fbf6ec;
-  --lp-paper:    #fffaf3;
-  --lp-paper-2:  #fdf8f1;
+  /* ── Palette (matches Tare/Theme/Palette.swift, light appearance) ────── */
 
-  --lp-brand-100: #fbeed8;
-  --lp-brand-300: #efc380;
-  --lp-brand-400: #e6a44d;
-  --lp-brand-500: #d68a2c;
-  --lp-brand-600: #b86c1e;
-  --lp-brand-700: #92521b;
-  --lp-brand-800: #75421d;
+  /* Enamel: the page ground, the recessed well, and the plate a card sits on. */
+  --lp-cream:    #eef3f5;
+  --lp-paper:    #ffffff;
+  --lp-paper-2:  #f7fafb;
 
-  --lp-wood-100: #f4ebd6;
-  --lp-wood-200: #e8d9b6;
-  --lp-wood-300: #d8bf8b;
-  --lp-wood-400: #c39e63;
-  --lp-wood-500: #a98049;
-  --lp-wood-600: #8b643a;
-  --lp-wood-700: #6e4f30;
-  --lp-wood-800: #523a25;
-  --lp-wood-900: #352719;
+  /* Lacquer vermilion — the index needle. The single saturated brand colour,
+     used for the primary action, the needle, and "due now". Never decorative. */
+  --lp-brand-100: #fbddd8;
+  --lp-brand-300: #f6bdb4;
+  --lp-brand-400: #f0968a;
+  --lp-brand-500: #ea6b58;
+  --lp-brand-600: #e23d28;
+  --lp-brand-700: #c42d1a;
+  --lp-brand-800: #9e2314;
 
-  --lp-glu:      #5fa8d3;
-  --lp-glu-deep: #0c4a6e;
-  --lp-glu-soft: #dceef7;
+  /* Engraved graphite — the neutral ramp. Cool, never warm. */
+  --lp-wood-100: #e4edf1;
+  --lp-wood-200: #d6e2e8;
+  --lp-wood-300: #bacbd4;
+  --lp-wood-400: #9caeb9;
+  --lp-wood-500: #788994;
+  --lp-wood-600: #5e6e79;
+  --lp-wood-700: #465661;
+  --lp-wood-800: #31404a;
+  --lp-wood-900: #222c33;
 
-  --lp-meds:      #c2410c;
-  --lp-meds-deep: #9a3412;
-  --lp-meds-soft: #fce4d8;
+  /* Glucose — instrument cyan. */
+  --lp-glu:      #3fa9c4;
+  --lp-glu-deep: #0a5d72;
+  --lp-glu-soft: #c7e6ee;
 
-  --lp-wgt:      #9b7cc7;
-  --lp-wgt-deep: #4c1d95;
-  --lp-wgt-soft: #ede5f4;
+  /* Medication — soft violet. (The web app used orange here; the native app
+     does not, and the native app is the one shipping.) */
+  --lp-meds:      #8b79e0;
+  --lp-meds-deep: #472f9e;
+  --lp-meds-soft: #ddd6f5;
 
-  --lp-act:      #7ea764;
-  --lp-act-deep: #365314;
-  --lp-act-soft: #dde9d3;
+  /* Weight — steel blue. */
+  --lp-wgt:      #5c82d8;
+  --lp-wgt-deep: #1e3d8c;
+  --lp-wgt-soft: #cedbf2;
 
-  /* Typography */
-  --lp-font-sans:    'Inter', system-ui, sans-serif;
-  --lp-font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  /* Well-being — olive. */
+  --lp-act:      #7fae44;
+  --lp-act-deep: #3b6210;
+  --lp-act-soft: #d9e9c2;
+
+  /* Typography. Archivo is the app's one family — the bundled
+     `ArchivoTare*` faces are static instances of this exact variable font,
+     so `wdth` here reproduces the widths SwiftUI gets baked in. */
+  --lp-font-sans:    'Archivo', system-ui, sans-serif;
+  --lp-font-display: 'Archivo', system-ui, sans-serif;
 
   /* Surface treatments */
-  --lp-shadow-tile: 0 1px 2px rgba(82, 58, 37, 0.04), 0 4px 14px rgba(82, 58, 37, 0.06);
-  --lp-shadow-soft: 0 8px 30px rgba(82, 58, 37, 0.08);
-  --lp-shadow-lift: 0 22px 60px -20px rgba(82, 58, 37, 0.28);
+  --lp-shadow-tile: 0 1px 2px rgba(34, 44, 51, 0.04), 0 4px 14px rgba(34, 44, 51, 0.06);
+  --lp-shadow-soft: 0 8px 30px rgba(34, 44, 51, 0.08);
+  --lp-shadow-lift: 0 22px 60px -20px rgba(34, 44, 51, 0.28);
   --lp-radius:      22px;
   --lp-radius-sm:   14px;
 
@@ -94,24 +120,21 @@
   top: 24%;
   right: -14%;
   width: 460px; height: 460px;
-  background: radial-gradient(circle, #f4d3a3 0%, transparent 72%);
+  background: radial-gradient(circle, #cedbf2 0%, transparent 72%);
   opacity: 0.45;
 }
 .lp-bg__orb--c {
   bottom: -10%;
   left: 8%;
   width: 540px; height: 540px;
-  background: radial-gradient(circle, #e8c389 0%, transparent 70%);
+  background: radial-gradient(circle, #c7e6ee 0%, transparent 70%);
   opacity: 0.4;
 }
 .lp-bg__grain {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(82, 58, 37, 0.13) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-  opacity: 0.5;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 42%);
+  opacity: 0.9;
 }
 
 .lp-content {
@@ -135,12 +158,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px 10px 18px;
-  background: rgba(253, 248, 241, 0.78);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
-  border: 1px solid rgba(216, 191, 139, 0.4);
+  border: 1px solid rgba(186, 203, 212, 0.55);
   border-radius: 999px;
-  box-shadow: 0 1px 2px rgba(82, 58, 37, 0.04);
+  box-shadow: 0 1px 2px rgba(34, 44, 51, 0.04);
 }
 .lp-nav__brand {
   display: flex;
@@ -207,11 +230,7 @@
 }
 .lp-hero__title em {
   font-style: italic;
-  background: linear-gradient(180deg, var(--lp-brand-500) 0%, var(--lp-brand-700) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  color: var(--lp-brand-600);
 }
 
 .lp-hero__lede {
@@ -235,7 +254,7 @@
   border-radius: 28px;
   padding: 22px 22px 24px;
   box-shadow: var(--lp-shadow-lift);
-  border: 1px solid rgba(216, 191, 139, 0.5);
+  border: 1px solid rgba(186, 203, 212, 0.5);
 }
 .lp-mockup__bar {
   display: flex;
@@ -348,7 +367,7 @@
   border-radius: 999px;
   background: var(--lp-paper);
   box-shadow: var(--lp-shadow-soft);
-  border: 1px solid rgba(216, 191, 139, 0.55);
+  border: 1px solid rgba(186, 203, 212, 0.55);
   font-size: 11px;
   font-weight: 600;
   color: var(--lp-wood-800);
@@ -365,7 +384,7 @@
   width: 7px;
   height: 7px;
   border-radius: 999px;
-  background: #16a34a;
+  background: #4e9e18;
   position: relative;
 }
 .lp-pulse-dot::after {
@@ -373,7 +392,7 @@
   position: absolute;
   inset: -3px;
   border-radius: 999px;
-  background: #16a34a;
+  background: #4e9e18;
   opacity: 0.4;
   animation: lp-pulse 1.6s ease-out infinite;
 }
@@ -384,9 +403,9 @@
 
 /* ── Trust strip ───────────────────────────────────────────────────── */
 .lp-trust {
-  border-top: 1px solid rgba(168, 128, 73, 0.18);
-  border-bottom: 1px solid rgba(168, 128, 73, 0.18);
-  background: rgba(253, 248, 241, 0.6);
+  border-top: 1px solid rgba(120, 137, 148, 0.18);
+  border-bottom: 1px solid rgba(120, 137, 148, 0.18);
+  background: rgba(255, 255, 255, 0.66);
   margin: 0 12px;
 }
 .lp-trust__inner {
@@ -456,14 +475,14 @@
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: 40px;
-  align-items: stretch;
+  align-items: start;
 }
 @media (max-width: 880px) {
   .lp-demo { grid-template-columns: 1fr; }
 }
 .lp-demo__panel {
   background: var(--lp-paper);
-  border: 1px solid rgba(216, 191, 139, 0.4);
+  border: 1px solid rgba(186, 203, 212, 0.55);
   border-radius: 24px;
   padding: 20px 22px 22px;
   box-shadow: var(--lp-shadow-tile);
@@ -566,7 +585,7 @@
 }
 .lp-bubble--user {
   align-self: flex-end;
-  background: var(--lp-brand-100, #fbeed8);
+  background: var(--lp-brand-100, #fbddd8);
   color: var(--lp-brand-800);
   border-bottom-right-radius: 6px;
 }
@@ -600,7 +619,7 @@
   padding: 8px 12px;
   border-radius: 14px;
   background: var(--lp-paper-2);
-  border: 1px solid rgba(216, 191, 139, 0.55);
+  border: 1px solid rgba(186, 203, 212, 0.55);
   box-shadow: var(--lp-shadow-soft);
   font-size: 12px;
   font-weight: 600;
@@ -623,12 +642,12 @@
   align-items: flex-start;
   padding: 14px 16px;
   background: var(--lp-paper);
-  border: 1px solid rgba(216, 191, 139, 0.4);
+  border: 1px solid rgba(186, 203, 212, 0.55);
   border-radius: 18px;
 }
 .lp-demo__step--active {
   border-color: var(--lp-brand-400);
-  box-shadow: 0 0 0 3px rgba(230, 164, 77, 0.15);
+  box-shadow: 0 0 0 3px rgba(234, 107, 88, 0.15);
 }
 .lp-demo__step-bullet {
   flex-shrink: 0;
@@ -675,7 +694,7 @@
 }
 .lp-card {
   background: var(--lp-paper);
-  border: 1px solid rgba(216, 191, 139, 0.45);
+  border: 1px solid rgba(186, 203, 212, 0.45);
   border-radius: var(--lp-radius);
   box-shadow: var(--lp-shadow-tile);
   overflow: hidden;
@@ -720,9 +739,10 @@
 
 /* Spans */
 .lp-card--feature        { grid-column: span 3; }
-.lp-card--feature-wide   { grid-column: span 4; }
-.lp-card--feature-narrow { grid-column: span 2; }
+.lp-card--feature-wide   { grid-column: span 6; }
+.lp-card--feature-narrow { grid-column: span 3; }
 .lp-card--feature-tall   { grid-column: span 3; grid-row: span 2; }
+.lp-card--feature-tall .lp-card__scene { height: auto; flex: 1; min-height: 132px; }
 @media (max-width: 880px) {
   .lp-card--feature,
   .lp-card--feature-wide,
@@ -755,24 +775,24 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.lp-mini-chart__area { fill: rgba(214, 138, 44, 0.18); }
+.lp-mini-chart__area { fill: rgba(234, 107, 88, 0.18); }
 .lp-mini-chart__dot { fill: var(--lp-brand-600); stroke: #fff; stroke-width: 1.5; }
 
 /* Mini radar for wellbeing card */
-.lp-mini-radar { width: 90%; height: 90%; }
+.lp-mini-radar { width: 78%; height: 78%; }
 
 /* Vitals labels card */
 .lp-vitals {
   width: 88%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 .lp-vitals__cell {
   background: var(--lp-paper);
   border-radius: 12px;
   padding: 8px 10px;
-  border: 1px solid rgba(216, 191, 139, 0.55);
+  border: 1px solid rgba(186, 203, 212, 0.55);
 }
 .lp-vitals__label {
   font-size: 9px;
@@ -795,7 +815,7 @@
 .lp-native {
   padding: 84px 24px 88px;
   background: var(--lp-paper-2);
-  border-top: 1px solid rgba(168, 128, 73, 0.18);
+  border-top: 1px solid rgba(120, 137, 148, 0.18);
 }
 .lp-native__grid {
   max-width: 1080px;
@@ -866,7 +886,7 @@
   place-items: center;
   background: var(--lp-brand-100);
   color: var(--lp-brand-700);
-  border: 1px solid rgba(168, 128, 73, 0.24);
+  border: 1px solid rgba(120, 137, 148, 0.24);
 }
 .lp-native__item strong {
   display: block;
@@ -898,7 +918,7 @@
   text-transform: uppercase;
   color: var(--lp-brand-800);
   background: var(--lp-brand-100);
-  border: 1px solid rgba(168, 128, 73, 0.28);
+  border: 1px solid rgba(120, 137, 148, 0.28);
   border-radius: 999px;
   padding: 4px 10px;
 }
@@ -923,9 +943,9 @@
   padding: 90px 24px 100px;
   text-align: center;
   background:
-    radial-gradient(70% 60% at 50% 0%, rgba(230, 164, 77, 0.2) 0%, transparent 65%),
+    radial-gradient(70% 60% at 50% 0%, rgba(234, 107, 88, 0.2) 0%, transparent 65%),
     var(--lp-cream);
-  border-top: 1px solid rgba(168, 128, 73, 0.18);
+  border-top: 1px solid rgba(120, 137, 148, 0.18);
 }
 .lp-finale__title {
   font-family: var(--lp-font-display);
@@ -940,11 +960,7 @@
 }
 .lp-finale__title em {
   font-style: italic;
-  background: linear-gradient(180deg, var(--lp-brand-500) 0%, var(--lp-brand-700) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  color: var(--lp-brand-600);
 }
 .lp-finale__lede {
   margin: 16px auto 30px;
@@ -1000,29 +1016,29 @@
   align-items: flex-end;
   gap: 3px;
   padding: 11px 14px 10px;
-  background: linear-gradient(180deg, #2a1d3d 0%, #1d1428 100%);
+  background: linear-gradient(180deg, #24313a 0%, #141c21 100%);
   border-radius: 11px;
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.08),
     inset 0 -1px 3px rgba(0, 0, 0, 0.55),
-    0 6px 16px rgba(76, 29, 149, 0.24);
+    0 6px 16px rgba(30, 61, 140, 0.26);
   transition: opacity 100ms ease;
 }
 .lp-scale__display--blink { opacity: 0.42; }
 .lp-scale__digit { display: block; }
 .lp-scale__seg-on {
-  fill: #c4b5fd;
-  filter: drop-shadow(0 0 3px rgba(196, 181, 253, 0.7));
+  fill: #83a4e0;
+  filter: drop-shadow(0 0 3px rgba(131, 164, 224, 0.7));
 }
-.lp-scale__seg-off { fill: rgba(196, 181, 253, 0.08); }
+.lp-scale__seg-off { fill: rgba(131, 164, 224, 0.09); }
 .lp-scale__dot {
   width: 4px;
   height: 4px;
-  background: #c4b5fd;
+  background: #83a4e0;
   border-radius: 1px;
   align-self: flex-end;
   margin: 0 2px 4px;
-  filter: drop-shadow(0 0 3px rgba(196, 181, 253, 0.7));
+  filter: drop-shadow(0 0 3px rgba(131, 164, 224, 0.7));
 }
 .lp-scale__unit {
   font-family: var(--lp-font-display);
@@ -1051,4 +1067,465 @@
 @media (prefers-reduced-motion: reduce) {
   .lp-pulse-dot::after { animation: none; opacity: 0; }
   .lp-bubble__caret { animation: none; opacity: 0.5; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Native-era sections
+   Added when this page was rebuilt around the iOS app (Aug 2026). Everything
+   below inherits the tokens at the top of this file; no new colours here.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* The app icon, standing in for the old drawn glyph. */
+.lp-nav__brand-mark--icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(34, 44, 51, 0.22);
+}
+.lp-nav__brand-mark--icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* A live dot in front of the hero eyebrow: this ships now. */
+.lp-eyebrow__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--lp-brand-600);
+  flex: none;
+}
+
+/* ── Hero, device cluster variant ─────────────────────────────────────── */
+.lp-hero--native {
+  grid-template-columns: 1fr 1.02fr;
+  align-items: center;
+  padding-bottom: 40px;
+}
+
+.lp-hero__pills {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lp-hero__pills li {
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--lp-paper);
+  border: 1px solid var(--lp-wood-200);
+  color: var(--lp-wood-800);
+  box-shadow: var(--lp-shadow-tile);
+}
+
+.lp-hero__meta {
+  margin: 22px 0 0;
+  font-size: 13px;
+  color: var(--lp-wood-600);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* The watch overlaps the phone, the way it does on a desk. */
+.lp-hero__devices {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 10px 44px 44px 0;
+}
+.lp-hero__phone {
+  position: relative;
+  z-index: 1;
+}
+.lp-hero__watch {
+  position: absolute;
+  right: -52px;
+  bottom: -26px;
+  z-index: 2;
+  filter: drop-shadow(0 26px 40px rgba(34, 44, 51, 0.28));
+}
+@media (max-width: 1120px) {
+  .lp-hero__watch { right: -22px; }
+}
+@media (max-width: 980px) {
+  .lp-hero__watch { right: -6px; bottom: -18px; }
+}
+@media (max-width: 880px) {
+  .lp-hero--native { grid-template-columns: 1fr; }
+  .lp-hero__devices { padding-bottom: 20px; }
+  .lp-hero__watch {
+    position: static;
+    align-self: flex-end;
+    margin-left: -46px;
+    margin-bottom: -10px;
+  }
+  .lp-hero__devices { align-items: flex-end; }
+}
+@media (max-width: 460px) {
+  .lp-hero__watch { display: none; }
+}
+
+/* ── Sunset notice ────────────────────────────────────────────────────── */
+.lp-sunset {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px 8px;
+}
+.lp-sunset__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 22px 26px;
+  border-radius: var(--lp-radius);
+  background: linear-gradient(180deg, var(--lp-brand-100) 0%, var(--lp-paper) 62%);
+  border: 1px solid var(--lp-brand-300);
+  box-shadow: var(--lp-shadow-tile);
+}
+.lp-sunset__badge {
+  flex: none;
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: var(--lp-brand-100);
+  color: var(--lp-brand-800);
+  white-space: nowrap;
+}
+.lp-sunset__title {
+  margin: 0 0 6px;
+  font-family: var(--lp-font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--lp-wood-900);
+}
+.lp-sunset__text p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--lp-wood-700);
+  max-width: 74ch;
+}
+@media (max-width: 700px) {
+  .lp-sunset__inner { flex-direction: column; gap: 14px; padding: 20px; }
+}
+
+.lp-section--tight { padding-top: 0; }
+
+/* ── Apple Health ─────────────────────────────────────────────────────── */
+.lp-health {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .lp-health { grid-template-columns: 1fr; }
+}
+
+.lp-health__table {
+  border-radius: var(--lp-radius);
+  background: var(--lp-paper);
+  border: 1px solid var(--lp-wood-200);
+  box-shadow: var(--lp-shadow-tile);
+  overflow: hidden;
+}
+.lp-health__row {
+  display: grid;
+  grid-template-columns: 1fr auto 1.2fr;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+}
+.lp-health__row + .lp-health__row {
+  border-top: 1px solid var(--lp-wood-100);
+}
+.lp-health__name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--lp-wood-900);
+}
+.lp-health__arrow {
+  font-size: 17px;
+  line-height: 1;
+  width: 30px;
+  text-align: center;
+}
+.lp-health__arrow--both { color: var(--lp-brand-600); }
+.lp-health__arrow--in   { color: var(--lp-wood-400); }
+.lp-health__note {
+  font-size: 13.5px;
+  color: var(--lp-wood-600);
+  text-align: right;
+}
+
+.lp-health__notes {
+  display: grid;
+  gap: 14px;
+}
+.lp-note {
+  padding: 20px 22px;
+  border-radius: var(--lp-radius);
+  background: var(--lp-paper-2);
+  border: 1px solid var(--lp-wood-200);
+}
+.lp-note__title {
+  margin: 0 0 6px;
+  font-family: var(--lp-font-display);
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--lp-wood-900);
+}
+.lp-note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--lp-wood-700);
+}
+
+/* ── Widgets ──────────────────────────────────────────────────────────── */
+.lp-wsec {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .lp-wsec { grid-template-columns: 1fr; }
+}
+
+.lp-wsec__stage {
+  padding: 24px;
+  border-radius: var(--lp-radius);
+  background: var(--lp-paper-2);
+  border: 1px solid var(--lp-wood-200);
+  box-shadow: var(--lp-shadow-tile);
+}
+.lp-wsec__aside {
+  display: grid;
+  gap: 20px;
+  justify-items: center;
+}
+.lp-wsec__lock { width: 100%; }
+.lp-wsec__cap {
+  margin: 0 0 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lp-wood-500);
+}
+
+.lp-wgrid {
+  max-width: 1140px;
+  margin: 28px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+.lp-wgrid__item {
+  padding: 20px;
+  border-radius: var(--lp-radius-sm);
+  background: var(--lp-paper);
+  border: 1px solid var(--lp-wood-200);
+  box-shadow: var(--lp-shadow-tile);
+}
+.lp-wgrid__item h3 {
+  margin: 0 0 6px;
+  font-family: var(--lp-font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--lp-wood-900);
+}
+.lp-wgrid__item p {
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--lp-wood-600);
+}
+.lp-wgrid__sizes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.lp-wgrid__sizes li {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--lp-wood-100);
+  color: var(--lp-wood-700);
+}
+
+/* ── Apple Watch ──────────────────────────────────────────────────────── */
+.lp-watch {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 20px 24px 72px;
+}
+.lp-watch__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 44px;
+  border-radius: 30px;
+  background:
+    radial-gradient(120% 100% at 20% 0%, #31404a 0%, #141c21 68%);
+  box-shadow: var(--lp-shadow-lift);
+}
+@media (max-width: 880px) {
+  .lp-watch__grid { grid-template-columns: 1fr; gap: 32px; padding: 30px 22px; }
+}
+
+.lp-watch__devices {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+}
+@media (max-width: 520px) {
+  .lp-watch__devices > :last-child { display: none; }
+}
+
+.lp-watch__text .lp-eyebrow { color: var(--lp-brand-400); }
+.lp-watch__text .lp-section__title {
+  color: #fff;
+  margin: 14px 0 22px;
+  text-align: left;
+  font-size: clamp(24px, 3vw, 32px);
+}
+.lp-watch__text .lp-section__title em { color: var(--lp-brand-400); }
+
+.lp-watch__list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.lp-watch__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(228, 237, 241, 0.86);
+}
+.lp-watch__tick {
+  flex: none;
+  margin-top: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--lp-brand-500);
+}
+
+.lp-watch__comps {
+  padding-top: 20px;
+  border-top: 1px solid rgba(228, 237, 241, 0.14);
+  display: grid;
+  gap: 10px;
+}
+.lp-watch__comps-cap {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(156, 174, 185, 0.9);
+}
+.lp-watch__comp {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.lp-watch__comp strong {
+  font-size: 14px;
+  color: #fff;
+}
+.lp-watch__comp span {
+  font-size: 12.5px;
+  color: rgba(156, 174, 185, 0.9);
+}
+.lp-watch__meta {
+  margin: 20px 0 0;
+  font-size: 12.5px;
+  color: rgba(156, 174, 185, 0.75);
+}
+
+/* ── Platform grid ────────────────────────────────────────────────────── */
+.lp-plat {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.lp-plat__item {
+  padding: 24px;
+  border-radius: var(--lp-radius);
+  background: var(--lp-paper);
+  border: 1px solid var(--lp-wood-200);
+  box-shadow: var(--lp-shadow-tile);
+}
+.lp-plat__eyebrow {
+  margin: 0 0 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lp-brand-700);
+}
+.lp-plat__item h3 {
+  margin: 0 0 8px;
+  font-family: var(--lp-font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--lp-wood-900);
+}
+.lp-plat__item p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--lp-wood-600);
+}
+
+/* ── Tech chips in the native block ───────────────────────────────────── */
+.lp-native__tech {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.lp-native__tech li {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--lp-wood-100);
+  border: 1px solid var(--lp-wood-200);
+  color: var(--lp-wood-700);
 }

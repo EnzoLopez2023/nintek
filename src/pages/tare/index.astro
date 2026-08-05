@@ -1,26 +1,41 @@
 ---
+/* ── Tare landing page ─────────────────────────────────────────────────────
+   This page sells the *native iOS app*, which is now the product. The React
+   web app it grew out of is winding down, and the page says so out loud
+   rather than quietly dropping it.
+
+   Every claim here is checked against the shipped app in
+   https://github.com/EnzoLopez2023/Tare-for-iOS. Where the app is careful,
+   the copy is careful too: Apple Health sync is a button and is described as
+   one, the watch defers its writes to the phone, and the AI section explains
+   exactly what does and doesn't leave the device.
+   ───────────────────────────────────────────────────────────────────────── */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import Icon from '../../components/Icon.astro';
 import PhoneMock from '../../components/PhoneMock.astro';
 import TarePhone from '../../components/mocks/ios/Tare.astro';
+import WatchMock from '../../components/WatchMock.astro';
+import TareWatch from '../../components/mocks/watch/Tare.astro';
+import TareWidgets from '../../components/mocks/widgets/Tare.astro';
 import { getApp } from '../../data/apps';
 import '../../styles/tare-landing.css';
 
-const native = getApp('tare')!.native!;
+const app = getApp('tare')!;
+const native = app.native!;
+const watch = native.watch!;
+const widgets = native.widgets!;
+const sunset = app.sunset!;
 
-/* ── Trust strip (identity copy reworded; no auth language) ── */
+/* ── Trust strip — native facts, not the old server-side ones ── */
 const trust = [
-  { num: 'Per-user', tail: 'SQLite',   lbl: 'Your data, your own file — no shared multi-tenant database.' },
-  { num: 'Daily',    tail: 'backups',  lbl: 'Server-level snapshots plus on-demand JSON export, any time.' },
-  { num: 'Secure',   tail: 'identity', lbl: 'Verified identity on every request. No new password to remember.' },
-  { num: 'Claude',   tail: 'insights', lbl: 'AI summaries grounded in your own readings, never trained on.' },
+  { num: 'No', tail: 'account', lbl: 'No sign-up, no password, no server-side profile. Open it and start.' },
+  { num: 'On', tail: 'device', lbl: 'Everything lives in a local store, mirrored only to your own iCloud.' },
+  { num: 'Two-way', tail: 'Apple Health', lbl: 'Weight and glucose sync both directions. Steps and sleep read in.' },
+  { num: 'AI', tail: 'off by default', lbl: 'Nine assisted features, every one behind a switch that starts off.' },
 ];
 
-/* ── A week in Tare — rendered in its final, settled state ── */
-const dayLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-const dayNums = [21, 22, 23, 24, 25, 26, 27];
-
+/* ── Ask Tare demo thread ── */
 const demo = {
   question: 'How am I doing this week?',
   answer:
@@ -28,21 +43,45 @@ const demo = {
   toast: 'A1C trajectory ↗ improving',
 };
 
-const demoSteps = [
+/* ── What Apple Health exchanges, exactly ── */
+const healthRows = [
+  { name: 'Weight',  dir: 'both',  note: 'Read in and written back' },
+  { name: 'Glucose', dir: 'both',  note: 'Read in and written back' },
+  { name: 'Steps',   dir: 'in',    note: 'Read only' },
+  { name: 'Sleep',   dir: 'in',    note: 'Read only' },
+];
+
+/* ── Native platform features, grouped ── */
+const platform = [
   {
-    n: 1,
-    title: 'You log what happened',
-    body: 'A glucose reading, an injection, a number on the scale. Tare fills your week one tap at a time.',
+    eyebrow: 'Live Activities',
+    title: 'Dose day, on the Lock Screen',
+    body: 'On the day a dose is due, a Live Activity counts it down on the Lock Screen and in the Dynamic Island — no app launch required.',
   },
   {
-    n: 2,
-    title: 'You ask anything',
-    body: '"How am I doing?", "Should I change anything?", "Is my dose working?" — in plain language.',
+    eyebrow: 'Siri & Shortcuts',
+    title: 'Three App Intents',
+    body: '“Log my weight”, “Log my glucose”, and “When is my next dose?” run from Siri, Spotlight or a Shortcut.',
   },
   {
-    n: 3,
-    title: 'Tare answers from your data',
-    body: 'Claude looks at the readings you logged this week and writes a calm, specific summary — not a generic tip.',
+    eyebrow: 'Face ID',
+    title: 'A lock on the door',
+    body: 'Optional Face ID or passcode on launch, plus a cover over the app switcher preview so nothing shows in multitasking.',
+  },
+  {
+    eyebrow: 'Notifications',
+    title: 'Reminders that actually arrive',
+    body: 'Four repeating kinds — dose, glucose, weight and the daily check-in — scheduled locally, so they fire with no network at all.',
+  },
+  {
+    eyebrow: 'Camera & scanning',
+    title: 'Photos and paperwork',
+    body: 'Progress photos, meal photos for macro estimates, and VisionKit document scanning for lab reports.',
+  },
+  {
+    eyebrow: 'Deep links',
+    title: 'Straight to the right screen',
+    body: 'Every widget, complication and notification opens the exact route it refers to through a tare:// link.',
   },
 ];
 
@@ -62,7 +101,7 @@ const radarInnerD = `M ${radarInner.map(([x, y]) => `${x},${y}`).join(' L ')} Z`
 /* ── Journey mini-chart dots ── */
 const chartDots = [[0, 118], [65, 99], [130, 70], [195, 46], [260, 28]];
 
-/* ── 7-segment digit definitions for the weight scale (final reading 248.4) ── */
+/* ── 7-segment digit definitions for the weight scale (final reading 242.1) ── */
 const SEG_RECTS = [
   { name: 'a', x: 4,  y: 0,  w: 16, h: 3 },
   { name: 'b', x: 21, y: 4,  w: 3,  h: 18 },
@@ -76,13 +115,13 @@ const SEG_MAP: Record<number, string> = {
   0: 'abcdef', 1: 'bc', 2: 'abdeg', 3: 'abcdg', 4: 'bcfg',
   5: 'acdfg', 6: 'acdefg', 7: 'abc', 8: 'abcdefg', 9: 'abcdfg',
 };
-const scaleChars = '248.4'.split('');
+const scaleChars = '242.1'.split('');
 
 const vitals = [
-  { lbl: 'HBA1C',    val: '6.1%',   color: '#7c3aed' },
-  { lbl: 'BP',       val: '118/76', color: '#dc2626' },
-  { lbl: 'WEIGHT',   val: '248 lb', color: '#d97706' },
-  { lbl: 'A1C TRAJ', val: '↘ −0.4', color: '#16a34a' },
+  { lbl: 'HBA1C',    val: '6.1%',   color: 'var(--lp-meds-deep)' },
+  { lbl: 'BP',       val: '118/76', color: 'var(--lp-brand-700)' },
+  { lbl: 'WEIGHT',   val: '242 lb', color: 'var(--lp-wgt-deep)' },
+  { lbl: 'A1C TRAJ', val: '↘ −0.4', color: 'var(--lp-act-deep)' },
 ];
 ---
 
@@ -91,23 +130,16 @@ const vitals = [
   noindex
   path="/tare"
   title="Tare — Reset to baseline. Every week."
-  description="A warm, focused space for your GLP-1 journey — glucose, injections, weight, and well-being, with AI summaries grounded in your own data."
+  description="A native iPhone, iPad and Apple Watch app for the GLP-1 journey — glucose, doses, weight and well-being, with two-way Apple Health sync, widgets, complications and no account at all."
 >
-  <link
-    slot="head"
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
-  <link
-    slot="head"
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
+  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  {/* Archivo is the app's own family — the bundled faces are static instances
+      of this exact variable font, so the widths match what SwiftUI renders. */}
   <link
     slot="head"
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:ital,wght@0,600;0,700;1,700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap"
   />
 
   <div class="lp-root">
@@ -120,23 +152,13 @@ const vitals = [
     </div>
 
     <div class="lp-content">
-      {/* ── Nav (brand only) ── */}
+      {/* ── Nav ── */}
       <nav class="lp-nav">
         <div class="lp-nav__inner">
           <NintekBack />
           <div class="lp-nav__brand">
-            <span class="lp-nav__brand-mark">
-              <svg width="100%" height="100%" viewBox="0 0 40 40" aria-hidden="true">
-                <defs>
-                  <linearGradient id="lp-brand-glyph" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#e6a44d"></stop>
-                    <stop offset="100%" stop-color="#b86c1e"></stop>
-                  </linearGradient>
-                </defs>
-                <rect x="2" y="9" width="36" height="22" rx="11" fill="url(#lp-brand-glyph)"></rect>
-                <rect x="2" y="9" width="18" height="22" rx="11" fill="#fdf8f1"></rect>
-                <line x1="20" y1="11" x2="20" y2="29" stroke="#75421d" stroke-width="0.6" opacity="0.45"></line>
-              </svg>
+            <span class="lp-nav__brand-mark lp-nav__brand-mark--icon">
+              <img src="/apps/tare.png" alt="" width="40" height="40" loading="eager" decoding="async" />
             </span>
             <span>Tare</span>
           </div>
@@ -144,89 +166,56 @@ const vitals = [
       </nav>
 
       {/* ── Hero ── */}
-      <section class="lp-hero">
+      <section class="lp-hero lp-hero--native">
         <div class="lp-hero__copy">
-          <p class="lp-eyebrow">GLP-1 &amp; Metabolic Health</p>
+          <p class="lp-eyebrow">
+            <span class="lp-eyebrow__dot"></span>
+            Now on iPhone, iPad and Apple&nbsp;Watch
+          </p>
           <h1 class="lp-hero__title">
             Track your week. <em>Reset to baseline.</em>
           </h1>
           <p class="lp-hero__lede">
-            Glucose, injections, weight, and well-being — one warm, focused
-            space for everything you&rsquo;re working on. Your data lives in a
-            database that&rsquo;s only yours.
+            Glucose, doses, weight and well-being in one calm instrument panel —
+            built natively for iOS, synced through your own iCloud, and usable
+            with <strong>no account at all</strong>.
+          </p>
+
+          <ul class="lp-hero__pills">
+            <li>Two-way Apple Health</li>
+            <li>Apple Watch app</li>
+            <li>5 widgets + Live Activity</li>
+            <li>Face ID lock</li>
+          </ul>
+
+          <p class="lp-hero__meta">
+            <span class="lp-native__beta">TestFlight beta</span>
+            {native.minOS} or later &middot; {native.devices}
           </p>
         </div>
 
-        {/* Floating dashboard mockup */}
-        <div class="lp-hero__mockup-wrap">
-          <div class="lp-mockup">
-            <div class="lp-mockup__bar">
-              <span class="lp-mockup__dot"></span>
-              <span class="lp-mockup__dot"></span>
-              <span class="lp-mockup__dot"></span>
-              <span class="lp-mockup__bar-label">Today's view</span>
-            </div>
+        {/* Device cluster: the phone, with the watch tucked in front of it. */}
+        <div class="lp-hero__devices">
+          <div class="lp-hero__phone">
+            <PhoneMock tone="enamel">
+              <TarePhone />
+            </PhoneMock>
+          </div>
+          <div class="lp-hero__watch" aria-hidden="true">
+            <WatchMock width={186}>
+              <TareWatch view="home" />
+            </WatchMock>
+          </div>
+        </div>
+      </section>
 
-            <p class="lp-mockup__eyebrow">Thursday · May 27</p>
-            <p class="lp-mockup__greet">Good morning</p>
-
-            <div class="lp-mockup__journey">
-              <div class="lp-mockup__chip" style="background: #fce4d8;">
-                <p class="lp-mockup__chip-val" style="color: #9a3412;">312</p>
-                <p class="lp-mockup__chip-label" style="color: #c2410c;">days · Dx</p>
-              </div>
-              <div class="lp-mockup__chip" style="background: #dde9d3;">
-                <p class="lp-mockup__chip-val" style="color: #365314;">96</p>
-                <p class="lp-mockup__chip-label" style="color: #4d7c0f;">days · Keto</p>
-              </div>
-              <div class="lp-mockup__chip" style="background: #fbeed8;">
-                <p class="lp-mockup__chip-val" style="color: #92521b;">58</p>
-                <p class="lp-mockup__chip-label" style="color: #b86c1e;">days · Mounjaro</p>
-              </div>
-            </div>
-
-            <div class="lp-mockup__tiles">
-              <div class="lp-mockup__tile" style="background: #fce4d8;">
-                <div class="lp-mockup__tile-icon" style="color: #c2410c;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>
-                </div>
-                <p class="lp-mockup__tile-eyebrow" style="color: #9a3412;">NEXT DOSE</p>
-                <p class="lp-mockup__tile-val">Sun 8:30</p>
-                <p class="lp-mockup__tile-foot">Mounjaro · 7.5 mg</p>
-              </div>
-              <div class="lp-mockup__tile" style="background: #ede5f4;">
-                <div class="lp-mockup__tile-icon" style="color: #6d28d9;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>
-                </div>
-                <p class="lp-mockup__tile-eyebrow" style="color: #4c1d95;">WEIGHT</p>
-                <p class="lp-mockup__tile-val">248.4</p>
-                <p class="lp-mockup__tile-foot">lb · -1.6 this month</p>
-              </div>
-              <div class="lp-mockup__tile" style="background: #dceef7;">
-                <div class="lp-mockup__tile-icon" style="color: #0c4a6e;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 4.24 7 2c-.29 2.24-1.14 4.13-2.29 5.06S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05Z"></path><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"></path></svg>
-                </div>
-                <p class="lp-mockup__tile-eyebrow" style="color: #0c4a6e;">GLUCOSE</p>
-                <p class="lp-mockup__tile-val">108</p>
-                <p class="lp-mockup__tile-foot">mg/dL · normal</p>
-              </div>
-              <div class="lp-mockup__tile" style="background: #dde9d3;">
-                <div class="lp-mockup__tile-icon" style="color: #365314;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg>
-                </div>
-                <p class="lp-mockup__tile-eyebrow" style="color: #365314;">WELL-BEING</p>
-                <p class="lp-mockup__tile-val">7</p>
-                <p class="lp-mockup__tile-foot">mood · energy 6</p>
-              </div>
-            </div>
-
-            <span class="lp-mockup__chip-float lp-mockup__chip-float--right">
-              <span class="lp-pulse-dot"></span> Live · synced
-            </span>
-            <span class="lp-mockup__chip-float lp-mockup__chip-float--left">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--lp-brand-700)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
-              Insight ready
-            </span>
+      {/* ── Sunset notice ── */}
+      <section class="lp-sunset" aria-labelledby="lp-sunset-h">
+        <div class="lp-sunset__inner">
+          <span class="lp-sunset__badge">{sunset.label}</span>
+          <div class="lp-sunset__text">
+            <h2 class="lp-sunset__title" id="lp-sunset-h">{sunset.successor}</h2>
+            <p>{sunset.body}</p>
           </div>
         </div>
       </section>
@@ -243,42 +232,157 @@ const vitals = [
         </div>
       </section>
 
-      {/* ── A week in Tare ── */}
-      <section class="lp-section">
+      {/* ── Apple Health ── */}
+      <section class="lp-section" id="health">
         <div class="lp-section__head">
-          <p class="lp-eyebrow">A week in Tare</p>
+          <p class="lp-eyebrow">Apple Health</p>
           <h2 class="lp-section__title">
-            Watch a week come <em>together</em>.
+            It talks to the rest of your <em>health data</em>.
           </h2>
           <p class="lp-section__lede">
-            Log what happened — a reading, a shot, a number on the scale — and
-            your weekly story writes itself. Ask Tare how you&rsquo;re doing and
-            the answer is grounded in your own data, not generic advice.
+            Weight and glucose move in both directions, so a reading taken on a
+            smart scale or a connected meter shows up in Tare — and anything you
+            log in Tare shows up in Health. Steps and sleep are read in to give
+            your check-ins context.
+          </p>
+        </div>
+
+        <div class="lp-health">
+          <div class="lp-health__table">
+            {healthRows.map((r) => (
+              <div class="lp-health__row">
+                <span class="lp-health__name">{r.name}</span>
+                <span class={`lp-health__arrow lp-health__arrow--${r.dir}`} aria-hidden="true">
+                  {r.dir === 'both' ? '⇄' : '←'}
+                </span>
+                <span class="lp-health__note">{r.note}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="lp-health__notes">
+            <div class="lp-note">
+              <p class="lp-note__title">What you typed always wins</p>
+              <p>
+                If a reading exists in both places, the value you entered in Tare
+                is the one kept. Imported samples never overwrite your own.
+              </p>
+            </div>
+            <div class="lp-note">
+              <p class="lp-note__title">Sync is a button, not a background job</p>
+              <p>
+                Tare syncs when you tap <em>Sync now</em>. Nothing runs behind
+                your back, and you can see exactly what came across.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Widgets ── */}
+      <section class="lp-section lp-section--tight" id="widgets">
+        <div class="lp-section__head">
+          <p class="lp-eyebrow">Widgets &amp; Live Activities</p>
+          <h2 class="lp-section__title">
+            Most days, you never <em>open the app</em>.
+          </h2>
+          <p class="lp-section__lede">
+            Five widgets across the Home Screen, the Lock Screen and StandBy —
+            plus a Live Activity that counts down dose day in the Dynamic
+            Island. Each one opens straight to the screen it&rsquo;s about.
+          </p>
+        </div>
+
+        <div class="lp-wsec">
+          <div class="lp-wsec__stage">
+            <p class="lp-wsec__cap">Home Screen</p>
+            <TareWidgets kind="home" />
+          </div>
+
+          <div class="lp-wsec__aside">
+            <div class="lp-wsec__lock">
+              <p class="lp-wsec__cap">Lock Screen &amp; StandBy</p>
+              <TareWidgets kind="lock" />
+            </div>
+            <TareWidgets kind="island" />
+          </div>
+        </div>
+
+        <div class="lp-wgrid">
+          {widgets.map((w) => (
+            <article class="lp-wgrid__item">
+              <h3>{w.name}</h3>
+              <p>{w.body}</p>
+              <ul class="lp-wgrid__sizes">
+                {w.sizes.map((s) => <li>{s}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Apple Watch ── */}
+      <section class="lp-watch" id="watch">
+        <div class="lp-watch__grid">
+          <div class="lp-watch__devices" aria-hidden="true">
+            <WatchMock width={214}>
+              <TareWatch view="home" />
+            </WatchMock>
+            <WatchMock width={186}>
+              <TareWatch view="log" />
+            </WatchMock>
+          </div>
+
+          <div class="lp-watch__text">
+            <p class="lp-eyebrow">Apple Watch</p>
+            <h2 class="lp-section__title">{watch.thesis}</h2>
+
+            <div class="lp-watch__list">
+              {watch.points.map((p) => (
+                <div class="lp-watch__item">
+                  <span class="lp-watch__tick" aria-hidden="true"></span>
+                  <span>{p}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="lp-watch__comps">
+              <p class="lp-watch__comps-cap">Complications</p>
+              {watch.complications.map((c) => (
+                <div class="lp-watch__comp">
+                  <strong>{c.name}</strong>
+                  <span>{c.families}</span>
+                </div>
+              ))}
+            </div>
+
+            <p class="lp-watch__meta">{watch.minOS} or later</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── AI ── */}
+      <section class="lp-section" id="ai">
+        <div class="lp-section__head">
+          <p class="lp-eyebrow">Assisted, not automated</p>
+          <h2 class="lp-section__title">
+            Nine AI features. All of them <em>start switched off</em>.
+          </h2>
+          <p class="lp-section__lede">
+            Ask a question in plain language and the answer is grounded in your
+            own readings. Turn the consent switch off and the app makes no
+            network requests at all — every screen still works.
           </p>
         </div>
 
         <div class="lp-demo">
           <div class="lp-demo__panel">
             <div class="lp-demo__panel-head">
-              <span>This week</span>
+              <span>Ask Tare</span>
               <span class="lp-demo__panel-tag">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
-                May 21–27
+                Last 30 days
               </span>
-            </div>
-
-            <div class="lp-week">
-              {dayLabels.map((d, i) => (
-                <div class="lp-week__day">
-                  <p class="lp-week__day-label">{d}</p>
-                  <div class="lp-week__day-box lp-week__day-box--on">
-                    <span class="lp-week__day-num">{dayNums[i]}</span>
-                    <span class="lp-week__check" style="opacity: 1;">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
-                    </span>
-                  </div>
-                </div>
-              ))}
             </div>
 
             <div class="lp-thread">
@@ -292,21 +396,43 @@ const vitals = [
           </div>
 
           <div class="lp-demo__side">
-            {demoSteps.map((s, idx) => (
-              <div class={`lp-demo__step${idx === 2 ? ' lp-demo__step--active' : ''}`}>
-                <span class="lp-demo__step-bullet">{s.n}</span>
-                <div>
-                  <p class="lp-demo__step-title">{s.title}</p>
-                  <p class="lp-demo__step-body">{s.body}</p>
-                </div>
+            <div class="lp-demo__step lp-demo__step--active">
+              <span class="lp-demo__step-bullet">1</span>
+              <div>
+                <p class="lp-demo__step-title">You turn it on, once</p>
+                <p class="lp-demo__step-body">
+                  A single consent switch, off out of the box. Nothing is sent
+                  before you flip it, and flipping it back stops everything.
+                </p>
               </div>
-            ))}
+            </div>
+            <div class="lp-demo__step">
+              <span class="lp-demo__step-bullet">2</span>
+              <div>
+                <p class="lp-demo__step-title">Your database stays put</p>
+                <p class="lp-demo__step-body">
+                  For data questions the assistant writes a query and your phone
+                  runs it locally. Only the small answer it needs travels — never
+                  the database, and never a bulk export.
+                </p>
+              </div>
+            </div>
+            <div class="lp-demo__step">
+              <span class="lp-demo__step-bullet">3</span>
+              <div>
+                <p class="lp-demo__step-title">No account to attach it to</p>
+                <p class="lp-demo__step-body">
+                  Requests are authorised by App&nbsp;Attest — proof the app is
+                  genuine, not proof of who you are. The relay keeps nothing.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── Features bento ── */}
-      <section class="lp-section" id="features" style="padding-top: 0;">
+      <section class="lp-section lp-section--tight" id="features">
         <div class="lp-section__head">
           <p class="lp-eyebrow">Everything Tare tracks</p>
           <h2 class="lp-section__title">
@@ -320,7 +446,7 @@ const vitals = [
             <div class="lp-card__scene lp-scene--neut">
               <svg class="lp-mini-chart" viewBox="0 0 260 150" aria-hidden="true">
                 {[36, 70, 104].map((y) => (
-                  <line x1="0" y1={y} x2="260" y2={y} stroke="rgba(168, 128, 73, 0.18)"></line>
+                  <line x1="0" y1={y} x2="260" y2={y} stroke="rgba(120, 137, 148, 0.22)"></line>
                 ))}
                 <path class="lp-mini-chart__area" d="M 0,118 C 50,108 90,90 130,70 C 170,52 210,38 260,28 L 260,142 L 0,142 Z"></path>
                 <path class="lp-mini-chart__line" d="M 0,118 C 50,108 90,90 130,70 C 170,52 210,38 260,28"></path>
@@ -334,8 +460,8 @@ const vitals = [
               <h3 class="lp-card__title">A clear view of the whole arc</h3>
               <p>
                 Days since diagnosis, weeks on medication, estimated A1C, and a
-                30-day weight + glucose trend — all stitched together so you can
-                see what&rsquo;s actually working.
+                30-day weight and glucose trend — every chart drawn by hand so it
+                keeps the app&rsquo;s own line weights and colours.
               </p>
             </div>
           </article>
@@ -346,8 +472,8 @@ const vitals = [
               <svg width="44" height="60" viewBox="0 0 44 60" aria-hidden="true">
                 <defs>
                   <linearGradient id="lp-drop-r" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#a4cae9"></stop>
-                    <stop offset="100%" stop-color="#3884c4"></stop>
+                    <stop offset="0%" stop-color="#a6d5e1"></stop>
+                    <stop offset="100%" stop-color="#0a5d72"></stop>
                   </linearGradient>
                 </defs>
                 <path d="M22 4 C 8 22, 4 38, 22 56 C 40 38, 36 22, 22 4 Z" fill="url(#lp-drop-r)"></path>
@@ -358,8 +484,8 @@ const vitals = [
               <p class="lp-card__eyebrow" style="color: var(--lp-glu-deep);">Blood glucose</p>
               <h3 class="lp-card__title">Readings, ranges, weekly trends</h3>
               <p>
-                Log fasting, post-meal, or random readings. See your range hold,
-                and watch your typical day shift toward normal.
+                Log fasting, post-meal or random readings — or let Apple Health
+                bring them in. Bands are named, not just coloured.
               </p>
             </div>
           </article>
@@ -368,28 +494,18 @@ const vitals = [
           <article class="lp-card lp-card--feature">
             <div class="lp-card__scene lp-scene--meds">
               <svg width="120" height="48" viewBox="0 0 200 80" aria-hidden="true">
-                <defs>
-                  <linearGradient id="lp-cap-rL" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#fff7ee"></stop>
-                    <stop offset="100%" stop-color="#fce4d8"></stop>
-                  </linearGradient>
-                  <linearGradient id="lp-cap-rR" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#f59669"></stop>
-                    <stop offset="100%" stop-color="#c2410c"></stop>
-                  </linearGradient>
-                </defs>
-                <rect x="0" y="0" width="100" height="80" rx="40" fill="url(#lp-cap-rL)"></rect>
-                <rect x="100" y="0" width="100" height="80" rx="40" fill="url(#lp-cap-rR)"></rect>
+                <rect x="0" y="0" width="100" height="80" rx="40" fill="#ebe5fb"></rect>
+                <rect x="100" y="0" width="100" height="80" rx="40" fill="#8b79e0"></rect>
                 <ellipse cx="40" cy="20" rx="22" ry="6" fill="rgba(255,255,255,0.5)"></ellipse>
-                <ellipse cx="140" cy="20" rx="22" ry="6" fill="rgba(255,255,255,0.18)"></ellipse>
+                <ellipse cx="140" cy="20" rx="22" ry="6" fill="rgba(255,255,255,0.22)"></ellipse>
               </svg>
             </div>
             <div class="lp-card__body">
               <p class="lp-card__eyebrow" style="color: var(--lp-meds-deep);">GLP-1 medication</p>
               <h3 class="lp-card__title">Doses, half-life, site rotation</h3>
               <p>
-                Track injections by date and site. See the half-life decay curve
-                so the next dose is never a guess.
+                Track injections by date and site, watch the half-life decay
+                curve, and get a reminder the day the next one is due.
               </p>
             </div>
           </article>
@@ -426,8 +542,8 @@ const vitals = [
               <p class="lp-card__eyebrow" style="color: var(--lp-wgt-deep);">Weight &amp; body</p>
               <h3 class="lp-card__title">Step on. Settle in.</h3>
               <p>
-                Daily weight, body measurements, and progress photos in one
-                place. Each morning&rsquo;s reading lands a little lower.
+                Daily weight, body measurements and progress photos in one place
+                — or logged from the watch and picked up by the phone.
               </p>
             </div>
           </article>
@@ -436,18 +552,18 @@ const vitals = [
           <article class="lp-card lp-card--feature-narrow">
             <div class="lp-card__scene lp-scene--act">
               <svg class="lp-mini-radar" viewBox="0 0 120 120" aria-hidden="true">
-                <circle cx={rcx} cy={rcy} r={rmax} fill="none" stroke="rgba(54, 83, 20, 0.18)"></circle>
-                <circle cx={rcx} cy={rcy} r={rmax * 0.66} fill="none" stroke="rgba(54, 83, 20, 0.14)"></circle>
-                <circle cx={rcx} cy={rcy} r={rmax * 0.33} fill="none" stroke="rgba(54, 83, 20, 0.10)"></circle>
-                <path d={radarOuterD} fill="none" stroke="rgba(54, 83, 20, 0.20)"></path>
-                <path d={radarInnerD} fill="rgba(126, 167, 100, 0.30)" stroke="#365314" stroke-width="1.6"></path>
+                <circle cx={rcx} cy={rcy} r={rmax} fill="none" stroke="rgba(59, 98, 16, 0.18)"></circle>
+                <circle cx={rcx} cy={rcy} r={rmax * 0.66} fill="none" stroke="rgba(59, 98, 16, 0.14)"></circle>
+                <circle cx={rcx} cy={rcy} r={rmax * 0.33} fill="none" stroke="rgba(59, 98, 16, 0.10)"></circle>
+                <path d={radarOuterD} fill="none" stroke="rgba(59, 98, 16, 0.20)"></path>
+                <path d={radarInnerD} fill="rgba(127, 174, 68, 0.30)" stroke="#3b6210" stroke-width="1.6"></path>
                 {radarOuter.map(([x, y], i) => (
                   <text
                     x={x + (i === 1 ? 4 : i === 3 ? -4 : 0)}
                     y={y + (i === 0 ? -4 : i === 2 ? 10 : 4)}
                     font-size="8"
                     font-weight="700"
-                    fill="#365314"
+                    fill="#3b6210"
                     text-anchor="middle"
                     style="letter-spacing: 0.06em;"
                   >{radarLabels[i]}</text>
@@ -458,7 +574,8 @@ const vitals = [
               <p class="lp-card__eyebrow" style="color: var(--lp-act-deep);">Well-being</p>
               <h3 class="lp-card__title">Mood, energy, hunger, sleep</h3>
               <p>
-                A 10-second daily check-in. The radar shows the shape of your week.
+                A 10-second daily check-in — from the phone, or off the watch
+                with a turn of the Digital Crown.
               </p>
             </div>
           </article>
@@ -479,19 +596,40 @@ const vitals = [
               <p class="lp-card__eyebrow" style="color: var(--lp-wood-800);">Medical records</p>
               <h3 class="lp-card__title">Vitals, labs, diagnoses, meds — alongside your daily log</h3>
               <p>
-                Keep HbA1c, BP, your active medication list, and visit notes next
-                to the readings you actually take. No more flipping between portals.
+                Keep HbA1c, BP, your active medication list and visit notes next
+                to the readings you actually take — then hand your doctor a
+                printed report generated on the phone.
               </p>
             </div>
           </article>
         </div>
       </section>
 
-      {/* ── Native iOS ── */}
+      {/* ── Platform ── */}
+      <section class="lp-section lp-section--tight" id="platform">
+        <div class="lp-section__head">
+          <p class="lp-eyebrow">Built for the platform</p>
+          <h2 class="lp-section__title">
+            The parts you only get by going <em>native</em>.
+          </h2>
+        </div>
+
+        <div class="lp-plat">
+          {platform.map((p) => (
+            <article class="lp-plat__item">
+              <p class="lp-plat__eyebrow">{p.eyebrow}</p>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Native highlights + backup ── */}
       <section class="lp-native">
         <div class="lp-native__grid">
           <div class="lp-native__phone" aria-hidden="true">
-            <PhoneMock tone="light">
+            <PhoneMock tone="enamel">
               <TarePhone />
             </PhoneMock>
           </div>
@@ -499,7 +637,7 @@ const vitals = [
           <div class="lp-native__text">
             <span class="lp-native__eyebrow">
               <span class="lp-native__dot"></span>
-              Now on iPhone and iPad
+              {native.thesis}
             </span>
             <h2 class="lp-native__title">
               The same history, with <em>no account at all.</em>
@@ -522,10 +660,13 @@ const vitals = [
               }
             </div>
 
+            <ul class="lp-native__tech">
+              {native.tech.map((t) => <li>{t}</li>)}
+            </ul>
+
             <p class="lp-native__meta">
               <span class="lp-native__beta">TestFlight beta</span>
-              {native.minOS} or later &middot; {native.devices}
-              &ensp;&middot;&ensp;
+              <span>{native.minOS} or later &middot; {native.devices}</span>
               <a href="/ios#tare">More about the native apps</a>
             </p>
           </div>
@@ -538,10 +679,10 @@ const vitals = [
           Ready to reset your <em>baseline?</em>
         </h2>
         <p class="lp-finale__lede">
-          Your private workspace — one calm space for glucose, doses, weight,
-          and well-being, ready whenever you are.
+          One calm space for glucose, doses, weight and well-being — on your
+          iPhone, your iPad and your wrist, ready whenever you are.
         </p>
-        <p class="lp-finale__foot">Tare · Reset to baseline. Every week.</p>
+        <p class="lp-finale__foot">Tare &middot; Reset to baseline. Every week.</p>
         <p class="lp-finale__privacy">
           Questions about your data? Read the <a href="/tare/privacy">Tare Privacy Policy</a>.
         </p>

@@ -19,12 +19,12 @@ const phones: Record<string, any> = {
   tare: TarePhone,
 };
 
-const tones: Record<string, 'light' | 'dark' | 'navy'> = {
+const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   cairn: 'navy',
   shopkeep: 'light',
   workshop: 'dark',
   cortex: 'dark',
-  tare: 'light',
+  tare: 'enamel',
 };
 
 /** Why the ports are worth doing at all. Each of these is something at least one
@@ -284,6 +284,28 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                   </div>
 
                   <div class="iapp-foot reveal">
+                    {native.widgets && (
+                      <div class="iapp-extra">
+                        <p class="iapp-extra-cap">Widgets</p>
+                        <div class="iapp-tech">
+                          {native.widgets.map((w) => (
+                            <span class="iapp-chip">{w.name}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {native.watch && (
+                      <div class="iapp-extra">
+                        <p class="iapp-extra-cap">Apple Watch · {native.watch.minOS}</p>
+                        <p class="iapp-extra-body">{native.watch.thesis}</p>
+                      </div>
+                    )}
+                    {app.sunset && (
+                      <p class="iapp-sunset">
+                        <span class="iapp-sunset-tag">{app.sunset.label}</span>
+                        {app.sunset.body}
+                      </p>
+                    )}
                     <div class="iapp-tech">
                       {native.tech.map((t) => (
                         <span class="iapp-chip">{t}</span>

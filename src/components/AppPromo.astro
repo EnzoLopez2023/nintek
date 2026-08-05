@@ -4,7 +4,6 @@ import MockShell from './MockShell.astro';
 import PhoneMock from './PhoneMock.astro';
 import PlatformBadges from './PlatformBadges.astro';
 import Cairn from './mocks/Cairn.astro';
-import Tare from './mocks/Tare.astro';
 import PulseWire from './mocks/PulseWire.astro';
 import Puzzlebox from './mocks/Puzzlebox.astro';
 import Hearth from './mocks/Hearth.astro';
@@ -12,6 +11,7 @@ import ShopKeep from './mocks/ShopKeep.astro';
 import Tabloom from './mocks/Tabloom.astro';
 import Workshop from './mocks/Workshop.astro';
 import CortexPhone from './mocks/ios/Cortex.astro';
+import TarePhone from './mocks/ios/Tare.astro';
 
 interface Props {
   app: App;
@@ -23,7 +23,6 @@ const reverse = index % 2 === 1;
 
 const bodies: Record<string, any> = {
   cairn: Cairn,
-  tare: Tare,
   pulsewire: PulseWire,
   puzzlebox: Puzzlebox,
   hearth: Hearth,
@@ -32,9 +31,18 @@ const bodies: Record<string, any> = {
   workshop: Workshop,
 };
 
-/** iOS-only apps get a device frame instead of browser chrome. */
+/** Apps whose home is a phone get a device frame instead of browser chrome.
+ *  Tare is here because the native app is now the product — showing it in a
+ *  browser window would advertise the version being retired. */
 const phoneBodies: Record<string, any> = {
   cortex: CortexPhone,
+  tare: TarePhone,
+};
+
+/** Cortex ships a dark UI; Tare's is a cool enamel, so it gets a shell to
+ *  match rather than the default walnut. */
+const phoneTones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
+  tare: 'enamel',
 };
 
 const PhoneBody = phoneBodies[app.slug];
@@ -112,7 +120,7 @@ const isNativeBeta = app.native?.status === 'testflight';
       <div class="reveal">
         {
           PhoneBody ? (
-            <PhoneMock tone="dark" chip={app.mockup.chip} live={app.mockup.live}>
+            <PhoneMock tone={phoneTones[app.slug] ?? 'dark'} chip={app.mockup.chip} live={app.mockup.live}>
               <PhoneBody />
             </PhoneMock>
           ) : (

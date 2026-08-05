@@ -703,6 +703,19 @@ h3 {
     linear-gradient(175deg, #0d1524, #080d17 60%, #0b1220);
   color: #e8eefb;
 }
+/* Tare's shell. The app's ground is a cool enamel and its one saturated colour
+   is a lacquer vermilion, so a walnut bezel would fight the screen it frames. */
+.phone.enamel {
+  background: linear-gradient(150deg, #46545f, #1b242a 45%, #313d46);
+}
+.phone.enamel .phone-ambient,
+.phone-wrap:has(.phone.enamel) .phone-ambient {
+  background: radial-gradient(circle at 55% 40%, rgba(226, 61, 40, 0.16), transparent 70%);
+}
+.phone.enamel .phone-screen {
+  background: linear-gradient(170deg, #f4f8fa, #e4edf1);
+  color: #222c33;
+}
 .phone-island {
   position: absolute;
   top: 8px;

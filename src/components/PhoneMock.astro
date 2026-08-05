@@ -7,9 +7,10 @@ interface Props {
   /** Time shown in the status bar. */
   time?: string;
   /** Dark phones read as a Lock Screen; light ones as an app. `navy` is the
-   *  graphite-and-blueprint shell Cairn ships with, so the mock is not sitting
-   *  in a walnut bezel that the app itself never wears. */
-  tone?: 'light' | 'dark' | 'navy';
+   *  graphite-and-blueprint shell Cairn ships with, and `enamel` is Tare's
+   *  cool graphite one, so neither mock sits in a walnut bezel that the app
+   *  itself never wears. */
+  tone?: 'light' | 'dark' | 'navy' | 'enamel';
 }
 const { chip, live, time = '9:41', tone = 'light' } = Astro.props;
 ---

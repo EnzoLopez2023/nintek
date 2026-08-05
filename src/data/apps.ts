@@ -30,6 +30,27 @@ export interface NativeHighlight {
   body: string;
 }
 
+/** One widget the app installs, as it appears in the widget gallery. */
+export interface WidgetSpec {
+  /** The gallery display name, verbatim from the `Widget`'s configuration. */
+  name: string;
+  /** The gallery description, verbatim. */
+  body: string;
+  /** Human-readable families, e.g. 'Small', 'Medium', 'Lock Screen'. */
+  sizes: string[];
+}
+
+/** The Apple Watch story, for apps that ship a watchOS target. */
+export interface WatchApp {
+  /** One line for the section head. */
+  thesis: string;
+  /** What you can do on the wrist. */
+  points: string[];
+  /** Complications offered, and on which families. */
+  complications: { name: string; families: string }[];
+  minOS: string;
+}
+
 /** The native iOS story for an app. Every highlight below is backed by shipping
  *  Swift code — nothing aspirational lives in here. */
 export interface Native {
@@ -43,6 +64,21 @@ export interface Native {
   tech: string[];
   minOS: string;
   devices: string;
+  /** Home Screen / Lock Screen widgets the app installs. */
+  widgets?: WidgetSpec[];
+  /** The watchOS companion, if there is one. */
+  watch?: WatchApp;
+}
+
+/** A web app that is being retired in favour of its native successor. Rendered
+ *  as a standing notice so nobody starts a migration they'd have to redo. */
+export interface Sunset {
+  /** Short label, e.g. 'Web app winding down'. */
+  label: string;
+  /** The full notice. */
+  body: string;
+  /** Where the work continues. */
+  successor: string;
 }
 
 export interface App {
@@ -59,6 +95,8 @@ export interface App {
   platforms: Platforms;
   mockup: Mockup;
   native?: Native;
+  /** Set when the web app is being retired in favour of the native one. */
+  sunset?: Sunset;
 }
 
 export const COMPANY = {
@@ -110,8 +148,8 @@ export const apps: App[] = [
     tagline: 'Your weight journey, weighed honestly.',
     headline: { lead: 'Every number tells a story.', em: 'Read the trend.' },
     description:
-      'Track weight, doses, glucose and labs on a GLP-1 journey — then read them together. Ambulatory glucose profiles, zone distributions, kidney and thyroid trends, and an AI analyst that can answer questions about any of it.',
-    quiet: 'On iPhone it keeps the whole history without an account at all.',
+      'Weight, doses, glucose, labs and well-being on a GLP-1 journey — read together, not in four separate places. Native on iPhone, iPad and Apple Watch, with two-way Apple Health sync, widgets, a dose-day Live Activity, and an AI analyst that answers questions about any of it without your records leaving the device.',
+    quiet: 'Now native on iPhone, iPad and Apple Watch — with no account at all.',
     icon: 'drop',
     bundleId: 'com.nintek.tare',
     hasPage: true,
@@ -119,56 +157,121 @@ export const apps: App[] = [
     mockup: {
       title: 'This Month',
       subtitle: 'Trend · weight, doses & glucose',
-      chip: 'Logged · 184.2 lb',
+      chip: 'Logged · 242.1 lb',
       live: 'On track',
     },
     native: {
       status: 'testflight',
       thesis:
-        'The longest history of anything in the catalogue, and no account holding it — just your phone and your own iCloud.',
+        'The longest history in the catalogue, carried by the phone, the wrist and the Home Screen — with no account behind any of it.',
       intro:
-        'Tare is the app that gets opened every day, and the one carrying the most history, so the native version was built to hold that history without asking for an account at all. Where the web app signs into Microsoft, this one keeps everything in SwiftData on the device and syncs through your own private iCloud database. Moving across is a single file: export a backup on the web, open it on the phone, and every weight, dose, glucose reading, lab result and photo arrives intact.',
+        'Tare is the app that gets opened every day, and the one carrying the most history, so the native version was built to hold that history without asking for an account at all. Where the web app signs into Microsoft, this one keeps everything in SwiftData on the device and syncs through your own private iCloud database. Then it does the things a browser tab simply cannot: widgets on the Home Screen and Lock Screen, a Live Activity that counts down injection day, an Apple Watch app you can log from, two-way Apple Health sync, Siri, Face ID, and reminders that fire whether or not anything is open. Moving across is a single file — export a backup on the web, open it on the phone, and every weight, dose, glucose reading, lab result and photo arrives intact.',
       highlights: [
         {
           icon: 'cloud',
           title: 'No account, and nothing to sign into',
           body:
-            'The web app needs a Microsoft login. This one has no sign-in screen at all. Your history lives on the phone and syncs through your own private iCloud database, so there is no server holding a copy and no password to lose.',
+            'The web app needs a Microsoft login. This one has no sign-in screen at all. Your history lives on the phone and syncs through your own private iCloud database, so there is no server holding a copy and no password to lose. With no iCloud it degrades to a local store and says so, rather than refusing to launch.',
         },
         {
-          icon: 'package',
-          title: 'Bring the whole history with you',
+          icon: 'heart',
+          title: 'Two-way Apple Health sync',
           body:
-            'Export a backup from the web app and open it here. Weights, doses, glucose, labs, vitals, diagnoses, side effects, meals, measurements and progress photos all land in one pass — and a copy of whatever is already on the phone is saved first, so the import can be undone.',
+            'Weight and glucose flow both directions; sleep and steps are read only, because Tare has no business claiming to be the source of a night\u2019s sleep. What you typed always wins — Health fills the days you left blank and never overwrites a figure you entered yourself.',
         },
         {
-          icon: 'chart',
-          title: 'Every chart drawn on the device',
+          icon: 'apple',
+          title: 'An Apple Watch app you can log from',
           body:
-            'Ambulatory glucose profiles, time-in-range bands, weight trends and lab histories are drawn in SwiftUI rather than fetched as images. They redraw the moment you log something, they work with no signal, and changing the range costs nothing.',
+            'Glucose, weight, dose and mood, entered with the Digital Crown. Entries queue on the wrist and are delivered even if the phone is asleep or out of range — and the watch tells you how many are still waiting rather than pretending they landed.',
+        },
+        {
+          icon: 'widget',
+          title: 'Five widgets and a Live Activity',
+          body:
+            'Next Dose, Glucose, Weight, Food Photo and a full Dashboard — on the Home Screen, the Lock Screen and in StandBy. On injection day a Live Activity counts down in the Dynamic Island. Every figure is marked privacy-sensitive, so it blurs when the phone is locked.',
         },
         {
           icon: 'sparkle',
           title: 'An analyst that stays switched off',
           body:
-            'The doctor report, the insights summary and a chat that can question your own numbers all sit behind one switch that is off until you turn it on, and the switch says plainly what leaves the device first. Off is the default, and off is still a complete app.',
+            'Nine AI features — the doctor report, "Tare\u2019s Take", lab-PDF import, meal photos, and a chat that can question your own numbers — all sit behind one switch that is off until you turn it on. Ask it anything and it writes SQL that runs on the phone: the model gets the answer, never the database.',
         },
         {
           icon: 'bell',
-          title: 'One reminder, on injection day',
+          title: 'Reminders that actually arrive',
           body:
-            'Choose the day and the time and the phone schedules the weekly reminder itself. No notification server, no account to attach it to, nothing behind it trying to win back your attention.',
+            'Injection day, hydration, a weekly digest and a monthly report, all scheduled by the phone itself. The web app used a timer that only fired if the tab was still open — over a week, essentially never. No notification server, and nothing behind them trying to win back your attention.',
         },
         {
           icon: 'lock',
           title: 'Shut behind Face ID',
           body:
-            'An optional lock on launch that takes Face ID or your passcode, never biometrics alone, so a bad match can never strand you outside your own medication history. The app switcher preview is covered too.',
+            'An optional lock on launch that takes Face ID or your passcode, never biometrics alone, so a bad match can never strand you outside your own medication history. The locked app is never even built, and the app switcher preview is covered too.',
+        },
+        {
+          icon: 'package',
+          title: 'Bring the whole history with you',
+          body:
+            'Export a backup from the web app and open it here — all sixteen tables land in one pass. A safety copy of whatever is already on the phone is written first, without being asked, so a restore can always be undone. After that it keeps rolling daily backups on device.',
         },
       ],
-      tech: ['SwiftUI', 'SwiftData', 'CloudKit', 'Face ID', 'App Attest', 'User Notifications'],
+      tech: [
+        'SwiftUI', 'SwiftData', 'CloudKit', 'HealthKit', 'WidgetKit', 'ActivityKit',
+        'watchOS', 'WatchConnectivity', 'App Intents', 'VisionKit', 'Face ID',
+        'App Attest', 'User Notifications',
+      ],
       minOS: 'iOS 17',
-      devices: 'iPhone and iPad',
+      devices: 'iPhone, iPad and Apple Watch',
+      widgets: [
+        {
+          name: 'Next Dose',
+          body: 'Days until your next injection.',
+          sizes: ['Small', 'Medium', 'Lock Screen'],
+        },
+        {
+          name: 'Glucose',
+          body: 'Your latest reading, and whether it is in band.',
+          sizes: ['Small', 'Medium', 'Lock Screen'],
+        },
+        {
+          name: 'Weight',
+          body: 'Your latest weight, and progress toward your goal.',
+          sizes: ['Small', 'Medium', 'Lock Screen'],
+        },
+        {
+          name: 'Tare Dashboard',
+          body: 'Dose, weight, glucose and estimated A1C in one card.',
+          sizes: ['Medium', 'Large'],
+        },
+        {
+          name: 'Food Photo',
+          body: 'Jump straight to logging a meal from a photo.',
+          sizes: ['Small'],
+        },
+      ],
+      watch: {
+        thesis:
+          'The same three readings the phone opens on, in the same colours — and four things you can log without reaching for it.',
+        points: [
+          'Next dose, glucose and weight on the wrist, each with its own sparkline.',
+          'Quick Log takes glucose, weight, dose and mood on the Digital Crown.',
+          'Entries queue and are guaranteed delivery — they survive a reboot and wake the phone in the background.',
+          'The countdown is recomputed on the watch, so it is never a stale string left over from Tuesday.',
+          'Out of range it says how many entries are still waiting, because "logged" and "the phone has it" are different promises.',
+        ],
+        complications: [
+          { name: 'Next Dose', families: 'Circular, Corner, Inline, Rectangular' },
+          { name: 'Glucose', families: 'Circular, Corner, Inline, Rectangular' },
+        ],
+        minOS: 'watchOS 10',
+      },
+    },
+    sunset: {
+      label: 'The web app is winding down',
+      body:
+        'Tare on the web is in maintenance. Every new feature — widgets, the Apple Watch app, Apple Health, Live Activities, Siri, Face ID, offline charts — is being built on iPhone only, and the browser version will be retired once the migration is done. Nothing is stranded: the native app reads the web app\u2019s backup file directly, and its calculations are held to numerical parity with the originals by an automated test suite, so moving across is lossless rather than merely close.',
+      successor: 'Tare for iPhone, iPad and Apple Watch',
     },
   },
   {

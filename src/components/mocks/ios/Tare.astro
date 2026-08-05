@@ -1,364 +1,607 @@
 ---
-// Tare on iPhone: the dashboard as it actually ships — a weight trend drawn on
-// device, the glucose summary, and the next dose. No widgets or Live Activity
-// are shown here because the port does not have them yet.
+// Tare on iPhone — the Today screen as it actually ships, rebuilt against the
+// simulator in Aug 2026 (1.0 build 12).
+//
+// The design language is the app's own, "The Balance Room": an enamel page
+// ground, white instrument plates, engraved tracked-caps labels, struck
+// numerals, and exactly one saturated colour — the vermilion index needle.
+// Every hex below is lifted from `Tare/Theme/Palette.swift`, which is itself
+// normative. Pastel carries identity; full saturation is reserved for status.
+//
+// The dose dial is the app's signature instrument, so it is drawn here rather
+// than faked with a progress bar: a 180° sweep, one tick per day of the seven
+// day cycle, the needle on today and the hatched band on the day the next
+// injection falls.
 
-// Sparkline: a month of weights trending down, plotted into a 0-100 viewBox.
-const weights = [252.0, 251.4, 250.9, 251.2, 250.1, 249.6, 249.8, 248.9, 248.4];
-const min = Math.min(...weights);
-const max = Math.max(...weights);
-const pts = weights
+const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+/* Dial geometry. 0° is due right, 180° due left, so SUN sits at the left horn
+   and SAT at the right one — the reading order the app uses. */
+const cx = 150;
+const cy = 152;
+const rTick = 122; // outer tick ring
+const rLabel = 138; // day captions
+const rInner = 96; // the inner "7-DAY CYCLE" bezel
+
+const polar = (r: number, deg: number) => {
+  const a = (deg * Math.PI) / 180;
+  return [cx + r * Math.cos(a), cy - r * Math.sin(a)] as const;
+};
+
+/* Seven days across the sweep: SUN 180° … SAT 0°, 30° apart. */
+const dayAngle = (i: number) => 180 - i * 30;
+
+const dayTicks = DAYS.map((label, i) => {
+  const deg = dayAngle(i);
+  const [x1, y1] = polar(rTick - 13, deg);
+  const [x2, y2] = polar(rTick, deg);
+  const [lx, ly] = polar(rLabel, deg);
+  return { label, x1, y1, x2, y2, lx, ly, deg };
+});
+
+/* Minor ticks between the days. */
+const minorTicks = Array.from({ length: 37 }, (_, i) => {
+  const deg = 180 - i * 5;
+  if (deg % 30 === 0) return null;
+  const [x1, y1] = polar(rTick - 7, deg);
+  const [x2, y2] = polar(rTick, deg);
+  return { x1, y1, x2, y2 };
+}).filter(Boolean) as { x1: number; y1: number; x2: number; y2: number }[];
+
+/* Today is Wednesday morning, so the needle sits just past the WED tick. */
+const needleDeg = 88;
+const [nx, ny] = polar(rTick - 22, needleDeg);
+const [ntx, nty] = polar(-16, needleDeg); // short counterweight past the hub
+
+/* The dose band: the last stretch of the cycle, closing on Sunday. */
+const bandFrom = 22;
+const bandTo = 0;
+const [bax, bay] = polar(rTick, bandFrom);
+const [bbx, bby] = polar(rTick, bandTo);
+const [bcx2, bcy2] = polar(rInner + 4, bandTo);
+const [bdx, bdy] = polar(rInner + 4, bandFrom);
+const bandPath = `M ${bax},${bay} A ${rTick},${rTick} 0 0 1 ${bbx},${bby} L ${bcx2},${bcy2} A ${rInner + 4},${rInner + 4} 0 0 0 ${bdx},${bdy} Z`;
+
+/* Hatching inside the dose band. */
+const hatches = Array.from({ length: 8 }, (_, i) => {
+  const deg = bandFrom - (i + 0.5) * (bandFrom / 8);
+  const [x1, y1] = polar(rInner + 5, deg);
+  const [x2, y2] = polar(rTick - 1, deg);
+  return { x1, y1, x2, y2 };
+});
+
+/* The weight tile's sparkline — a month of weights, trending down. */
+const weights = [
+  250.8, 250.1, 249.4, 249.6, 248.7, 248.2, 248.5, 247.6, 247.1, 247.4, 246.6,
+  246.1, 246.4, 245.6, 245.1, 245.4, 244.7, 244.2, 244.5, 243.8, 243.3, 243.6,
+  243.0, 242.6, 242.9, 242.4, 242.1,
+];
+const wMin = Math.min(...weights);
+const wMax = Math.max(...weights);
+const wPts = weights
   .map((w, i) => {
     const x = (i / (weights.length - 1)) * 100;
-    const y = 30 - ((w - min) / (max - min)) * 26 - 2;
+    const y = 26 - ((w - wMin) / (wMax - wMin)) * 22 - 2;
     return `${x.toFixed(1)},${y.toFixed(1)}`;
   })
   .join(' ');
+
+const tabs = [
+  { label: 'Today', on: true },
+  { label: 'Meds', on: false },
+  { label: 'Glucose', on: false },
+  { label: 'Weight', on: false },
+  { label: 'You', on: false },
+];
 ---
 
 <div class="tio">
-  <div class="tio-head">
-    <span class="tio-date">Thursday, 12 June</span>
-    <span class="tio-dot" aria-hidden="true"></span>
+  {/* ── Top rail ── */}
+  <div class="tio-rail">
+    <span class="tio-rail-title">Today</span>
+    <span class="tio-rail-date">Wed, Aug 5</span>
   </div>
 
-  <div class="tio-journey">
-    <div class="tio-chip">
-      <span class="tio-chip-num">312</span>
-      <span class="tio-chip-unit">days</span>
-      <span class="tio-chip-cap">Dx</span>
-      <span class="tio-chip-bar glu"></span>
-    </div>
-    <div class="tio-chip">
-      <span class="tio-chip-num">96</span>
-      <span class="tio-chip-unit">days</span>
-      <span class="tio-chip-cap">Keto</span>
-      <span class="tio-chip-bar act"></span>
-    </div>
-    <div class="tio-chip">
-      <span class="tio-chip-num">58</span>
-      <span class="tio-chip-unit">days</span>
-      <span class="tio-chip-cap">Mounjaro</span>
-      <span class="tio-chip-bar med"></span>
-    </div>
-  </div>
+  <div class="tio-scroll">
+    {/* ── Greeting ── */}
+    <p class="tio-greet">Good morning, Alex</p>
 
-  <div class="tio-tiles">
-    <div class="tio-tile accent">
-      <p class="tio-cap">Next dose</p>
-      <p class="tio-tile-val">Sun 8:30</p>
-      <p class="tio-tile-sub">Mounjaro &middot; 7.5 mg</p>
-    </div>
-    <div class="tio-tile">
-      <p class="tio-cap">Weight</p>
-      <p class="tio-tile-val">248.4</p>
-      <p class="tio-tile-sub">lb &middot; down 3.6</p>
-    </div>
-    <div class="tio-tile">
-      <p class="tio-cap">Glucose</p>
-      <p class="tio-tile-val">108</p>
-      <p class="tio-tile-sub">mg/dL &middot; fasting</p>
-    </div>
-    <div class="tio-tile">
-      <p class="tio-cap">Well-being</p>
-      <p class="tio-tile-val">7</p>
-      <p class="tio-tile-sub">mood &middot; energy 6</p>
-    </div>
-  </div>
-
-  <div class="tio-trend">
-    <div class="tio-trend-head">
-      <span class="tio-trend-title">30-Day Trend</span>
-      <span class="tio-delta">
-        <svg
-          width="9"
-          height="9"
-          viewBox="0 0 24 24"
+    {/* ── The dose dial ── */}
+    <div class="tio-plate tio-dial">
+      <svg viewBox="0 0 300 172" class="tio-dial-svg" aria-hidden="true">
+        {/* bezel */}
+        <path
+          d={`M ${cx - rTick},${cy} A ${rTick},${rTick} 0 0 1 ${cx + rTick},${cy}`}
           fill="none"
-          stroke="currentColor"
+          stroke="#E4EDF1"
+          stroke-width="17"
+        ></path>
+        <path
+          d={`M ${cx - rInner},${cy} A ${rInner},${rInner} 0 0 1 ${cx + rInner},${cy}`}
+          fill="none"
+          stroke="#EEF3F5"
+          stroke-width="11"
+        ></path>
+
+        {/* the dose band */}
+        <path d={bandPath} fill="rgba(226, 61, 40, 0.07)"></path>
+        {hatches.map((h) => (
+          <line
+            x1={h.x1}
+            y1={h.y1}
+            x2={h.x2}
+            y2={h.y2}
+            stroke="#E23D28"
+            stroke-width="1.4"
+            opacity="0.5"
+          ></line>
+        ))}
+
+        {minorTicks.map((t) => (
+          <line
+            x1={t.x1}
+            y1={t.y1}
+            x2={t.x2}
+            y2={t.y2}
+            stroke="#BACBD4"
+            stroke-width="1.2"
+          ></line>
+        ))}
+
+        {dayTicks.map((t) => (
+          <line
+            x1={t.x1}
+            y1={t.y1}
+            x2={t.x2}
+            y2={t.y2}
+            stroke="#788994"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          ></line>
+        ))}
+
+        {/* the arc caption, engraved into the inner bezel */}
+        <defs>
+          <path
+            id="tio-dial-arc"
+            d={`M ${cx - (rInner - 16)},${cy} A ${rInner - 16},${rInner - 16} 0 0 1 ${cx + (rInner - 16)},${cy}`}
+            fill="none"></path>
+        </defs>
+        <text class="tio-dial-arc-text" fill="#9CAEB9">
+          <textPath href="#tio-dial-arc" startOffset="50%" text-anchor="middle">
+            TARE · 7-DAY CYCLE
+          </textPath>
+        </text>
+
+        {dayTicks.map((t) => (
+          <text
+            class="tio-dial-day"
+            x={t.lx}
+            y={t.ly + 4}
+            text-anchor={t.deg > 95 ? 'start' : t.deg < 85 ? 'end' : 'middle'}
+            fill="#5E6E79">{t.label}</text>
+        ))}
+
+        {/* dose marker */}
+        <line
+          x1={polar(rTick + 2, bandTo)[0]}
+          y1={polar(rTick + 2, bandTo)[1]}
+          x2={polar(rTick - 16, bandTo)[0]}
+          y2={polar(rTick - 16, bandTo)[1]}
+          stroke="#E23D28"
           stroke-width="3.4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 5v14"></path>
-          <path d="m19 12-7 7-7-7"></path>
-        </svg>
-        3.6 lb
-      </span>
+          stroke-linecap="round"></line>
+
+        {/* the index needle */}
+        <line
+          x1={ntx}
+          y1={nty}
+          x2={nx}
+          y2={ny}
+          stroke="#E23D28"
+          stroke-width="3.6"
+          stroke-linecap="round"></line>
+        <circle cx={cx} cy={cy} r="8.5" fill="#fff" stroke="#222C33" stroke-width="1.8"
+        ></circle>
+        <circle cx={cx} cy={cy} r="2.6" fill="#222C33"></circle>
+      </svg>
+
+      <div class="tio-dial-foot">
+        <div class="tio-dial-count">
+          <span class="tio-dial-num">4</span>
+          <span class="tio-cap">days to dose</span>
+        </div>
+        <span class="tio-dial-last">last · Sun · 7.5 mg</span>
+      </div>
     </div>
-    <svg class="tio-spark" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true">
-      <polyline points={pts} fill="none" stroke-width="2.2" vector-effect="non-scaling-stroke"
-      ></polyline>
-    </svg>
-    <div class="tio-trend-foot">
-      <span>252.0</span>
-      <span>Drawn on device</span>
-      <span>248.4</span>
+
+    {/* ── Journey chips ── */}
+    <div class="tio-plate tio-journey-plate">
+      <div class="tio-journey">
+        <div class="tio-chip glu">
+          <span class="tio-chip-num">312</span>
+          <span class="tio-chip-cap">days · Dx</span>
+        </div>
+        <div class="tio-chip act">
+          <span class="tio-chip-num">96</span>
+          <span class="tio-chip-cap">days · Keto</span>
+        </div>
+        <div class="tio-chip med">
+          <span class="tio-chip-num">58</span>
+          <span class="tio-chip-cap">days · Mounjaro</span>
+        </div>
+      </div>
+      <div class="tio-journey-foot">
+        <span class="tio-pill">6.1% A1C · lab</span>
+        <span class="tio-appt">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            ><path d="M8 2v4"></path><path d="M16 2v4"></path><rect
+              width="18"
+              height="18"
+              x="3"
+              y="4"
+              rx="2"></rect><path d="M3 10h18"></path></svg
+          >
+          14d until Aug 19
+        </span>
+      </div>
+    </div>
+
+    {/* ── Tiles ── */}
+    <div class="tio-tiles">
+      <div class="tio-tile med">
+        <p class="tio-cap">Next dose</p>
+        <p class="tio-tile-val">Sun</p>
+        <p class="tio-tile-sub">8:30am · 7.5 mg</p>
+      </div>
+      <div class="tio-tile wgt">
+        <p class="tio-cap">Weight</p>
+        <p class="tio-tile-val">242.1</p>
+        <p class="tio-tile-sub">lbs · −8.7 / 30d</p>
+        <svg class="tio-spark" viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true">
+          <polyline points={wPts} fill="none" stroke="#5C82D8" stroke-width="1.8"
+            stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"
+          ></polyline>
+        </svg>
+      </div>
+      <div class="tio-tile glu">
+        <p class="tio-cap">Glucose</p>
+        <p class="tio-tile-val">102</p>
+        <p class="tio-tile-sub">mg/dL · in band</p>
+      </div>
+      <div class="tio-tile act">
+        <p class="tio-cap">Well-being</p>
+        <p class="tio-tile-val">9</p>
+        <p class="tio-tile-sub">mood · energy 7</p>
+      </div>
     </div>
   </div>
 
-  <div class="tio-wb">
-    <span class="tio-trend-title">Well-being today</span>
-    <div class="tio-wb-row">
-    <div class="tio-wb-cell">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"></path></svg>
-      <span class="tio-wb-num">4<i>/5</i></span>
-      <span class="tio-wb-cap">mood</span>
-      <span class="tio-wb-bar"><i style="width: 60%"></i></span>
-    </div>
-    <div class="tio-wb-cell">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-8 12h6l-1 8 8-12h-6z"></path></svg>
-      <span class="tio-wb-num">3<i>/5</i></span>
-      <span class="tio-wb-cap">energy</span>
-      <span class="tio-wb-bar"><i style="width: 45%"></i></span>
-    </div>
-    <div class="tio-wb-cell">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7a3 3 0 0 0 6 0V2M6 9v13M18 2c-2 0-3 2-3 5s1 5 3 5v10"></path></svg>
-      <span class="tio-wb-num">4<i>/5</i></span>
-      <span class="tio-wb-cap">appetite</span>
-      <span class="tio-wb-bar"><i style="width: 70%"></i></span>
-    </div>
-    <div class="tio-wb-cell">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z"></path></svg>
-      <span class="tio-wb-num">5<i>/5</i></span>
-      <span class="tio-wb-cap">sleep</span>
-      <span class="tio-wb-bar"><i style="width: 85%"></i></span>
-    </div>
-    </div>
+  {/* ── The floating case rail ── */}
+  <div class="tio-tabs">
+    {tabs.map((t) => (
+      <span class={`tio-tab${t.on ? ' on' : ''}`}>
+        {t.on && <i class="tio-tab-mark"></i>}
+        {t.label}
+      </span>
+    ))}
   </div>
 </div>
 
 <style>
+  /* The enamel page ground the app opens on. */
   .tio {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    height: 100%;
+    background: #eef3f5;
+    font-family: 'Archivo', system-ui, sans-serif;
+    color: #222c33;
+    overflow: hidden;
   }
 
-  .tio-head {
+  .tio-scroll {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .tio-date {
-    font-size: 0.6rem;
-    font-weight: 700;
-    color: var(--ink-muted);
-    letter-spacing: 0.01em;
-  }
-  .tio-dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--copper-soft);
-    border: 1px solid var(--copper-edge);
-    flex: none;
+    flex-direction: column;
+    gap: 7px;
+    padding: 0 1px 44px;
+    overflow: hidden;
   }
 
-  .tio-cap {
-    font-size: 0.5rem;
+  /* ── Rail ── */
+  .tio-rail {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 0 2px 8px;
+  }
+  .tio-rail-title {
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--ink-muted);
-    margin: 0;
+    font-variation-settings: 'wdth' 88;
+    color: #222c33;
+  }
+  .tio-rail-date {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: #788994;
   }
 
-  /* ---- journey chips ---- */
+  .tio-greet {
+    margin: 0 0 1px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    font-variation-settings: 'wdth' 112;
+    color: #222c33;
+  }
+
+  /* ── Plates: the white instrument cards ── */
+  .tio-plate {
+    background: #fff;
+    border: 1px solid #d6e2e8;
+    border-radius: 13px;
+    box-shadow: 0 1px 2px rgba(34, 44, 51, 0.04);
+  }
+
+  /* Engraved tracked caps — the app's label face. */
+  .tio-cap {
+    margin: 0;
+    font-size: 7.6px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    font-variation-settings: 'wdth' 88;
+    color: #5e6e79;
+  }
+
+  /* ── Dose dial ── */
+  .tio-dial {
+    padding: 8px 8px 0;
+  }
+  .tio-dial-svg {
+    display: block;
+    width: 100%;
+  }
+  .tio-dial-day {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variation-settings: 'wdth' 88;
+  }
+  .tio-dial-arc-text {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    font-variation-settings: 'wdth' 88;
+  }
+  .tio-dial-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 4px 8px;
+    border-top: 1px solid #e4edf1;
+    margin-top: 2px;
+  }
+  .tio-dial-count {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+  /* Struck numerals: the face every reading is set in. */
+  .tio-dial-num {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'wdth' 116;
+    line-height: 0.9;
+    font-variant-numeric: tabular-nums;
+  }
+  .tio-dial-last {
+    font-size: 9.5px;
+    font-weight: 500;
+    color: #788994;
+  }
+
+  /* ── Journey ── */
+  .tio-journey-plate {
+    padding: 8px;
+  }
   .tio-journey {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
   }
   .tio-chip {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--r-sm);
-    padding: 7px 7px 8px;
-    background: var(--cream-soft);
-    border: 1px solid var(--border);
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    padding: 7px 4px;
+    border-radius: 9px;
+  }
+  .tio-chip.glu {
+    background: #ddf1f6;
+  }
+  .tio-chip.act {
+    background: #e9f3da;
+  }
+  .tio-chip.med {
+    background: #ebe5fb;
   }
   .tio-chip-num {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 800;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'wdth' 116;
     line-height: 1;
-    color: var(--ink);
     font-variant-numeric: tabular-nums;
   }
+  .tio-chip.glu .tio-chip-num,
+  .tio-chip.glu .tio-chip-cap {
+    color: #0a5d72;
+  }
+  .tio-chip.act .tio-chip-num,
+  .tio-chip.act .tio-chip-cap {
+    color: #3b6210;
+  }
+  .tio-chip.med .tio-chip-num,
+  .tio-chip.med .tio-chip-cap {
+    color: #472f9e;
+  }
   .tio-chip-cap {
-    display: block;
-    font-size: 0.5rem;
+    font-size: 7.4px;
     font-weight: 600;
-    color: var(--ink-muted);
-    margin-top: 3px;
+    letter-spacing: 0.02em;
   }
-  .tio-chip-bar {
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 2.5px;
+  .tio-journey-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 7px;
   }
-  .tio-chip-bar.glu {
-    background: var(--good-fg);
+  .tio-pill {
+    padding: 3px 7px;
+    border-radius: 6px;
+    background: #e4edf1;
+    font-size: 8.4px;
+    font-weight: 600;
+    color: #31404a;
   }
-  .tio-chip-bar.act {
-    background: var(--emerald);
-  }
-  .tio-chip-bar.med {
-    background: var(--indigo);
+  .tio-appt {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 8.4px;
+    font-weight: 500;
+    color: #5e6e79;
   }
 
-  /* ---- summary tiles ---- */
+  /* ── Tiles ── */
   .tio-tiles {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 7px;
   }
   .tio-tile {
-    border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    background: var(--paper);
-    padding: 9px 10px 10px;
-    min-width: 0;
+    position: relative;
+    padding: 8px 9px 9px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    min-height: 56px;
   }
-  .tio-tile.accent {
-    background: var(--copper-soft);
-    border-color: var(--copper-edge);
+  .tio-tile.med {
+    background: #ebe5fb;
+    border-color: #ddd6f5;
+  }
+  .tio-tile.wgt {
+    background: #e0eaf8;
+    border-color: #cedbf2;
+  }
+  .tio-tile.glu {
+    background: #ddf1f6;
+    border-color: #c7e6ee;
+  }
+  .tio-tile.act {
+    background: #e9f3da;
+    border-color: #d9e9c2;
+  }
+  .tio-tile.med .tio-cap,
+  .tio-tile.med .tio-tile-val,
+  .tio-tile.med .tio-tile-sub {
+    color: #472f9e;
+  }
+  .tio-tile.wgt .tio-cap,
+  .tio-tile.wgt .tio-tile-val,
+  .tio-tile.wgt .tio-tile-sub {
+    color: #1e3d8c;
+  }
+  .tio-tile.glu .tio-cap,
+  .tio-tile.glu .tio-tile-val,
+  .tio-tile.glu .tio-tile-sub {
+    color: #0a5d72;
+  }
+  .tio-tile.act .tio-cap,
+  .tio-tile.act .tio-tile-val,
+  .tio-tile.act .tio-tile-sub {
+    color: #3b6210;
   }
   .tio-tile-val {
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--ink);
-    margin: 4px 0 0;
+    margin: 3px 0 0;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    font-variation-settings: 'wdth' 116;
+    line-height: 1;
     font-variant-numeric: tabular-nums;
   }
   .tio-tile-sub {
-    font-size: 0.5rem;
-    color: var(--ink-muted);
     margin: 3px 0 0;
-  }
-
-  /* ---- 30-day trend ---- */
-  .tio-trend {
-    border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    background: var(--cream-soft);
-    padding: 9px 10px 8px;
-  }
-  .tio-trend-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-  }
-  .tio-trend-title {
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: var(--ink);
-  }
-  .tio-delta {
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
-    font-size: 0.55rem;
-    font-weight: 800;
-    padding: 3px 6px;
-    border-radius: 999px;
-    background: var(--excellent-bg);
-    color: var(--excellent-fg);
-    flex: none;
-    font-variant-numeric: tabular-nums;
+    font-size: 8.4px;
+    font-weight: 500;
+    opacity: 0.78;
   }
   .tio-spark {
-    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
     width: 100%;
-    height: 52px;
-    margin: 7px 0 5px;
-    overflow: visible;
+    height: 20px;
+    opacity: 0.55;
   }
-  .tio-spark polyline {
-    stroke: var(--accent);
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .tio-trend-foot {
+
+  /* ── The floating case rail ── */
+  .tio-tabs {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 0.5rem;
-    color: var(--ink-muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .tio-chip-unit {
-    display: block;
-    font-size: 0.5rem;
-    font-weight: 600;
-    color: var(--ink-muted);
-    margin-top: 1px;
-  }
-
-  /* ---- well-being today ---- */
-  .tio-wb {
-    border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    background: var(--paper);
-    padding: 9px 10px 10px;
-  }
-  .tio-wb-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin-top: 7px;
-  }
-  .tio-wb-cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 2px;
-    min-width: 0;
+    padding: 6px 5px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid #d6e2e8;
+    box-shadow: 0 6px 18px -6px rgba(34, 44, 51, 0.22);
+    backdrop-filter: blur(8px);
   }
-  .tio-wb-cell svg {
-    width: 13px;
-    height: 13px;
-    color: var(--ink-soft);
+  .tio-tab {
+    position: relative;
+    flex: 1;
+    text-align: center;
+    padding: 5px 0 3px;
+    border-radius: 9px;
+    font-size: 7.2px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-variation-settings: 'wdth' 88;
+    color: #9caeb9;
   }
-  .tio-wb-num {
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
+  .tio-tab.on {
+    color: #222c33;
+    background: #eef3f5;
   }
-  .tio-wb-num i {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.5rem;
-    color: var(--ink-muted);
-  }
-  .tio-wb-cap {
-    font-size: 0.5rem;
-    color: var(--ink-muted);
-  }
-  .tio-wb-bar {
-    display: block;
-    width: 100%;
+  .tio-tab-mark {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
     height: 2.5px;
-    border-radius: 999px;
-    background: var(--border);
-    overflow: hidden;
-    margin-top: 2px;
-  }
-  .tio-wb-bar i {
-    display: block;
-    height: 100%;
-    border-radius: 999px;
-    background: var(--copper);
+    border-radius: 2px;
+    background: #e23d28;
   }
 </style>

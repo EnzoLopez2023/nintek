@@ -1,0 +1,128 @@
+---
+// An Apple Watch bezel to sit a mock inside, matching the way `PhoneMock`
+// frames the iPhone ones. Series-shaped: a soft-cornered aluminium cushion with
+// the Digital Crown and side button on the right flank.
+//
+// watchOS has no light appearance, so the screen is always black — that is not
+// a styling choice here, it is the platform.
+
+interface Props {
+  /** Small caption pinned under the watch. */
+  chip?: string;
+  /** Size of the rendered device in px (width). */
+  width?: number;
+}
+const { chip, width = 200 } = Astro.props;
+---
+
+<div class="wm-wrap" style={`--wm-w: ${width}px;`}>
+  <div class="wm-ambient" aria-hidden="true"></div>
+
+  <div class="wm-band wm-band--top" aria-hidden="true"></div>
+
+  <div class="wm-case">
+    <span class="wm-crown" aria-hidden="true"></span>
+    <span class="wm-button" aria-hidden="true"></span>
+    <div class="wm-screen">
+      <slot />
+    </div>
+  </div>
+
+  <div class="wm-band wm-band--bottom" aria-hidden="true"></div>
+
+  {chip && <p class="wm-chip">{chip}</p>}
+</div>
+
+<style>
+  .wm-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--wm-w);
+  }
+
+  .wm-ambient {
+    position: absolute;
+    inset: 6% -18% 12%;
+    background: radial-gradient(
+      55% 45% at 50% 45%,
+      rgba(226, 61, 40, 0.16),
+      transparent 70%
+    );
+    filter: blur(34px);
+    z-index: 0;
+  }
+
+  /* The strap, cropped — enough to read as a watch, not enough to distract.
+     It tucks well under the case so the lug reads as continuous metal. */
+  .wm-band {
+    position: relative;
+    z-index: 1;
+    width: 58%;
+    height: calc(var(--wm-w) * 0.17);
+    background: linear-gradient(180deg, #2b363d, #1b242a);
+  }
+  .wm-band--top {
+    border-radius: calc(var(--wm-w) * 0.08) calc(var(--wm-w) * 0.08) 4px 4px;
+    margin-bottom: calc(var(--wm-w) * -0.1);
+    background: linear-gradient(180deg, #232c32, #2b363d);
+  }
+  .wm-band--bottom {
+    border-radius: 4px 4px calc(var(--wm-w) * 0.08) calc(var(--wm-w) * 0.08);
+    margin-top: calc(var(--wm-w) * -0.1);
+  }
+
+  .wm-case {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    aspect-ratio: 200 / 242;
+    padding: calc(var(--wm-w) * 0.035);
+    border-radius: calc(var(--wm-w) * 0.29);
+    background:
+      linear-gradient(150deg, #59646c 0%, #363f46 28%, #232c32 60%, #454f56 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.24) inset,
+      0 22px 44px -18px rgba(20, 28, 33, 0.6);
+  }
+
+  .wm-crown {
+    position: absolute;
+    right: calc(var(--wm-w) * -0.028);
+    top: 31%;
+    width: calc(var(--wm-w) * 0.05);
+    height: calc(var(--wm-w) * 0.13);
+    border-radius: calc(var(--wm-w) * 0.02);
+    background: linear-gradient(90deg, #6d777e, #39424a);
+    box-shadow: 0 0 0 1px rgba(20, 28, 33, 0.4);
+  }
+  .wm-button {
+    position: absolute;
+    right: calc(var(--wm-w) * -0.018);
+    top: 51%;
+    width: calc(var(--wm-w) * 0.028);
+    height: calc(var(--wm-w) * 0.11);
+    border-radius: calc(var(--wm-w) * 0.014);
+    background: linear-gradient(90deg, #59646c, #333c43);
+  }
+
+  .wm-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: calc(var(--wm-w) * 0.255);
+    background: #141c21;
+    overflow: hidden;
+  }
+
+  .wm-chip {
+    margin: 14px 0 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--wm-chip-color, #5e6e79);
+    text-align: center;
+  }
+</style>
