@@ -580,6 +580,92 @@
   width: 268px;
 }
 
+/* The Workshop proof switches from drawn UI to the current release build. */
+.ios-workshop-proof {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.7fr) minmax(0, 1.3fr);
+  gap: 42px;
+  align-items: center;
+  margin-top: 72px;
+  padding: 42px;
+  border: 1px solid rgba(237, 241, 238, 0.14);
+  border-radius: var(--r-lg);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 0 1px,
+      transparent 1px 3px
+    ),
+    #151b1f;
+  color: #edf1ee;
+  overflow: hidden;
+}
+.ios-proof-kicker {
+  display: block;
+  margin-bottom: 16px;
+  color: #ffb400;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.ios-workshop-proof-copy h3 {
+  max-width: 16ch;
+  margin: 0 0 16px;
+  color: #edf1ee;
+  font-family: var(--font-brand);
+  font-size: clamp(1.7rem, 3.7vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+.ios-workshop-proof-copy p {
+  max-width: 48ch;
+  margin: 0;
+  color: #aeb9b6;
+  font-size: 0.95rem;
+  line-height: 1.68;
+}
+.ios-proof-facts {
+  display: grid;
+  margin: 24px 0;
+  border-top: 1px solid rgba(237, 241, 238, 0.15);
+}
+.ios-proof-facts span {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(237, 241, 238, 0.15);
+  color: #c9d0cd;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.ios-proof-cta {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: #ffb400;
+  color: #14181a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.ios-proof-cta svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-width: 1.5;
+}
+.ios-proof-cta:focus-visible {
+  outline: 2px solid #ffb400;
+  outline-offset: 3px;
+}
+
 /* ── Up next ────────────────────────────────────────────────────────────── */
 
 .inext {
@@ -697,6 +783,10 @@
   .iapp-phone-sticky {
     position: static;
   }
+  .ios-workshop-proof {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -713,6 +803,10 @@
   .iapp-feats {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+  .ios-workshop-proof {
+    margin-top: 52px;
+    padding: 28px 22px;
   }
   .inext {
     padding: 68px 0 0;

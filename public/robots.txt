@@ -4,8 +4,8 @@ Allow: /index.html
 Allow: /ios
 Allow: /about
 
-# Per-app marketing and legal pages are intentionally not indexed.
-# They remain publicly reachable (e.g. for App Store privacy URLs).
+# Most per-app marketing and legal pages are intentionally not indexed.
+# Workshop is the launch exception; its privacy page carries its own noindex.
 Disallow: /cairn
 Disallow: /tare
 Disallow: /pulsewire
@@ -13,6 +13,5 @@ Disallow: /puzzlebox
 Disallow: /hearth
 Disallow: /shopkeep
 Disallow: /tabloom
-Disallow: /workshop
 
 Sitemap: https://www.nintek.com/sitemap.xml

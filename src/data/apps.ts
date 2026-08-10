@@ -443,8 +443,8 @@ export const apps: App[] = [
     tagline: 'Read your shop like a departure board.',
     headline: { lead: 'Every build,', em: 'on the board.' },
     description:
-      'A woodworking shop record read like a Solari departure board. Every project is a row that flips into its new state — what is moving, what is queued, what is done — with the cut list, the board layout, the materials and the build log underneath it.',
-    quiet: 'Paste a plan URL and it comes back as a cut list with real dimensions.',
+      'A woodworking shop record read like a Solari departure board. Plan the cut, carry the shopping list, log the build, and keep every dimension and finish note with the project that produced it.',
+    quiet: 'Seven complete starter builds mean a new shop never opens to an empty board.',
     icon: 'package',
     bundleId: 'com.nintek.workshop',
     hasPage: true,
@@ -458,57 +458,57 @@ export const apps: App[] = [
     native: {
       status: 'testflight',
       thesis:
-        'The optimiser runs in your hand, and the cut list stays on your Lock Screen while you work.',
+        'The whole build record leaves the desk: plans, parts, materials, progress, and the next cut all stay in reach.',
       intro:
-        'Workshop is the app that needed to leave the desk. Nobody plans a build at a keyboard — you plan it standing at the saw with sawdust on your hands. The native version carries the whole board onto the phone: the optimiser runs on device, the cut list lives on the Lock Screen, and the shop reads from the Home Screen before you unlock anything.',
+        'Workshop is free, native, and built for the place the work actually happens. New accounts begin with four complete woodworking projects and three Shaper projects, each carrying an original plan drawing, instructions, cut list, and materials. From there, the optimiser runs on device, the cut list follows you to the Lock Screen, and the full shop opens into a purpose-built iPad workspace instead of a stretched phone view.',
       highlights: [
+        {
+          icon: 'package',
+          title: 'A first board, not an empty state',
+          body:
+            'Four woodworking builds and three Shaper projects arrive ready to explore, with original technical drawings, real parts, materials, costs, and numbered instructions. They are useful examples, not placeholder cards.',
+        },
         {
           icon: 'gauge',
           title: 'Cut plans computed on device',
           body:
-            'The guillotine packing optimiser is a direct Swift port of the web algorithm, unit-tested against the original so the layouts match exactly. It runs in your hand — no round trip, no spinner, no signal required — and exports the same multi-page PDF.',
+            'The guillotine packing optimiser is a direct Swift port of the web algorithm, unit-tested against the original. It accounts for stock dimensions, kerf, rotation, yield, and offcuts in your hand, then exports the result.',
         },
         {
           icon: 'lock',
-          title: 'Two Live Activities, not a notification',
+          title: 'The checklist lives where you work',
           body:
-            'Track a cut list on the Lock Screen and in the Dynamic Island, ticking parts off at the saw without unlocking. A second one runs the shopping list in the aisle, where checking an item off is a real purchase, not a scratch pad.',
+            'Cut-list and shopping Live Activities stay on the Lock Screen and in the Dynamic Island. Home Screen, Lock Screen, and StandBy widgets keep the active build and the next purchase visible without opening the app.',
         },
         {
-          icon: 'widget',
-          title: 'Widgets that hold their own',
+          icon: 'check',
+          title: 'One shopping run for every build',
           body:
-            'Shop stats, builds in progress, and a shopping list you can tick straight from the Home Screen — plus accessory widgets for the Lock Screen and StandBy. A background refresh task keeps them current even if the app is never opened.',
+            'Materials from every active project roll into one list, grouped by build with quantities and estimated cost. Check items off in the aisle, print the list, or keep it moving from a widget.',
+        },
+        {
+          icon: 'scan',
+          title: 'Camera, Pencil, and Live Text',
+          body:
+            'Read a fraction from a tape measure, select dimensions from an existing project photo, sketch directly on iPad with Apple Pencil, or share a link or image into Workshop from another app.',
         },
         {
           icon: 'ruler',
-          title: 'Read the tape, not the keyboard',
+          title: 'Readable your way',
           body:
-            'Point the camera at a tape measure or a printed cut sheet and tap the dimension you want. Live Text runs on photos already in a project too, so a number written on a scrap of plywood is selectable months later.',
-        },
-        {
-          icon: 'pencil',
-          title: 'iPad as a drafting table',
-          body:
-            'Sketch the plan onto the project with Apple Pencil instead of photographing a napkin, and drag parts straight onto the cut list from another app in Split View.',
-        },
-        {
-          icon: 'bell',
-          title: 'The finish schedule chases you',
-          body:
-            'Log a coat and the app schedules the recoat window as a local notification — with a Snooze action on the notification itself, because a shop day rarely runs to plan.',
+            'Five text sizes, five signal-lamp colors, light and dark appearances, VoiceOver descriptions, larger controls, and support for Reduce Motion and Reduce Transparency keep the board legible in more shops.',
         },
         {
           icon: 'search',
           title: 'Part of the system, not a tab',
           body:
-            'Projects are indexed in Spotlight, Siri opens your dashboard or shopping list on command, Home Screen quick actions jump straight to a new project, and Handoff passes a build from the Mac to the phone on the way out to the garage.',
+            'Spotlight finds projects, Siri opens the dashboard or shopping list, Handoff passes a build between devices, finish reminders watch the recoat window, and Swift Charts reveals where the time and material budget went.',
         },
         {
-          icon: 'chart',
-          title: 'Insights the web does not have',
+          icon: 'user',
+          title: 'Sign in, export, or leave',
           body:
-            'Swift Charts breaks down spend over time, cost by project, and how often you are actually out in the shop. Share a link or a photo into the app from anywhere with the share extension.',
+            'Use Sign in with Apple or Microsoft, export a portable JSON project summary, and permanently delete every Workshop project, photo, list, and account record from inside the app.',
         },
       ],
       tech: [

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PhoneMock from '../components/PhoneMock.astro';
+import WorkshopShowcase from '../components/WorkshopShowcase.astro';
 import Icon from '../components/Icon.astro';
 import CairnPhone from '../components/mocks/ios/Cairn.astro';
 import ShopKeepPhone from '../components/mocks/ios/ShopKeep.astro';
@@ -26,6 +27,8 @@ const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   cortex: 'dark',
   tare: 'enamel',
 };
+
+const workshopTestFlightHref = `mailto:${COMPANY.email}?subject=Workshop%20TestFlight`;
 
 /** Why the ports are worth doing at all. Each of these is something at least one
  *  of the shipping apps actually does. */
@@ -121,8 +124,8 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
               <span class="ih-stat-cap">shared Swift package</span>
             </div>
             <div class="ih-stat">
-              <span class="ih-stat-num">0</span>
-              <span class="ih-stat-cap">third-party dependencies</span>
+              <span class="ih-stat-num">2</span>
+              <span class="ih-stat-cap">device families</span>
             </div>
           </div>
           <div class="ih-jump">
@@ -331,6 +334,32 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                   </div>
                 </div>
               </div>
+
+              {app.slug === 'workshop' && (
+                <div class="ios-workshop-proof reveal">
+                  <div class="ios-workshop-proof-copy">
+                    <span class="ios-proof-kicker">Actual release build</span>
+                    <h3>One shop. Two purpose-built canvases.</h3>
+                    <p>
+                      iPhone keeps the active work close. iPad opens the whole
+                      board—projects, Shaper files, templates, plans, and
+                      parts—without simply stretching the phone interface.
+                    </p>
+                    <div class="ios-proof-facts">
+                      <span>7 complete starter builds</span>
+                      <span>5 text sizes</span>
+                      <span>Apple + Microsoft sign-in</span>
+                    </div>
+                    <a class="ios-proof-cta" href={workshopTestFlightHref}>
+                      Request TestFlight access
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" />
+                      </svg>
+                    </a>
+                  </div>
+                  <WorkshopShowcase />
+                </div>
+              )}
             </div>
           </section>
         );

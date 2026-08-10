@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('workshop')!;
-const lastUpdated = 'June 24, 2026';
+const lastUpdated = 'August 10, 2026';
 ---
 
 <BaseLayout
@@ -15,45 +15,62 @@ const lastUpdated = 'June 24, 2026';
   <article class="prose container">
     <a class="back-link" href="/workshop">← {app.name}</a>
     <h1>{app.name} Privacy Policy</h1>
-    <p class="updated">Last updated: {lastUpdated} · <strong>DRAFT</strong></p>
+    <p class="updated">Last updated: {lastUpdated}</p>
 
     <p>
       This Privacy Policy explains how {COMPANY.name} (“we”, “us”) handles
-      information in connection with the {app.name} application and website
-      (the “Service”), a single-user companion for woodworking. We aim to
-      collect as little as possible and to keep what we do collect private and
-      secure.
+      information in connection with the {app.name} iPhone and iPad app,
+      website, and related server features (the “Service”). Workshop is a
+      single-user woodworking project companion. We collect only the
+      information needed to provide, secure, and support it.
     </p>
 
     <h2>Information we collect</h2>
     <ul>
       <li>
-        <strong>Account information.</strong> When you sign in, we use Microsoft
-        identity services. We receive a unique account identifier and basic
-        profile details such as your name and email address so we can create and
-        secure your account.
+        <strong>Account information.</strong> You may sign in with Apple or
+        Microsoft. We receive a stable account identifier and the basic profile
+        information the provider makes available, such as your name and email
+        address. Apple may provide a private relay address instead of your
+        personal email. For Apple accounts, our server also receives the
+        one-time authorization code and securely stores an encrypted revocation
+        credential so it can revoke access if you delete your account.
       </li>
       <li>
         <strong>Workshop data you create.</strong> Content you generate in the
-        app — such as projects, cut lists, board and material data, build logs,
-        finish records, notebook entries, and build progress — so the Service
-        can plan your cuts and keep your project history.
+        app — such as projects, Shaper projects, templates, cut lists, stock and
+        material data, shopping lists, build logs, finish records, notes,
+        instructions, costs, and progress photos — so the Service can plan your
+        cuts and keep your project history.
       </li>
       <li>
         <strong>Imported project data.</strong> When you paste a project link
-        (for example, a Shaper Hub URL), we process the referenced page to
-        extract parts, dimensions, and related build details into your account.
+        or ask Workshop to analyze one, we process the URL and referenced
+        project content to extract parts, dimensions, and related build details
+        into an editable draft in your account.
       </li>
       <li>
-        <strong>Limited technical data.</strong> Basic operational logs (such as
-        request timestamps and error information) needed to run, secure, and
-        troubleshoot the Service.
+        <strong>Limited technical data.</strong> We process basic operational
+        logs, such as request timestamps and error information, as needed to
+        run, secure, and troubleshoot the Service.
       </li>
     </ul>
     <p>
-      We do <strong>not</strong> collect precise location, contacts, or device
-      advertising identifiers, and we do not use third-party advertising or
-      cross-app tracking.
+      We do <strong>not</strong> collect precise location, contacts, or
+      advertising identifiers. Workshop contains no third-party advertising and
+      does not track you across other companies’ apps or websites.
+    </p>
+
+    <h2>Device permissions and local processing</h2>
+    <p>
+      Workshop asks for camera or photo access only when you choose to attach an
+      image, scan a dimension, or select a photo through a system picker. Live
+      Text dimension recognition runs on your device. A photo or Journaling
+      Suggestion is uploaded only after you explicitly select it for a project.
+      Notification permission is used for finish reminders and active cut or
+      shopping sessions. App preferences, authentication credentials, and
+      widget or Live Activity snapshots are stored in protected app, Keychain,
+      or App Group storage on your device as appropriate.
     </p>
 
     <h2>How we use information</h2>
@@ -63,30 +80,50 @@ const lastUpdated = 'June 24, 2026';
         To generate cut plans, save your projects and build logs, and track your
         progress.
       </li>
+      <li>
+        To import or analyze a project only when you ask the Service to do so.
+      </li>
       <li>To diagnose problems and improve reliability and performance.</li>
     </ul>
 
     <h2>How your information is stored and protected</h2>
     <p>
-      Your projects, cut lists, board and material data, and progress are stored
-      in your own per-user, private SQLite database. Information is encrypted in
-      transit using HTTPS, and the Service is hosted on Microsoft Azure. Access
-      is limited to what is necessary to operate the Service.
+      Your account data is isolated in a private, per-user SQLite database, with
+      project images stored as account data or account-scoped uploads.
+      Information is encrypted in transit using HTTPS. Authentication
+      credentials are stored using platform security controls and, where stored
+      by our server, encrypted at rest. The Service is hosted on Microsoft
+      Azure, and access is limited to what is necessary to operate and secure
+      it.
     </p>
 
     <h2>Sharing</h2>
     <p>
-      We do not sell your personal information. We share information only with
-      infrastructure providers that host and secure the Service (for example,
-      Microsoft Azure for hosting and identity), and only as needed to operate
-      it, or where required by law.
+      We do not sell your personal information. Information is processed by
+      Microsoft Azure as our hosting provider, by Apple or Microsoft when you
+      choose that company for authentication, and by our hosted project-analysis
+      service only when you request an analysis. These providers process
+      information only as needed to deliver their part of the Service. We may
+      also disclose information where required by law or to protect the security
+      of the Service.
     </p>
 
     <h2>Data retention and deletion</h2>
     <p>
-      We retain your information for as long as your account is active. You may
-      request access to, or deletion of, your account and associated data by
-      emailing
+      We retain your Workshop information while your account is active. You can
+      permanently delete the account from inside the iPhone or iPad app.
+      Deletion removes the account’s projects, Shaper projects, templates, cut
+      and material data, shopping lists, images, build and finish records,
+      profile, and authentication state from Workshop. For an Apple account,
+      Workshop revokes its stored Apple credential before removing local
+      account data. For a Microsoft account, deletion removes only Workshop
+      data; it does not delete your Microsoft account or revoke unrelated
+      Microsoft access.
+    </p>
+    <p>
+      You can export a JSON summary of your project list before deletion. This
+      summary is a reference export, not a complete backup of project details or
+      images. You may also request help with access or deletion by emailing
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
     </p>
 

@@ -409,6 +409,44 @@
   align-items: center;
   gap: 8px;
 }
+.wk-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.wk-action {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  border: 1px solid var(--wb-steel-dark);
+  border-radius: var(--wb-r-flap);
+  background: var(--wb-flap);
+  color: var(--wb-ink);
+  font-family: var(--wb-board);
+  font-size: 0.62rem;
+  font-weight: 700;
+  font-stretch: 82%;
+  line-height: 1.25;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.wk-action.primary {
+  background: var(--wb-amber-fill);
+  border-color: var(--wb-amber-deep);
+  color: #14181a;
+}
+.wk-action:hover {
+  border-color: var(--wb-amber-deep);
+}
+.wk-action:focus-visible {
+  outline: 2px solid var(--wb-amber-fill);
+  outline-offset: 3px;
+}
 
 /* ── chips ────────────────────────────────────────────────────────────── */
 
@@ -458,6 +496,63 @@
   font-size: 0.8rem;
   color: var(--wb-muted);
   line-height: 1.35;
+}
+
+/* ── actual app proof ─────────────────────────────────────────────────── */
+
+.wk-proof-inner {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.74fr) minmax(0, 1.26fr);
+  gap: 36px;
+  align-items: center;
+  padding: 38px 34px 40px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.028) 0 1px,
+      transparent 1px 3px
+    ),
+    var(--wb-steel-dark);
+  color: var(--wb-on-steel);
+}
+.wk-proof-h {
+  max-width: 20ch;
+  margin: 0 0 14px;
+  font-family: var(--wb-board);
+  font-size: clamp(1.35rem, 3.5vw, 2.15rem);
+  font-weight: 700;
+  font-stretch: 80%;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.wk-proof-board .wk-body {
+  color: #b6c0bd;
+}
+.wk-proof-points {
+  margin: 28px 0 0;
+}
+.wk-proof-points > div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(237, 241, 238, 0.14);
+}
+.wk-proof-points dt {
+  color: var(--wb-amber-fill);
+  font-family: var(--wb-board);
+  font-size: 0.61rem;
+  font-weight: 700;
+  font-stretch: 82%;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.wk-proof-points dd {
+  margin: 0;
+  color: #a8b3b0;
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 /* ── departure rows ───────────────────────────────────────────────────── */
@@ -667,6 +762,77 @@
   align-items: center;
   gap: 10px;
   margin-top: 10px;
+}
+
+/* ── live screen gallery ──────────────────────────────────────────────── */
+
+.wk-screens-copy {
+  padding: 30px 30px 28px;
+}
+.wk-screen-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.68fr) minmax(0, 0.68fr) minmax(0, 1.3fr);
+  border-top: 1px solid var(--wb-line);
+  background: var(--wb-flap-shade);
+}
+.wk-screen-card {
+  min-width: 0;
+  margin: 0;
+  padding: 24px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-right: 1px solid var(--wb-line);
+}
+.wk-screen-card:last-child {
+  border-right: 0;
+}
+.wk-screen-device {
+  margin-inline: auto;
+  padding: 5px;
+  background: linear-gradient(145deg, #566269, #1a2025 46%, #39434a);
+  border: 1px solid #6e7a78;
+  box-shadow: 0 24px 55px -28px rgba(0, 0, 0, 0.72);
+}
+.wk-screen-card.phone .wk-screen-device {
+  width: min(100%, 228px);
+  border-radius: 20px;
+}
+.wk-screen-card.pad .wk-screen-device {
+  width: min(100%, 440px);
+  border-radius: 23px;
+}
+.wk-screen-device img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.wk-screen-card.phone img {
+  border-radius: 15px;
+}
+.wk-screen-card.pad img {
+  border-radius: 18px;
+}
+.wk-screen-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 18px;
+}
+.wk-screen-card figcaption strong {
+  font-family: var(--wb-board);
+  font-size: 0.69rem;
+  font-weight: 700;
+  font-stretch: 82%;
+  line-height: 1.3;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.wk-screen-card figcaption span {
+  color: var(--wb-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 /* ── the manifest table ───────────────────────────────────────────────── */
@@ -881,6 +1047,13 @@
   text-transform: uppercase;
   color: var(--wb-muted);
 }
+.wk-plate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 22px;
+}
 .wk-plate-legal {
   margin: 26px 0 0;
   font-size: 0.8rem;
@@ -925,12 +1098,23 @@
 
 @media (max-width: 900px) {
   .wk-hero-inner,
-  .wk-native-inner {
+  .wk-native-inner,
+  .wk-proof-inner {
     grid-template-columns: minmax(0, 1fr);
     gap: 34px;
   }
   .wk-mech {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .wk-screen-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .wk-screen-card:nth-child(2) {
+    border-right: 0;
+  }
+  .wk-screen-card.pad {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--wb-line);
   }
 }
 
@@ -957,12 +1141,36 @@
   .wk-native-item:nth-child(even) {
     padding-left: 0;
   }
+  .wk-proof-inner {
+    padding: 28px 22px 32px;
+  }
   .wk-manifest tbody td {
     padding: 10px 12px;
   }
 }
 
 @media (max-width: 620px) {
+  .wk-screen-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .wk-screen-card {
+    border-right: 0;
+    border-top: 1px solid var(--wb-line);
+  }
+  .wk-screen-card:first-child {
+    border-top: 0;
+  }
+  .wk-screen-card.pad {
+    grid-column: auto;
+  }
+  .wk-screen-card.phone .wk-screen-device {
+    width: min(76vw, 250px);
+  }
+  .wk-proof-points > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
   /* Three columns at phone width squeezes the detail into two-word lines.
      Each entry becomes its own block instead: name, detail, platform. */
   .wk-manifest,
