@@ -2,6 +2,7 @@ User-agent: *
 Allow: /$
 Allow: /index.html
 Allow: /ios
+Allow: /cortex
 Allow: /about
 
 # Most per-app marketing and legal pages are intentionally not indexed.

@@ -551,38 +551,38 @@ export const apps: App[] = [
     slug: 'cortex',
     name: 'Cortex',
     category: 'Games · iPhone & iPad',
-    tagline: 'Eight games. No connection required.',
-    headline: { lead: 'Eight games, one hub.', em: 'Nothing to sign into.' },
+    tagline: 'Eight native games. Zero backend calls.',
+    headline: { lead: 'Eight games, one hub.', em: 'Built for iOS.' },
     description:
-      'A native game hub for iPhone and iPad. Five puzzles carried over from Puzzlebox, three built only for iOS, and Game Center leaderboards and achievements across all of them — none of which needs the internet.',
-    quiet: 'Shares its DNA with Puzzlebox, but it is very much its own thing.',
+      'A native games hub for iPhone and iPad: Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop, with Game Center integration and zero backend calls.',
+    quiet: 'Eight native games. One vivid little universe.',
     icon: 'gamepad',
     bundleId: 'com.nintek.cortex',
-    hasPage: false,
+    hasPage: true,
     platforms: { web: false, ios: true },
     mockup: {
       title: 'Cortex',
       subtitle: 'Eight games · Game Center',
-      chip: 'Achievement unlocked · 10 hours played',
-      live: 'Offline',
+      chip: 'Eight games · one native hub',
+      live: 'Zero backend calls',
     },
     native: {
       status: 'testflight',
-      thesis: 'Eight games, Game Center, and nothing to sign into.',
+      thesis: 'Eight native games, Game Center, and zero backend calls.',
       intro:
-        'Cortex is not a port of Puzzlebox — it is what happened when the games that belong on a phone got rebuilt for one, and then the work kept going. Five puzzles came across. Three more were written for iOS from scratch, including one running on a game engine embedded inside the app.',
+        'Cortex is a self-contained games hub built for iPhone and iPad. Eight distinct word, number, logic and arcade games share one native home, with Game Center integrated and no backend service sitting between you and a game.',
       highlights: [
         {
           icon: 'grid',
           title: 'Eight games in one hub',
           body:
-            'Sudoku Fight, Number Sums, Word Search, Word Rush and Scrabble came over from Puzzlebox. Pixel Flow, Neon Drop and Block Blast exist only here.',
+            'Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop — each with its own home and play style.',
         },
         {
           icon: 'trophy',
-          title: 'Game Center, properly wired',
+          title: 'Game Center, built in',
           body:
-            'Fifteen leaderboards ranked by game and difficulty — best time where speed matters, high score where it does not. Achievements span the whole hub: play every game ten times, or log twenty hours across all of them.',
+            'Game Center is part of the native experience, connecting Cortex to the iOS gaming profile you already use.',
         },
         {
           icon: 'star',
@@ -598,15 +598,15 @@ export const apps: App[] = [
         },
         {
           icon: 'package',
-          title: 'Block Blast',
+          title: 'Grid Blast',
           body:
-            'A full Godot 4.7 engine embedded inside the SwiftUI app, booted on demand and handed its own Metal surface. A game engine living in a tab.',
+            'A tactile block puzzle that rewards a clean board, thoughtful placement and one more carefully judged move.',
         },
         {
           icon: 'cloud',
-          title: 'No account, no network',
+          title: 'Zero backend calls',
           body:
-            'Everything runs on the device. Nothing to sign up for, nothing to sync, nothing that stops working when the plane doors close.',
+            'The games run on the device. There is no Nintek account, no backend sync and no service call sitting in the play loop.',
         },
         {
           icon: 'widget',
@@ -615,7 +615,7 @@ export const apps: App[] = [
             'Quick Launch drops you straight into a game from the Home Screen. Stats shows your totals and how close you are to the next achievement.',
         },
       ],
-      tech: ['SwiftUI', 'GameKit', 'Core Haptics', 'WidgetKit', 'Godot'],
+      tech: ['SwiftUI', 'GameKit', 'Core Haptics', 'WidgetKit'],
       minOS: 'iOS 18',
       devices: 'iPhone and iPad',
     },

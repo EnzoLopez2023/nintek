@@ -346,11 +346,10 @@ const TRUST_ITEMS = [
               iOS sibling.
             </h2>
             <p class="lp-cortex__sub">
-              Cortex is a separate app, not a port. Five puzzles came across from
-              Puzzlebox — Sudoku Fight, Number Sums, Word Search, Word Rush and
-              Scrabble — and three were written for iOS from scratch: Pixel Flow,
-              Neon Drop and Block Blast. Game Center handles leaderboards and
-              achievements, and none of it needs an account or a connection.
+              Cortex is a separate, iOS-only hub containing Sudoku, Sumweave,
+              Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and
+              Neon Drop. Game Center is integrated, and the app makes zero calls
+              to a Nintek backend.
             </p>
             <div class="lp-cortex__stats">
               <div class="lp-cortex__stat">
@@ -358,19 +357,19 @@ const TRUST_ITEMS = [
                 <span>games in one hub</span>
               </div>
               <div class="lp-cortex__stat">
-                <strong>15</strong>
-                <span>Game Center leaderboards</span>
+                <strong>✓</strong>
+                <span>Game Center integrated</span>
               </div>
               <div class="lp-cortex__stat">
-                <strong>9</strong>
-                <span>achievements to chase</span>
+                <strong>0</strong>
+                <span>backend calls</span>
               </div>
             </div>
             <p class="lp-cortex__meta">
               <span class="lp-cortex__beta">TestFlight beta</span>
               {cortex.native!.minOS} or later · {cortex.native!.devices}
               &ensp;·&ensp;
-              <a href="/ios#cortex">See what Cortex does</a>
+              <a href="/cortex">Explore Cortex</a>
             </p>
             <p class="lp-cortex__note">
               Tower Defense, Bull Run, Reelverse, Lights Out and the 3D arcade
@@ -380,7 +379,7 @@ const TRUST_ITEMS = [
           </div>
 
           <div class="lp-cortex__phone" aria-hidden="true">
-            <PhoneMock tone="dark">
+            <PhoneMock tone="dark" fullBleed>
               <CortexPhone />
             </PhoneMock>
           </div>

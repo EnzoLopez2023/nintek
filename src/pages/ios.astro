@@ -328,7 +328,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
 
                 <div class="iapp-phone reveal">
                   <div class="iapp-phone-sticky">
-                    <PhoneMock tone={tones[app.slug] ?? 'dark'}>
+                    <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
                       <Phone />
                     </PhoneMock>
                   </div>

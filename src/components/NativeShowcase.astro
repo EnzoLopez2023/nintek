@@ -27,7 +27,7 @@ const blurbs: Record<string, string> = {
   cairn: 'No account. No network. The whole exam library on your phone.',
   shopkeep: 'The register in your pocket, and the readout on your Home Screen.',
   workshop: 'Cut plans computed on device, cut list on your Lock Screen.',
-  cortex: 'Eight games and Game Center, all of it offline.',
+  cortex: 'Eight native games, Game Center, zero backend calls.',
   tare: 'Widgets, an Apple Watch app and Apple Health \u2014 with no account at all.',
 };
 ---
@@ -54,9 +54,9 @@ const blurbs: Record<string, string> = {
         nativeApps.map((app) => {
           const Phone = phones[app.slug];
           return (
-            <a class="ns-card reveal" href={`/ios#${app.slug}`}>
+            <a class="ns-card reveal" href={app.slug === 'cortex' ? '/cortex' : `/ios#${app.slug}`}>
               <div class="ns-phone">
-                <PhoneMock tone={tones[app.slug] ?? 'dark'}>
+                <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
                   <Phone />
                 </PhoneMock>
               </div>

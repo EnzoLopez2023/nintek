@@ -11,13 +11,15 @@ interface Props {
    *  cool graphite one, so neither mock sits in a walnut bezel that the app
    *  itself never wears. */
   tone?: 'light' | 'dark' | 'navy' | 'enamel';
+  /** Let a real full-screen capture provide its own status bar and safe areas. */
+  fullBleed?: boolean;
 }
-const { chip, live, time = '9:41', tone = 'light' } = Astro.props;
+const { chip, live, time = '9:41', tone = 'light', fullBleed = false } = Astro.props;
 ---
 
 <div class="phone-wrap">
   <div class="phone-ambient"></div>
-  <div class={`phone ${tone}`}>
+  <div class={`phone ${tone}${fullBleed ? ' full-bleed' : ''}`}>
     <div class="phone-screen">
       <div class="phone-island"></div>
       <div class="phone-status">

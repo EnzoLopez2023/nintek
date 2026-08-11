@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import hub from '../assets/cortex/hub.webp';
+import sudoku from '../assets/cortex/sudoku.webp';
+import sumweave from '../assets/cortex/sumweave.webp';
+import wordSearch from '../assets/cortex/word-search.webp';
+import letterSprint from '../assets/cortex/letter-sprint.webp';
+import wordfoundry from '../assets/cortex/wordfoundry.webp';
+import gridBlast from '../assets/cortex/grid-blast.webp';
+import pixelFlow from '../assets/cortex/pixel-flow.webp';
+import neonDrop from '../assets/cortex/neon-drop.webp';
+
+const screens = {
+  hub,
+  sudoku,
+  sumweave,
+  'word-search': wordSearch,
+  'letter-sprint': letterSprint,
+  wordfoundry,
+  'grid-blast': gridBlast,
+  'pixel-flow': pixelFlow,
+  'neon-drop': neonDrop,
+};
+
+interface Props {
+  screen: keyof typeof screens;
+  alt: string;
+  sizes?: string;
+  priority?: boolean;
+  class?: string;
+}
+
+const {
+  screen,
+  alt,
+  sizes = '(max-width: 700px) 72vw, 360px',
+  priority = false,
+  class: className,
+} = Astro.props;
+---
+
+<Image
+  src={screens[screen]}
+  format="webp"
+  widths={[240, 360, 520, 720, 960]}
+  sizes={sizes}
+  alt={alt}
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : 'auto'}
+  decoding="async"
+  class:list={['cortex-screen', className]}
+/>

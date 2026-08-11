@@ -92,7 +92,7 @@ const isNativeBeta = app.native?.status === 'testflight';
         </div>
         {
           isNativeBeta && (
-            <a class="promo-native" href={`/ios#${app.slug}`}>
+            <a class="promo-native" href={app.slug === 'cortex' ? '/cortex' : `/ios#${app.slug}`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
@@ -120,7 +120,12 @@ const isNativeBeta = app.native?.status === 'testflight';
       <div class="reveal">
         {
           PhoneBody ? (
-            <PhoneMock tone={phoneTones[app.slug] ?? 'dark'} chip={app.mockup.chip} live={app.mockup.live}>
+            <PhoneMock
+              tone={phoneTones[app.slug] ?? 'dark'}
+              chip={app.mockup.chip}
+              live={app.mockup.live}
+              fullBleed={app.slug === 'cortex'}
+            >
               <PhoneBody />
             </PhoneMock>
           ) : (

@@ -1,51 +1,9 @@
 ---
-// Cortex on iPhone: the game hub with a Game Center achievement landing.
-const games = [
-  { name: 'Pixel Flow', tint: '#e0603c', tag: 'New' },
-  { name: 'Neon Drop', tint: '#6366f1', tag: 'New' },
-  { name: 'Block Blast', tint: '#0ea5a4', tag: 'New' },
-  { name: 'Sudoku Fight', tint: '#c17a2e', tag: '' },
-  { name: 'Number Sums', tint: '#7c3e1f', tag: '' },
-  { name: 'Word Search', tint: '#4e7a3e', tag: '' },
-  { name: 'Word Rush', tint: '#b07c2a', tag: '' },
-  { name: 'Scrabble', tint: '#8b4513', tag: '' },
-];
+import CortexScreen from '../../CortexScreen.astro';
 ---
 
-<div class="ios ios-hub">
-  <div class="ios-toast">
-    <span class="ios-toast-medal" aria-hidden="true">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-        <path d="M4 22h16"></path>
-        <path d="M10 14.7V18"></path>
-        <path d="M14 14.7V18"></path>
-        <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
-      </svg>
-    </span>
-    <div>
-      <p class="ios-toast-title">Achievement unlocked</p>
-      <p class="ios-toast-sub">Twenty hours across every game</p>
-    </div>
-  </div>
-
-  <p class="ios-hub-head">Cortex</p>
-
-  <div class="ios-hub-grid">
-    {
-      games.map((g) => (
-        <div class="ios-game" style={`--tint: ${g.tint}`}>
-          <span class="ios-game-art" aria-hidden="true" />
-          <span class="ios-game-name">{g.name}</span>
-          {g.tag && <span class="ios-game-tag">{g.tag}</span>}
-        </div>
-      ))
-    }
-  </div>
-
-  <div class="ios-hub-foot">
-    <span class="ios-hub-dot"></span>
-    Game Center · 15 leaderboards
-  </div>
-</div>
+<CortexScreen
+  screen="hub"
+  alt="Cortex home screen showing all eight games"
+  sizes="(max-width: 560px) 250px, 300px"
+/>

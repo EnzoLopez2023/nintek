@@ -16,6 +16,8 @@ interface Props {
   boardFonts?: boolean;
   /** Load the ShopKeep Tool Library faces (Saira + Martian Mono). */
   libraryFonts?: boolean;
+  /** Absolute or site-relative social preview image. */
+  socialImage?: string;
   /** Browser chrome tint. Defaults to the Nintek house cream; a re-skinned
       app page should pass its own page colour so the chrome matches. */
   themeColor?: string;
@@ -30,10 +32,14 @@ const {
   cairnFonts = false,
   boardFonts = false,
   libraryFonts = false,
+  socialImage,
   themeColor = '#f5f0ea',
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
+const socialImageUrl = socialImage
+  ? new URL(socialImage, Astro.site ?? 'https://www.nintek.com').href
+  : undefined;
 const year = new Date().getFullYear();
 ---
 
@@ -90,6 +96,11 @@ const year = new Date().getFullYear();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    {socialImageUrl && <meta property="og:image" content={socialImageUrl} />}
+    {socialImageUrl && <meta name="twitter:card" content="summary_large_image" />}
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
     <meta name="theme-color" content={themeColor} />
   </head>
   <body>
