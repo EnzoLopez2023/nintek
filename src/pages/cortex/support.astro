@@ -1,0 +1,114 @@
+---
+import CortexInfoLayout from '../../layouts/CortexInfoLayout.astro';
+import { COMPANY } from '../../data/apps';
+
+const supportHref = `mailto:${COMPANY.email}?subject=Cortex%20Support`;
+---
+
+<CortexInfoLayout
+  title={`Cortex Support - ${COMPANY.name}`}
+  description="Help with Cortex for iPhone and iPad, including Game Center, saved progress, iCloud, sound, haptics, and accessibility."
+  path="/cortex/support"
+  heading="Cortex Support"
+  intro="Quick help for Cortex, the local-first iOS hub for Sudoku, word games, logic puzzles, and arcade play."
+  current="support"
+>
+  <p class="cx-info-summary">
+    Cortex keeps progress and settings on your device. Before troubleshooting saved
+    data, <strong>do not delete the app</strong>: deleting Cortex also removes its
+    locally stored data.
+  </p>
+
+  <nav class="cx-info-topic-nav" aria-label="Support topics">
+    <p>Jump to a topic</p>
+    <ul>
+      <li><a href="#game-center">Game Center</a></li>
+      <li><a href="#saved-progress">Saved progress and iCloud</a></li>
+      <li><a href="#sound-haptics">Sound and haptics</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#contact">Contact Nintek</a></li>
+    </ul>
+  </nav>
+
+  <section aria-labelledby="game-center">
+    <h2 id="game-center">Game Center</h2>
+    <p>If scores, leaderboards, or achievements are not updating:</p>
+    <ol>
+      <li>
+        Open Apple Settings, search for Game Center, and confirm that Game Center is
+        enabled and signed in to the Apple Account you intend to use.
+      </li>
+      <li>
+        Confirm that the device has an internet connection. Cortex itself is
+        local-first, but Game Center needs a connection to communicate with Apple.
+      </li>
+      <li>
+        Reopen Cortex and complete another scored game or achievement action. Apple
+        updates may take a short time to appear.
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="saved-progress">
+    <h2 id="saved-progress">Saved progress and iCloud</h2>
+    <p>
+      Gameplay progress, settings, and detailed play statistics are stored locally.
+      If something appears missing, fully close and reopen Cortex on the same device
+      before changing anything else. Do not delete the app: deletion removes its local
+      data. If iOS has offloaded Cortex, tap its icon to reinstall it; offloading
+      preserves the app's documents and data.
+    </p>
+    <p>
+      Sudoku may use Apple's iCloud key-value storage for sync. For Sudoku sync,
+      confirm that both devices use the same Apple Account, iCloud is enabled, and
+      each device has an internet connection. Open Sudoku on each device and allow a
+      moment for Apple to synchronize the data.
+    </p>
+    <p class="cx-info-note">
+      <strong>Important:</strong> Nintek has no Cortex backend and cannot retrieve a
+      deleted local save. Deleting Cortex should be a last resort.
+    </p>
+  </section>
+
+  <section aria-labelledby="sound-haptics">
+    <h2 id="sound-haptics">Sound and haptics</h2>
+    <ul>
+      <li>Check the sound and haptic preferences inside Cortex.</li>
+      <li>Raise the device's media volume and check whether Silent Mode is enabled.</li>
+      <li>
+        In Apple Settings, search for Sounds &amp; Haptics and confirm that system
+        haptics are allowed.
+      </li>
+      <li>
+        Keep in mind that the available haptic feedback can vary by game and device.
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="accessibility">
+    <h2 id="accessibility">Accessibility</h2>
+    <p>
+      If an iOS accessibility setting is not behaving as expected, confirm the
+      setting under Apple Settings &gt; Accessibility, then fully close and reopen
+      Cortex. When reporting an issue with VoiceOver, larger text, Reduce Motion, or
+      another accessibility feature, include the game and screen where it occurs so
+      it can be reproduced directly.
+    </p>
+  </section>
+
+  <section aria-labelledby="contact">
+    <h2 id="contact">Contact Nintek</h2>
+    <p>
+      Still need help? Email Nintek and include your device model, iOS version,
+      Cortex version, the game you were using, and what you expected to happen. Do
+      not include your Apple Account password or other sensitive account details.
+    </p>
+    <p class="cx-info-contact">
+      <a href={supportHref}>Email {COMPANY.email}</a>
+    </p>
+    <p>
+      For details about local data and Apple services, read the
+      <a href="/cortex/privacy">Cortex Privacy Policy</a>.
+    </p>
+  </section>
+</CortexInfoLayout>

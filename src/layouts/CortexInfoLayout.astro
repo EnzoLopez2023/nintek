@@ -1,0 +1,109 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import NintekBack from '../components/NintekBack.astro';
+import '../styles/cortex-info.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  heading: string;
+  intro: string;
+  current: 'privacy' | 'support';
+  effectiveDate?: string;
+  effectiveDateTime?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  heading,
+  intro,
+  current,
+  effectiveDate,
+  effectiveDateTime,
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<BaseLayout
+  bare
+  boardFonts
+  title={title}
+  description={description}
+  path={path}
+  themeColor="#080b1d"
+>
+  <!--
+    THESIS: Cortex information should feel native to its arcade universe, not like a generic legal card, while keeping every answer effortless to find.
+    OWN-WORLD: Deep ink navigation, an ivory reading field, Archivo type, crisp rules, and restrained gold, violet, cyan, and pink constellation marks.
+    STORY: Confirm the page, understand the essential answer, scan the details, then move directly to the related policy, support route, or Cortex overview.
+    FIRST VIEWPORT: A compact constellation header names the document in large ivory type; the uninterrupted reading rail begins immediately below it.
+    FORM: A direct Read-mode extension of the established Cortex surface, using one editorial rail rather than a card grid.
+  -->
+  <div class="cx-info-root">
+    <a class="cx-info-skip" href="#cortex-information">Skip to content</a>
+
+    <header class="cx-info-nav">
+      <div class="cx-info-shell cx-info-nav-inner">
+        <div class="cx-info-brand">
+          <NintekBack />
+          <a class="cx-info-wordmark" href="/cortex" aria-label="Cortex overview">
+            <img src="/apps/cortex.png" alt="" width="34" height="34" />
+            <span>Cortex</span>
+          </a>
+        </div>
+
+        <nav aria-label="Cortex">
+          <a href="/cortex">Overview</a>
+          <a href="/cortex/privacy" aria-current={current === 'privacy' ? 'page' : undefined}>
+            Privacy
+          </a>
+          <a href="/cortex/support" aria-current={current === 'support' ? 'page' : undefined}>
+            Support
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="cortex-information">
+      <header class="cx-info-hero">
+        <div class="cx-info-constellation" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="cx-info-shell cx-info-heading">
+          <h1>{heading}</h1>
+          <p>{intro}</p>
+          {
+            effectiveDate && (
+              <p class="cx-info-date">
+                Effective{' '}
+                <time datetime={effectiveDateTime}>{effectiveDate}</time>
+              </p>
+            )
+          }
+        </div>
+      </header>
+
+      <div class="cx-info-reading-field">
+        <article class="cx-info-content">
+          <slot />
+        </article>
+      </div>
+    </main>
+
+    <footer class="cx-info-footer">
+      <div class="cx-info-shell">
+        <p>&copy; {year} Nintek. Cortex is built for iPhone and iPad.</p>
+        <nav aria-label="Cortex footer">
+          <a href="/cortex">Cortex</a>
+          <a href="/cortex/privacy">Privacy</a>
+          <a href="/cortex/support">Support</a>
+          <a href="/">Nintek</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>

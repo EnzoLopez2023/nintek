@@ -1,0 +1,100 @@
+---
+import CortexInfoLayout from '../../layouts/CortexInfoLayout.astro';
+import { COMPANY } from '../../data/apps';
+
+const effectiveDate = 'August 11, 2026';
+---
+
+<CortexInfoLayout
+  title={`Cortex Privacy Policy - ${COMPANY.name}`}
+  description="How Cortex stores game data locally and uses optional Apple Game Center and iCloud services."
+  path="/cortex/privacy"
+  heading="Cortex Privacy Policy"
+  intro="Cortex is designed to keep your games and their history close to you, with no Nintek account or backend."
+  current="privacy"
+  effectiveDate={effectiveDate}
+  effectiveDateTime="2026-08-11"
+>
+  <p class="cx-info-summary">
+    <strong>In short:</strong> Cortex is an iOS-only, local-first hub of eight games.
+    Nintek operates no Cortex backend and does not receive your gameplay history.
+  </p>
+
+  <section aria-labelledby="information-cortex-stores">
+    <h2 id="information-cortex-stores">Information Cortex stores</h2>
+    <p>
+      Cortex stores your gameplay progress, app and game settings, and detailed play
+      statistics locally on your iPhone or iPad. This information supports features
+      such as resuming games, remembering preferences, and showing your history.
+    </p>
+    <p>
+      Because Nintek does not operate a Cortex backend, this locally stored
+      information is not sent to or stored by Nintek.
+    </p>
+  </section>
+
+  <section aria-labelledby="optional-apple-services">
+    <h2 id="optional-apple-services">Optional Apple services</h2>
+
+    <h3>Game Center</h3>
+    <p>
+      Game Center is optional. When you sign in to Game Center, Apple handles your
+      Apple player identity and receives scores, leaderboard entries, and achievements
+      that Cortex submits. Apple processes that information under
+      <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a> and
+      applicable terms.
+    </p>
+
+    <h3>Sudoku iCloud sync</h3>
+    <p>
+      Sudoku may use Apple's iCloud key-value storage to keep its sync data available
+      across devices signed in to the same Apple Account. This sync is provided by
+      Apple, not a Nintek backend, and is subject to Apple's terms and privacy
+      practices.
+    </p>
+  </section>
+
+  <section aria-labelledby="information-cortex-does-not-collect">
+    <h2 id="information-cortex-does-not-collect">What Cortex does not do</h2>
+    <p>Cortex has:</p>
+    <ul>
+      <li>No advertising.</li>
+      <li>No third-party analytics.</li>
+      <li>No cross-app tracking.</li>
+      <li>No sale of personal data.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="privacy-choices">
+    <h2 id="privacy-choices">Your choices and data deletion</h2>
+    <p>
+      You can manage Game Center and iCloud from Apple Settings on your device.
+      Settings may also be used to change the Apple Account associated with those
+      services.
+    </p>
+    <p>
+      Deleting Cortex removes the gameplay progress, settings, and detailed play
+      statistics stored locally by the app. Data held by Apple through Game Center or
+      iCloud is managed separately through Apple's settings and services.
+    </p>
+  </section>
+
+  <section aria-labelledby="policy-changes">
+    <h2 id="policy-changes">Changes to this policy</h2>
+    <p>
+      If Cortex's data practices change, Nintek will update this policy and its
+      effective date. The effective date of this policy is {effectiveDate}.
+    </p>
+  </section>
+
+  <section aria-labelledby="privacy-contact">
+    <h2 id="privacy-contact">Contact</h2>
+    <p>
+      For help with Cortex, visit <a href="/cortex/support">Cortex Support</a>. For
+      privacy questions, email
+      <a href={`mailto:${COMPANY.privacyEmail}?subject=Cortex%20Privacy`}>
+        {COMPANY.privacyEmail}
+      </a>.
+    </p>
+  </section>
+</CortexInfoLayout>
