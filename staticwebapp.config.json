@@ -1,5 +1,22 @@
 {
   "$schema": "https://json.schemastore.org/staticwebapp.config.json",
+  "routes": [
+    {
+      "route": "/puzzlebox",
+      "redirect": "/cortex",
+      "statusCode": 301
+    },
+    {
+      "route": "/puzzlebox/privacy",
+      "redirect": "/cortex",
+      "statusCode": 301
+    },
+    {
+      "route": "/puzzlebox/*",
+      "redirect": "/cortex",
+      "statusCode": 301
+    }
+  ],
   "navigationFallback": {
     "rewrite": "/404.html",
     "exclude": ["/apps/*", "/*.{png,svg,jpg,jpeg,ico,webp,xml,txt,css,js,woff2}"]

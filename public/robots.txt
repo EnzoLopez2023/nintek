@@ -10,7 +10,6 @@ Allow: /about
 Disallow: /cairn
 Disallow: /tare
 Disallow: /pulsewire
-Disallow: /puzzlebox
 Disallow: /hearth
 Disallow: /shopkeep
 Disallow: /tabloom

@@ -528,26 +528,6 @@ export const apps: App[] = [
     },
   },
   {
-    slug: 'puzzlebox',
-    name: 'Puzzlebox',
-    category: 'Games & Puzzles',
-    tagline: 'A whole arcade in one tab.',
-    headline: { lead: 'One box.', em: 'A whole arcade inside.' },
-    description:
-      'A growing arcade of daily puzzles and full-sized games — a thirty-wave tower defence campaign, a trading sim running on real market data, themed slot machines, word and number puzzles — all tied together by one currency.',
-    quiet: 'Step into the 3D room and play the arcade cabinet in the corner.',
-    icon: 'grid',
-    bundleId: 'com.nintek.puzzlebox',
-    hasPage: true,
-    platforms: { web: true, ios: false },
-    mockup: {
-      title: 'The Arcade',
-      subtitle: 'Ten games · one economy',
-      chip: 'Wave 30 cleared · +450 Boxes',
-      live: 'New today',
-    },
-  },
-  {
     slug: 'cortex',
     name: 'Cortex',
     category: 'Games · iPhone & iPad',
