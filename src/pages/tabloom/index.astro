@@ -57,29 +57,6 @@ const DETAILS = [
   { icon: '🌙', title: 'Dark mode', desc: "A warm dark theme that's easy on the eyes for late-night writing." },
 ];
 
-/* ── AI demo, rendered in its final settled state ── */
-const aiDemo = {
-  q: 'What did I note about flagstone spacing?',
-  a: 'Based on your Patio Plan: use ½" gaps for a dry-set patio to allow drainage without frost heaving…',
-};
-
-/* ── Inkbox demo, rendered in its final "Filed" state ── */
-const TYPED_LINES = [
-  'Q2 Review Notes',
-  '',
-  'Revenue up 14%, but churn remains high.',
-  'Priority: fix the onboarding flow.',
-  'Search UX overhaul — biggest complaint.',
-  'Schedule retro for next Friday.',
-];
-const HANDWRITTEN_LINES = [
-  'Q2 Review',
-  '→ revenue up 14%',
-  '   churn still high',
-  'Fix onboarding flow',
-  'Search UX overhaul',
-  'Retro – next Friday',
-];
 ---
 
 <BaseLayout
@@ -114,16 +91,7 @@ const HANDWRITTEN_LINES = [
     <nav class="landing-nav">
       <NintekBack />
       <div class="landing-nav-brand">
-        <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <rect width="64" height="64" rx="14" fill="#4f6e3a"></rect>
-          <g transform="translate(32 30) scale(1.1) translate(-32 -30)">
-            <path d="M12 22c0-3.3 2.7-6 6-6h14l6 6h-2c-3.3 0-6 2.7-6 6v16c0 1.1-.9 2-2 2H18c-3.3 0-6-2.7-6-6V22z" fill="#fdfcf9"></path>
-            <circle cx="40" cy="18" r="5" fill="#e3eed7"></circle>
-            <circle cx="47" cy="25" r="5" fill="#e3eed7" opacity="0.9"></circle>
-            <circle cx="36" cy="26" r="5" fill="#e3eed7" opacity="0.75"></circle>
-            <circle cx="42" cy="22" r="2.2" fill="#4f6e3a"></circle>
-          </g>
-        </svg>
+        <img src="/apps/tabloom.svg" alt="" width="22" height="22" />
         <span>Tabloom</span>
       </div>
     </nav>
@@ -149,84 +117,24 @@ const HANDWRITTEN_LINES = [
       </div>
 
       <div class="landing-hero-right">
-        {/* Floating notebook mockup (final visible state) */}
         <div class="mockup-wrap">
-          <div class="mockup-window">
-            <div class="mockup-chrome">
-              <div class="mock-dots">
-                <span class="mock-dot mock-dot-r"></span>
-                <span class="mock-dot mock-dot-y"></span>
-                <span class="mock-dot mock-dot-g"></span>
-              </div>
-              <span class="mock-url">tabloom.enzolopez.net</span>
-            </div>
-
-            <div class="mockup-body">
-              <div class="mock-sidebar">
-                <div class="mock-sb-brand">
-                  <svg width="14" height="14" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-                    <rect width="64" height="64" rx="14" fill="#4f6e3a"></rect>
-                    <g transform="translate(32 30) scale(1.1) translate(-32 -30)">
-                      <path d="M12 22c0-3.3 2.7-6 6-6h14l6 6h-2c-3.3 0-6 2.7-6 6v16c0 1.1-.9 2-2 2H18c-3.3 0-6-2.7-6-6V22z" fill="#fdfcf9"></path>
-                      <circle cx="40" cy="18" r="5" fill="#e3eed7"></circle>
-                      <circle cx="47" cy="25" r="5" fill="#e3eed7" opacity="0.9"></circle>
-                      <circle cx="36" cy="26" r="5" fill="#e3eed7" opacity="0.75"></circle>
-                      <circle cx="42" cy="22" r="2.2" fill="#4f6e3a"></circle>
-                    </g>
-                  </svg>
-                  <span>Tabloom</span>
-                </div>
-                <div class="mock-nb-item mock-nb-active">
-                  <span class="mock-nb-dot" style="background: #c08856;"></span>
-                  🏡 Patio Project
-                </div>
-                <div class="mock-nb-item">
-                  <span class="mock-nb-dot" style="background: var(--accent);"></span>
-                  💡 Ideas
-                </div>
-                <div class="mock-nb-item">
-                  <span class="mock-nb-dot" style="background: #6a7fd6;"></span>
-                  📝 Journal
-                </div>
-                <div class="mock-nb-sep"></div>
-                <div class="mock-nb-item mock-nb-muted">🔍 Search</div>
-                <div class="mock-nb-item mock-nb-muted">✨ Ask notes</div>
-              </div>
-
-              <div class="mock-page">
-                <div class="mock-page-title">Welcome to Tabloom</div>
-                <div class="mock-tags-row">
-                  <span class="mock-tag" style="background: oklch(93% 0.025 145); color: oklch(28% 0.06 145);">#patio</span>
-                  <span class="mock-tag" style="background: oklch(93% 0.025 50); color: #7a4e28;">#planning</span>
-                </div>
-                <div class="mock-line" style="width: 92%;"></div>
-                <div class="mock-line" style="width: 78%;"></div>
-                <div class="mock-callout-block">
-                  <span>✨</span>
-                  <span class="mock-callout-txt">Use callouts for key insights</span>
-                </div>
-                <div class="mock-line" style="width: 85%;"></div>
-                <div class="mock-line" style="width: 60%;"></div>
-                <div class="mock-checklist">
-                  <span class="mock-check done"></span>
-                  <span class="mock-check-txt mock-strike">Site prep complete</span>
-                </div>
-                <div class="mock-checklist">
-                  <span class="mock-check"></span>
-                  <span class="mock-check-txt">Order flagstone</span>
-                </div>
-                <div class="mock-checklist">
-                  <span class="mock-check"></span>
-                  <span class="mock-check-txt">Schedule delivery</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mockup-ai-badge">
-            <span>✨</span> Ask your notes
-          </div>
-          <div class="mockup-save-badge">✓ Saved</div>
+          <figure class="product-shot product-shot-hero">
+            <picture>
+              <source
+                srcset="/apps/tabloom/editor-navigation-960.webp 960w, /apps/tabloom/editor-navigation.webp 1876w"
+                sizes="(max-width: 960px) min(480px, 92vw), 48vw"
+                type="image/webp"
+              />
+              <img
+                src="/apps/tabloom/editor-navigation.webp"
+                alt="Current Tabloom page editor with private notebook content obscured"
+                width="1876"
+                height="970"
+                decoding="async"
+              />
+            </picture>
+            <figcaption>Current Tabloom interface</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -282,41 +190,24 @@ const HANDWRITTEN_LINES = [
         </div>
 
         <div class="inkbox-section-right">
-          <div class="inkbox-demo">
-            <div class="inkbox-phase-label">Filed in Inkbox ✓</div>
-
-            <div class="inkbox-panel">
-              <div class="inkbox-photo-side">
-                <div class="inkbox-photo">
-                  {HANDWRITTEN_LINES.map((line) => (
-                    <div class="inkbox-hw-line">{line}</div>
-                  ))}
-                </div>
-                <div class="inkbox-photo-label">📷 Original photo</div>
-              </div>
-
-              <div class="inkbox-arrow">→</div>
-
-              <div class="inkbox-result-side">
-                <div class="inkbox-result-page">
-                  <div class="inkbox-result-title">Q2 Review Notes</div>
-                  <div class="inkbox-result-tag">#review</div>
-                  {TYPED_LINES.map((line) =>
-                    line ? (
-                      <div class="inkbox-result-line">{line}</div>
-                    ) : (
-                      <div style="height: 8px;"></div>
-                    )
-                  )}
-                  <div class="inkbox-result-attachments">
-                    <span class="inkbox-thumb-chip">🖼 scan</span>
-                    <span class="inkbox-thumb-chip">📄 pdf</span>
-                  </div>
-                </div>
-                <div class="inkbox-photo-label">✏️ Inkbox page</div>
-              </div>
-            </div>
-          </div>
+          <figure class="product-shot product-shot-dark">
+            <picture>
+              <source
+                srcset="/apps/tabloom/page-editor-960.webp 960w, /apps/tabloom/page-editor.webp 1876w"
+                sizes="(max-width: 768px) 92vw, 48vw"
+                type="image/webp"
+              />
+              <img
+                src="/apps/tabloom/page-editor.webp"
+                alt="Current Tabloom editor with private notebook and page content obscured"
+                width="1876"
+                height="970"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <figcaption>A real page in the current writing workspace</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -353,29 +244,24 @@ const HANDWRITTEN_LINES = [
         </div>
 
         <div class="ai-section-right">
-          <div class="ai-demo-window">
-            <div class="ai-demo-chrome">
-              <span class="ai-demo-dot"></span>
-              <span class="ai-demo-dot"></span>
-              <span class="ai-demo-dot"></span>
-              <span class="ai-demo-label">Ask your notes</span>
-            </div>
-            <div class="ai-demo-body">
-              <div class="ai-question-row">
-                <span class="ai-avatar">You</span>
-                <div class="ai-question-bubble">{aiDemo.q}</div>
-              </div>
-              <div class="ai-answer-row">
-                <span class="ai-avatar ai-avatar-bot">AI</span>
-                <div class="ai-answer-bubble">{aiDemo.a}</div>
-              </div>
-            </div>
-            <div class="ai-demo-dots">
-              <span class="ai-dot-pip active"></span>
-              <span class="ai-dot-pip"></span>
-              <span class="ai-dot-pip"></span>
-            </div>
-          </div>
+          <figure class="product-shot">
+            <picture>
+              <source
+                srcset="/apps/tabloom/editor-navigation-960.webp 960w, /apps/tabloom/editor-navigation.webp 1876w"
+                sizes="(max-width: 960px) 92vw, 48vw"
+                type="image/webp"
+              />
+              <img
+                src="/apps/tabloom/editor-navigation.webp"
+                alt="Current Tabloom page editor with private notebook content obscured"
+                width="1876"
+                height="970"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <figcaption>The current writing workspace</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -396,16 +282,7 @@ const HANDWRITTEN_LINES = [
     {/* ── Bottom (auth removed) ── */}
     <section class="landing-bottom-cta">
       <div>
-        <svg width="52" height="52" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <rect width="64" height="64" rx="14" fill="#4f6e3a"></rect>
-          <g transform="translate(32 30) scale(1.1) translate(-32 -30)">
-            <path d="M12 22c0-3.3 2.7-6 6-6h14l6 6h-2c-3.3 0-6 2.7-6 6v16c0 1.1-.9 2-2 2H18c-3.3 0-6-2.7-6-6V22z" fill="#fdfcf9"></path>
-            <circle cx="40" cy="18" r="5" fill="#e3eed7"></circle>
-            <circle cx="47" cy="25" r="5" fill="#e3eed7" opacity="0.9"></circle>
-            <circle cx="36" cy="26" r="5" fill="#e3eed7" opacity="0.75"></circle>
-            <circle cx="42" cy="22" r="2.2" fill="#4f6e3a"></circle>
-          </g>
-        </svg>
+        <img class="bottom-cta-mark" src="/apps/tabloom.svg" alt="" width="52" height="52" />
         <h2 class="bottom-cta-h2">A workspace that grows with you.</h2>
         <p class="bottom-cta-sub">
           Everything you capture — typed, scanned, or clipped — organized,

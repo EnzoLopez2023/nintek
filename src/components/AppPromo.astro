@@ -48,6 +48,8 @@ const phoneTones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
 const PhoneBody = phoneBodies[app.slug];
 const Body = bodies[app.slug];
 const isNativeBeta = app.native?.status === 'testflight';
+const isScreenshotBody = app.slug === 'tabloom';
+const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug}.png`;
 ---
 
 <section class={`promo${reverse ? ' reverse' : ''}`}>
@@ -69,7 +71,7 @@ const isNativeBeta = app.native?.status === 'testflight';
             app.hasPage ? (
               <a class="promo-app" href={`/${app.slug}`}>
                 <img
-                  src={`/apps/${app.slug}.png`}
+                  src={iconSrc}
                   alt={`${app.name} icon`}
                   width="30"
                   height="30"
@@ -79,7 +81,7 @@ const isNativeBeta = app.native?.status === 'testflight';
             ) : (
               <span class="promo-app">
                 <img
-                  src={`/apps/${app.slug}.png`}
+                  src={iconSrc}
                   alt={`${app.name} icon`}
                   width="30"
                   height="30"
@@ -128,6 +130,10 @@ const isNativeBeta = app.native?.status === 'testflight';
             >
               <PhoneBody />
             </PhoneMock>
+          ) : isScreenshotBody ? (
+            <div class="mockup-wrap">
+              <Body />
+            </div>
           ) : (
             <MockShell
               title={app.mockup.title}

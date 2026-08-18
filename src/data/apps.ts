@@ -634,10 +634,10 @@ export const apps: App[] = [
     hasPage: true,
     platforms: { web: true, ios: false },
     mockup: {
-      title: 'Field Notes',
-      subtitle: '4 notebooks · 218 notes',
-      chip: 'Saved · just now',
-      live: 'Synced',
+      title: 'Tabloom workspace',
+      subtitle: 'Library · pages · editor',
+      chip: 'Autosaved on change',
+      live: 'Current interface',
     },
   },
   {
