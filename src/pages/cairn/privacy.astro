@@ -3,100 +3,130 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('cairn')!;
-const lastUpdated = 'June 24, 2026';
+const effectiveDate = 'August 18, 2026';
 ---
 
 <BaseLayout
   title={`${app.name} Privacy Policy — ${COMPANY.name}`}
-  description={`How ${app.name} collects, uses, and protects your information.`}
+  description={`How ${app.name} handles on-device study data, private iCloud sync, App Store purchases, and Apple system features.`}
   path={`/${app.slug}/privacy`}
   noindex={true}
 >
   <article class="prose container">
     <a class="back-link" href="/cairn">← {app.name}</a>
     <h1>{app.name} Privacy Policy</h1>
-    <p class="updated">Last updated: {lastUpdated}</p>
+    <p class="updated">Effective: {effectiveDate}</p>
 
     <p>
-      This Privacy Policy explains how {COMPANY.name} (“we”, “us”) handles
-      information in connection with the {app.name} application and website
-      (the “Service”). We aim to collect as little as possible and to keep what
-      we do collect private and secure.
+      This policy explains how {COMPANY.name} (“we”, “us”) handles information
+      in {app.name} for iPhone and iPad. {app.name} is a native Microsoft
+      certification exam-prep app with bundled course and exam content.
     </p>
 
-    <h2>Information we collect</h2>
-    <ul>
-      <li>
-        <strong>Account information.</strong> When you sign in, we use Microsoft
-        identity services. We receive a unique account identifier and basic
-        profile details such as your name and email address so we can create and
-        secure your account.
-      </li>
-      <li>
-        <strong>Study data you create.</strong> Content and activity you generate
-        in the app — such as decks, flashcard review history, practice-exam
-        results, and progress — so the Service can track your readiness and
-        schedule your reviews.
-      </li>
-      <li>
-        <strong>Limited technical data.</strong> Basic operational logs (such as
-        request timestamps and error information) needed to run, secure, and
-        troubleshoot the Service.
-      </li>
-    </ul>
-    <p>
-      We do <strong>not</strong> collect precise location, contacts, or device
-      advertising identifiers, and we do not use third-party advertising or
-      cross-app tracking.
+    <p class="callout">
+      <strong>The short version.</strong> {app.name} has no account, no login, no
+      developer-operated backend, no ads, no analytics SDK, and no cross-app
+      tracking. The app does not send personal or usage data to {COMPANY.name}.
+      Study progress stays on your device and may sync through your private
+      Apple iCloud database when iCloud is available.
     </p>
 
-    <h2>How we use information</h2>
-    <ul>
-      <li>To provide, maintain, and secure your account and the Service.</li>
-      <li>To save your study progress and personalize your review schedule.</li>
-      <li>To diagnose problems and improve reliability and performance.</li>
-    </ul>
-
-    <h2>How your information is stored and protected</h2>
+    <h2>Data {COMPANY.name} collects</h2>
     <p>
-      Your study data is stored in your own per-user data store. Information is
-      encrypted in transit using HTTPS, and the Service is hosted on Microsoft
-      Azure. Access is limited to what is necessary to operate the Service.
+      {app.name} does not collect or transmit personal information, study
+      activity, diagnostics, advertising identifiers, location, contacts, or
+      other device data to {COMPANY.name}. We do not use advertising, analytics,
+      or tracking software.
+    </p>
+    <p>
+      If you email us for support, we receive the information you choose to put
+      in that message and use it to respond. Support correspondence is separate
+      from the app, and {app.name} does not attach study data to it.
     </p>
 
-    <h2>Sharing</h2>
+    <h2>Data stored on your device</h2>
     <p>
-      We do not sell your personal information. We share information only with
-      infrastructure providers that host and secure the Service (for example,
-      Microsoft Azure for hosting and identity), and only as needed to operate
-      it, or where required by law.
+      {app.name} stores your study progress and app preferences locally using
+      Apple’s SwiftData framework. Exam and course content is bundled with the
+      app, so it can be read without an internet connection. {COMPANY.name} does
+      not receive a copy of your local study data.
     </p>
 
-    <h2>Data retention and deletion</h2>
+    <h2>Private iCloud sync</h2>
     <p>
-      We retain your information for as long as your account is active. You may
-      request access to, or deletion of, your account and associated data by
-      emailing
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      When you are signed in to iCloud and iCloud is available, Apple’s
+      SwiftData and CloudKit services may sync your progress through the private
+      database associated with your Apple Account. That sync is provided and
+      controlled by Apple. {COMPANY.name} does not operate a progress server and
+      does not receive or store the synced data on a server we operate. If
+      iCloud is unavailable, {app.name} can continue using its local store.
     </p>
 
-    <h2>Children’s privacy</h2>
+    <h2>App Store purchases</h2>
     <p>
-      The Service is intended for a general, adult audience and is not directed
-      to children. We do not knowingly collect personal information from
-      children.
+      {app.name} offers one Apple StoreKit non-consumable purchase called
+      <strong>Full Exam Library</strong>. The App Store processes the purchase,
+      payment details, refunds, Family Sharing eligibility, and restores.
+      {app.name} receives the purchase status needed to decide whether the
+      library is unlocked. {COMPANY.name} does not receive your payment-card
+      details. Apple controls its own purchase and account records under its
+      policies.
+    </p>
+
+    <h2>Notifications, widgets, Live Activities, and App Intents</h2>
+    <p>
+      If you enable a daily study reminder, the notification is scheduled
+      locally by your device. {app.name} also makes limited on-device status
+      available to its own widget and Live Activity, and provides App Intents
+      for Apple system features such as Siri and Shortcuts. These features use
+      Apple’s system frameworks; they do not send study data to a
+      {COMPANY.name}-operated notification or analytics server. You can control
+      notifications, widgets, Live Activities, and Siri or Shortcuts access in
+      Apple’s device settings and system interfaces.
+    </p>
+
+    <h2>Third-party services</h2>
+    <p>
+      {app.name} contains no third-party advertising, analytics, or tracking
+      SDKs. The external services it relies on are Apple system services:
+      iCloud and CloudKit for optional private sync, the App Store and StoreKit
+      for purchases, and the operating-system services that provide
+      notifications, widgets, Live Activities, Siri, and Shortcuts. Apple may
+      process information needed to provide those services under Apple’s own
+      terms and privacy policy.
+    </p>
+
+    <h2>Retention and deletion</h2>
+    <p>
+      Local study data remains on a device until you change it or delete
+      {app.name}. Deleting the app removes its local app data from that device.
+      If iCloud sync was used, a synced copy may remain in your Apple Account
+      until you remove {app.name}’s iCloud data through Apple’s device settings,
+      where applicable. Apple controls retention of App Store purchase records
+      and entitlements.
+    </p>
+    <p>
+      Because {COMPANY.name} has no {app.name} account or progress server, there
+      is no account or server-side study history for us to delete.
+    </p>
+
+    <h2>Children</h2>
+    <p>
+      {app.name} is a general study tool and is not directed to children under
+      13. The app does not knowingly collect personal information from children.
     </p>
 
     <h2>Changes to this policy</h2>
     <p>
-      We may update this policy from time to time. Material changes will be
-      reflected by updating the “Last updated” date above.
+      We may update this policy if {app.name} or its data practices change. The
+      effective date at the top of this page will identify the current version.
     </p>
 
-    <h2>Contact us</h2>
+    <h2>Contact</h2>
     <p>
       Questions about this policy or your data? Email
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>. For
+      help using the app, visit <a href="/cairn/support/">Cairn Support</a>.
     </p>
   </article>
 </BaseLayout>

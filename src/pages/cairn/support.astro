@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getApp, COMPANY } from '../../data/apps';
+
+const app = getApp('cairn')!;
+---
+
+<BaseLayout
+  title={`${app.name} Support — ${COMPANY.name}`}
+  description={`Help with ${app.name} access, purchases, iCloud sync, offline study, reminders, widgets, and Live Activities.`}
+  path={`/${app.slug}/support`}
+  noindex={true}
+>
+  <article class="prose container">
+    <a class="back-link" href="/cairn">← {app.name}</a>
+    <h1>{app.name} Support</h1>
+
+    <p>
+      {app.name} is a native Microsoft certification exam-prep app for iPhone
+      and iPad. It has no account or login, and its initial App Store release is
+      available only in the United States.
+    </p>
+
+    <p class="callout">
+      <strong>Need direct help?</strong> Email
+      <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> with your device
+      model, iOS or iPadOS version, {app.name} version, and a description of what
+      happened. Do not send payment-card details.
+    </p>
+
+    <h2>Free access and Full Exam Library</h2>
+    <p>
+      All Courses and the complete AI-901 workspace are free. The one-time,
+      non-consumable <strong>Full Exam Library</strong> purchase unlocks every
+      other current and future exam. There is no {app.name} subscription and no
+      {app.name} account.
+    </p>
+    <p>
+      Apple’s App Store and StoreKit handle purchases, payment details, refunds,
+      Family Sharing, and restores. {COMPANY.name} does not receive your
+      payment-card details.
+    </p>
+
+    <h2>Restore a purchase</h2>
+    <ul>
+      <li>
+        Connect to the internet and confirm the device is using the same Apple
+        Account that made or received the purchase.
+      </li>
+      <li>
+        Open {app.name}’s purchase screen and choose
+        <strong>Restore Purchases</strong>.
+      </li>
+      <li>
+        Allow StoreKit time to refresh the entitlement, then reopen the exam
+        library if it does not update immediately.
+      </li>
+    </ul>
+    <p>
+      If the purchase still does not appear, check the Apple Account’s purchase
+      history and Family Sharing settings. Apple Support can help with billing,
+      refunds, or an App Store transaction that is missing from the account.
+    </p>
+
+    <h2>Pending purchases and Family Sharing</h2>
+    <p>
+      A purchase marked <strong>Pending</strong> has not completed through
+      Apple, so {app.name} cannot unlock the paid exams yet. This can happen
+      while Ask to Buy approval or another App Store payment step is waiting.
+      The library unlocks after StoreKit reports a completed entitlement.
+    </p>
+    <p>
+      Family Sharing depends on Apple’s purchase eligibility, Purchase Sharing,
+      and family settings. On a family member’s device, confirm those settings,
+      use the same Apple Account expected to receive the shared purchase, and
+      run Restore Purchases. Apple decides whether a purchase is eligible and
+      available to the family. Refund requests are also handled by Apple,
+      including through
+      <a href="https://reportaproblem.apple.com/">reportaproblem.apple.com</a>.
+    </p>
+
+    <h2>Use {app.name} offline</h2>
+    <p>
+      Exam and course content is bundled with the app and remains readable
+      offline. Study progress is recorded in the local SwiftData store, so you
+      can continue studying without a connection. iCloud sync and App Store
+      purchase or restore checks require Apple’s services and may wait until the
+      device is online.
+    </p>
+
+    <h2>Troubleshoot iCloud sync</h2>
+    <ul>
+      <li>
+        Confirm each device is signed in to the intended Apple Account, iCloud
+        is available, and {app.name} is allowed to use iCloud.
+      </li>
+      <li>
+        Connect each device to the internet and open {app.name}. CloudKit
+        controls sync timing, so changes may not appear immediately.
+      </li>
+      <li>
+        Check available iCloud storage and Apple’s iCloud service status if sync
+        remains paused.
+      </li>
+      <li>
+        Do not delete the app while troubleshooting if the device may hold the
+        only local copy of recent progress.
+      </li>
+    </ul>
+    <p>
+      {COMPANY.name} does not operate a progress server and cannot retrieve,
+      merge, or restore study history from one.
+    </p>
+
+    <h2>Reminders, widget, and Live Activity</h2>
+    <p>
+      <strong>Daily reminder:</strong> Turn on Daily study reminder in
+      {app.name} Settings. If permission was denied, enable notifications in
+      Apple Settings for {app.name}. Focus modes and Scheduled Summary can also
+      delay how a local notification appears.
+    </p>
+    <p>
+      <strong>Widget:</strong> Open {app.name} after studying so its extension
+      can refresh the latest on-device summary. If a widget remains stale,
+      remove it from the Home Screen and add it again.
+    </p>
+    <p>
+      <strong>Live Activity:</strong> The countdown appears while a timed Exam
+      Sandbox is running. Make sure Live Activities are allowed for {app.name}
+      in Apple Settings. Dynamic Island presentation is available only on
+      supported iPhone models; the Lock Screen presentation does not require a
+      Dynamic Island.
+    </p>
+
+    <h2>Independent study material</h2>
+    <p>
+      {app.name} is independent and is not affiliated with or endorsed by
+      Microsoft. Microsoft, Azure, and related names and marks belong to
+      Microsoft. Practice content is independently authored, is not made from
+      actual exam questions, and does not guarantee that you will pass an exam.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> for app
+      support. For details about data handling, read the
+      <a href="/cairn/privacy/">Cairn Privacy Policy</a>.
+    </p>
+  </article>
+</BaseLayout>

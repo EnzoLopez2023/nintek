@@ -1057,6 +1057,27 @@
   line-height: 1.72;
   color: #c2d2e6;
 }
+.lp__native-access {
+  margin: 24px 0 0;
+  padding: 16px 0;
+  border-top: 1px solid #24384f;
+  border-bottom: 1px solid #24384f;
+  max-width: 62ch;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #c2d2e6;
+}
+.lp__native-access strong {
+  font-family: var(--display);
+  color: #f2f7ff;
+}
+.lp__native-access span {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #7aa2e0;
+}
 .lp__native-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
