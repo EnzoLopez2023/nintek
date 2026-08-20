@@ -614,6 +614,9 @@
   width: min(100%, 310px);
   border-radius: 34px;
 }
+.iapp-tablet .pad-wrap {
+  width: min(100%, 380px);
+}
 
 /* Workshop proof: fresh current-source Simulator imagery in the Living Plan Table palette. */
 .ios-workshop-proof {
@@ -922,5 +925,8 @@
   }
   .iapp-phone .phone {
     width: 240px;
+  }
+  .iapp-tablet .pad-wrap {
+    width: min(100%, 330px);
   }
 }

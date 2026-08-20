@@ -19,6 +19,8 @@ interface Props {
   date?: string;
   orientation?: 'landscape' | 'portrait';
   tone?: 'light' | 'navy';
+  /** Let a real full-screen capture provide its own status bar and safe areas. */
+  fullBleed?: boolean;
 }
 const {
   chip,
@@ -27,12 +29,13 @@ const {
   date = 'Wed Aug 5',
   orientation = 'landscape',
   tone = 'navy',
+  fullBleed = false,
 } = Astro.props;
 ---
 
 <div class="pad-wrap">
   <div class="pad-ambient"></div>
-  <div class={`pad ${tone} ${orientation}`}>
+  <div class={`pad ${tone} ${orientation}${fullBleed ? ' full-bleed' : ''}`}>
     <div class="pad-screen">
       <div class="pad-status">
         <span class="pad-clock">
@@ -143,6 +146,20 @@ const {
   .pad.light .pad-screen {
     background: linear-gradient(175deg, #f3f6fb, #e9eef6);
     color: #0f2033;
+  }
+  .pad.full-bleed .pad-status {
+    display: none;
+  }
+  .pad.full-bleed .pad-body {
+    padding: 0;
+  }
+  .pad.full-bleed .pad-body :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pad.full-bleed .pad-home {
+    display: none;
   }
 
   .pad-status {

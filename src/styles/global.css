@@ -639,6 +639,17 @@ h3 {
 .pbadge.beta svg {
   opacity: 0.9;
 }
+.pbadge.preview {
+  border-color: #9db4d8;
+  background: #edf4ff;
+  color: #244f91;
+}
+.pbadge.development {
+  border-color: #b8a98f;
+  border-style: dashed;
+  background: #f7f1e7;
+  color: #6b5434;
+}
 .pbadge.next {
   border-style: dashed;
   color: var(--ink-muted);
@@ -1315,6 +1326,12 @@ h3 {
   border-radius: 28px;
 }
 .ns-phone .phone-wrap {
+  max-width: 100%;
+}
+.ns-phone.ns-tablet {
+  max-width: 210px;
+}
+.ns-tablet .pad-wrap {
   max-width: 100%;
 }
 .ns-phone .phone-ambient {

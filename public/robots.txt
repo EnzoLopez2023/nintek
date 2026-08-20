@@ -3,6 +3,8 @@ Allow: /$
 Allow: /index.html
 Allow: /ios
 Allow: /cortex
+Allow: /sortie
+Allow: /salvo
 Allow: /about
 
 # Most per-app marketing and legal pages are intentionally not indexed.

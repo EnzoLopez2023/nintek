@@ -22,7 +22,7 @@ export interface Platforms {
   ios: boolean;
 }
 
-export type NativeStatus = 'testflight' | 'next';
+export type NativeStatus = 'testflight' | 'pre-release' | 'development' | 'next';
 
 export interface NativeHighlight {
   icon: IconKey;
@@ -51,10 +51,12 @@ export interface WatchApp {
   minOS: string;
 }
 
-/** The native iOS story for an app. Every highlight below is backed by shipping
- *  Swift code — nothing aspirational lives in here. */
+/** The native iOS story for an app. Every highlight below is backed by current
+ *  executable source; `status` carries the product's release maturity. */
 export interface Native {
   status: NativeStatus;
+  /** Device frame used by the shared home and /ios showcases. */
+  showcase?: 'phone' | 'tablet';
   /** One line on why this app is worth having natively. */
   thesis: string;
   /** A paragraph of context for the /ios page. */
@@ -610,6 +612,142 @@ export const apps: App[] = [
     },
   },
   {
+    slug: 'sortie',
+    name: 'Sortie',
+    category: 'Games · iPhone & iPad',
+    tagline: 'Build the line. Take the map.',
+    headline: { lead: 'Draw the supply line.', em: 'Watch the front move.' },
+    description:
+      'A tactical conquest campaign for iPhone and iPad. Link keeps into permanent supply lines, route reinforcements around terrain, and take 1,500 levels across 15 distinct biomes.',
+    quiet: 'Pre-release build. Local saves, optional Game Center, no account or backend.',
+    icon: 'gamepad',
+    bundleId: 'com.nintek.sortie',
+    hasPage: true,
+    platforms: { web: false, ios: true },
+    mockup: {
+      title: 'Sortie',
+      subtitle: 'Tactical conquest · 1,500 levels',
+      chip: 'Permanent supply lines',
+      live: 'Pre-release build',
+    },
+    native: {
+      status: 'pre-release',
+      showcase: 'phone',
+      thesis: 'A 1,500-level supply-line campaign with local saves and optional Game Center.',
+      intro:
+        'Sortie rebuilds City War as a standalone Godot strategy game for iPhone and iPad. Every route is a lasting commitment: link one keep to another and it keeps sending troops until you cut or redirect the line. The current campaign spans 1,500 levels and 15 biomes, saves entirely on device, and keeps Game Center optional.',
+      highlights: [
+        {
+          icon: 'share',
+          title: 'Supply lines that stay drawn',
+          body:
+            'A route is not a one-off command. It keeps sending troops, turning each match into a network you build, reinforce, reroute, and cut under pressure.',
+        },
+        {
+          icon: 'layers',
+          title: '1,500 levels across 15 biomes',
+          body:
+            'The current campaign moves through meadow, tundra, coast, storm, crystal, and ten other terrain sets, with one hundred levels assigned to each biome.',
+        },
+        {
+          icon: 'ruler',
+          title: 'Terrain is the rule set',
+          body:
+            'Routes are tested against every obstacle on the board. There is no hidden edge graph: a clear line is a usable line, and the landscape decides the plan.',
+        },
+        {
+          icon: 'gauge',
+          title: 'Keeps become a relay network',
+          body:
+            'Growing a keep unlocks more lanes. A full keep forwards its surplus through the chain, so a quiet rear position can feed the entire front.',
+        },
+        {
+          icon: 'lock',
+          title: 'Progress stays on the device',
+          body:
+            'Campaign progress, records, wins, settings, and best times are written to a local JSON save. There is no Nintek account or sync backend.',
+        },
+        {
+          icon: 'trophy',
+          title: 'Game Center is optional',
+          body:
+            'Achievements report through Game Center when it is available. Authentication never sits between the player and the campaign.',
+        },
+      ],
+      tech: ['Godot 4', 'Game Center', 'Local JSON saves'],
+      minOS: 'iOS 15',
+      devices: 'iPhone and iPad',
+    },
+  },
+  {
+    slug: 'salvo',
+    name: 'Salvo',
+    category: 'Games · iPad',
+    tagline: 'Command five eras. Hold the line.',
+    headline: { lead: 'Build the defense.', em: 'Carry it through five eras.' },
+    description:
+      'A portrait, touch-first tower-defense campaign for iPad. The current pre-release build pairs 16 synchronized operations with era-specific towers, three difficulty settings, and ranked endurance.',
+    quiet: 'In development. Campaign expansion and release verification are still underway.',
+    icon: 'gamepad',
+    bundleId: 'com.nintek.salvo',
+    hasPage: true,
+    platforms: { web: false, ios: true },
+    mockup: {
+      title: 'Salvo',
+      subtitle: 'Five-era tower defense',
+      chip: '16 current operations',
+      live: 'In development',
+    },
+    native: {
+      status: 'development',
+      showcase: 'tablet',
+      thesis: 'A premium, portrait iPad campaign built around readable tactical choices.',
+      intro:
+        'Salvo turns Puzzlebox Tower Defense into a standalone Godot game built specifically for portrait iPad play. Its campaign framework spans five military eras; the current build contains 16 synchronized operations in the opening era, three difficulty settings, ranked endurance, local progress, and optional Game Center.',
+      highlights: [
+        {
+          icon: 'grid',
+          title: 'Sixteen current operations',
+          body:
+            'The executable campaign and manifest currently ship 16 synchronized maps. The wider five-era campaign remains active development, not a finished content claim.',
+        },
+        {
+          icon: 'layers',
+          title: 'Five eras, one combat model',
+          body:
+            'Siege, Wastes, Modern, Future, and Xeno each bring their own battlefield art, towers, enemies, and fort language while the underlying economy stays deterministic.',
+        },
+        {
+          icon: 'ruler',
+          title: 'Built for portrait iPad',
+          body:
+            'The tactical board, command bar, tower deck, and touch targets are composed for one portrait canvas rather than stretched from a phone or browser layout.',
+        },
+        {
+          icon: 'gauge',
+          title: 'Campaign and ranked endurance',
+          body:
+            'Three difficulties sit alongside a fixed-rules endurance mode, keeping campaign mastery and comparable Game Center scores as separate goals.',
+        },
+        {
+          icon: 'lock',
+          title: 'Local progress comes first',
+          body:
+            'Results commit to a versioned on-device save before any social submission. The full local game remains usable without an account or network.',
+        },
+        {
+          icon: 'trophy',
+          title: 'Game Center never blocks play',
+          body:
+            'Achievements and leaderboards are optional system services. Failed authentication or an offline device never blocks campaign progress.',
+        },
+      ],
+      tech: ['Godot 4', 'Game Center', 'Local JSON saves'],
+      minOS: 'iOS 15',
+      devices: 'iPad only',
+    },
+  },
+  {
     slug: 'tabloom',
     name: 'Tabloom',
     category: 'Notes & Writing',
@@ -688,8 +826,8 @@ export function getRetiredApp(slug: string): RetiredApp | undefined {
   return retiredApps.find((app) => app.slug === slug);
 }
 
-/** Apps with a native iOS app in beta, in the order the story should be told. */
-export const nativeApps = apps.filter((a) => a.native?.status === 'testflight');
+/** Current native iOS projects, in the order the story should be told. */
+export const nativeApps = apps.filter((a) => a.native && a.native.status !== 'next');
 
 /** The app that is next in line for a native port, if any. */
 export const nextNativeApp = apps.find((a) => a.native?.status === 'next');

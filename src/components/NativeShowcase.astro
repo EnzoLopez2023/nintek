@@ -1,10 +1,13 @@
 ---
 import PhoneMock from './PhoneMock.astro';
+import TabletMock from './TabletMock.astro';
 import CairnPhone from './mocks/ios/Cairn.astro';
 import ShopKeepPhone from './mocks/ios/ShopKeep.astro';
 import WorkshopPhone from './mocks/ios/Workshop.astro';
 import CortexPhone from './mocks/ios/Cortex.astro';
 import TarePhone from './mocks/ios/Tare.astro';
+import SortiePhone from './mocks/ios/Sortie.astro';
+import SalvoPad from './mocks/ios/Salvo.astro';
 import { nativeApps, nextNativeApp } from '../data/apps';
 
 const phones: Record<string, any> = {
@@ -13,6 +16,11 @@ const phones: Record<string, any> = {
   workshop: WorkshopPhone,
   cortex: CortexPhone,
   tare: TarePhone,
+  sortie: SortiePhone,
+};
+
+const tablets: Record<string, any> = {
+  salvo: SalvoPad,
 };
 
 const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
@@ -20,6 +28,7 @@ const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   shopkeep: 'light',
   cortex: 'dark',
   tare: 'enamel',
+  sortie: 'dark',
 };
 
 const blurbs: Record<string, string> = {
@@ -28,7 +37,11 @@ const blurbs: Record<string, string> = {
   workshop: 'Cut plans computed on device, cut list on your Lock Screen.',
   cortex: 'Eight native games, Game Center, zero backend calls.',
   tare: 'Widgets, an Apple Watch app and Apple Health \u2014 with no account at all.',
+  sortie: 'Supply-line conquest across 1,500 levels, saved entirely on device.',
+  salvo: 'Portrait iPad tower defense, with 16 current operations and five eras ahead.',
 };
+
+const testflightCount = nativeApps.filter((app) => app.native?.status === 'testflight').length;
 ---
 
 <section class="ns">
@@ -42,9 +55,9 @@ const blurbs: Record<string, string> = {
         Nintek is going <span class="em">native.</span>
       </h2>
       <p class="ns-lede">
-        The web apps aren&rsquo;t going anywhere &mdash; but five of them now have real
-        SwiftUI counterparts on iPhone and iPad, sharing one Swift foundation and
-        doing the things only a native app can. All five are in TestFlight beta.
+        The web apps aren&rsquo;t going anywhere &mdash; but {nativeApps.length} products now
+        have native iOS builds in SwiftUI or Godot. {testflightCount} are in
+        TestFlight; Sortie and Salvo remain honest pre-release work.
       </p>
     </div>
 
@@ -52,17 +65,25 @@ const blurbs: Record<string, string> = {
       {
         nativeApps.map((app) => {
           const Phone = phones[app.slug];
+          const Tablet = tablets[app.slug];
           return (
             <a
               class={`ns-card reveal${app.slug === 'workshop' ? ' workshop-card' : ''}`}
-              href={app.slug === 'cortex' ? '/cortex' : `/ios#${app.slug}`}
+              href={['cortex', 'sortie', 'salvo'].includes(app.slug) ? `/${app.slug}` : `/ios#${app.slug}`}
             >
-              <div class="ns-phone">
+              <div class={`ns-phone${Tablet ? ' ns-tablet' : ''}`}>
                 {
                   app.slug === 'workshop' ? (
                     <Phone />
+                  ) : Tablet ? (
+                    <TabletMock orientation="portrait" tone="navy" fullBleed>
+                      <Tablet />
+                    </TabletMock>
                   ) : (
-                    <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
+                    <PhoneMock
+                      tone={tones[app.slug] ?? 'dark'}
+                      fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
+                    >
                       <Phone />
                     </PhoneMock>
                   )

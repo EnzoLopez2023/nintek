@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PhoneMock from '../components/PhoneMock.astro';
+import TabletMock from '../components/TabletMock.astro';
 import WorkshopShowcase from '../components/WorkshopShowcase.astro';
 import Icon from '../components/Icon.astro';
 import CairnPhone from '../components/mocks/ios/Cairn.astro';
@@ -8,6 +9,8 @@ import ShopKeepPhone from '../components/mocks/ios/ShopKeep.astro';
 import WorkshopPhone from '../components/mocks/ios/Workshop.astro';
 import CortexPhone from '../components/mocks/ios/Cortex.astro';
 import TarePhone from '../components/mocks/ios/Tare.astro';
+import SortiePhone from '../components/mocks/ios/Sortie.astro';
+import SalvoPad from '../components/mocks/ios/Salvo.astro';
 import { COMPANY, ECOSYSTEM, nativeApps, nextNativeApp } from '../data/apps';
 import type { IconKey } from '../data/apps';
 import '../styles/ios.css';
@@ -18,6 +21,11 @@ const phones: Record<string, any> = {
   workshop: WorkshopPhone,
   cortex: CortexPhone,
   tare: TarePhone,
+  sortie: SortiePhone,
+};
+
+const tablets: Record<string, any> = {
+  salvo: SalvoPad,
 };
 
 const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
@@ -25,7 +33,17 @@ const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   shopkeep: 'light',
   cortex: 'dark',
   tare: 'enamel',
+  sortie: 'dark',
 };
+
+const nativeStatusLabels = {
+  testflight: 'TestFlight beta',
+  'pre-release': 'Pre-release build',
+  development: 'In development',
+  next: 'In the works',
+} as const;
+const testflightCount = nativeApps.filter((app) => app.native?.status === 'testflight').length;
+const developmentCount = nativeApps.length - testflightCount;
 
 const workshopTestFlightHref = `mailto:${COMPANY.email}?subject=Workshop%20TestFlight`;
 
@@ -72,7 +90,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     icon: 'cloud',
     title: 'Less infrastructure, not more',
     body:
-      'Going native let two of these apps drop their backends entirely. Cairn has no account and no server. Cortex has no network at all. Fewer moving parts is a feature, not a compromise.',
+      'Cairn, Cortex, Sortie and Salvo keep their core experience off Nintek servers. The two Godot campaigns save on device; Game Center stays optional. Fewer moving parts is a feature, not a compromise.',
   },
   {
     icon: 'book',
@@ -85,7 +103,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
 
 <BaseLayout
   title={`Native on iOS — ${COMPANY.name}`}
-  description="Nintek's apps are going native. Five SwiftUI apps for iPhone and iPad — Cairn, ShopKeep, Workshop, Cortex and Tare — built on one shared Swift foundation, with widgets, Live Activities, on-device compute and Game Center."
+  description="Seven Nintek products now have native iOS builds in SwiftUI or Godot — five in TestFlight, with Sortie and Salvo still in pre-release development."
   path="/ios"
   boardFonts
 >
@@ -104,27 +122,28 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
             <span class="em">going native.</span>
           </h1>
           <p class="ih-lede">
-            {COMPANY.name} started as web apps, and they are still here. But over
-            the last few months five of them grew real SwiftUI counterparts for
-            iPhone and iPad — not wrappers around a website, but proper native
-            apps that use the camera, the Lock Screen, Siri, Game Center, and a
-            shared Swift foundation underneath.
+            {COMPANY.name} started as web apps, and they are still here. But
+            {` ${nativeApps.length} `}products now have real native builds for
+            iPhone or iPad — SwiftUI utilities, a SwiftUI game hub, and two
+            standalone Godot strategy games.
           </p>
           <p class="ih-lede">
-            All five are in <strong>TestFlight beta</strong> right now.
+            <strong>{testflightCount} are in TestFlight.</strong> Sortie has a
+            pre-release build; Salvo remains in active development. Neither has
+            a public App Store listing.
           </p>
           <div class="ih-stats">
             <div class="ih-stat">
               <span class="ih-stat-num">{nativeApps.length}</span>
-              <span class="ih-stat-cap">apps in beta</span>
+              <span class="ih-stat-cap">native projects</span>
             </div>
             <div class="ih-stat">
-              <span class="ih-stat-num">1</span>
-              <span class="ih-stat-cap">shared Swift package</span>
+              <span class="ih-stat-num">{testflightCount}</span>
+              <span class="ih-stat-cap">in TestFlight</span>
             </div>
             <div class="ih-stat">
-              <span class="ih-stat-num">2</span>
-              <span class="ih-stat-cap">device families</span>
+              <span class="ih-stat-num">{developmentCount}</span>
+              <span class="ih-stat-cap">pre-release games</span>
             </div>
           </div>
           <div class="ih-jump">
@@ -234,9 +253,9 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
 
       <p class="ikit-caveat reveal">
         <span class="ikit-caveat-mark">Note</span>
-        Cortex is the exception — it is a self-contained game hub with no backend
-        and no shared package. It gets to break the rules because it does not
-        need any of them.
+        The games are the exceptions. Cortex is a self-contained SwiftUI hub;
+        Sortie and Salvo are Godot exports. None use NintekKit or depend on a
+        Nintek account or backend.
       </p>
     </div>
   </section>
@@ -246,6 +265,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     {
       nativeApps.map((app, i) => {
         const Phone = phones[app.slug];
+        const Tablet = tablets[app.slug];
         const native = app.native!;
         return (
           <section
@@ -267,7 +287,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                       <h2 class="iapp-name">{app.name}</h2>
                       <span class="iapp-beta">
                         <span class="iapp-beta-dot" />
-                        TestFlight beta
+                        {nativeStatusLabels[native.status]}
                       </span>
                     </div>
                   </div>
@@ -328,13 +348,20 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                   </div>
                 </div>
 
-                <div class="iapp-phone reveal">
+                <div class={`iapp-phone reveal${Tablet ? ' iapp-tablet' : ''}`}>
                   <div class="iapp-phone-sticky">
                     {
                       app.slug === 'workshop' ? (
                         <Phone />
+                      ) : Tablet ? (
+                        <TabletMock orientation="portrait" tone="navy" fullBleed>
+                          <Tablet />
+                        </TabletMock>
                       ) : (
-                        <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
+                        <PhoneMock
+                          tone={tones[app.slug] ?? 'dark'}
+                          fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
+                        >
                           <Phone />
                         </PhoneMock>
                       )

@@ -2,6 +2,7 @@
 import type { App } from '../data/apps';
 import MockShell from './MockShell.astro';
 import PhoneMock from './PhoneMock.astro';
+import TabletMock from './TabletMock.astro';
 import PlatformBadges from './PlatformBadges.astro';
 import Cairn from './mocks/Cairn.astro';
 import PulseWire from './mocks/PulseWire.astro';
@@ -11,6 +12,8 @@ import Tabloom from './mocks/Tabloom.astro';
 import CortexPhone from './mocks/ios/Cortex.astro';
 import TarePhone from './mocks/ios/Tare.astro';
 import WorkshopShowcase from './WorkshopShowcase.astro';
+import SortiePhone from './mocks/ios/Sortie.astro';
+import SalvoPad from './mocks/ios/Salvo.astro';
 
 interface Props {
   app: App;
@@ -34,6 +37,11 @@ const bodies: Record<string, any> = {
 const phoneBodies: Record<string, any> = {
   cortex: CortexPhone,
   tare: TarePhone,
+  sortie: SortiePhone,
+};
+
+const tabletBodies: Record<string, any> = {
+  salvo: SalvoPad,
 };
 
 /** Cortex ships a dark UI; Tare's is a cool enamel, so it gets a shell to
@@ -43,8 +51,9 @@ const phoneTones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
 };
 
 const PhoneBody = phoneBodies[app.slug];
+const TabletBody = tabletBodies[app.slug];
 const Body = bodies[app.slug];
-const isNativeBeta = app.native?.status === 'testflight';
+const isCurrentNative = app.native && app.native.status !== 'next';
 const isScreenshotBody = app.slug === 'tabloom';
 const isWorkshop = app.slug === 'workshop';
 const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug}.png`;
@@ -99,8 +108,11 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
           <span class="promo-quiet">{app.quiet}</span>
         </div>
         {
-          isNativeBeta && (
-            <a class="promo-native" href={app.slug === 'cortex' ? '/cortex' : `/ios#${app.slug}`}>
+          isCurrentNative && (
+            <a
+              class="promo-native"
+              href={['cortex', 'sortie', 'salvo'].includes(app.slug) ? `/${app.slug}` : `/ios#${app.slug}`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
@@ -129,12 +141,22 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
         {
           isWorkshop ? (
             <WorkshopShowcase variant="web" />
+          ) : TabletBody ? (
+            <TabletMock
+              orientation="portrait"
+              tone="navy"
+              chip={app.mockup.chip}
+              live={app.mockup.live}
+              fullBleed
+            >
+              <TabletBody />
+            </TabletMock>
           ) : PhoneBody ? (
             <PhoneMock
               tone={phoneTones[app.slug] ?? 'dark'}
               chip={app.mockup.chip}
               live={app.mockup.live}
-              fullBleed={app.slug === 'cortex'}
+              fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
             >
               <PhoneBody />
             </PhoneMock>

@@ -1,0 +1,20 @@
+---
+import poster from '../../../assets/sortie/home-poster.webp';
+---
+
+<img
+  class="sortie-capture"
+  src={poster.src}
+  alt="Sortie pre-release battle footage showing keeps and supply lines"
+  width={poster.width}
+  height={poster.height}
+  loading="lazy"
+/>
+
+<style>
+  .sortie-capture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

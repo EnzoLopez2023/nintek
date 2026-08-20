@@ -8,7 +8,22 @@ interface Props {
 }
 const { app, compact = false } = Astro.props;
 
-const beta = app.native?.status === 'testflight';
+const status = app.native?.status;
+const nativeLabels = {
+  testflight: 'TestFlight beta',
+  'pre-release': 'Pre-release build',
+  development: 'In development',
+  next: 'In the works',
+} as const;
+const deviceLabel = app.native?.devices === 'iPad only' ? 'iPad' : 'iOS';
+const statusClass =
+  status === 'testflight'
+    ? ' beta'
+    : status === 'pre-release'
+      ? ' preview'
+      : status === 'development'
+        ? ' development'
+        : '';
 ---
 
 <div class={`pbadges${compact ? ' compact' : ''}`}>
@@ -36,8 +51,8 @@ const beta = app.native?.status === 'testflight';
     )
   }
   {
-    app.platforms.ios && (
-      <span class={`pbadge${beta ? ' beta' : ''}`}>
+    app.platforms.ios && status !== 'next' && (
+      <span class={`pbadge${statusClass}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="12"
@@ -53,7 +68,7 @@ const beta = app.native?.status === 'testflight';
           <rect x="6" y="2" width="12" height="20" rx="3" />
           <path d="M11 18.5h2" />
         </svg>
-        {beta ? 'iOS · TestFlight beta' : 'iOS app'}
+        {deviceLabel} · {status ? nativeLabels[status] : 'app'}
       </span>
     )
   }
