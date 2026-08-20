@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getApp, COMPANY } from '../../data/apps';
+import { getRetiredApp, COMPANY } from '../../data/apps';
 
-const app = getApp('puzzlebox')!;
+const app = getRetiredApp('puzzlebox')!;
 const lastUpdated = 'June 24, 2026';
 ---
 
@@ -13,9 +13,15 @@ const lastUpdated = 'June 24, 2026';
   noindex={true}
 >
   <article class="prose container">
-    <a class="back-link" href="/puzzlebox">← {app.name}</a>
+    <a class="back-link" href={`/${app.slug}`}>← {app.name} archive</a>
     <h1>{app.name} Privacy Policy</h1>
     <p class="updated">Last updated: {lastUpdated} · <strong>DRAFT</strong></p>
+
+    <p class="callout">
+      <strong>{app.name} has been retired.</strong> This policy remains available
+      as an archive. <a href={`/${app.successorSlug}`}>{app.successorName}</a>
+      superseded {app.name} as Nintek's active games hub.
+    </p>
 
     <p>
       This Privacy Policy explains how {COMPANY.name} (“we”, “us”) handles
