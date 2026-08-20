@@ -18,7 +18,6 @@ const phones: Record<string, any> = {
 const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   cairn: 'navy',
   shopkeep: 'light',
-  workshop: 'dark',
   cortex: 'dark',
   tare: 'enamel',
 };
@@ -54,11 +53,20 @@ const blurbs: Record<string, string> = {
         nativeApps.map((app) => {
           const Phone = phones[app.slug];
           return (
-            <a class="ns-card reveal" href={app.slug === 'cortex' ? '/cortex' : `/ios#${app.slug}`}>
+            <a
+              class={`ns-card reveal${app.slug === 'workshop' ? ' workshop-card' : ''}`}
+              href={app.slug === 'cortex' ? '/cortex' : `/ios#${app.slug}`}
+            >
               <div class="ns-phone">
-                <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
-                  <Phone />
-                </PhoneMock>
+                {
+                  app.slug === 'workshop' ? (
+                    <Phone />
+                  ) : (
+                    <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
+                      <Phone />
+                    </PhoneMock>
+                  )
+                }
               </div>
               <div class="ns-card-foot">
                 <img

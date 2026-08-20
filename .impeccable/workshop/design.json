@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-20T21:30:00Z",
+  "title": "Design System: Workshop (Nintek portfolio surface)",
+  "extensions": {
+    "colorMeta": {
+      "spruce-action": {
+        "role": "primary",
+        "displayName": "Spruce Action",
+        "canonical": "#125447",
+        "tonalRamp": [
+          "#0e3f35",
+          "#197663",
+          "#24a88e",
+          "#35d4b5",
+          "#68dfc7",
+          "#9ae9da",
+          "#c4f2e9",
+          "#eafaf7"
+        ]
+      },
+      "pencil-blue": {
+        "role": "secondary",
+        "displayName": "Pencil Blue",
+        "canonical": "#356d85",
+        "tonalRamp": [
+          "#162d37",
+          "#295466",
+          "#3a7892",
+          "#509ab9",
+          "#7cb3cb",
+          "#a7ccdc",
+          "#cce1eb",
+          "#edf4f8"
+        ]
+      },
+      "amber-next": {
+        "role": "tertiary",
+        "displayName": "Amber Next",
+        "canonical": "#995d08",
+        "tonalRamp": [
+          "#492c04",
+          "#885207",
+          "#c2760a",
+          "#f39816",
+          "#f6b151",
+          "#f9cb8b",
+          "#fbe1bb",
+          "#fef4e7"
+        ]
+      },
+      "vellum": {
+        "role": "neutral",
+        "displayName": "Cool Vellum",
+        "canonical": "#eef4f2",
+        "tonalRamp": [
+          "#1e2e29",
+          "#38574c",
+          "#507c6d",
+          "#6a9f8d",
+          "#90b7aa",
+          "#b5cfc6",
+          "#d4e3de",
+          "#f0f5f3"
+        ]
+      },
+      "spruce-ink": {
+        "role": "neutral",
+        "displayName": "Spruce Ink",
+        "canonical": "#15332e",
+        "tonalRamp": [
+          "#163631",
+          "#2a655b",
+          "#3b9182",
+          "#52b8a7",
+          "#7dc9bd",
+          "#a8dbd3",
+          "#cceae5",
+          "#edf8f6"
+        ]
+      },
+      "drafting-surface": {
+        "role": "neutral",
+        "displayName": "Drafting Surface",
+        "canonical": "#fafcfb",
+        "tonalRamp": [
+          "#1d3026",
+          "#365947",
+          "#4c8066",
+          "#66a385",
+          "#8cbaa3",
+          "#b2d1c2",
+          "#d2e4db",
+          "#eff5f2"
+        ]
+      },
+      "divider": {
+        "role": "neutral",
+        "displayName": "Divider",
+        "canonical": "#c9dad5",
+        "tonalRamp": [
+          "#1f2d29",
+          "#3a554d",
+          "#53796e",
+          "#6e9b8e",
+          "#92b4aa",
+          "#b6cdc7",
+          "#d5e2de",
+          "#f0f5f3"
+        ]
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Finish Success",
+        "canonical": "#2f7657",
+        "tonalRamp": [
+          "#163728",
+          "#29664b",
+          "#3a926c",
+          "#50b98b",
+          "#7ccba8",
+          "#a7dcc5",
+          "#ccebdd",
+          "#edf8f3"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Danger",
+        "canonical": "#a64139",
+        "tonalRamp": [
+          "#391614",
+          "#6a2a25",
+          "#983b34",
+          "#c05249",
+          "#d07d76",
+          "#e0a8a4",
+          "#edccca",
+          "#f8edec"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero H1 only, capped ~9-10ch wide."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2s across hero, proof, journey, native, and footer sections."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Mechanism H3s; journey/native-highlight H3s use the same rounded face at a smaller fixed size."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All reading copy, always spruce-muted, max ~62-70ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Stage badges, hero facts, table headers/dt terms; sentence case, no forced uppercase tracking."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card",
+        "value": "0 10px 24px rgb(21 51 46 / 0.11)",
+        "purpose": "Resting shadow for journey cards, manifest table, sticky nav, footer icon. Dark: 0 10px 24px rgb(0 0 0 / 0.3)."
+      },
+      {
+        "name": "hero-proof",
+        "value": "0 24px 54px -30px rgb(21 51 46 / 0.42)",
+        "purpose": "Resting shadow for mechanism screenshots and the four-up screen grid; hover deepens to 0 30px 60px -30px rgb(21 51 46 / 0.5). Dark: 0 24px 54px -26px rgb(0 0 0 / 0.62)."
+      },
+      {
+        "name": "device",
+        "value": "0 22px 48px -26px rgba(9, 17, 15, 0.52)",
+        "purpose": "Tighter, darker shadow simulating a held device, used only on phone/iPad screenshot frames inside WorkshopShowcase and the /ios sticky phone slot (0.52-0.58 alpha range across instances)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "180-220ms transitions on button/link hover lift (translateY(-2px)/(-3px)) and screenshot hover shadow deepening."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet",
+        "value": "980px"
+      },
+      {
+        "name": "mobile",
+        "value": "720px"
+      },
+      {
+        "name": "showcase-native-stack",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Lead action in hero and footer (e.g. 'Explore real screens').",
+      "html": "<a class=\"ds-wk-btn ds-wk-btn-primary\" href=\"#\">Explore real screens</a>",
+      "css": ".ds-wk-btn { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; padding: 10px 16px; border: 1px solid transparent; border-radius: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 0.92rem; font-weight: 700; line-height: 1.2; text-decoration: none; transition: background-color 180ms cubic-bezier(0.16,1,0.3,1), border-color 180ms cubic-bezier(0.16,1,0.3,1), transform 180ms cubic-bezier(0.16,1,0.3,1); } .ds-wk-btn:hover { transform: translateY(-2px); text-decoration: none; } .ds-wk-btn:focus-visible { outline: 3px solid #356d85; outline-offset: 3px; box-shadow: 0 0 0 3px rgba(71,127,151,0.28); } .ds-wk-btn-primary { background: #125447; color: #f7fcfa; } .ds-wk-btn-primary:hover { background: #0d4137; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Lower-emphasis action paired with Primary (e.g. 'Request TestFlight access' in the hero).",
+      "html": "<a class=\"ds-wk-btn ds-wk-btn-secondary\" href=\"#\">Request TestFlight access</a>",
+      "css": ".ds-wk-btn-secondary { border: 1px solid #afc7c0; background: #fafcfb; color: #15332e; } .ds-wk-btn-secondary:hover { border-color: #356d85; background: #e0ebe7; }"
+    },
+    {
+      "name": "Next Button",
+      "kind": "button",
+      "refersTo": "button-next",
+      "description": "The single amber 'progression' action, used only in the dark native section and /ios proof card.",
+      "html": "<a class=\"ds-wk-btn ds-wk-btn-next\" href=\"#\">Request TestFlight access</a>",
+      "css": ".ds-wk-btn-next { background: #d99724; color: #2a1b04; } .ds-wk-btn-next:hover { background: #bf7b16; }"
+    },
+    {
+      "name": "Browser Evidence Frame",
+      "kind": "custom",
+      "refersTo": "evidence-frame-web",
+      "description": "Frames the real web-app screenshot in simulated browser chrome — a deterministic current React crop, not a native capture; the signature component of the system.",
+      "html": "<figure class=\"ds-wk-web-frame\"><div class=\"ds-wk-browser-bar\"><span class=\"ds-wk-dots\"><i></i><i></i><i></i></span><span>workshop.enzolopez.net</span></div><img src=\"web-project.webp\" alt=\"Current Workshop web app showing a walnut shelf plan with its next action, parts count, and stock\" /></figure>",
+      "css": ".ds-wk-web-frame { position: relative; width: 100%; margin: 0; overflow: hidden; border: 1px solid #afc7c0; border-radius: 24px; background: #fafcfb; box-shadow: 0 22px 48px -28px rgba(21,51,46,0.42); } .ds-wk-web-frame img { display: block; width: 100%; height: auto; } .ds-wk-browser-bar { display: grid; grid-template-columns: 72px minmax(0,1fr) 72px; min-height: 42px; align-items: center; padding: 0 14px; border-bottom: 1px solid #c9dad5; background: #e0ebe7; color: #58716b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 0.72rem; text-align: center; } .ds-wk-dots { display: flex; gap: 6px; } .ds-wk-dots i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #afc7c0; } .ds-wk-dots i:nth-child(2) { background: #356d85; } .ds-wk-dots i:nth-child(3) { background: #125447; }"
+    },
+    {
+      "name": "Journey Card",
+      "kind": "card",
+      "refersTo": "journey-card",
+      "description": "One step in the four-stage project journey (Capture / Plan / Build / Keep the record), mortised into a 1px-gap grid rather than individually bordered.",
+      "html": "<li class=\"ds-wk-journey-card\"><div class=\"ds-wk-journey-num\">1</div><div class=\"ds-wk-journey-head\"><h3>Capture</h3><span class=\"ds-wk-journey-badge\">Idea</span></div><p>Paste a plan URL and it comes back as a structured project.</p></li>",
+      "css": ".ds-wk-journey-card { position: relative; min-height: 250px; padding: 32px; background: #fafcfb; border-radius: 24px; box-shadow: 0 10px 24px rgb(21 51 46 / 0.11); } .ds-wk-journey-num { display: grid; width: 36px; height: 36px; place-items: center; margin-bottom: 34px; border-radius: 50%; background: #e0ebe7; color: #29566a; font-family: ui-rounded, 'SF Pro Rounded', 'Arial Rounded MT Bold', -apple-system, sans-serif; font-size: 0.8rem; font-weight: 700; } .ds-wk-journey-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; } .ds-wk-journey-head h3 { margin: 0; font-family: ui-rounded, 'SF Pro Rounded', 'Arial Rounded MT Bold', -apple-system, sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.03em; color: #15332e; } .ds-wk-journey-badge { flex: 0 0 auto; padding: 5px 10px; border-radius: 999px; background: #e0ebe7; color: #58716b; font-size: 0.72rem; font-weight: 700; } .ds-wk-journey-card p { margin: 14px 0 0; color: #58716b; font-size: 0.94rem; line-height: 1.66; }"
+    },
+    {
+      "name": "Manifest Table",
+      "kind": "card",
+      "refersTo": "manifest-table",
+      "description": "The capability table listing every Workshop feature with its web/iOS availability. Below 430px it stacks each row into a block and the platform cell grows a generated 'Available on' label prefix (::before content) once the header row is visually hidden.",
+      "html": "<div class=\"ds-wk-table-wrap\"><table class=\"ds-wk-manifest\"><thead><tr><th>Section</th><th>Detail</th><th>Where</th></tr></thead><tbody><tr><td>Cut plan</td><td>A guillotine packing optimiser over your real stock, with yield and offcuts.</td><td>Web · iOS</td></tr></tbody></table></div>",
+      "css": ".ds-wk-table-wrap { overflow-x: auto; border: 1px solid #c9dad5; border-radius: 14px; background: #fafcfb; box-shadow: 0 10px 24px rgb(21 51 46 / 0.11); } .ds-wk-manifest { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 0.9rem; } .ds-wk-manifest th, .ds-wk-manifest td { padding: 15px 18px; border-bottom: 1px solid #c9dad5; text-align: left; vertical-align: top; } .ds-wk-manifest th { background: #e7f0ed; color: #58716b; font-size: 0.72rem; font-weight: 700; } .ds-wk-manifest td:first-child { color: #15332e; font-family: ui-rounded, 'SF Pro Rounded', 'Arial Rounded MT Bold', -apple-system, sans-serif; font-weight: 700; } .ds-wk-manifest td:last-child { color: #29566a; font-size: 0.78rem; font-weight: 700; white-space: nowrap; } @media (max-width: 430px) { .ds-wk-table-wrap { overflow: hidden; } .ds-wk-manifest { display: block; min-width: 0; } .ds-wk-manifest thead { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; } .ds-wk-manifest tbody, .ds-wk-manifest tr, .ds-wk-manifest td { display: block; width: 100%; } .ds-wk-manifest tr { padding: 18px; border-bottom: 1px solid #c9dad5; } .ds-wk-manifest td { width: auto; padding: 0; border: 0; white-space: normal; } .ds-wk-manifest td:last-child { display: flex; gap: 6px; margin-top: 11px; } .ds-wk-manifest td:last-child::before { color: #58716b; content: 'Available on'; font-weight: 600; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Living Plan Table",
+    "overview": "Workshop's marketing surface is a drafting table, not a status board: cool vellum paper, deep spruce structural ink, a functional 24px grid across the dedicated page field and scoped shared placements, pencil-blue for annotation and wayfinding, and a single restrained amber for the one \"next step\" action per section. The system exists to hold real evidence — the current web app and fresh, read-only WORKSHOP_DEMO_MODE=1 Simulator captures taken from iOS commit 4b9c2da7234aa8fd4dec58463ae1a73d85c087c8 on iPhone 17 Pro and iPad Pro 13-inch (M5) running iOS 26.5 — at readable scale, never to dress up an invented screen or a stale App Store/release asset.\n\nThis is a Workshop-scoped visual system, confined to /workshop, /workshop/privacy, and Workshop's guest appearances on the Nintek homepage and /ios. It does not restyle the Nintek shell, other product pages, or their sibling apps; every surface that carries it redeclares the same token values locally rather than leaking them outward. The build explicitly rejects the retired \"Concourse Board\" direction — a departure-board/flip-timetable treatment — in favor of this plan-table language.",
+    "keyCharacteristics": [
+      "Cool vellum paper with deep spruce-green ink, not warm Nintek neutrals.",
+      "A faint 24px pencil-blue drafting grid across the dedicated page canvas and Workshop-owned shared placements.",
+      "Two accent voices, never merged: pencil-blue for annotation/chrome, amber for the singular \"next\" action.",
+      "Soft, all-rounded geometry — 10/14/24px — with no sharp corners anywhere.",
+      "Real, current-source imagery only; no invented, superseded, or illustrative UI stands in for Workshop."
+    ],
+    "rules": [
+      {
+        "name": "The Two-Voice Accent Rule",
+        "body": "Pencil-blue and amber never trade jobs. Pencil-blue marks reading affordances — annotation, counters, focus rings, table metadata. Amber marks the one progression action per section (\"next,\" not \"primary\"). A screen with two amber elements or a pencil-blue button is off-system.",
+        "section": "colors"
+      },
+      {
+        "name": "The No-Kicker Rule",
+        "body": "Workshop deliberately opts out of Nintek's portfolio-wide .eyebrow kicker. Every place Workshop appears explicitly suppresses it. Do not add an eyebrow, kicker, or uppercase micro-label to a Workshop heading; it is not this surface's voice.",
+        "section": "typography"
+      },
+      {
+        "name": "The Resting-Shadow Rule",
+        "body": "Evidence surfaces (screenshots, the manifest table, journey cards) carry their shadow at rest; shadows here signal \"this is a real, physical artifact on the table,\" not \"this element is interactive.\" Interactive-only lift is a secondary cue layered on top, never the only depth cue.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do render Workshop proof exclusively from the current web capture and fresh WORKSHOP_DEMO_MODE=1 Simulator assets inside the browser-chrome or device frame — never an invented, stale App Store, or \"concept\" screen.",
+      "Do give every functional image a descriptive, content-specific alt; decorative marks get alt=\"\".",
+      "Do loading=\"eager\" only the first-viewport hero web screenshot; every other Workshop image is loading=\"lazy\" with decoding=\"async\".",
+      "Do zero out animation/transition durations under prefers-reduced-motion: reduce, and fall back the nav's backdrop-filter to a solid surface under prefers-reduced-transparency: reduce.",
+      "Do keep amber to one \"next\" action per section and spruce-action to the single primary action; let pencil-blue carry annotation instead of a third competing accent."
+    ],
+    "donts": [
+      "Don't scale a dense iPad screenshot down to fit a narrow viewport — serve focused current-source crops below 430-720px so the claimed detail remains readable. This is a deliberate evidence treatment for dense assets, not a license to crop away contradictory states.",
+      "Don't apply Nintek's global .eyebrow kicker convention to a Workshop heading — this is a confirmed, portfolio-wide opt-out for this surface, not an oversight to fix.",
+      "Don't reintroduce the retired Concourse Board direction — flip-board rows, ticker/marquee motion, split-flap or timetable styling — that this build explicitly replaced with the Living Plan Table language.",
+      "Don't let Workshop's tokens leak outward: the homepage promo card and the /ios deep dive both redeclare Workshop's CSS variables in a locally scoped block rather than changing the Nintek shell's own palette or sibling apps' promo styling."
+    ]
+  }
+}

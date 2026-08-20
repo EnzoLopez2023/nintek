@@ -23,7 +23,6 @@ const phones: Record<string, any> = {
 const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   cairn: 'navy',
   shopkeep: 'light',
-  workshop: 'dark',
   cortex: 'dark',
   tare: 'enamel',
 };
@@ -249,7 +248,10 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
         const Phone = phones[app.slug];
         const native = app.native!;
         return (
-          <section class={`iapp${i % 2 === 1 ? ' reverse' : ''}`} id={app.slug}>
+          <section
+            class={`iapp${i % 2 === 1 ? ' reverse' : ''}${app.slug === 'workshop' ? ' workshop-iapp' : ''}`}
+            id={app.slug}
+          >
             <div class="container">
               <div class="iapp-grid">
                 <div class="iapp-text">
@@ -328,9 +330,15 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
 
                 <div class="iapp-phone reveal">
                   <div class="iapp-phone-sticky">
-                    <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
-                      <Phone />
-                    </PhoneMock>
+                    {
+                      app.slug === 'workshop' ? (
+                        <Phone />
+                      ) : (
+                        <PhoneMock tone={tones[app.slug] ?? 'dark'} fullBleed={app.slug === 'cortex'}>
+                          <Phone />
+                        </PhoneMock>
+                      )
+                    }
                   </div>
                 </div>
               </div>
@@ -338,12 +346,12 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
               {app.slug === 'workshop' && (
                 <div class="ios-workshop-proof reveal">
                   <div class="ios-workshop-proof-copy">
-                    <span class="ios-proof-kicker">Actual release build</span>
                     <h3>One shop. Two purpose-built canvases.</h3>
                     <p>
-                      iPhone keeps the active work close. iPad opens the whole
-                      board—projects, Shaper files, templates, plans, and
-                      parts—without simply stretching the phone interface.
+                      The current SwiftUI build keeps active work close on iPhone.
+                      iPad opens purpose-built Projects and Shaper Hub contexts
+                      without simply stretching the phone interface or mixing
+                      their libraries.
                     </p>
                     <div class="ios-proof-facts">
                       <span>7 complete starter builds</span>

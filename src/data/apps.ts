@@ -449,20 +449,20 @@ export const apps: App[] = [
     slug: 'workshop',
     name: 'Workshop',
     category: 'Woodworking & Projects',
-    tagline: 'Read your shop like a departure board.',
-    headline: { lead: 'Every build,', em: 'on the board.' },
+    tagline: 'Keep the whole build connected.',
+    headline: { lead: 'Keep the whole build', em: 'connected.' },
     description:
-      'A woodworking shop record read like a Solari departure board. Plan the cut, carry the shopping list, log the build, and keep every dimension and finish note with the project that produced it.',
-    quiet: 'Seven complete starter builds mean a new shop never opens to an empty board.',
+      'Workshop keeps a woodworking project together from first idea through dimensions, materials, cuts, shopping, build notes, and finish records.',
+    quiet: 'Seven complete starter builds mean a new shop never opens to an empty workspace.',
     icon: 'package',
     bundleId: 'com.nintek.workshop',
     hasPage: true,
     platforms: { web: true, ios: true },
     mockup: {
-      title: 'Shop Board',
-      subtitle: 'Every build, at a glance',
-      chip: 'Cut plan optimised · 96% yield',
-      live: 'In progress',
+      title: 'Workshop',
+      subtitle: 'Project companion',
+      chip: 'Read-only demo available',
+      live: 'Web + iOS',
     },
     native: {
       status: 'testflight',
@@ -473,7 +473,7 @@ export const apps: App[] = [
       highlights: [
         {
           icon: 'package',
-          title: 'A first board, not an empty state',
+          title: 'A full shop, not an empty state',
           body:
             'Four woodworking builds and three Shaper projects arrive ready to explore, with original technical drawings, real parts, materials, costs, and numbered instructions. They are useful examples, not placeholder cards.',
         },
@@ -505,7 +505,7 @@ export const apps: App[] = [
           icon: 'ruler',
           title: 'Readable your way',
           body:
-            'Five text sizes, five signal-lamp colors, light and dark appearances, VoiceOver descriptions, larger controls, and support for Reduce Motion and Reduce Transparency keep the board legible in more shops.',
+            'Five text sizes, five annotation colors, light and dark appearances, VoiceOver descriptions, larger controls, and support for Reduce Motion and Reduce Transparency keep the workspace legible in more shops.',
         },
         {
           icon: 'search',

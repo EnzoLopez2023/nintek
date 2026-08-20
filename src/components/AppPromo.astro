@@ -8,9 +8,9 @@ import PulseWire from './mocks/PulseWire.astro';
 import Hearth from './mocks/Hearth.astro';
 import ShopKeep from './mocks/ShopKeep.astro';
 import Tabloom from './mocks/Tabloom.astro';
-import Workshop from './mocks/Workshop.astro';
 import CortexPhone from './mocks/ios/Cortex.astro';
 import TarePhone from './mocks/ios/Tare.astro';
+import WorkshopShowcase from './WorkshopShowcase.astro';
 
 interface Props {
   app: App;
@@ -26,7 +26,6 @@ const bodies: Record<string, any> = {
   hearth: Hearth,
   shopkeep: ShopKeep,
   tabloom: Tabloom,
-  workshop: Workshop,
 };
 
 /** Apps whose home is a phone get a device frame instead of browser chrome.
@@ -47,17 +46,25 @@ const PhoneBody = phoneBodies[app.slug];
 const Body = bodies[app.slug];
 const isNativeBeta = app.native?.status === 'testflight';
 const isScreenshotBody = app.slug === 'tabloom';
+const isWorkshop = app.slug === 'workshop';
 const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug}.png`;
 ---
 
-<section class={`promo${reverse ? ' reverse' : ''}`}>
+<section
+  class={`promo${reverse ? ' reverse' : ''}${isWorkshop ? ' workshop-promo' : ''}`}
+  id={isWorkshop ? 'workshop-app' : undefined}
+>
   <div class="container">
     <div class="promo-grid">
       <div class="promo-text reveal">
-        <span class="eyebrow">
-          <span class="eyebrow-dot"></span>
-          {app.category}
-        </span>
+        {
+          !isWorkshop && (
+            <span class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              {app.category}
+            </span>
+          )
+        }
         <h2 class="promo-title">
           <span style="display:block">{app.headline.lead}</span>
           <span style="display:block"><span class="em">{app.headline.em}</span></span>
@@ -65,6 +72,7 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
         <p class="promo-sub">{app.description}</p>
         <PlatformBadges app={app} />
         <div class="promo-meta">
+          {isWorkshop && <span class="workshop-promo-category">{app.category}</span>}
           {
             app.hasPage ? (
               <a class="promo-app" href={`/${app.slug}`}>
@@ -119,7 +127,9 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
 
       <div class="reveal">
         {
-          PhoneBody ? (
+          isWorkshop ? (
+            <WorkshopShowcase variant="web" />
+          ) : PhoneBody ? (
             <PhoneMock
               tone={phoneTones[app.slug] ?? 'dark'}
               chip={app.mockup.chip}

@@ -1,9 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
-import Icon from '../../components/Icon.astro';
-import PhoneMock from '../../components/PhoneMock.astro';
-import WorkshopPhone from '../../components/mocks/ios/Workshop.astro';
 import WorkshopShowcase from '../../components/WorkshopShowcase.astro';
 import { COMPANY, getApp } from '../../data/apps';
 import '../../styles/workshop-landing.css';
@@ -12,76 +9,35 @@ const wkApp = getApp('workshop')!;
 const wkNative = wkApp.native!;
 const testFlightHref = `mailto:${COMPANY.email}?subject=Workshop%20TestFlight`;
 
-/* ── The shop board: the app opens straight onto this, so the page does too ── */
-const boardCells = [
-  { label: 'In Progress', value: '02', sub: 'active builds', tone: 'amber' },
-  { label: 'In Queue', value: '18', sub: 'ideas & plans', tone: 'ink' },
-  { label: 'Total Parts', value: '085', sub: 'across active projects', tone: 'ink' },
-  { label: 'Est. Value', value: '$1353', sub: 'in materials', tone: 'green' },
-];
-
-/* ── What a project actually is, as departure rows. The rail is the heading;
-      there are no icon-and-heading cards anywhere in this system. ── */
-const departures = [
+const journey = [
   {
-    track: 'Track 01',
     title: 'Capture',
-    flag: { text: 'Idea', tone: 'idle' },
+    state: 'Idea',
     body:
       'Paste a plan URL from Kreg, Ana White or Shaper Hub and it comes back as a structured project — title, difficulty, wood types, and a cut list with real dimensions. Or share a link or photo straight in from Safari. Everything arrives pre-filled and stays editable.',
   },
   {
-    track: 'Track 02',
     title: 'Plan the cuts',
-    flag: { text: 'Planning', tone: 'steel' },
+    state: 'Planning',
     body:
       'The optimiser runs a real board-layout pass over your parts — kerf and stock dimensions included — and shows the boards it would buy and the offcuts it would leave. Print it as a monospace manifest or export the sheets as a PDF.',
   },
   {
-    track: 'Track 03',
     title: 'Build',
-    flag: { text: 'In Progress', tone: 'amber' },
+    state: 'In progress',
     body:
       'A timestamped build log with photos, a materials list that rolls up into one shopping list across every active project, and finish records for the stain and topcoat schedule — including the recoat window.',
   },
   {
-    track: 'Track 04',
     title: 'Keep the record',
-    flag: { text: 'Complete', tone: 'green' },
+    state: 'Complete',
     body:
       'The record outlives the build. Come back in two years and the dimensions, the offcuts, the finish schedule and the photographs are all still there — and any project can be saved as a template and cloned into the next one.',
   },
 ];
 
-/* ── The extracted result of a paste, shown in its settled state ── */
-const extraction = [
-  { label: 'Parts', value: '11' },
-  { label: 'Boards', value: '02' },
-  { label: 'Est. time', value: '12H' },
-];
-
-/* The payload of an import: real parts at real dimensions */
-const extractedParts = [
-  { name: 'Carcass side', dim: '¾" × 15" × 34"', qty: '×2' },
-  { name: 'Fixed shelf', dim: '¾" × 14¼" × 30½"', qty: '×3' },
-  { name: 'Face frame stile', dim: '¾" × 1½" × 34"', qty: '×2' },
-  { name: 'Back panel', dim: '¼" × 30½" × 34"', qty: '×1' },
-];
-
-/* ── One optimised sheet. Lamp colours, not wood tones — every part reads as
-      a lit cell on the board (the palette is CutPlanSheet.tsx's). ── */
-const sheet = [
-  { x: '1.5%', y: '3%', w: '30%', h: '44%', c: '#D69A2E', label: 'Side' },
-  { x: '32.5%', y: '3%', w: '30%', h: '44%', c: '#5590B5', label: 'Side' },
-  { x: '63.5%', y: '3%', w: '35%', h: '44%', c: '#5E9E72', label: 'Back' },
-  { x: '1.5%', y: '48%', w: '46%', h: '30%', c: '#C4776B', label: 'Shelf' },
-  { x: '48.5%', y: '48%', w: '25%', h: '30%', c: '#8A78B8', label: 'Divider' },
-  { x: '74.5%', y: '48%', w: '24%', h: '30%', c: '#B8792C', label: 'Rail' },
-];
-
-/* ── Everything a project holds. A manifest, not a feature grid. ── */
 const manifest = [
-  { row: 'Starter board', detail: 'Four complete woodworking projects and three Shaper projects, with original plans, parts, materials and instructions.', where: 'iOS' },
+  { row: 'Starter workspace', detail: 'Four complete woodworking projects and three Shaper projects, with original plans, parts, materials and instructions.', where: 'iOS' },
   { row: 'Cut list', detail: 'Parts with fractional dimensions, quantities, material, and kerf.', where: 'Web · iOS' },
   { row: 'Cut plan', detail: 'A guillotine packing optimiser over your real stock, with yield and offcuts.', where: 'Web · iOS' },
   { row: 'Materials', detail: 'Per-project material lists that consolidate into one shopping list.', where: 'Web · iOS' },
@@ -92,477 +48,340 @@ const manifest = [
   { row: 'Conversion tables', detail: 'A live mm ↔ inch calculator and fractional reference tables.', where: 'Web · iOS' },
   { row: 'Templates', detail: 'Save any project as a template and clone it into a fresh build.', where: 'Web · iOS' },
   { row: 'Command palette', detail: 'Search and navigate the whole shop record from ⌘K.', where: 'Web' },
-  { row: 'Appearance', detail: 'Five text sizes, five selectable signal lamps, light and night renditions, and reduced-motion support.', where: 'iOS' },
+  { row: 'Appearance', detail: 'Five text sizes, five selectable annotation colors, light and dark appearances, and reduced-motion support.', where: 'iOS' },
   { row: 'System surfaces', detail: 'Widgets, Live Activities, Spotlight, Siri, Handoff, Share Extension, and finish reminders.', where: 'iOS' },
   { row: 'Account ownership', detail: 'Sign in with Apple or Microsoft, export a JSON project summary, and permanently delete the Workshop account in-app.', where: 'iOS' },
   { row: 'Insights', detail: 'Spend over time, cost by project, and how often you are in the shop.', where: 'iOS' },
 ];
-
-const flapChars = (v: string) => v.split('');
 ---
 
 <BaseLayout
   bare
-  boardFonts
   path="/workshop"
-  title="The Workshop — Read your shop like a departure board."
-  description="A woodworking shop record read like a Solari departure board. Cut lists that become cutting plans, build logs, Shaper Hub imports, and a native iPhone and iPad app that carries the whole board out to the saw."
+  title="Workshop — Keep the whole build connected."
+  description="Workshop keeps a woodworking project connected from plan through dimensions, materials, cuts, shopping, build notes, and finish records on the web, iPhone, and iPad."
 >
+  <!--
+    THESIS: Workshop marketing becomes a living plan table built from the current running apps, refusing the retired departure-board imitation.
+    OWN-WORLD: Cool vellum, deep spruce structure, a functional 24px drafting grid, pencil-blue annotations, restrained amber actions, and soft 14/24px geometry.
+    STORY: Visitors see the current web workspace first, then fresh read-only Simulator proof from iPhone and iPad, the project journey, exact capabilities, and a clear TestFlight action.
+    FIRST VIEWPORT: A slim product nav sits above a two-column field; direct copy and actions occupy the left while the current web app fills the right at readable scale.
+    FORM: A pinned Living Plan Table evidence stack; product source fixed the direction, so no concept seed or staging roll was used.
+  -->
   <div class="wk-root">
-    {/* ── Steel band ── */}
-    <nav class="wk-nav">
-      <NintekBack />
-      <span class="wk-nav-brand">
-        <svg class="wk-nav-mark" viewBox="0 0 180 180" role="img" aria-label="The Workshop">
-          <defs>
-            <linearGradient id="wkm-steel" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#4E5A62" />
-              <stop offset="0.45" stop-color="#2B3238" />
-              <stop offset="1" stop-color="#1A2025" />
-            </linearGradient>
-            <linearGradient id="wkm-flap" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#394248" />
-              <stop offset="0.4999" stop-color="#2E363B" />
-              <stop offset="0.5" stop-color="#242B2F" />
-              <stop offset="1" stop-color="#1D2327" />
-            </linearGradient>
-          </defs>
-          <rect width="180" height="180" rx="10" fill="url(#wkm-steel)" />
-          <rect
-            x="0.75"
-            y="0.75"
-            width="178.5"
-            height="178.5"
-            rx="9.5"
-            fill="none"
-            stroke="#ffffff"
-            stroke-opacity="0.16"
-            stroke-width="1.5"
-          />
-          <rect x="22" y="26" width="136" height="112" rx="3" fill="url(#wkm-flap)" />
-          <path
-            d="M46 56 L68 108 L90 70 L112 108 L134 56"
-            fill="none"
-            stroke="#F2F4F1"
-            stroke-width="14"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <rect x="22" y="82" width="136" height="56" fill="#000000" fill-opacity="0.16" />
-          <path d="M22 82 H158" stroke="#000000" stroke-opacity="0.78" stroke-width="3" />
-          <path d="M22 84.5 H158" stroke="#ffffff" stroke-opacity="0.10" stroke-width="2" />
-          <rect x="22" y="146" width="136" height="9" rx="1.5" fill="#FFB400" />
-        </svg>
-        The Workshop
-      </span>
-      <span class="wk-nav-track">
-        <span class="wk-lamp" aria-hidden="true"></span>
-        Project Companion
-      </span>
+    <nav class="wk-nav" aria-label="Workshop">
+      <div class="wk-nav-inner">
+        <NintekBack />
+        <a class="wk-brand" href="/workshop" aria-label="Workshop home">
+          <img src="/apps/workshop.png" alt="" width="42" height="42" />
+          <span>
+            <strong>Workshop</strong>
+            <small>Project Companion</small>
+          </span>
+        </a>
+        <a class="wk-nav-link" href="#inside-workshop">Actual screens</a>
+      </div>
     </nav>
 
-    {/* ── Hero: the board is the hero. ── */}
-    <header class="wk-hero">
-      <div class="wk-wrap wk-hero-inner">
-        <div>
-          <h1 class="wk-h1">
-            <span>Read your shop like a</span>
-            <span class="lit">departure board.</span>
-          </h1>
-          <p class="wk-hero-sub">
-            Workshop turns every build into one durable record: the plan,
-            the cut list, the optimized board layout, the materials, the
-            progress photos, and the finish schedule. It stays legible from
-            first idea to final coat.
-          </p>
-          <div class="wk-hero-meta">
-            <span class="wk-chip">Free</span>
-            <span class="wk-chip">Web app</span>
-            <span class="wk-chip">Native iPhone &amp; iPad</span>
-            <span class="wk-chip">Seven complete starter builds</span>
-          </div>
-          <div class="wk-hero-actions">
-            <a class="wk-action primary" href="#the-native-app">See the actual app</a>
-            <a class="wk-action" href={testFlightHref}>Request TestFlight access</a>
-          </div>
-        </div>
-
-        <div class="wk-board wk-shopboard">
-          <div class="wk-rail">
-            <span>Shop Board</span>
-            <span class="wk-rail-count">Tue Aug 4 · 17:54</span>
-          </div>
-          <div class="wk-dash">
-            {
-              boardCells.map((c, ci) => (
-                <div class="wk-dash-cell">
-                  <span class="wk-label">{c.label}</span>
-                  <span class="wk-flaps">
-                    {flapChars(c.value).map((ch, i) => (
-                      <span
-                        class={`wk-flap roll t-${c.tone}`}
-                        style={`animation-delay:${ci * 90 + i * 55}ms`}
-                      >
-                        {ch}
-                      </span>
-                    ))}
-                  </span>
-                  <span class="wk-dash-sub">{c.sub}</span>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-    </header>
-
-    {/* ── Actual release build, not a drawn concept ── */}
-    <section class="wk-section" id="the-native-app">
-      <div class="wk-wrap">
-        <div class="wk-board wk-proof-board">
-          <div class="wk-rail">
-            <span>The app, running now</span>
-            <span class="wk-rail-count">iPhone + iPad</span>
-          </div>
-          <div class="wk-proof-inner">
-            <div class="wk-proof-copy">
-              <h2 class="wk-proof-h">The shop record finally fits the shop.</h2>
-              <p class="wk-body">
-                This is the current SwiftUI build—not a product sketch. iPhone
-                keeps the next action close to your thumb. iPad opens the entire
-                board into a working surface for projects, Shaper files, and
-                templates.
-              </p>
-              <dl class="wk-proof-points">
-                <div>
-                  <dt>Start full</dt>
-                  <dd>New accounts open to seven complete builds with original plan art, real parts, materials, costs, and instructions.</dd>
-                </div>
-                <div>
-                  <dt>Work anywhere</dt>
-                  <dd>The cut list follows you to the Lock Screen; the shopping list follows you down the aisle; the project record waits on every device.</dd>
-                </div>
-                <div>
-                  <dt>Own the record</dt>
-                  <dd>Sign in with Apple or Microsoft, export a portable JSON project summary, or permanently delete the account from inside the app.</dd>
-                </div>
-              </dl>
+    <main>
+      <header class="wk-hero">
+        <div class="wk-wrap wk-hero-grid">
+          <div class="wk-hero-copy">
+            <h1>Keep the whole build connected.</h1>
+            <p>
+              Workshop turns every build into one durable record: the plan, the
+              cut list, the optimized board layout, the materials, the progress
+              photos, and the finish schedule. It stays legible from first idea
+              to final coat.
+            </p>
+            <ul class="wk-hero-facts" aria-label="Workshop availability">
+              <li>Free</li>
+              <li>Web app</li>
+              <li>Native iPhone &amp; iPad</li>
+              <li>Seven complete starter builds</li>
+            </ul>
+            <div class="wk-actions">
+              <a class="wk-action primary" href="#inside-workshop">Explore real screens</a>
+              <a class="wk-action secondary" href={testFlightHref}>Request TestFlight access</a>
             </div>
-            <WorkshopShowcase eager />
           </div>
+
+          <WorkshopShowcase variant="web" eager />
         </div>
-      </div>
-    </section>
+      </header>
 
-    {/* ── The departure board: how a build moves ── */}
-    <section class="wk-section">
-      <div class="wk-wrap">
-        <div class="wk-board">
-          <div class="wk-rail">
-            <span>How a build moves</span>
-            <span class="wk-rail-count">04</span>
+      <section class="wk-section" id="the-native-app">
+        <div class="wk-wrap wk-proof-grid">
+          <div class="wk-section-copy">
+            <h2>The shop record finally fits the shop.</h2>
+            <p>
+              These are fresh Simulator captures from the current SwiftUI build
+              running in read-only demo mode—not product sketches or stale App
+              Store cards. iPhone keeps the next action close to your thumb. iPad
+              opens separate Projects and Shaper Hub workspaces.
+            </p>
+            <dl class="wk-proof-points">
+              <div>
+                <dt>Start full</dt>
+                <dd>New accounts open to seven complete builds with original plan art, real parts, materials, costs, and instructions.</dd>
+              </div>
+              <div>
+                <dt>Work anywhere</dt>
+                <dd>The cut list follows you to the Lock Screen; the shopping list follows you down the aisle; the project record waits on every device.</dd>
+              </div>
+              <div>
+                <dt>Own the record</dt>
+                <dd>Sign in with Apple or Microsoft, export a portable JSON project summary, or permanently delete the account from inside the app.</dd>
+              </div>
+            </dl>
           </div>
-          <div class="wk-board-rows">
-            {
-              departures.map((d) => (
-                <div class="wk-depart">
-                  <span class="wk-depart-track">{d.track}</span>
-                  <span>
-                    <span class="wk-depart-title">{d.title}</span>
-                    <p class="wk-depart-body">{d.body}</p>
-                  </span>
-                  <span class="wk-depart-flag">
-                    <span class={`wk-flag f-${d.flag.tone}`}>{d.flag.text}</span>
-                  </span>
-                </div>
-              ))
-            }
-          </div>
+          <WorkshopShowcase />
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ── The two mechanisms a notes app could not copy ── */}
-    <section class="wk-section">
-      <div class="wk-wrap">
-        <div class="wk-mech">
-          <article class="wk-mech-panel">
-            <div class="wk-mech-copy">
-              <span class="wk-label">Mechanism 01</span>
-              <h2 class="wk-mech-h">Paste a link, get a project</h2>
-              <p class="wk-body wk-measure">
-                Drop in any plan page and the app reads it, then hands back a
-                real project: every part, every dimension, the wood types and
-                the materials. Nothing is decided for you — it arrives
-                pre-filled and every field stays editable.
-              </p>
-            </div>
-            <div class="wk-mech-figure">
-              <div class="wk-url">
-                <Icon name="layers" size={13} />
-                <span class="wk-url-text">kregtool.com/plans/under-workbench-storage</span>
-                <span class="wk-url-ok" aria-label="Extracted"><Icon name="check" size={13} /></span>
-              </div>
-              <div class="wk-extract">
-                {
-                  extraction.map((e) => (
-                    <div class="wk-extract-row">
-                      <span class="wk-label">{e.label}</span>
-                      <span class="wk-readout">{e.value}</span>
-                    </div>
-                  ))
-                }
-              </div>
-              <div class="wk-parts">
-                {
-                  extractedParts.map((p) => (
-                    <div class="wk-parts-row">
-                      <span>{p.name}</span>
-                      <span class="wk-parts-dim">{p.dim}</span>
-                      <span class="wk-parts-qty">{p.qty}</span>
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
-          </article>
-
-          <article class="wk-mech-panel">
-            <div class="wk-mech-copy">
-              <span class="wk-label">Mechanism 02</span>
-              <h2 class="wk-mech-h">A cut list that becomes a cutting plan</h2>
-              <p class="wk-body wk-measure">
-                A real board-layout optimiser packs your parts onto the stock
-                you actually have, accounting for kerf and stock dimensions. It
-                tells you how many boards to buy and exactly what it will
-                leave over — the same algorithm on the web and in your hand.
-              </p>
-            </div>
-            <div class="wk-mech-figure">
-              <div class="wk-sheet" role="img" aria-label="An optimised cut plan sheet at 96% yield">
-                {
-                  sheet.map((p) => (
-                    <span
-                      style={`--x:${p.x};--y:${p.y};--w:${p.w};--h:${p.h};background:${p.c}`}
-                    >
-                      {p.label}
-                    </span>
-                  ))
-                }
-                <span class="waste" style="--x:1.5%;--y:80%;--w:97%;--h:17%">Offcut</span>
-              </div>
-              <div class="wk-sheet-foot">
-                <span class="wk-label">Sheet 01 of 02 · 48" × 96"</span>
-                <span class="wk-flag f-green" style="margin-left:auto">96% yield</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    {/* ── More real app surfaces ── */}
-    <section class="wk-section" id="inside-workshop">
-      <div class="wk-wrap">
-        <div class="wk-board wk-screens">
-          <div class="wk-rail">
-            <span>Inside Workshop</span>
-            <span class="wk-rail-count">Actual release screens</span>
-          </div>
-          <div class="wk-screens-copy">
-            <h2 class="wk-proof-h">The board changes with the job.</h2>
-            <p class="wk-body wk-measure">
-              Plan at the desk, carry the project to the bench, and take one
-              consolidated list to the store. The same record gets quieter or
-              denser to match the screen without losing the information.
+      <section class="wk-section">
+        <div class="wk-wrap">
+          <div class="wk-section-head">
+            <h2>One record from plan to finish.</h2>
+            <p>
+              The project stays editable at every stage; generated structure
+              never replaces the maker&rsquo;s judgment.
             </p>
           </div>
-          <div class="wk-screen-grid">
-            <figure class="wk-screen-card phone">
-              <div class="wk-screen-device">
+          <ol class="wk-journey">
+            {
+              journey.map((step) => (
+                <li>
+                  <div class="wk-step-head">
+                    <h3>{step.title}</h3>
+                    <span>{step.state}</span>
+                  </div>
+                  <p>{step.body}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section class="wk-section">
+        <div class="wk-wrap">
+          <div class="wk-section-head">
+            <h2>More than a notes app with sawdust on it.</h2>
+            <p>
+              Workshop earns the structure it adds: one mechanism turns source
+              material into an editable project, and another turns measured parts
+              into stock layouts you can act on.
+            </p>
+          </div>
+
+          <div class="wk-mechanisms">
+            <article class="wk-mechanism">
+              <div class="wk-mechanism-copy">
+                <h3>Paste a link, get a project.</h3>
+                <p>
+                  Drop in any plan page and the app reads it, then hands back a
+                  real project: every part, every dimension, the wood types and
+                  the materials. Nothing is decided for you — it arrives
+                  pre-filled and every field stays editable.
+                </p>
+              </div>
+              <picture class="wk-mechanism-media">
+                <source
+                  media="(max-width: 430px)"
+                  srcset="/apps/workshop/ipad-project-detail-focus.webp"
+                />
                 <img
-                  src="/apps/workshop/iphone-shopping.png"
-                  alt="Workshop shopping list on iPhone, grouped by project with quantities and costs"
-                  width="1206"
-                  height="2622"
+                  src="/apps/workshop/ipad-project-detail.webp"
+                  alt="Workshop read-only demo on iPad showing the Hand Tool Storage Cabinet project detail, materials, tools, and build notes"
+                  width="1548"
+                  height="2064"
                   loading="lazy"
                   decoding="async"
                 />
+              </picture>
+            </article>
+
+            <article class="wk-mechanism reverse">
+              <div class="wk-mechanism-copy">
+                <h3>A cut list that becomes a cutting plan.</h3>
+                <p>
+                  A real board-layout optimiser packs your parts onto the stock
+                  you actually have, accounting for kerf and stock dimensions. It
+                  tells you how many boards to buy and exactly what it will leave
+                  over — the same algorithm on the web and in your hand.
+                </p>
               </div>
+              <img
+                src="/apps/workshop/iphone-projects.webp"
+                alt="Workshop read-only demo on iPhone showing the Projects context, active cabinet plan, parts count, and next action"
+                width="906"
+                height="1970"
+                loading="lazy"
+                decoding="async"
+              />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="wk-section" id="inside-workshop">
+        <div class="wk-wrap">
+          <div class="wk-section-head">
+            <h2>The workspace changes with the job.</h2>
+            <p>
+              Plan at the desk, carry the project to the bench, and take one
+              consolidated list to the store. These fresh iOS 26.5 Simulator
+              captures come from the current read-only demo build; Projects and
+              Shaper Hub remain separate contexts.
+            </p>
+          </div>
+
+          <div class="wk-screen-grid">
+            <figure>
+              <img
+                src="/apps/workshop/iphone-shopping.webp"
+                alt="Workshop read-only demo on iPhone showing one shopping list grouped by project with quantities and estimated costs"
+                width="906"
+                height="1970"
+                loading="lazy"
+                decoding="async"
+              />
               <figcaption>
                 <strong>One supply run</strong>
                 <span>Every active build rolls into one checkable shopping list.</span>
               </figcaption>
             </figure>
-            <figure class="wk-screen-card phone">
-              <div class="wk-screen-device">
-                <img
-                  src="/apps/workshop/iphone-tables.png"
-                  alt="Workshop millimeter, decimal-inch, and fractional-inch conversion tables on iPhone"
-                  width="1206"
-                  height="2622"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+            <figure>
+              <img
+                src="/apps/workshop/iphone-tables.webp"
+                alt="Workshop read-only demo on iPhone showing the unit converter and millimeter-to-inch reference table"
+                width="906"
+                height="1970"
+                loading="lazy"
+                decoding="async"
+              />
               <figcaption>
                 <strong>Measure twice, type less</strong>
                 <span>Millimeters, decimal inches, and shop fractions stay live at the bench.</span>
               </figcaption>
             </figure>
-            <figure class="wk-screen-card pad">
-              <div class="wk-screen-device">
+            <figure class="wide">
+              <picture class="wk-screen-picture">
+                <source
+                  media="(max-width: 720px)"
+                  srcset="/apps/workshop/ipad-shaper-focus.webp"
+                />
                 <img
-                  src="/apps/workshop/ipad-project.png"
-                  alt="Workshop project detail on iPad with a technical drawing, project stats, cut list, wood, and tools"
-                  width="2064"
-                  height="2752"
+                  src="/apps/workshop/ipad-shaper.webp"
+                  alt="Workshop read-only demo on iPad showing the separate Shaper Hub context, Shaper-only search, and CNC project library"
+                  width="1548"
+                  height="2064"
                   loading="lazy"
                   decoding="async"
                 />
-              </div>
+              </picture>
               <figcaption>
-                <strong>The build record, opened up</strong>
-                <span>Plans, dimensions, materials, costs, and progress share one measured iPad canvas.</span>
+                <strong>Projects and Shaper stay separate</strong>
+                <span>iPad gives CNC work its own context, search, and project library instead of mixing it into the Projects dashboard.</span>
               </figcaption>
             </figure>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ── The manifest ── */}
-    <section class="wk-section">
-      <div class="wk-wrap">
-        <div class="wk-board">
-          <div class="wk-rail">
-            <span>What a project holds</span>
-            <span class="wk-rail-count">{String(manifest.length).padStart(2, '0')}</span>
+      <section class="wk-section">
+        <div class="wk-wrap">
+          <div class="wk-section-head">
+            <h2>What a project holds.</h2>
+            <p>
+              The same record crosses the web and native apps without pretending
+              every surface has the same job.
+            </p>
           </div>
-          <table class="wk-manifest">
-            <thead>
-              <tr>
-                <th scope="col">Section</th>
-                <th scope="col">Detail</th>
-                <th scope="col">Where</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                manifest.map((m) => (
-                  <tr>
-                    <td>{m.row}</td>
-                    <td>{m.detail}</td>
-                    <td>{m.where}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    {/* ── Native iOS ── */}
-    <section class="wk-section">
-      <div class="wk-wrap">
-        <div class="wk-native">
-          <div class="wk-rail">
-            <span>Native on iPhone and iPad</span>
-            <span class="wk-rail-count">TestFlight</span>
-          </div>
-          <div class="wk-native-inner">
-            <div>
-              <span class="wk-label" style="color:#9daaa6">The plan leaves the desk</span>
-              <h2 class="wk-native-h">
-                Nobody plans a build at a keyboard.
-                <span>They plan it standing at the saw.</span>
-              </h2>
-              <p class="wk-native-sub">{wkNative.intro}</p>
-
-              <div class="wk-native-grid">
+          <div
+            class="wk-table-wrap"
+            role="region"
+            aria-label="Workshop capability table"
+            tabindex="0"
+          >
+            <table class="wk-manifest">
+              <thead>
+                <tr>
+                  <th scope="col">Section</th>
+                  <th scope="col">Detail</th>
+                  <th scope="col">Where</th>
+                </tr>
+              </thead>
+              <tbody>
                 {
-                  wkNative.highlights.map((h) => (
-                    <div class="wk-native-item">
-                      <span class="wk-native-ico">
-                        <Icon name={h.icon} size={13} />
-                      </span>
-                      <div>
-                        <strong>{h.title}</strong>
-                        <p>{h.body}</p>
-                      </div>
-                    </div>
+                  manifest.map((item) => (
+                    <tr>
+                      <td>{item.row}</td>
+                      <td>{item.detail}</td>
+                      <td>{item.where}</td>
+                    </tr>
                   ))
                 }
-              </div>
-
-              <p class="wk-native-foot">
-                <span class="wk-flag f-amber">TestFlight beta</span>
-                <span>{wkNative.minOS} or later · {wkNative.devices}</span>
-                <a href="/ios#workshop">More about the native apps →</a>
-              </p>
-            </div>
-
-            <div class="wk-native-phone" aria-hidden="true">
-              <PhoneMock tone="dark">
-                <WorkshopPhone />
-              </PhoneMock>
-            </div>
-          </div>
-          <div class="wk-tech">
-            {wkNative.tech.map((t) => <span class="wk-chip">{t}</span>)}
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ── The stamped plate ── */}
-    <footer class="wk-plate">
-      <div class="wk-wrap">
-        <svg class="wk-plate-mark" viewBox="0 0 180 180" role="img" aria-label="The Workshop">
-          <defs>
-            <linearGradient id="wkp-steel" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#4E5A62" />
-              <stop offset="0.45" stop-color="#2B3238" />
-              <stop offset="1" stop-color="#1A2025" />
-            </linearGradient>
-            <linearGradient id="wkp-flap" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#394248" />
-              <stop offset="0.4999" stop-color="#2E363B" />
-              <stop offset="0.5" stop-color="#242B2F" />
-              <stop offset="1" stop-color="#1D2327" />
-            </linearGradient>
-          </defs>
-          <rect width="180" height="180" rx="10" fill="url(#wkp-steel)" />
-          <rect x="22" y="26" width="136" height="112" rx="3" fill="url(#wkp-flap)" />
-          <path
-            d="M46 56 L68 108 L90 70 L112 108 L134 56"
-            fill="none"
-            stroke="#F2F4F1"
-            stroke-width="14"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <rect x="22" y="82" width="136" height="56" fill="#000000" fill-opacity="0.16" />
-          <path d="M22 82 H158" stroke="#000000" stroke-opacity="0.78" stroke-width="3" />
-          <path d="M22 84.5 H158" stroke="#ffffff" stroke-opacity="0.10" stroke-width="2" />
-          <rect x="22" y="146" width="136" height="9" rx="1.5" fill="#FFB400" />
-        </svg>
-        <h2 class="wk-plate-h">The record outlives the build.</h2>
-        <p class="wk-plate-sub">
-          One shop, one board. Every dimension, every offcut, every coat of
-          finish still legible years after the sawdust is swept up.
-        </p>
-        <span class="wk-plate-stamp">Measure twice · Cut once</span>
-        <div class="wk-plate-actions">
-          <a class="wk-action primary" href={testFlightHref}>Request TestFlight access</a>
-          <a class="wk-action" href="/ios#workshop">Explore the native build</a>
+      <section class="wk-native-section">
+        <div class="wk-wrap">
+          <div class="wk-native-head">
+            <div>
+              <h2>The plan leaves the desk.</h2>
+              <p>{wkNative.intro}</p>
+            </div>
+            <div class="wk-native-actions">
+              <a class="wk-action next" href={testFlightHref}>Request TestFlight access</a>
+              <a class="wk-text-link" href="/ios#workshop">More about the native apps</a>
+            </div>
+          </div>
+
+          <div class="wk-native-grid">
+            {
+              wkNative.highlights.map((highlight) => (
+                <article>
+                  <div>
+                    <h3>{highlight.title}</h3>
+                    <p>{highlight.body}</p>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+
+          <details class="wk-tech">
+            <summary>Native implementation details</summary>
+            <p>{wkNative.tech.join(' · ')}</p>
+          </details>
         </div>
-        <p class="wk-plate-legal">
-          Questions about the app or your data?
-          <a href={`mailto:${COMPANY.email}`}>Contact Nintek</a>
-          or read the <a href="/workshop/privacy">Workshop Privacy Policy</a>.
-        </p>
+      </section>
+    </main>
+
+    <footer class="wk-footer">
+      <div class="wk-wrap wk-footer-inner">
+        <img src="/apps/workshop.png" alt="Workshop icon" width="82" height="82" />
+        <div>
+          <h2>The record outlives the build.</h2>
+          <p>
+            One workspace for every dimension, offcut, photograph, and coat of
+            finish — still legible years after the sawdust is swept up.
+          </p>
+          <div class="wk-actions">
+            <a class="wk-action primary" href={testFlightHref}>Request TestFlight access</a>
+            <a class="wk-action secondary" href="/ios#workshop">Explore the native build</a>
+          </div>
+          <p class="wk-legal">
+            Questions about the app or your data?
+            <a href={`mailto:${COMPANY.email}`}>Contact Nintek</a>
+            or read the <a href="/workshop/privacy">Workshop Privacy Policy</a>.
+          </p>
+        </div>
       </div>
     </footer>
   </div>
