@@ -344,6 +344,18 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                           <a href={`/${app.slug}`}>About {app.name}</a>
                         </>
                       )}
+                      {app.privacyPath && (
+                        <>
+                          {' · '}
+                          <a href={app.privacyPath}>Privacy</a>
+                        </>
+                      )}
+                      {app.supportPath && (
+                        <>
+                          {' · '}
+                          <a href={app.supportPath}>Support</a>
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>

@@ -1,0 +1,93 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import NintekBack from '../components/NintekBack.astro';
+import hubImage from '../assets/cortex/hub.webp';
+import '../styles/cortex-landing.css';
+import '../styles/cortex-legal.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  page: 'privacy' | 'support';
+  heading: string;
+  summary: string;
+  documentMeta: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  page,
+  heading,
+  summary,
+  documentMeta,
+} = Astro.props;
+---
+
+<BaseLayout
+  bare
+  boardFonts
+  noindex
+  path={path}
+  title={title}
+  description={description}
+  themeColor="#080b1d"
+  socialImage={hubImage.src}
+>
+  <div class="cx-root cx-legal-root">
+    <header class="cx-nav">
+      <div class="cx-shell cx-nav-inner">
+        <div class="cx-nav-brand">
+          <NintekBack />
+          <a class="cx-wordmark" href="/cortex" aria-label="Cortex home">
+            <img src="/apps/cortex.png" alt="" width="34" height="34" />
+            <span>Cortex</span>
+          </a>
+        </div>
+        <nav aria-label="Cortex legal and support">
+          <a href="/cortex/privacy/" aria-current={page === 'privacy' ? 'page' : undefined}>
+            Privacy
+          </a>
+          <a href="/cortex/support/" aria-current={page === 'support' ? 'page' : undefined}>
+            Support
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="cx-legal-main">
+      <article class="cx-shell cx-legal-article" aria-labelledby="cx-legal-title">
+        <header class="cx-legal-heading">
+          <img src="/apps/cortex.png" alt="" width="72" height="72" />
+          <div>
+            <h1 id="cx-legal-title">{heading}</h1>
+            <p class="cx-legal-meta">{documentMeta}</p>
+          </div>
+          <p class="cx-legal-summary">{summary}</p>
+        </header>
+
+        <slot />
+      </article>
+    </main>
+
+    <footer class="cx-footer">
+      <div class="cx-shell">
+        <a class="cx-footer-brand" href="/">
+          <span class="cx-footer-grid" aria-hidden="true">
+            {Array.from({ length: 9 }).map(() => <i></i>)}
+          </span>
+          Nintek
+        </a>
+        <p>Cortex · Eight native games · iPhone only</p>
+        <nav aria-label="Footer">
+          <a href="/cortex">Cortex</a>
+          <a href="/cortex/privacy/">Privacy</a>
+          <a href="/cortex/support/">Support</a>
+          <a href="/ios">iOS</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>

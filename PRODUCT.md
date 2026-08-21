@@ -9,7 +9,7 @@ web
 ## Users
 
 Nintek's public website serves people evaluating the studio and its apps. The Cortex
-surface specifically serves iPhone and iPad players looking for a polished collection
+surface specifically serves iPhone players looking for a polished collection
 of native word, number, logic, and arcade games that works without an account or
 backend.
 
@@ -24,22 +24,23 @@ clear, accurate moment in the story.
 
 ## Positioning
 
-Cortex is one native iOS hub containing eight distinct games with Game Center
-integration and zero backend calls. It is not a web wrapper, a multiplayer service,
-or an economy-driven arcade.
+Cortex is one native iOS hub containing eight distinct games with optional Game
+Center integration and no Nintek account, backend, or API. Apple services may
+handle private iCloud Sudoku statistics and Game Center activity. It is not a web
+wrapper, a multiplayer service, or an economy-driven arcade.
 
 ## Operating Context
 
 Visitors arrive from the Nintek homepage, the native iOS catalogue, direct links, and
-social previews. Cortex itself runs on iPhone and iPad under bundle
+social previews. Cortex itself runs on iPhone under bundle
 `com.nintek.cortex`.
 
 ## Capabilities and Constraints
 
 - Cortex contains eight native games in this stable public order: Sudoku, Sumweave,
   Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow, and Neon Drop.
-- Game Center is integrated.
-- The app makes zero backend calls.
+- Game Center is optional.
+- The app makes no calls to a Nintek backend or API.
 - Marketing must not claim multiplayer, coins or an economy, backend sync, or other
   unsupported features.
 - The website must remain responsive, accessible, performant, SEO-ready, and safe

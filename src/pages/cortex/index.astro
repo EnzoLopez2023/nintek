@@ -3,8 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CortexScreen from '../../components/CortexScreen.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import hubImage from '../../assets/cortex/hub.webp';
+import { getApp } from '../../data/apps';
 import '../../styles/cortex-landing.css';
 
+const app = getApp('cortex')!;
 const games = [
   {
     slug: 'sudoku',
@@ -90,13 +92,13 @@ const games = [
 
 const pageTitle = 'Cortex — Eight native games in one vivid hub';
 const description =
-  'Cortex is an iOS-only games hub from Nintek: eight native games, Game Center integration and zero backend calls.';
+  'Cortex is an iPhone-only games hub from Nintek: eight native games, optional Game Center and no Nintek account or backend.';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'Cortex',
   applicationCategory: 'GameApplication',
-  operatingSystem: 'iOS',
+  operatingSystem: 'iOS 18 or later',
   description,
   identifier: 'com.nintek.cortex',
   url: 'https://www.nintek.com/cortex',
@@ -117,7 +119,7 @@ const structuredData = {
   <!--
     THESIS: Cortex is an arcade constellation, not a catalogue grid; the real hub is the center of gravity and every game becomes its own vivid world.
     OWN-WORLD: Ink-blue space, saturated game fields, crisp ivory type, black device frames, and small geometric game marks tied back to Nintek copper.
-    STORY: See the real hub, move through all eight real game homes, understand Game Center and zero backend calls, then continue into Nintek's iOS story.
+    STORY: See the real hub, move through all eight real game homes, understand optional Game Center and the absence of a Nintek backend, then continue into Nintek's iOS story.
     FIRST VIEWPORT: Editorial copy occupies the left half while the actual Cortex hub rises in a large tilted iPhone on the right, surrounded by orbiting game marks and deep color fields.
     FORM: The fourth grounded structure, staged as an arcade constellation in depth with scroll resolving one game plane at a time; seed 2ff57945.
   -->
@@ -156,15 +158,15 @@ const structuredData = {
 
         <div class="cx-shell cx-hero-grid">
           <div class="cx-hero-copy">
-            <p class="cx-platform">Only on iPhone and iPad</p>
+            <p class="cx-platform">TestFlight beta · iPhone only</p>
             <h1 id="cortex-title">
               Eight games.
               <span>One vivid little universe.</span>
             </h1>
             <p class="cx-hero-lede">
               Cortex brings wordplay, number puzzles, falling blocks and pixel
-              logic into one native iOS hub. Game Center is built in. A Nintek
-              backend is not.
+              logic into one native iPhone hub. Game Center is optional. A Cortex
+              account and Nintek backend are not part of the experience.
             </p>
             <div class="cx-hero-actions">
               <a class="cx-button cx-button-primary" href="#games">
@@ -178,9 +180,9 @@ const structuredData = {
               </a>
             </div>
             <dl class="cx-hero-facts" aria-label="Cortex facts">
+              <div><dt>Platform</dt><dd>iPhone</dd></div>
               <div><dt>Games</dt><dd>8 native</dd></div>
-              <div><dt>Connected play</dt><dd>Game Center</dd></div>
-              <div><dt>Backend calls</dt><dd>0</dd></div>
+              <div><dt>Apple play</dt><dd>Game Center · optional</dd></div>
             </dl>
           </div>
 
@@ -273,19 +275,24 @@ const structuredData = {
           <div class="cx-native-copy reveal">
             <h2 id="native-title">The arcade ends at the edge of your device.</h2>
             <p>
-              Cortex is native on iOS, integrates with Game Center, and makes zero
-              calls to a Nintek backend. The games stay immediate because there is
-              no account service or sync layer waiting in the middle.
+              Cortex is native on iPhone, keeps detailed play data locally, and
+              integrates with optional Apple Game Center. Sudoku statistics can use
+              Apple’s private iCloud key-value storage, but there is no Cortex
+              account, Nintek API, analytics service, or first-party sync backend.
             </p>
           </div>
           <dl class="cx-native-facts reveal">
             <div>
               <dt>Platform</dt>
-              <dd>iPhone + iPad</dd>
+              <dd>iPhone</dd>
             </div>
             <div>
-              <dt>System integration</dt>
-              <dd>Game Center</dd>
+              <dt>Minimum version</dt>
+              <dd>iOS 18</dd>
+            </div>
+            <div>
+              <dt>Apple services</dt>
+              <dd>iCloud KVS + optional Game Center</dd>
             </div>
             <div>
               <dt>Bundle</dt>
@@ -293,7 +300,7 @@ const structuredData = {
             </div>
             <div>
               <dt>Nintek backend</dt>
-              <dd>Zero calls</dd>
+              <dd>None</dd>
             </div>
           </dl>
         </div>
@@ -305,7 +312,8 @@ const structuredData = {
           <img src="/apps/cortex.png" alt="" width="88" height="88" />
           <h2 id="closing-title">Eight ways into the zone.</h2>
           <p>
-            Cortex is one part of Nintek's growing family of native iOS apps.
+            Cortex is in TestFlight beta for iPhone. There is no public App Store
+            listing yet.
           </p>
           <a class="cx-button cx-button-primary" href="/ios#cortex">
             See Cortex in the iOS collection
@@ -323,11 +331,12 @@ const structuredData = {
           </span>
           Nintek
         </a>
-        <p>Cortex · Eight native games · iOS only</p>
+        <p>Cortex · Eight native games · iPhone only</p>
         <nav aria-label="Footer">
           <a href="/">All apps</a>
           <a href="/ios">iOS</a>
-          <a href="/about">About</a>
+          <a href={app.privacyPath}>Privacy</a>
+          <a href={app.supportPath}>Support</a>
         </nav>
       </div>
     </footer>

@@ -12,10 +12,10 @@ and real imagery on the homepage and `/ios`.
 
 ## Audience, job, action, and proof
 
-iPhone and iPad players should understand Cortex as one self-contained native hub,
+iPhone players should understand Cortex as one self-contained native hub,
 recognize the range across its eight games, and continue into the Nintek iOS story.
 The hub capture and all eight game-home captures are the proof. The page must state
-Game Center integration, zero backend calls, and bundle `com.nintek.cortex` without
+optional Game Center, no Nintek backend, and bundle `com.nintek.cortex` without
 inventing multiplayer, economies, or sync.
 
 ## Direction and memorable moment

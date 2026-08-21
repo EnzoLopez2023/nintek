@@ -8,7 +8,7 @@ const successor = getApp(app.successorSlug)!;
 
 <BaseLayout
   title={`${app.name} has retired — ${successor.name}`}
-  description={`${app.name} has been retired and superseded by ${successor.name}, Nintek's native games hub for iPhone and iPad.`}
+  description={`${app.name} has been retired and superseded by ${successor.name}, Nintek's native games hub for iPhone.`}
   path={`/${app.slug}`}
   noindex
 >
@@ -18,8 +18,7 @@ const successor = getApp(app.successorSlug)!;
       <p class="retirement-lead">
         <a href={`/${successor.slug}`}>{successor.name}</a> superseded {app.name}
         as Nintek's active games hub. It carries the idea forward as eight native
-        games for iPhone and iPad, with Game Center integration and zero backend
-        calls.
+        games for iPhone, with optional Game Center and no Nintek backend.
       </p>
       <a class="retirement-action" href={`/${successor.slug}`}>
         Explore {successor.name}

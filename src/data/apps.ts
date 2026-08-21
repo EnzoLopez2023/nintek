@@ -94,6 +94,9 @@ export interface App {
   icon: IconKey;
   bundleId: string;
   hasPage: boolean;
+  /** Public app-specific policy and help routes, when available. */
+  privacyPath?: string;
+  supportPath?: string;
   platforms: Platforms;
   mockup: Mockup;
   native?: Native;
@@ -541,27 +544,29 @@ export const apps: App[] = [
   {
     slug: 'cortex',
     name: 'Cortex',
-    category: 'Games · iPhone & iPad',
-    tagline: 'Eight native games. Zero backend calls.',
+    category: 'Games · iPhone',
+    tagline: 'Eight native games. No Nintek backend.',
     headline: { lead: 'Eight games, one hub.', em: 'Built for iOS.' },
     description:
-      'A native games hub for iPhone and iPad: Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop, with Game Center integration and zero backend calls.',
-    quiet: 'Eight native games. One vivid little universe.',
+      'A native games hub for iPhone: Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop, with optional Game Center and no Nintek account or backend.',
+    quiet: 'TestFlight beta. No public App Store listing yet.',
     icon: 'gamepad',
     bundleId: 'com.nintek.cortex',
     hasPage: true,
+    privacyPath: '/cortex/privacy/',
+    supportPath: '/cortex/support/',
     platforms: { web: false, ios: true },
     mockup: {
       title: 'Cortex',
       subtitle: 'Eight games · Game Center',
       chip: 'Eight games · one native hub',
-      live: 'Zero backend calls',
+      live: 'No Nintek backend',
     },
     native: {
       status: 'testflight',
-      thesis: 'Eight native games, Game Center, and zero backend calls.',
+      thesis: 'Eight native games, optional Game Center, and no Nintek backend.',
       intro:
-        'Cortex is a self-contained games hub built for iPhone and iPad. Eight distinct word, number, logic and arcade games share one native home, with Game Center integrated and no backend service sitting between you and a game.',
+        'Cortex is a self-contained games hub built for iPhone. Eight distinct word, number, logic and arcade games share one native home, with optional Game Center and no Nintek account or backend service sitting between you and a game.',
       highlights: [
         {
           icon: 'grid',
@@ -571,15 +576,15 @@ export const apps: App[] = [
         },
         {
           icon: 'trophy',
-          title: 'Game Center, built in',
+          title: 'Optional Game Center',
           body:
-            'Game Center is part of the native experience, connecting Cortex to the iOS gaming profile you already use.',
+            'When you use it, Apple Game Center connects scores and achievements to the gaming profile you already control. Cortex remains playable without it.',
         },
         {
           icon: 'star',
           title: 'Pixel Flow',
           body:
-            'A conveyor-belt colour matcher where every board resolves into a piece of pixel art. 532 hand-baked pictures feed a tiered thousand-level run, and the generator guarantees every level can actually be cleared.',
+            'A conveyor-belt colour matcher where every board resolves into pixel art. Its 505-board campaign uses verified first-party and owner-generated sources, and the generator keeps every level solvable.',
         },
         {
           icon: 'gamepad',
@@ -595,9 +600,9 @@ export const apps: App[] = [
         },
         {
           icon: 'cloud',
-          title: 'Zero backend calls',
+          title: 'No Nintek backend',
           body:
-            'The games run on the device. There is no Nintek account, no backend sync and no service call sitting in the play loop.',
+            'The games and detailed statistics run on the device. There is no Cortex account, Nintek API, analytics service or first-party sync backend.',
         },
         {
           icon: 'widget',
@@ -608,7 +613,7 @@ export const apps: App[] = [
       ],
       tech: ['SwiftUI', 'GameKit', 'Core Haptics', 'WidgetKit'],
       minOS: 'iOS 18',
-      devices: 'iPhone and iPad',
+      devices: 'iPhone',
     },
   },
   {

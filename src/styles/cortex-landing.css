@@ -1195,11 +1195,38 @@
 
   .cx-hero-grid {
     grid-template-columns: 1fr;
-    gap: 54px;
+    gap: 0;
   }
 
   .cx-hero-copy {
-    padding-bottom: 0;
+    display: contents;
+  }
+
+  .cx-platform {
+    order: 1;
+  }
+
+  .cx-hero h1 {
+    order: 2;
+  }
+
+  .cx-hero-lede {
+    order: 3;
+  }
+
+  .cx-hero-actions {
+    order: 4;
+  }
+
+  .cx-hero-stage {
+    order: 5;
+    min-height: 630px;
+    margin-top: 42px;
+    place-items: start center;
+  }
+
+  .cx-hero-facts {
+    order: 6;
   }
 
   .cx-hero h1 {
@@ -1213,10 +1240,6 @@
 
   .cx-hero-facts {
     margin-top: 34px;
-  }
-
-  .cx-hero-stage {
-    min-height: 630px;
   }
 
   .cx-device-hero {
