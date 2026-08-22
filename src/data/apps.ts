@@ -22,7 +22,22 @@ export interface Platforms {
   ios: boolean;
 }
 
-export type NativeStatus = 'testflight' | 'pre-release' | 'development' | 'next';
+export type NativeStatus =
+  | 'testflight'
+  | 'pre-release'
+  | 'review-blocked'
+  | 'rework'
+  | 'development'
+  | 'next';
+
+export const NATIVE_STATUS_LABELS: Record<NativeStatus, string> = {
+  testflight: 'TestFlight beta',
+  'pre-release': 'Pre-release build',
+  'review-blocked': 'Release blocked after review',
+  rework: 'Withdrawn for rework',
+  development: 'In development',
+  next: 'In the works',
+};
 
 export interface NativeHighlight {
   icon: IconKey;
@@ -137,7 +152,7 @@ export const ECOSYSTEM = {
       icon: 'layers' as IconKey,
       title: 'One set of models',
       body:
-        'Tools, projects, cut lists, exam attempts — defined once and decoded the same way in the app, the widget and the share extension. Nothing drifts between surfaces.',
+        'Tools, projects, cut lists, exam attempts — defined once and decoded the same way in the app and its extensions. Nothing drifts between surfaces.',
     },
     {
       icon: 'widget' as IconKey,
@@ -162,24 +177,25 @@ export const apps: App[] = [
     tagline: 'Your weight journey, weighed honestly.',
     headline: { lead: 'Every number tells a story.', em: 'Read the trend.' },
     description:
-      'Weight, doses, glucose, labs and well-being on a GLP-1 journey — read together, not in four separate places. Native on iPhone, iPad and Apple Watch, with two-way Apple Health sync, widgets, a dose-day Live Activity, and an AI analyst that answers questions about any of it without your records leaving the device.',
-    quiet: 'Now native on iPhone, iPad and Apple Watch — with no account at all.',
+      'Weight, doses, glucose, labs and well-being on a GLP-1 journey — read together, not in four separate places. The native build automatically imports approved Apple Health data when the app opens or returns, supports iPhone, iPad and Apple Watch, and needs no account.',
+    quiet: 'Private pre-release build. No public App Store listing or announced price.',
     icon: 'drop',
     bundleId: 'com.nintek.tare',
     hasPage: true,
+    privacyPath: '/tare/privacy/',
     platforms: { web: true, ios: true },
     mockup: {
       title: 'This Month',
       subtitle: 'Trend · weight, doses & glucose',
-      chip: 'Logged · 242.1 lb',
-      live: 'On track',
+      chip: 'Synthetic UI study · sample data',
+      live: 'Illustrative',
     },
     native: {
-      status: 'testflight',
+      status: 'pre-release',
       thesis:
         'The longest history in the catalogue, carried by the phone, the wrist and the Home Screen — with no account behind any of it.',
       intro:
-        'Tare is the app that gets opened every day, and the one carrying the most history, so the native version was built to hold that history without asking for an account at all. Where the web app signs into Microsoft, this one keeps everything in SwiftData on the device and syncs through your own private iCloud database. Then it does the things a browser tab simply cannot: widgets on the Home Screen and Lock Screen, a Live Activity that counts down injection day, an Apple Watch app you can log from, two-way Apple Health sync, Siri, Face ID, and reminders that fire whether or not anything is open. Moving across is a single file — export a backup on the web, open it on the phone, and every weight, dose, glucose reading, lab result and photo arrives intact.',
+        'Tare is the app that gets opened every day, and the one carrying the most history, so the native version was built to hold that history without asking for an account at all. Where the web app signs into Microsoft, this one keeps everything in SwiftData on the device and syncs through your own private iCloud database. After you opt in, it imports approved Apple Health data whenever the app opens or returns, while a manual Sync now control stays available. It also adds widgets, a dose-day Live Activity, Apple Watch logging, Siri, Face ID and local reminders. The web backup remains the migration path into the native store.',
       highlights: [
         {
           icon: 'cloud',
@@ -191,7 +207,7 @@ export const apps: App[] = [
           icon: 'heart',
           title: 'Two-way Apple Health sync',
           body:
-            'Weight and glucose flow both directions; sleep and steps are read only, because Tare has no business claiming to be the source of a night\u2019s sleep. What you typed always wins — Health fills the days you left blank and never overwrites a figure you entered yourself.',
+            'After you opt in, Tare checks Health whenever the app opens or returns. Weight and glucose flow both directions; sleep and steps are read only. What you typed always wins — Health fills days you left blank and never overwrites a figure you entered yourself.',
         },
         {
           icon: 'apple',
@@ -284,7 +300,7 @@ export const apps: App[] = [
     sunset: {
       label: 'The web app is winding down',
       body:
-        'Tare on the web is in maintenance. Every new feature — widgets, the Apple Watch app, Apple Health, Live Activities, Siri, Face ID, offline charts — is being built on iPhone only, and the browser version will be retired once the migration is done. Nothing is stranded: the native app reads the web app\u2019s backup file directly, and its calculations are held to numerical parity with the originals by an automated test suite, so moving across is lossless rather than merely close.',
+        'Tare on the web is in maintenance while people finish moving their data. New product work is native-only, and the browser interface will retire after migration is complete. The backup format remains the transfer path. The stateless, consent-gated AI relay is separate from the web interface and is retained for the native app.',
       successor: 'Tare for iPhone, iPad and Apple Watch',
     },
   },
@@ -295,24 +311,26 @@ export const apps: App[] = [
     tagline: 'Every tool on the register.',
     headline: { lead: 'Every tool numbered.', em: 'Every move accounted for.' },
     description:
-      'A tool library in the machinist’s sense — a numbered register of the whole shop, every tool carrying its own address, specs, location and wear state. One readout says what is out, what is in service and what the shelf is worth.',
-    quiet: 'Built as the machine control it is, not as a workshop scrapbook.',
+      'A numbered register for the whole shop, with Apple or Microsoft sign-in, account-scoped photos and documents, and permanent in-app account deletion. One readout says what is out, what is in service and what the shelf is worth.',
+    quiet: 'Web app available; the native build has no public listing or announced price.',
     icon: 'hammer',
     bundleId: 'com.nintek.shopkeep',
     hasPage: true,
+    privacyPath: '/shopkeep/privacy/',
+    supportPath: '/shopkeep/support/',
     platforms: { web: true, ios: true },
     mockup: {
       title: 'Shop status',
       subtitle: 'Tool library · LIB.01',
-      chip: 'Receipt imported · 3 tools on the register',
-      live: 'Live',
+      chip: 'Synthetic UI study · sample records',
+      live: 'Illustrative',
     },
     native: {
-      status: 'testflight',
+      status: 'pre-release',
       thesis:
         'The whole register in your pocket, the readout on your Home Screen, and a camera instead of a keyboard.',
       intro:
-        'ShopKeep and its native counterpart are the same instrument on two screens — a pale enamel cabinet, one inset graphite readout per screen, and status drawn as the move a tool is making. What the phone adds is the shop floor: a camera that reads the barcode off the box, widgets that carry the readout onto the Home Screen, and Siri going straight to the scanner.',
+        'ShopKeep and its native counterpart are the same instrument on two screens. The phone adds camera-first scanning, widgets and Siri, while Apple and Microsoft sign-in reach separate account-backed inventories. Photos and documents load only through authenticated private-media requests, and Account & Data can permanently delete the selected ShopKeep account.',
       highlights: [
         {
           icon: 'scan',
@@ -348,7 +366,13 @@ export const apps: App[] = [
           icon: 'package',
           title: 'The register, maintained',
           body:
-            'Categories and locations are editable in place, so the taxonomy is yours rather than a fixed list. Deleted tools go to a trash you can restore from. Manuals, receipts and warranty documents attach to the tool record itself.',
+            'Categories and locations are editable in place, deleted tools go to a restorable trash, and manuals, receipts and warranty documents attach to the tool record itself.',
+        },
+        {
+          icon: 'lock',
+          title: 'Private media stays behind the account',
+          body:
+            'Tool photos and documents are fetched through authenticated, account-scoped routes and held only in nonpersistent client caches. Raw storage paths are not public product links.',
         },
         {
           icon: 'layers',
@@ -358,12 +382,15 @@ export const apps: App[] = [
         },
         {
           icon: 'apple',
-          title: 'Sign in with Apple',
+          title: 'Apple or Microsoft — and a way out',
           body:
-            'Use your Apple ID or your Microsoft account. Either way it is the same inventory you already have on the web, not a second copy of it.',
+            'Use Sign in with Apple or Microsoft. The providers create separate ShopKeep accounts, and Account & Data can permanently delete the selected account and its inventory after the server confirms removal.',
         },
       ],
-      tech: ['SwiftUI', 'VisionKit', 'WidgetKit', 'App Intents', 'Swift Charts', 'Sign in with Apple'],
+      tech: [
+        'SwiftUI', 'VisionKit', 'WidgetKit', 'App Intents', 'Swift Charts',
+        'Sign in with Apple', 'MSAL', 'Authenticated private media',
+      ],
       minOS: 'iOS 17',
       devices: 'iPhone and iPad',
     },
@@ -375,11 +402,13 @@ export const apps: App[] = [
     tagline: 'Pass the exam. Keep the knowledge.',
     headline: { lead: 'Study with intent.', em: 'Walk in ready.' },
     description:
-      'Fifty-four Microsoft certification tracks with practice, flashcards, study guides and timed papers. The iOS app adds eight complete Microsoft curricula and runs with no account and no network at all.',
-    quiet: 'No account, no server, no network calls. On iPad it is a two-column app, not a stretched phone.',
+      'Fifty-four Microsoft certification tracks with practice, flashcards, study guides and timed papers. The native build is local-first with private iCloud sync, but version 3.0 is not publicly available after App Review rejected the combined submission.',
+    quiet: 'No public App Store listing. The $14.99 Full Exam Library IAP remains in review.',
     icon: 'layers',
     bundleId: 'com.nintek.cairn',
     hasPage: true,
+    privacyPath: '/cairn/privacy/',
+    supportPath: '/cairn/support/',
     platforms: { web: true, ios: true },
     /* The home-page frame is browser chrome, so it shows the web dashboard.
        Courses are iOS-only and must not be advertised on a web surface. */
@@ -390,17 +419,17 @@ export const apps: App[] = [
       live: 'Studying',
     },
     native: {
-      status: 'testflight',
+      status: 'review-blocked',
       thesis:
-        'No account, no network, no excuses — the entire library lives on your device.',
+        'No account or Nintek backend — study locally, with optional private iCloud sync between Apple devices.',
       intro:
-        'Cairn was the first port, and it went furthest. There is no sign-in, no server and no sync service: your progress lives in your own iCloud account, and every question, flashcard, study guide and lesson ships inside the app. iOS is now where Cairn is developed first — the courses below exist here and nowhere else — and the iPad layout was designed alongside the iPhone one rather than after it.',
+        'Cairn is fully standalone: there is no sign-in, Nintek server or app-authored network call. Progress stays local and can sync only through your private Apple iCloud database; it never syncs with the web app. The current build includes bundled exam and course material, but rights and attribution remediation is still pending integration before the rejected release can be resubmitted.',
       highlights: [
         {
           icon: 'book',
-          title: 'Eight full curricula, iOS only',
+          title: 'Eight offline curricula in the current build',
           body:
-            "Microsoft's free courses — AI, Generative AI, Machine Learning, Data Science, Web Development, AI Agents, IoT and MCP for Beginners — mirrored word for word across 219 lessons, with every image, lab, notebook and quiz. No certification required, and no link ever leaves the app to read the material.",
+            'The native build contains eight bundled learning curricula. Their rights, attribution and asset provenance are under active remediation and must be integrated before App Store resubmission.',
         },
         {
           icon: 'ruler',
@@ -410,9 +439,9 @@ export const apps: App[] = [
         },
         {
           icon: 'cloud',
-          title: 'No login. Ever.',
+          title: 'Private iCloud sync, not web sync',
           body:
-            'Your progress lives in your private iCloud database and follows you to every Apple device you own. There is no sign-up form, no password to lose, and no server holding your study history.',
+            'Your progress lives locally and may follow you between Apple devices through your private iCloud database. The web app uses a separate Azure store; the two progress histories never connect.',
         },
         {
           icon: 'package',
@@ -457,24 +486,25 @@ export const apps: App[] = [
     tagline: 'Keep the whole build connected.',
     headline: { lead: 'Keep the whole build', em: 'connected.' },
     description:
-      'Workshop keeps a woodworking project together from first idea through dimensions, materials, cuts, shopping, build notes, and finish records.',
-    quiet: 'Seven complete starter builds mean a new shop never opens to an empty workspace.',
+      'Workshop keeps a woodworking project together from first idea through dimensions, materials, cuts, shopping, build notes, and finish records. The web workspace remains current while the native release is withdrawn for rework.',
+    quiet: 'No public App Store or TestFlight link. Current media is from the Living Plan Table build.',
     icon: 'package',
     bundleId: 'com.nintek.workshop',
     hasPage: true,
+    privacyPath: '/workshop/privacy/',
     platforms: { web: true, ios: true },
     mockup: {
       title: 'Workshop',
       subtitle: 'Project companion',
-      chip: 'Read-only demo available',
-      live: 'Web + iOS',
+      chip: 'Current Living Plan Table',
+      live: 'Real captures',
     },
     native: {
-      status: 'testflight',
+      status: 'rework',
       thesis:
-        'The whole build record leaves the desk: plans, parts, materials, progress, and the next cut all stay in reach.',
+        'The current native build carries plans, parts, materials and progress into the shop, but its public release is withdrawn while rework continues.',
       intro:
-        'Workshop is free, native, and built for the place the work actually happens. New accounts begin with four complete woodworking projects and three Shaper projects, each carrying an original plan drawing, instructions, cut list, and materials. From there, the optimiser runs on device, the cut list follows you to the Lock Screen, and the full shop opens into a purpose-built iPad workspace instead of a stretched phone view.',
+        'Workshop is being reworked around the Living Plan Table system shown in these current web and Simulator captures. The private native build includes seven starter projects, an on-device cut-plan optimiser, Lock Screen surfaces and a purpose-built iPad workspace. There is no public App Store listing, price or TestFlight acquisition link.',
       highlights: [
         {
           icon: 'package',
@@ -504,7 +534,7 @@ export const apps: App[] = [
           icon: 'scan',
           title: 'Camera, Pencil, and Live Text',
           body:
-            'Read a fraction from a tape measure, select dimensions from an existing project photo, sketch directly on iPad with Apple Pencil, or share a link or image into Workshop from another app.',
+            'Read a fraction from a tape measure, select dimensions from an existing project photo, and sketch directly on iPad with Apple Pencil.',
         },
         {
           icon: 'ruler',
@@ -759,17 +789,18 @@ export const apps: App[] = [
     tagline: 'Notebooks that grow with your thinking.',
     headline: { lead: 'Capture the spark.', em: 'Find it again later.' },
     description:
-      'Notebooks that nest as deep as your thinking does, with rich text, tags and instant search — a calm home for everything you want to remember and nothing you don’t.',
-    quiet: 'Everything you write, one search away.',
+      'Nested notebooks with rich text, tags, archive and instant search — plus explicit, read-only offline downloads in the installable web app.',
+    quiet: 'Offline copies live in identity-scoped IndexedDB; editing waits for a complete reconnect refresh.',
     icon: 'book',
     bundleId: 'com.nintek.tabloom',
     hasPage: true,
+    privacyPath: '/tabloom/privacy/',
     platforms: { web: true, ios: false },
     mockup: {
       title: 'Tabloom workspace',
       subtitle: 'Library · pages · editor',
       chip: 'Autosaved on change',
-      live: 'Current interface',
+      live: 'Real capture',
     },
   },
   {
@@ -779,17 +810,18 @@ export const apps: App[] = [
     tagline: 'The signal, not the noise.',
     headline: { lead: 'A hundred sources.', em: 'One clear briefing.' },
     description:
-      'PulseWire clusters the day’s reporting into the stories that actually matter, ranked by how many independent outlets are covering them — with a Discover catalogue of 237 vetted feeds across 64 categories for when you want to go wider.',
-    quiet: 'No infinite scroll. Just today, summarised and ranked.',
+      'A private story-intelligence reader that groups related reporting, keeps source evidence close, and offers a current Discover catalogue of 317 unique feeds across 64 categories.',
+    quiet: 'Private Microsoft sign-in, PostgreSQL + pgvector, and explicit offline Saved snapshots.',
     icon: 'news',
     bundleId: 'com.nintek.pulsewire',
     hasPage: true,
+    privacyPath: '/pulsewire/privacy/',
     platforms: { web: true, ios: false },
     mockup: {
-      title: 'Today’s Briefing',
-      subtitle: 'Ranked by signal',
-      chip: 'Updated · 6 min ago',
-      live: 'Live',
+      title: 'Today’s Edition',
+      subtitle: 'Stories · evidence · chronology',
+      chip: '317 feeds · 64 categories',
+      live: 'Synthetic layout',
     },
   },
   {

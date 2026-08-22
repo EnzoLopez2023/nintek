@@ -7,7 +7,7 @@ import PhoneMock from '../../components/PhoneMock.astro';
 import TabletMock from '../../components/TabletMock.astro';
 import CairnPhone from '../../components/mocks/ios/Cairn.astro';
 import CairnPad from '../../components/mocks/ios/CairnPad.astro';
-import { getApp } from '../../data/apps';
+import { getApp, NATIVE_STATUS_LABELS } from '../../data/apps';
 import '../../styles/cairn-landing.css';
 
 const app = getApp('cairn')!;
@@ -52,6 +52,8 @@ const demo = {
   bare={true}
   cairnFonts={true}
   themeColor="#edf2f8"
+  socialImage="/apps/cairn.png"
+  socialImageAlt="Cairn app icon"
 >
   <div class="lp">
     {/* ── Background atmosphere ── */}
@@ -92,7 +94,7 @@ const demo = {
             <div class="lp__cta-row">
               <span class="lp__cta-meta">
                 <span class="lp__cta-meta-dot"></span>
-                Progress synced across every device.
+                Private iCloud sync between Apple devices; web progress is separate.
               </span>
             </div>
           </div>
@@ -157,11 +159,11 @@ const demo = {
       </div>
     </section>
 
-    {/* ── Live demo ── */}
+    {/* ── Illustrative practice state ── */}
     <section class="lp__section">
       <div class="lp__container">
         <div class="lp__section-head">
-          <span class="lp__section-eyebrow">A live look at practice</span>
+          <span class="lp__section-eyebrow">Illustrative practice state</span>
           <h2 class="lp__section-title">Drill mode learns the question you almost got right.</h2>
           <p class="lp__section-sub">
             Every answer feeds the weak-spot engine. Get a Responsible AI question wrong
@@ -386,14 +388,13 @@ const demo = {
         <div class="lp__section-head">
           <span class="lp__section-eyebrow">On iPhone and iPad only</span>
           <h2 class="lp__section-title">
-            Eight complete curricula, for learning the ground.
+            Eight offline curricula in the current build.
           </h2>
           <p class="lp__section-sub">
-            Not everyone is chasing a certificate. The iOS app carries Microsoft&rsquo;s
-            free &ldquo;for Beginners&rdquo; courses in full — 219 lessons mirrored word
-            for word, with every diagram, lab, notebook and quiz bundled in. There is no
-            pass score and no timed paper here, and no link ever leaves the app to read
-            the material.
+            The current iOS build bundles eight learning curricula for offline
+            reading. They are not certification workspaces and do not carry a
+            pass score or timed paper. Rights, attribution, and asset-provenance
+            remediation remains pending integration before App Store resubmission.
           </p>
         </div>
 
@@ -416,8 +417,8 @@ const demo = {
               }
             </ul>
             <p class="lp-cx__note">
-              Every course is a faithful offline mirror of its Microsoft repository,
-              redistributed under its own MIT licence with the notice intact.
+              This is current pre-release content, not a representation that
+              App Review or every rightsholder requirement has been resolved.
             </p>
           </div>
         </div>
@@ -449,11 +450,10 @@ const demo = {
             </h2>
             <p class="lp__native-sub">{native.intro}</p>
             <p class="lp__native-access">
-              <strong>Free to download.</strong> All eight Courses and the complete
-              AI-901 workspace are free. The optional
-              <span>Full Exam Library · $14.99 once</span> purchase has no
-              subscription, supports Family Sharing, and unlocks every other current
-              and future exam.
+              <strong>No public App Store availability.</strong> Version 3.0 build
+              2 was rejected and the combined submission remains unresolved. The
+              proposed <span>Full Exam Library · $14.99</span> non-consumable is
+              still in review and cannot be purchased from a public listing.
             </p>
 
             <div class="lp__native-list">
@@ -473,7 +473,7 @@ const demo = {
             </div>
 
             <p class="lp__native-meta">
-              <span class="lp__native-beta">TestFlight beta</span>
+              <span class="lp__native-beta">{NATIVE_STATUS_LABELS[native.status]}</span>
               {native.minOS} or later · {native.devices}
               &ensp;·&ensp;
               <a href="/ios#cairn">More about the native apps</a>
@@ -494,8 +494,9 @@ const demo = {
       <div class="lp__container">
         <h2 class="lp__finale-h">Stack <em>your</em> first stone.</h2>
         <p class="lp__finale-sub">
-          One place for every track, your progress carried with you. Built for the
-          person studying alone at the kitchen table.
+          One place for every track, with Apple-device progress carried through
+          private iCloud and kept separate from the web app. Built for the person
+          studying alone at the kitchen table.
         </p>
         <p class="lp__footer-meta">
           Cairn · Built for working engineers studying at the kitchen table.

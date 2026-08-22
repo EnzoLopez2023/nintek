@@ -8,6 +8,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "check:site": "node scripts/verify-site.mjs",
+    "check": "npm run build && npm run check:site",
     "preview": "astro preview",
     "astro": "astro"
   },

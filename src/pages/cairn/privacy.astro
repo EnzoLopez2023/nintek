@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('cairn')!;
-const effectiveDate = 'August 18, 2026';
+const effectiveDate = 'August 21, 2026';
 ---
 
 <BaseLayout
@@ -11,6 +11,8 @@ const effectiveDate = 'August 18, 2026';
   description={`How ${app.name} handles on-device study data, private iCloud sync, App Store purchases, and Apple system features.`}
   path={`/${app.slug}/privacy`}
   noindex={true}
+  socialImage="/apps/cairn.png"
+  socialImageAlt="Cairn app icon"
 >
   <article class="prose container">
     <a class="back-link" href="/cairn">← {app.name}</a>
@@ -62,15 +64,16 @@ const effectiveDate = 'August 18, 2026';
       iCloud is unavailable, {app.name} can continue using its local store.
     </p>
 
-    <h2>App Store purchases</h2>
+    <h2>Proposed App Store purchase</h2>
     <p>
-      {app.name} offers one Apple StoreKit non-consumable purchase called
-      <strong>Full Exam Library</strong>. The App Store processes the purchase,
-      payment details, refunds, Family Sharing eligibility, and restores.
-      {app.name} receives the purchase status needed to decide whether the
-      library is unlocked. {COMPANY.name} does not receive your payment-card
-      details. Apple controls its own purchase and account records under its
-      policies.
+      The current build contains StoreKit support for one proposed
+      non-consumable purchase called <strong>Full Exam Library</strong>, priced
+      at $14.99 in the United States submission. The app version was rejected,
+      the combined submission remains unresolved, and the purchase is still in
+      review, so there is no public listing or public purchase availability.
+      If Apple approves a later submission, the App Store will process payment
+      details, refunds, Family Sharing eligibility, and restores. {COMPANY.name}
+      does not receive payment-card details.
     </p>
 
     <h2>Notifications, widgets, Live Activities, and App Intents</h2>

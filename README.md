@@ -6,12 +6,11 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 
 ## Structure
 
-- `www.nintek.com/` — company landing page listing all apps (showcase only).
-- `www.nintek.com/<app>` — per-app marketing landing page. These are **not**
-  linked from the public site; they exist for App Store listings and as the
-  target of each app's **Privacy Policy URL**. They are marked `noindex`.
-- `www.nintek.com/<app>/privacy` — the privacy policy used as the App Store
-  Privacy URL for that app.
+- `www.nintek.com/` — public portfolio home linking to product pages.
+- `www.nintek.com/<app>` — product marketing and current release-state page.
+- `www.nintek.com/<app>/privacy` — app-specific privacy policy.
+- `www.nintek.com/<app>/support` — app-specific support page where release
+  evidence requires one.
 
 > Note: `www.nintek.com/cairn` (marketing/legal) is **separate** from
 > `cairn.nintek.com` (the running web app).
@@ -21,8 +20,9 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 | Path | Purpose |
 | --- | --- |
 | `src/data/apps.ts` | Single source of truth for every app (name, tagline, icon, bundle ID). Add an app here. |
+| `docs/MARKETING_EVIDENCE.md` | Claim, release-state, and asset provenance ledger. |
 | `src/layouts/BaseLayout.astro` | Shared HTML shell, header, footer, SEO/`noindex`. |
-| `src/components/AppCard.astro` | Home-page showcase card (no links by design). |
+| `src/components/AppPromo.astro` | Home-page product showcase. |
 | `src/pages/index.astro` | Company home page. |
 | `src/pages/<app>/index.astro` | Per-app marketing page. |
 | `src/pages/<app>/privacy.astro` | Per-app privacy policy. |
@@ -36,6 +36,7 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 npm install
 npm run dev      # http://localhost:4321
 npm run build    # outputs to dist/
+npm run check    # build + route/link/asset/metadata assertions
 npm run preview
 ```
 
@@ -59,4 +60,6 @@ One-time setup:
 1. Add an entry to `src/data/apps.ts` and set `hasPage: true`.
 2. Copy its icon to `public/apps/<slug>.png`.
 3. Create `src/pages/<slug>/index.astro` and `src/pages/<slug>/privacy.astro`.
-4. Add the slug to the `Disallow` list in `public/robots.txt`.
+4. Add indexable routes to `public/sitemap.xml`; use page-level `noindex` for
+   routes that should remain out of search.
+5. Add claim and asset provenance to `docs/MARKETING_EVIDENCE.md`.

@@ -4,8 +4,7 @@ import NintekBack from '../../components/NintekBack.astro';
 import Icon from '../../components/Icon.astro';
 import PhoneMock from '../../components/PhoneMock.astro';
 import ShopKeepPhone from '../../components/mocks/ios/ShopKeep.astro';
-import ShopKeepMark from '../../components/ShopKeepMark.astro';
-import { getApp } from '../../data/apps';
+import { getApp, NATIVE_STATUS_LABELS } from '../../data/apps';
 import '../../styles/shopkeep-landing.css';
 
 const skApp = getApp('shopkeep')!;
@@ -59,20 +58,20 @@ const pdfItems = [
 
 const trust = [
   {
-    title: 'Verified identity',
-    desc: 'No new password to remember. Your verified work identity handles access — the same single account you already use every day.',
+    title: 'Apple or Microsoft',
+    desc: 'Choose either provider. Each identity is a separate ShopKeep account, even when both providers use the same email address.',
   },
   {
-    title: 'Your shop, your database',
-    desc: 'Each user gets a private SQLite file. Your register is isolated from everyone else — by design, not by policy.',
+    title: 'Account-scoped media',
+    desc: 'Tool photos and documents require an authenticated request and stay in nonpersistent client caches rather than public URLs.',
   },
   {
-    title: 'Powered by Claude',
-    desc: 'Receipt parsing, natural-language search, and tool enrichment all run on Anthropic’s frontier model.',
+    title: 'Assisted filing',
+    desc: 'Receipt parsing, natural-language search, and tool enrichment use the configured Claude service only for the requested operation.',
   },
   {
-    title: 'Activity log, always',
-    desc: 'Every action — every AI call, every checkout, every edit — is recorded. Nothing happens silently in your shop.',
+    title: 'A permanent exit',
+    desc: 'Account & Data can delete the selected ShopKeep account and its inventory after the backend confirms removal.',
   },
 ];
 ---
@@ -84,6 +83,8 @@ const trust = [
   path="/shopkeep"
   title="ShopKeep — Every tool on the register."
   description="A tool library in the machinist’s sense: a numbered register of the whole shop, every tool carrying its own address, specs, location and wear state. One readout says what is out, what is in service, and what the shelf is worth."
+  socialImage="/apps/shopkeep.png"
+  socialImageAlt="ShopKeep app icon"
 >
   <div class="lp-root">
     {/* ── Top nav (brand only) ── */}
@@ -91,7 +92,9 @@ const trust = [
       <div class="lp-nav-inner">
         <NintekBack />
         <div class="lp-nav-brand">
-          <span class="lp-nav-mark"><ShopKeepMark size={30} /></span>
+          <span class="lp-nav-mark">
+            <img src="/apps/shopkeep.png" alt="" width="30" height="30" />
+          </span>
           <span class="lp-nav-name">ShopKeep</span>
           <span class="lp-nav-tag">Tool Library</span>
         </div>
@@ -121,7 +124,7 @@ const trust = [
             </p>
           </div>
 
-          {/* Mockup column — LIB.01 as it actually draws */}
+          {/* Mockup column — a synthetic study of the current LIB.01 structure. */}
           <div class="lp-mockup-wrap">
             <div class="lp-mockup">
               <div class="lp-mockup-head">
@@ -206,11 +209,11 @@ const trust = [
       </div>
     </section>
 
-    {/* ── Receipt → register demo (final "Filed" state) ── */}
+    {/* ── Receipt → register illustration (synthetic sample data) ── */}
     <section class="lp-demo">
       <div class="lp-container">
         <div class="lp-section-head">
-          <div class="lp-section-eyebrow">The receipt trick</div>
+          <div class="lp-section-eyebrow">Illustrative sample · receipt flow</div>
           <h2 class="lp-section-title">Snap a receipt. The register updates.</h2>
           <p class="lp-section-sub">
             Drop in any tool receipt. ShopKeep reads it, categorises each line,
@@ -524,7 +527,7 @@ const trust = [
       <div class="lp-container">
         <div class="lp-native-grid">
           <div class="lp-native-phone" aria-hidden="true">
-            <PhoneMock tone="light">
+            <PhoneMock tone="light" chip="Synthetic UI study">
               <ShopKeepPhone />
             </PhoneMock>
           </div>
@@ -554,8 +557,10 @@ const trust = [
             </div>
 
             <p class="lp-native-meta">
-              <span class="lp-native-beta">TestFlight beta</span>
+              <span class="lp-native-beta">{NATIVE_STATUS_LABELS[skNative.status]}</span>
               {skNative.minOS} or later · {skNative.devices}
+              &ensp;·&ensp;
+              No public App Store listing or announced price
               &ensp;·&ensp;
               <a href="/ios#shopkeep">More about the native apps</a>
             </p>
@@ -567,7 +572,9 @@ const trust = [
     {/* ── Finale ── */}
     <section class="lp-cta-section">
       <div class="lp-cta-inner">
-        <div class="lp-cta-mark"><ShopKeepMark size={60} /></div>
+        <div class="lp-cta-mark">
+          <img src="/apps/shopkeep.png" alt="" width="60" height="60" />
+        </div>
         <h2 class="lp-cta-title">Give the shop a register.</h2>
         <p class="lp-cta-sub">
           Every tool numbered, every drawer addressed, every move accounted

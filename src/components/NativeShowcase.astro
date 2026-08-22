@@ -32,16 +32,22 @@ const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
 };
 
 const blurbs: Record<string, string> = {
-  cairn: 'No account. No network. The whole exam library on your phone.',
-  shopkeep: 'The register in your pocket, and the readout on your Home Screen.',
-  workshop: 'Cut plans computed on device, cut list on your Lock Screen.',
+  cairn: 'Local study with private iCloud sync; the rejected release is not public.',
+  shopkeep: 'Apple or Microsoft sign-in, private media, and in-app account deletion.',
+  workshop: 'Current Simulator capture; the native release is withdrawn for rework.',
   cortex: 'Eight native games, optional Game Center, no Nintek backend.',
-  tare: 'Widgets, an Apple Watch app and Apple Health \u2014 with no account at all.',
+  tare: 'Automatic Health imports, an Apple Watch app, and no account at all.',
   sortie: 'Supply-line conquest across 1,500 levels, saved entirely on device.',
   salvo: 'Portrait iPad tower defense, with 16 current operations and five eras ahead.',
 };
 
-const testflightCount = nativeApps.filter((app) => app.native?.status === 'testflight').length;
+const evidenceLabels: Record<string, string> = {
+  cairn: 'Synthetic UI study',
+  shopkeep: 'Synthetic UI study',
+  tare: 'Synthetic UI study',
+  cortex: 'Release-build capture',
+  sortie: 'Pre-release capture',
+};
 ---
 
 <section class="ns">
@@ -55,9 +61,10 @@ const testflightCount = nativeApps.filter((app) => app.native?.status === 'testf
         Nintek is going <span class="em">native.</span>
       </h2>
       <p class="ns-lede">
-        The web apps aren&rsquo;t going anywhere &mdash; but {nativeApps.length} products now
-        have native iOS builds in SwiftUI or Godot. {testflightCount} are in
-        TestFlight; Sortie and Salvo remain honest pre-release work.
+        {nativeApps.length} products now have native iOS builds in SwiftUI or Godot.
+        None has a public App Store listing today: Cortex is in TestFlight, Cairn
+        is blocked after review, and the rest remain private pre-release, rework,
+        or development builds.
       </p>
     </div>
 
@@ -82,6 +89,7 @@ const testflightCount = nativeApps.filter((app) => app.native?.status === 'testf
                   ) : (
                     <PhoneMock
                       tone={tones[app.slug] ?? 'dark'}
+                      chip={evidenceLabels[app.slug]}
                       fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
                     >
                       <Phone />

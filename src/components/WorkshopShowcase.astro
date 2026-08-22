@@ -13,7 +13,7 @@ const loading = eager ? 'eager' : 'lazy';
     <figure class="ws-proof ws-proof-web">
       <div class="ws-browser-bar" aria-hidden="true">
         <span class="ws-browser-dots"><i></i><i></i><i></i></span>
-        <span>workshop.enzolopez.net</span>
+        <span>Workshop · web workspace</span>
       </div>
       <img
         src="/apps/workshop/web-project.webp"
@@ -23,6 +23,7 @@ const loading = eager ? 'eager' : 'lazy';
         loading={loading}
         decoding="async"
       />
+      <figcaption class="ws-proof-label">Current web capture</figcaption>
     </figure>
   ) : (
     <div class="ws-proof ws-proof-native">
@@ -35,6 +36,7 @@ const loading = eager ? 'eager' : 'lazy';
           loading={loading}
           decoding="async"
         />
+        <figcaption class="ws-proof-label">Current iPad Simulator capture</figcaption>
       </figure>
       <figure class="ws-native-phone">
         <img
@@ -45,6 +47,7 @@ const loading = eager ? 'eager' : 'lazy';
           loading={loading}
           decoding="async"
         />
+        <figcaption class="ws-proof-label">Current iPhone Simulator capture</figcaption>
       </figure>
     </div>
   )
@@ -73,6 +76,15 @@ const loading = eager ? 'eager' : 'lazy';
     display: block;
     width: 100%;
     height: auto;
+  }
+
+  .ws-proof-label {
+    margin: 0;
+    padding: 8px 10px;
+    color: var(--ws-muted);
+    font-size: 0.68rem;
+    font-weight: 650;
+    line-height: 1.35;
   }
 
   .ws-proof-web {
@@ -141,6 +153,12 @@ const loading = eager ? 'eager' : 'lazy';
   .ws-native-phone img {
     border-radius: 22px;
     box-shadow: 0 22px 48px -26px rgba(9, 17, 15, 0.52);
+  }
+
+  .ws-native-ipad .ws-proof-label,
+  .ws-native-phone .ws-proof-label {
+    color: var(--ws-ink);
+    text-align: center;
   }
 
   .ws-native-phone {

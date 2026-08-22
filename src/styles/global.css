@@ -644,6 +644,17 @@ h3 {
   background: #edf4ff;
   color: #244f91;
 }
+.pbadge.blocked {
+  border-color: #d5a0a0;
+  background: #fff0f0;
+  color: #853535;
+}
+.pbadge.rework {
+  border-color: #c5a76c;
+  border-style: dashed;
+  background: #fff8e8;
+  color: #755521;
+}
 .pbadge.development {
   border-color: #b8a98f;
   border-style: dashed;

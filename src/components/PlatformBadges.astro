@@ -1,5 +1,5 @@
 ---
-import type { App } from '../data/apps';
+import { NATIVE_STATUS_LABELS, type App } from '../data/apps';
 
 interface Props {
   app: App;
@@ -9,18 +9,16 @@ interface Props {
 const { app, compact = false } = Astro.props;
 
 const status = app.native?.status;
-const nativeLabels = {
-  testflight: 'TestFlight beta',
-  'pre-release': 'Pre-release build',
-  development: 'In development',
-  next: 'In the works',
-} as const;
 const deviceLabel = app.native?.devices === 'iPad only' ? 'iPad' : 'iOS';
 const statusClass =
   status === 'testflight'
     ? ' beta'
     : status === 'pre-release'
       ? ' preview'
+      : status === 'review-blocked'
+        ? ' blocked'
+        : status === 'rework'
+          ? ' rework'
       : status === 'development'
         ? ' development'
         : '';
@@ -68,7 +66,7 @@ const statusClass =
           <rect x="6" y="2" width="12" height="20" rx="3" />
           <path d="M11 18.5h2" />
         </svg>
-        {deviceLabel} · {status ? nativeLabels[status] : 'app'}
+        {deviceLabel} · {status ? NATIVE_STATUS_LABELS[status] : 'app'}
       </span>
     )
   }

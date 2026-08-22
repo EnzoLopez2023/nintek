@@ -1,97 +1,122 @@
----
-const articles = [
-  {
-    source: 'ARS TECHNICA', ago: '18H AGO', score: 82,
-    title: 'Hotly anticipated Grand Theft Auto VI will cost more than other AAA games',
-    snippet: 'Industry analysts note the barrier to making (albeit not necessarily making money on) smaller studios keeps falling…',
-  },
-  {
-    source: 'BBC WORLD NEWS', ago: '1H AGO', score: 77,
-    title: "Europe's heatwave shifts east as France raises health alert to highest level",
-    snippet: 'Heatwave conditions that left Spain and France are moving eastward, with temperatures expected to peak across central Europe…',
-  },
-  {
-    source: 'ARS TECHNICA', ago: '18H AGO', score: 75,
-    title: 'OpenAI and Broadcom announce chip designed for LLM inference at scale',
-    snippet: 'The company behind ChatGPT and Codex announced a new chip design powered by Jalapeño, targeting large-model inference…',
-  },
-  {
-    source: 'BBC WORLD NEWS', ago: '7H AGO', score: 71,
-    title: "IBM hails new 'block of flats' design breakthrough for ultra tiny chips",
-    snippet: "IBM's new sub-1 nm chip crams almost 100 billion transistors onto a surface the size of a fingernail…",
-  },
-];
----
-
 <div class="pw">
-  <div class="pw-strip">
-    <span>AI-NATIVE RSS</span>
-    <span class="pw-dot">·</span>
-    <span>6-FEED DEMO</span>
-    <span class="pw-dot">·</span>
-    <span>NO SIGNUP REQUIRED</span>
+  <div class="pw-head">
+    <div>
+      <strong>Today</strong>
+      <span>Stories · evidence · chronology</span>
+    </div>
+    <span class="pw-state">Private</span>
   </div>
 
-  <div class="pw-grid">
-    {articles.map((a) => (
-      <div class="pw-card">
-        <div class="pw-card-head">
-          <span class="pw-source">{a.source}</span>
-          <span class="pw-ago">{a.ago}</span>
-          <span class="pw-score">{a.score} <span class="pw-hi">HI</span></span>
-        </div>
-        <div class="pw-title">{a.title}</div>
-        <div class="pw-snippet">{a.snippet}</div>
-      </div>
-    ))}
+  <div class="pw-lead">
+    <div class="pw-meta">
+      <span>DEVELOPING STORY</span>
+      <span>6 REPORTS</span>
+    </div>
+    <h3>Related coverage becomes one evidence-backed story record.</h3>
+    <p>No live headline or source link is reproduced in this synthetic preview.</p>
   </div>
+
+  <div class="pw-facts">
+    <div><span>Coverage</span><strong>Inspectable</strong></div>
+    <div><span>Timeline</span><strong>Ordered</strong></div>
+    <div><span>Saved</span><strong>Offline copy</strong></div>
+  </div>
+
+  <p class="pw-label">Synthetic Premium News Dashboard layout</p>
 </div>
 
 <style>
-  /* bleed dark bg to mockup edges */
   .pw {
     margin: 0 -22px -22px;
     border-radius: 0 0 20px 20px;
-    background: #0b1020;
-    padding: 12px 18px 18px;
-    display: flex; flex-direction: column; gap: 10px;
+    background: #f6f7fb;
+    color: #111827;
+    overflow: hidden;
   }
-
-  .pw-strip {
-    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-    font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-    color: rgba(0,229,255,0.7);
+  .pw-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 16px;
+    border-bottom: 1px solid #d8dde8;
+    background: #fff;
   }
-  .pw-dot { opacity: 0.4; }
-
-  .pw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .pw-card {
-    background: #121826; border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 10px; padding: 10px 11px;
-    display: flex; flex-direction: column; gap: 5px;
+  .pw-head div {
+    display: grid;
+    gap: 2px;
   }
-  .pw-card-head {
-    display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+  .pw-head strong {
+    font-size: 0.76rem;
   }
-  .pw-source {
-    font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    color: #94a3b8;
+  .pw-head div span,
+  .pw-state,
+  .pw-meta,
+  .pw-label {
+    font-size: 0.57rem;
+    letter-spacing: 0.04em;
   }
-  .pw-ago    { font-size: 9px; color: #64748b; margin-left: auto; }
-  .pw-score  {
-    font-size: 10px; font-weight: 700; color: #fff;
-    background: rgba(0,229,255,0.15); border: 1px solid rgba(0,229,255,0.25);
-    padding: 1px 6px; border-radius: 4px; white-space: nowrap;
+  .pw-head div span {
+    color: #667085;
   }
-  .pw-hi { font-size: 8px; color: rgba(0,229,255,0.8); }
-  .pw-title {
-    font-size: 11.5px; font-weight: 600; color: #f1f5f9;
-    line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; overflow: hidden;
+  .pw-state {
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: #e8edff;
+    color: #3156d3;
+    font-weight: 700;
   }
-  .pw-snippet {
-    font-size: 10px; color: #64748b; line-height: 1.4;
-    display: -webkit-box; -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; overflow: hidden;
+  .pw-lead {
+    padding: 16px;
+    background: #fff;
+  }
+  .pw-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #3156d3;
+    font-weight: 750;
+  }
+  .pw-lead h3 {
+    margin: 9px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+  }
+  .pw-lead p {
+    margin: 7px 0 0;
+    color: #667085;
+    font-size: 0.68rem;
+    line-height: 1.5;
+  }
+  .pw-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-block: 1px solid #d8dde8;
+    background: #fff;
+  }
+  .pw-facts div {
+    min-width: 0;
+    padding: 10px;
+  }
+  .pw-facts div + div {
+    border-left: 1px solid #d8dde8;
+  }
+  .pw-facts span,
+  .pw-facts strong {
+    display: block;
+  }
+  .pw-facts span {
+    color: #667085;
+    font-size: 0.56rem;
+  }
+  .pw-facts strong {
+    margin-top: 2px;
+    font-size: 0.64rem;
+  }
+  .pw-label {
+    margin: 0;
+    padding: 8px 12px;
+    color: #667085;
+    text-align: right;
   }
 </style>

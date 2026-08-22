@@ -3,13 +3,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tare')!;
-const lastUpdated = 'August 5, 2026';
+const lastUpdated = 'August 21, 2026';
 ---
 
 <BaseLayout
   title={`${app.name} Privacy Policy — ${COMPANY.name}`}
   description={`How ${app.name} handles your health information.`}
   path={`/${app.slug}/privacy`}
+  noindex={true}
+  socialImage="/apps/tare.png"
+  socialImageAlt="Tare app icon"
 >
   <article class="prose container">
     <a class="back-link" href="/tare">← {app.name}</a>
@@ -88,11 +91,11 @@ const lastUpdated = 'August 5, 2026';
         only, which do not contain your data.
       </li>
       <li>
-        Anthropic processes the request under its commercial terms and does not
-        use it to train models. Anthropic may retain inputs for a limited period
-        for safety and abuse-prevention purposes, which is why the App Store
-        privacy label for {app.name} lists health data as collected even though
-        we ourselves keep none of it.
+        Anthropic processes the request under its applicable commercial terms
+        and may retain inputs for a limited period for safety and
+        abuse-prevention purposes. Those provider terms and controls can change,
+        which is why the App Store privacy label for {app.name} lists health
+        data as collected even though our relay keeps no copy.
       </li>
     </ul>
     <p>
@@ -113,10 +116,12 @@ const lastUpdated = 'August 5, 2026';
       from Apple Health so you do not have to enter it twice, and write back the
       weights and glucose readings you log. Nothing else is written — your
       doses, meals, well-being check-ins and medical records stay inside
-      {app.name}. That exchange is between {app.name} and Health on your own
-      device, and it happens when you ask for it rather than in the background.
-      We never receive it, and Health data is not included in anything sent to
-      the AI features unless it is also a record you logged in {app.name}.
+      {app.name}. After you deliberately enable Health access, the app checks for
+      new data when it opens or returns to the foreground; you can also choose
+      <strong>Sync now</strong>. That exchange is between {app.name} and Health
+      on your device. We never receive it, and Health data is not included in
+      anything sent to the AI features unless it is also a record you logged in
+      {app.name}.
     </p>
 
     <h2>Widgets, complications and the Apple Watch</h2>
@@ -190,6 +195,8 @@ const lastUpdated = 'August 5, 2026';
       access to or deletion of it at
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>. It
       is not connected to the iOS app, which keeps its own copy on your device.
+      The stateless, consent-gated AI relay is a separate service used by the
+      native app and is retained after the browser interface retires.
     </p>
 
     <h2>Changes to this policy</h2>

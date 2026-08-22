@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getApp, COMPANY } from '../../data/apps';
+
+const app = getApp('shopkeep')!;
+---
+
+<BaseLayout
+  title={`${app.name} Support — ${COMPANY.name}`}
+  description="Help with ShopKeep sign-in, private photos and documents, account deletion, inventory exports, and the current native release state."
+  path="/shopkeep/support"
+  noindex={true}
+  socialImage="/apps/shopkeep.png"
+  socialImageAlt="ShopKeep app icon"
+>
+  <article class="prose container">
+    <a class="back-link" href="/shopkeep">← {app.name}</a>
+    <h1>{app.name} Support</h1>
+
+    <p class="callout">
+      <strong>Current availability.</strong> ShopKeep has a working web app and a
+      private native pre-release build. There is no public App Store listing,
+      TestFlight acquisition link, or announced price.
+    </p>
+
+    <h2>Get direct help</h2>
+    <p>
+      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> with the
+      device or browser, ShopKeep version when known, sign-in provider, and the
+      steps that led to the problem. Do not send passwords, verification codes,
+      access tokens, payment details, or private inventory files unless support
+      explicitly asks for a redacted example.
+    </p>
+
+    <h2>Apple and Microsoft sign-in</h2>
+    <p>
+      Apple and Microsoft create separate ShopKeep accounts, even when both
+      providers use the same email address. Confirm which provider you used
+      before assuming inventory is missing. Signing out and choosing the other
+      provider opens that provider’s separate account.
+    </p>
+
+    <h2>Photos and documents</h2>
+    <p>
+      Tool photos and attached documents require an authenticated account
+      request. If media stops loading, confirm the account session is active,
+      retry on a stable connection, and avoid sharing the raw request URL: it is
+      not a public file link.
+    </p>
+
+    <h2>Delete a ShopKeep account</h2>
+    <p>
+      In the native app, open <strong>Settings → Account &amp; Data</strong>,
+      review the deletion summary, and confirm <strong>Delete ShopKeep
+      Account</strong>. The app signs out only after the backend confirms
+      deletion. A failure leaves the account active and shows a recovery action;
+      do not assume a failed request removed data.
+    </p>
+    <p>
+      Deletion applies only to the selected Apple or Microsoft ShopKeep account.
+      It does not delete the provider account or a ShopKeep account made with the
+      other provider.
+    </p>
+
+    <h2>Privacy</h2>
+    <p>
+      Read the <a href="/shopkeep/privacy/">ShopKeep Privacy Policy</a> for
+      details about account data, private media, AI processing, retention, and
+      deletion.
+    </p>
+  </article>
+</BaseLayout>

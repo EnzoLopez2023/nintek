@@ -18,6 +18,8 @@ interface Props {
   libraryFonts?: boolean;
   /** Absolute or site-relative social preview image. */
   socialImage?: string;
+  /** Accessible description for the social preview image. */
+  socialImageAlt?: string;
   /** Browser chrome tint. Defaults to the Nintek house cream; a re-skinned
       app page should pass its own page colour so the chrome matches. */
   themeColor?: string;
@@ -32,7 +34,8 @@ const {
   cairnFonts = false,
   boardFonts = false,
   libraryFonts = false,
-  socialImage,
+  socialImage = '/bg.png',
+  socialImageAlt = `${COMPANY.name} portfolio`,
   themeColor = '#f5f0ea',
 } = Astro.props;
 
@@ -52,7 +55,7 @@ const year = new Date().getFullYear();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {
@@ -93,14 +96,18 @@ const year = new Date().getFullYear();
     }
     <slot name="head" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={COMPANY.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {socialImageUrl && <meta property="og:image" content={socialImageUrl} />}
-    {socialImageUrl && <meta name="twitter:card" content="summary_large_image" />}
+    {socialImageUrl && <meta property="og:image:alt" content={socialImageAlt} />}
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
+    {socialImageUrl && <meta name="twitter:image:alt" content={socialImageAlt} />}
     <meta name="theme-color" content={themeColor} />
   </head>
   <body>

@@ -1,20 +1,7 @@
 User-agent: *
-Allow: /$
-Allow: /index.html
-Allow: /ios
-Allow: /cortex
-Allow: /sortie
-Allow: /salvo
-Allow: /about
+Allow: /
 
-# Most per-app marketing and legal pages are intentionally not indexed.
-# Workshop is the launch exception; its privacy page carries its own noindex.
-Disallow: /cairn
-Disallow: /tare
-Disallow: /pulsewire
-Disallow: /puzzlebox
-Disallow: /hearth
-Disallow: /shopkeep
-Disallow: /tabloom
+# Index policy is declared per page with robots metadata. The sitemap contains
+# only routes intended for search discovery.
 
 Sitemap: https://www.nintek.com/sitemap.xml

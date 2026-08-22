@@ -4,7 +4,7 @@ import { getApp, COMPANY } from '../../data/apps';
 import '../../styles/workshop-landing.css';
 
 const app = getApp('workshop')!;
-const lastUpdated = 'August 10, 2026';
+const lastUpdated = 'August 21, 2026';
 ---
 
 <BaseLayout
@@ -12,6 +12,8 @@ const lastUpdated = 'August 10, 2026';
   description={`How ${app.name} collects, uses, and protects your information.`}
   path={`/${app.slug}/privacy`}
   noindex={true}
+  socialImage="/apps/workshop.png"
+  socialImageAlt="Workshop app icon"
 >
   <div class="wk-privacy-root">
     <article class="prose container wk-privacy">

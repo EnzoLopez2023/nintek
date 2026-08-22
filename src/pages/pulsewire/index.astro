@@ -3,177 +3,165 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import '../../styles/pulsewire-landing.css';
 
-/* ── Static demo articles ─────────────────────────────────────────────────
-   The PulseWire app renders its public landing from a live 6-feed demo DB.
-   At build time there is no database, so the real-looking "warming up" empty
-   state is replaced with a fixed set of representative cards that mirror the
-   DemoArticle shape (feedTitle, age, signal score, source-trust tier, an
-   AI TL;DR brief, and a "why it matters" line).
-   ──────────────────────────────────────────────────────────────────────── */
-type Trust = 'high' | 'medium' | 'low';
-
-interface DemoCard {
-  feedTitle: string;
-  age: string;
-  signal: number;
-  trust: Trust;
-  title: string;
-  url: string;
-  tldr: string;
-  whyItMatters: string;
-}
-
-const demoArticles: DemoCard[] = [
+const capabilities = [
   {
-    feedTitle: 'BBC World',
-    age: '18m ago',
-    signal: 86,
-    trust: 'high',
-    title: 'Ceasefire talks resume as both sides signal cautious openness to a phased deal',
-    url: 'https://www.bbc.com/news/world',
-    tldr: 'Negotiators reconvened overnight; a staged framework with monitored checkpoints is back on the table after weeks of stalled diplomacy.',
-    whyItMatters: 'A durable pause would reshape regional supply routes and energy pricing within days.',
+    title: 'Stories instead of duplicates',
+    body:
+      'Related reports are grouped into one developing story, so another source adds evidence and chronology instead of another repeated card.',
   },
   {
-    feedTitle: 'NPR',
-    age: '42m ago',
-    signal: 73,
-    trust: 'high',
-    title: 'New federal rule reshapes how clinics report drug-shortage data',
-    url: 'https://www.npr.org/sections/health-shots',
-    tldr: 'Providers must now file near-real-time shortage notices, replacing the old quarterly cadence that lagged actual stock-outs.',
-    whyItMatters: 'Faster signals could blunt the panic-buying cycles that deepen shortages downstream.',
+    title: 'Evidence stays close',
+    body:
+      'Source coverage, review state, chronology, and uncertainty remain visible. Unknown is presented as unknown rather than silently scored as neutral.',
   },
   {
-    feedTitle: 'Ars Technica',
-    age: '1h ago',
-    signal: 68,
-    trust: 'high',
-    title: 'Researchers demonstrate a practical side-channel against widely deployed TLS libraries',
-    url: 'https://arstechnica.com/information-technology/',
-    tldr: 'A timing leak in a popular handshake path lets a co-located attacker recover key material in hours, not weeks; patches are already shipping.',
-    whyItMatters: 'Anything sharing the same host — cloud tenants especially — should prioritize the update.',
-  },
-  {
-    feedTitle: 'NASA',
-    age: '2h ago',
-    signal: 61,
-    trust: 'high',
-    title: 'Europa Clipper returns first calibration imagery ahead of its science phase',
-    url: 'https://www.nasa.gov/news/',
-    tldr: 'Instrument check-out frames show the imaging suite healthy; the team confirms the icy-moon flyby sequence stays on schedule.',
-    whyItMatters: 'Clean calibration de-risks the subsurface-ocean survey that the mission was built around.',
-  },
-  {
-    feedTitle: 'OpenAI',
-    age: '3h ago',
-    signal: 54,
-    trust: 'medium',
-    title: 'New model tier adds longer context and lower latency for retrieval workloads',
-    url: 'https://openai.com/news/',
-    tldr: 'The release pairs an expanded context window with cost cuts aimed squarely at document-heavy and agentic pipelines.',
-    whyItMatters: 'Cheaper long-context inference nudges more RAG products from prototype to production.',
-  },
-  {
-    feedTitle: 'Bloomberg Markets',
-    age: '4h ago',
-    signal: 38,
-    trust: 'medium',
-    title: 'Treasuries steady as traders trim bets on a near-term rate move',
-    url: 'https://www.bloomberg.com/markets',
-    tldr: 'Yields drifted in a narrow band; soft positioning data cooled expectations for an imminent cut without flipping the broader trend.',
-    whyItMatters: 'A flatter rate path keeps duration trades crowded and risk appetite finely balanced.',
+    title: 'Saved means an explicit snapshot',
+    body:
+      'A Saved story can be downloaded into the installable PWA for bounded offline reading. It is an intentional copy, not an opaque cache of everything opened.',
   },
 ];
 
-const signalClass = (s: number) =>
-  s >= 70 ? 'pw-signal--high' : s >= 40 ? 'pw-signal--mid' : 'pw-signal--low';
-const trustClass = (t: Trust) => `pw-trust--${t}`;
-const trustLabel = (t: Trust) => (t === 'high' ? 'HI' : t === 'medium' ? 'MED' : 'LO');
+const architecture = [
+  ['Catalog', '317 unique feeds · 64 categories'],
+  ['Data', 'PostgreSQL · pgvector'],
+  ['Identity', 'Private Microsoft Entra sign-in'],
+  ['AI', 'Azure AI briefs and embeddings'],
+  ['Offline', 'Explicit Saved snapshots in the PWA'],
+];
 ---
 
 <BaseLayout
   bare
   noindex
   path="/pulsewire"
-  title="PulseWire — One pane of glass for everything you read."
-  description="An AI-native RSS reader. A live 6-feed demo with signal scores, source-trust ratings, and AI-generated executive briefs — no signup required."
+  title="PulseWire — Follow developing stories, not an endless feed."
+  description="A private story-intelligence reader with a 317-feed catalogue, evidence-first story grouping, PostgreSQL and pgvector, and explicit offline Saved snapshots."
+  themeColor="#f6f7fb"
+  socialImage="/apps/pulsewire.png"
+  socialImageAlt="PulseWire app icon"
 >
-  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
-  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    slot="head"
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
-  />
-
   <div class="pw-root">
-    {/* ── Ambient blur orbs ── */}
-    <div class="pw-bg" aria-hidden="true">
-      <div class="pw-orb pw-orb--violet"></div>
-      <div class="pw-orb pw-orb--cyan"></div>
-    </div>
-
-    <div class="pw-shell">
-      {/* ── Header: gradient wordmark only (auth elements removed) ── */}
-      <header class="pw-header">
+    <header class="pw-header">
+      <div class="pw-wrap pw-header__inner">
         <NintekBack />
-        <a href="/pulsewire" class="pw-brand">
-          <span class="pw-gradient">PulseWire</span>
+        <a href="/pulsewire" class="pw-brand" aria-label="PulseWire home">
+          <img src="/apps/pulsewire.png" alt="" width="40" height="40" />
+          <span>PulseWire</span>
         </a>
-      </header>
+        <span class="pw-private">Private workspace</span>
+      </div>
+    </header>
 
-      {/* ── Hero ── */}
+    <main>
       <section class="pw-hero">
-        <p class="pw-eyebrow">AI-native RSS · 6-feed demo · no signup required</p>
-        <h1 class="pw-hero__title">
-          One pane of glass for{' '}
-          <span class="pw-gradient">everything you read</span>.
-        </h1>
-        <p class="pw-hero__sub">
-          A live preview from BBC World, NPR, Ars Technica, NASA, OpenAI, and
-          Bloomberg Markets. Each card carries a signal score, source trust, and
-          an AI-generated executive brief.
-        </p>
-      </section>
+        <div class="pw-wrap pw-hero__grid">
+          <div class="pw-hero__copy">
+            <h1>Follow developing stories, not an endless feed.</h1>
+            <p>
+              PulseWire is a private, single-owner intelligence layer over RSS
+              sources. It groups related reporting, shows what changed, and
+              keeps source evidence near every brief.
+            </p>
+            <dl class="pw-proof-strip">
+              <div>
+                <dt>317</dt>
+                <dd>unique feeds</dd>
+              </div>
+              <div>
+                <dt>64</dt>
+                <dd>catalog categories</dd>
+              </div>
+              <div>
+                <dt>Private</dt>
+                <dd>authenticated reader</dd>
+              </div>
+            </dl>
+            <p class="pw-availability">
+              This portfolio page is not a public reader or demo entry point.
+              The production workspace remains access-controlled.
+            </p>
+          </div>
 
-      {/* ── Demo article grid ── */}
-      <section class="pw-feed">
-        <ul class="pw-grid">
-          {demoArticles.map((a) => (
-            <li class="pw-card">
-              <div class="pw-card__meta">
-                <span class="pw-card__feed">{a.feedTitle}</span>
-                <span aria-hidden="true">·</span>
-                <span>{a.age}</span>
-                <div class="pw-card__badges">
-                  <span class={`pw-badge pw-badge--signal ${signalClass(a.signal)}`}>
-                    {a.signal}
-                  </span>
-                  <span class={`pw-badge ${trustClass(a.trust)}`}>{trustLabel(a.trust)}</span>
-                </div>
+          <figure class="pw-dashboard">
+            <div class="pw-dashboard__bar">
+              <div>
+                <strong>Today</strong>
+                <span>Premium News Dashboard</span>
               </div>
-              <h3 class="pw-card__title">
-                <a href={a.url} target="_blank" rel="noopener noreferrer">{a.title}</a>
-              </h3>
-              <div class="pw-card__tldr">
-                <span class="pw-tag">TL;DR</span>{a.tldr}
+              <span class="pw-dashboard__state">Private edition</span>
+            </div>
+            <div class="pw-dashboard__lead">
+              <div class="pw-dashboard__meta">
+                <span>DEVELOPING STORY</span>
+                <span>6 REPORTS</span>
               </div>
-              <p class="pw-card__why">
-                <span class="pw-tag">Why it matters</span>{a.whyItMatters}
+              <h2>One story record, assembled from independent coverage.</h2>
+              <p>
+                The live product places a generated brief beside source evidence,
+                chronology, and review state. No real headline or live link is
+                reproduced in this marketing diagram.
               </p>
-            </li>
-          ))}
-        </ul>
+            </div>
+            <div class="pw-dashboard__facts">
+              <div><span>Coverage</span><strong>Sources remain inspectable</strong></div>
+              <div><span>Chronology</span><strong>Changes stay ordered</strong></div>
+              <div><span>Saved</span><strong>Snapshot available offline</strong></div>
+            </div>
+            <figcaption>Synthetic interface diagram · no live story data</figcaption>
+          </figure>
+        </div>
       </section>
 
-      {/* ── Footer + privacy line ── */}
-      <footer class="pw-foot">
-        <p class="pw-foot__note">
-          Questions about your data? Read the{' '}
-          <a href="/pulsewire/privacy">PulseWire Privacy Policy</a>.
-        </p>
-      </footer>
-    </div>
+      <section class="pw-section">
+        <div class="pw-wrap pw-section__grid">
+          <div class="pw-section__intro">
+            <h2>A deliberate reading ritual, built around evidence.</h2>
+            <p>
+              The current product uses the Premium News Dashboard system: pearl
+              canvas, white reading planes, fine rules, cobalt action, and
+              evidence teal. The interface stays calm without hiding where a
+              claim came from.
+            </p>
+          </div>
+          <div class="pw-capabilities">
+            {capabilities.map((capability) => (
+              <article>
+                <h3>{capability.title}</h3>
+                <p>{capability.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="pw-system">
+        <div class="pw-wrap pw-system__grid">
+          <div>
+            <h2>Private by access, explicit about storage.</h2>
+            <p>
+              Server data lives in PostgreSQL with pgvector. Microsoft Entra
+              restricts the workspace to configured principals. Offline reading
+              stores only Saved snapshots that were deliberately downloaded;
+              it does not make the server-backed reader local-first.
+            </p>
+          </div>
+          <dl class="pw-architecture">
+            {architecture.map(([term, detail]) => (
+              <div>
+                <dt>{term}</dt>
+                <dd>{detail}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pw-foot">
+      <div class="pw-wrap pw-foot__inner">
+        <p>PulseWire · private story intelligence for selected sources</p>
+        <a href="/pulsewire/privacy">Privacy policy</a>
+      </div>
+    </footer>
   </div>
 </BaseLayout>

@@ -10,6 +10,8 @@ const app = getApp('cairn')!;
   description={`Help with ${app.name} access, purchases, iCloud sync, offline study, reminders, widgets, and Live Activities.`}
   path={`/${app.slug}/support`}
   noindex={true}
+  socialImage="/apps/cairn.png"
+  socialImageAlt="Cairn app icon"
 >
   <article class="prose container">
     <a class="back-link" href="/cairn">← {app.name}</a>
@@ -17,8 +19,9 @@ const app = getApp('cairn')!;
 
     <p>
       {app.name} is a native Microsoft certification exam-prep app for iPhone
-      and iPad. It has no account or login, and its initial App Store release is
-      available only in the United States.
+      and iPad. It has no account or login. Version 3.0 build 2 was rejected,
+      the combined app-and-IAP submission remains unresolved, and there is no
+      public App Store listing.
     </p>
 
     <p class="callout">
@@ -28,12 +31,13 @@ const app = getApp('cairn')!;
       happened. Do not send payment-card details.
     </p>
 
-    <h2>Free access and Full Exam Library</h2>
+    <h2>Current build access and Full Exam Library</h2>
     <p>
-      All Courses and the complete AI-901 workspace are free. The one-time,
-      non-consumable <strong>Full Exam Library</strong> purchase unlocks every
-      other current and future exam. There is no {app.name} subscription and no
-      {app.name} account.
+      In the current internal build, the eight Courses and complete AI-901
+      workspace do not require a purchase. The proposed one-time,
+      non-consumable <strong>Full Exam Library</strong> is priced at $14.99 in
+      the United States submission and is still in review. It is not publicly
+      purchasable, and there is no {app.name} subscription or account.
     </p>
     <p>
       Apple’s App Store and StoreKit handle purchases, payment details, refunds,
@@ -41,7 +45,7 @@ const app = getApp('cairn')!;
       payment-card details.
     </p>
 
-    <h2>Restore a purchase</h2>
+    <h2>Restore a purchase in an authorized test build</h2>
     <ul>
       <li>
         Connect to the internet and confirm the device is using the same Apple
@@ -60,6 +64,7 @@ const app = getApp('cairn')!;
       If the purchase still does not appear, check the Apple Account’s purchase
       history and Family Sharing settings. Apple Support can help with billing,
       refunds, or an App Store transaction that is missing from the account.
+      These steps do not imply public availability.
     </p>
 
     <h2>Pending purchases and Family Sharing</h2>

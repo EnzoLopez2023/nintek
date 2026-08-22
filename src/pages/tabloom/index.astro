@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import '../../styles/tabloom-landing.css';
 
-/* ── Feature data (ported verbatim from Tabloom's landing) ── */
+/* Current Tabloom capabilities, including the archive and bounded offline reader. */
 const FEATURES = [
   {
     emoji: '📷',
@@ -47,12 +47,24 @@ const FEATURES = [
     desc: 'Every edit is tracked. Restore any previous version of any page with a single click.',
     color: '#c45e5e',
   },
+  {
+    emoji: '🗄️',
+    title: 'Archive & Restore',
+    desc: 'Archive pages or whole notebook trees, review them in one place, and restore only what your role allows.',
+    color: '#60708d',
+  },
+  {
+    emoji: '📥',
+    title: 'Offline Reading',
+    desc: 'Explicitly download selected notebooks or recent pages into identity-scoped IndexedDB for bounded, read-only use.',
+    color: '#3156d3',
+  },
 ];
 
 /* ── Detail strip (auth/identity copy reworded; no auth words) ── */
 const DETAILS = [
   { icon: '🔒', title: 'Private by default', desc: 'Secure single sign-on with your existing identity — no new password to remember.' },
-  { icon: '📱', title: 'Works everywhere', desc: 'Responsive on mobile, tablet, and desktop. Same workspace, any screen.' },
+  { icon: '📱', title: 'Installable reader', desc: 'Responsive on mobile, tablet, and desktop, with explicit read-only offline downloads in the PWA.' },
   { icon: '⚡', title: 'Instant save', desc: 'Every keystroke synced. A status pill tells you exactly when.' },
   { icon: '🌙', title: 'Dark mode', desc: "A warm dark theme that's easy on the eyes for late-night writing." },
 ];
@@ -64,7 +76,9 @@ const DETAILS = [
   noindex
   path="/tabloom"
   title="Tabloom — A notebook that thinks with you."
-  description="A calm editorial workspace for your notes — rich blocks, smart tagging, handwriting capture, and an AI that actually knows what you've written."
+  description="A calm editorial workspace with nested notebooks, archive and restore, bounded offline reading, rich blocks, tags, and AI-assisted retrieval."
+  socialImage="/apps/tabloom.png"
+  socialImageAlt="Tabloom app icon"
 >
   <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
   <link
@@ -101,7 +115,7 @@ const DETAILS = [
       <div class="landing-hero-left">
         <div class="landing-hero-badge">
           <span class="hero-badge-dot"></span>
-          New: Inkbox — scan your handwritten notes
+          Archive, restore, and read selected notebooks offline
         </div>
 
         <h1 class="landing-h1">
@@ -112,7 +126,8 @@ const DETAILS = [
 
         <p class="landing-sub">
           Capture fast, find later. A calm editorial workspace with rich blocks,
-          smart tagging, and an AI that actually knows your notes.
+          archive and restore, bounded offline reading, smart tagging, and
+          AI-assisted retrieval.
         </p>
       </div>
 
@@ -133,7 +148,7 @@ const DETAILS = [
                 decoding="async"
               />
             </picture>
-            <figcaption>Current Tabloom interface</figcaption>
+            <figcaption>Real current capture · private content obscured</figcaption>
           </figure>
         </div>
       </div>
@@ -206,7 +221,7 @@ const DETAILS = [
                 decoding="async"
               />
             </picture>
-            <figcaption>A real page in the current writing workspace</figcaption>
+            <figcaption>Real current capture · private content obscured</figcaption>
           </figure>
         </div>
       </div>
@@ -260,7 +275,7 @@ const DETAILS = [
                 decoding="async"
               />
             </picture>
-            <figcaption>The current writing workspace</figcaption>
+            <figcaption>Real current capture · private content obscured</figcaption>
           </figure>
         </div>
       </div>
@@ -285,8 +300,9 @@ const DETAILS = [
         <img class="bottom-cta-mark" src="/apps/tabloom.svg" alt="" width="52" height="52" />
         <h2 class="bottom-cta-h2">A workspace that grows with you.</h2>
         <p class="bottom-cta-sub">
-          Everything you capture — typed, scanned, or clipped — organized,
-          searchable, and ready when you are.
+          Everything you capture — typed, scanned, clipped, archived, or
+          explicitly downloaded for offline reading — organized and ready when
+          you are.
         </p>
       </div>
     </section>

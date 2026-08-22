@@ -11,7 +11,13 @@ import CortexPhone from '../components/mocks/ios/Cortex.astro';
 import TarePhone from '../components/mocks/ios/Tare.astro';
 import SortiePhone from '../components/mocks/ios/Sortie.astro';
 import SalvoPad from '../components/mocks/ios/Salvo.astro';
-import { COMPANY, ECOSYSTEM, nativeApps, nextNativeApp } from '../data/apps';
+import {
+  COMPANY,
+  ECOSYSTEM,
+  NATIVE_STATUS_LABELS,
+  nativeApps,
+  nextNativeApp,
+} from '../data/apps';
 import type { IconKey } from '../data/apps';
 import '../styles/ios.css';
 
@@ -36,16 +42,15 @@ const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   sortie: 'dark',
 };
 
-const nativeStatusLabels = {
-  testflight: 'TestFlight beta',
-  'pre-release': 'Pre-release build',
-  development: 'In development',
-  next: 'In the works',
-} as const;
-const testflightCount = nativeApps.filter((app) => app.native?.status === 'testflight').length;
-const developmentCount = nativeApps.length - testflightCount;
-
-const workshopTestFlightHref = `mailto:${COMPANY.email}?subject=Workshop%20TestFlight`;
+const publicStoreCount = 0;
+const watchAppCount = nativeApps.filter((app) => app.native?.watch).length;
+const evidenceLabels: Record<string, string> = {
+  cairn: 'Synthetic UI study',
+  shopkeep: 'Synthetic UI study',
+  tare: 'Synthetic UI study',
+  cortex: 'Release-build capture',
+  sortie: 'Pre-release capture',
+};
 
 /** Why the ports are worth doing at all. Each of these is something at least one
  *  of the shipping apps actually does. */
@@ -54,7 +59,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     icon: 'widget',
     title: 'The app before you open it',
     body:
-      'Every one of them puts something useful on your Home Screen — a study streak, tools that need attention, a build in progress, a game you were halfway through. Some of them go further and let you act on it right there, without launching anything.',
+      'Several put something useful on your Home Screen — a study streak, tools that need attention, a build in progress, or a game you were halfway through. Some go further and let you act without opening the full app.',
   },
   {
     icon: 'lock',
@@ -94,18 +99,20 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
   },
   {
     icon: 'book',
-    title: 'Native builds get the new work first',
+    title: 'Each product has its own platform relationship',
     body:
-      'Development now lands on iOS ahead of the web. Cairn is the clearest case: its eight full Microsoft curricula — 219 lessons mirrored offline with every lab, notebook and quiz — exist in the native app and nowhere else. The web apps continue, but they follow.',
+      'Cairn and the web app have separate progress stores. ShopKeep shares its backend across web and native. Tare is replacing its browser interface while retaining the native app’s consent-gated AI relay. The status belongs to each product, not to a blanket “web versus native” promise.',
   },
 ];
 ---
 
 <BaseLayout
   title={`Native on iOS — ${COMPANY.name}`}
-  description="Seven Nintek products now have native iOS builds in SwiftUI or Godot — five in TestFlight, with Sortie and Salvo still in pre-release development."
+  description="Seven Nintek products have native iOS builds at different release stages. None currently has a public App Store listing."
   path="/ios"
   boardFonts
+  socialImage="/bg.png"
+  socialImageAlt="Abstract copper Nintek circuit motif"
 >
   <div class="ios-page">
   {/* ── Hero ── */}
@@ -128,9 +135,10 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
             standalone Godot strategy games.
           </p>
           <p class="ih-lede">
-            <strong>{testflightCount} are in TestFlight.</strong> Sortie has a
-            pre-release build; Salvo remains in active development. Neither has
-            a public App Store listing.
+            <strong>None has a public App Store listing today.</strong> Cortex is
+            in TestFlight; Cairn&rsquo;s submitted release is blocked after review;
+            Tare and ShopKeep remain private pre-release builds; Workshop is
+            withdrawn for rework; and Sortie and Salvo remain in development.
           </p>
           <div class="ih-stats">
             <div class="ih-stat">
@@ -138,12 +146,12 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
               <span class="ih-stat-cap">native projects</span>
             </div>
             <div class="ih-stat">
-              <span class="ih-stat-num">{testflightCount}</span>
-              <span class="ih-stat-cap">in TestFlight</span>
+              <span class="ih-stat-num">{publicStoreCount}</span>
+              <span class="ih-stat-cap">public store listings</span>
             </div>
             <div class="ih-stat">
-              <span class="ih-stat-num">{developmentCount}</span>
-              <span class="ih-stat-cap">pre-release games</span>
+              <span class="ih-stat-num">{watchAppCount}</span>
+              <span class="ih-stat-cap">Apple Watch app</span>
             </div>
           </div>
           <div class="ih-jump">
@@ -287,7 +295,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                       <h2 class="iapp-name">{app.name}</h2>
                       <span class="iapp-beta">
                         <span class="iapp-beta-dot" />
-                        {nativeStatusLabels[native.status]}
+                        {NATIVE_STATUS_LABELS[native.status]}
                       </span>
                     </div>
                   </div>
@@ -372,6 +380,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                       ) : (
                         <PhoneMock
                           tone={tones[app.slug] ?? 'dark'}
+                          chip={evidenceLabels[app.slug]}
                           fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
                         >
                           <Phone />
@@ -397,12 +406,10 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                       <span>5 text sizes</span>
                       <span>Apple + Microsoft sign-in</span>
                     </div>
-                    <a class="ios-proof-cta" href={workshopTestFlightHref}>
-                      Request TestFlight access
-                      <svg viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" />
-                      </svg>
-                    </a>
+                    <p class="ios-proof-status">
+                      Native release withdrawn for rework. No public App Store or
+                      TestFlight acquisition link is available.
+                    </p>
                   </div>
                   <WorkshopShowcase />
                 </div>
@@ -442,11 +449,12 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
   {/* ── Closing ── */}
   <section class="iend container">
     <div class="reveal">
-      <h2>Everything else is still on the web.</h2>
+      <h2>The web story differs by product.</h2>
       <p>
-        The web apps are actively developed and going nowhere — going native was
-        about adding a surface, not replacing one. Have a look at the whole
-        catalogue, or read how any of this started.
+        Most utility products still have web workspaces. Tare&rsquo;s browser
+        interface is retiring while its stateless AI relay remains for the native
+        app; Cairn keeps web and Apple-device progress separate; ShopKeep and
+        Workshop share their backends. Public availability is stated per product.
       </p>
       <p class="iend-links">
         <a href="/#apps">Browse the apps →</a>

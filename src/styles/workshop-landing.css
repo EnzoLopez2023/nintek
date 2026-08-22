@@ -259,6 +259,18 @@
   margin-top: 30px;
 }
 
+.wk-release-note {
+  max-width: 62ch;
+  margin: 24px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--wk-divider-strong);
+  border-radius: var(--wk-radius);
+  background: var(--wk-surface);
+  color: var(--wk-muted);
+  font-size: 0.84rem;
+  line-height: 1.62;
+}
+
 .wk-action {
   display: inline-flex;
   min-height: 46px;
@@ -635,6 +647,18 @@
   display: grid;
   justify-items: start;
   gap: 14px;
+}
+
+.wk-native-status {
+  max-width: 32ch;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid rgb(243 248 246 / 0.24);
+  border-radius: var(--wk-radius);
+  color: var(--wk-on-nav);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.5;
 }
 
 .wk-text-link {
