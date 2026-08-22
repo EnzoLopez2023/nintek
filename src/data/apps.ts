@@ -649,15 +649,17 @@ export const apps: App[] = [
   {
     slug: 'sortie',
     name: 'Sortie',
-    category: 'Games · iPhone & iPad',
+    category: 'Games · iPhone',
     tagline: 'Build the line. Take the map.',
     headline: { lead: 'Draw the supply line.', em: 'Watch the front move.' },
     description:
-      'A tactical conquest campaign for iPhone and iPad. Link keeps into permanent supply lines, route reinforcements around terrain, and take 1,500 levels across 15 distinct biomes.',
+      'A tactical conquest campaign for iPhone. Link keeps into permanent supply lines, route reinforcements around terrain, and take 1,500 levels across 15 distinct biomes.',
     quiet: 'Pre-release build. Local saves, optional Game Center, no account or backend.',
     icon: 'gamepad',
     bundleId: 'com.nintek.sortie',
     hasPage: true,
+    privacyPath: '/sortie/privacy/',
+    supportPath: '/sortie/support/',
     platforms: { web: false, ios: true },
     mockup: {
       title: 'Sortie',
@@ -670,7 +672,7 @@ export const apps: App[] = [
       showcase: 'phone',
       thesis: 'A 1,500-level supply-line campaign with local saves and optional Game Center.',
       intro:
-        'Sortie rebuilds City War as a standalone Godot strategy game for iPhone and iPad. Every route is a lasting commitment: link one keep to another and it keeps sending troops until you cut or redirect the line. The current campaign spans 1,500 levels and 15 biomes, saves entirely on device, and keeps Game Center optional.',
+        'Sortie rebuilds City War as a standalone Godot strategy game for iPhone. Every route is a lasting commitment: link one keep to another and it keeps sending troops until you cut or redirect the line. The current campaign spans 1,500 levels and 15 biomes, saves entirely on device, and keeps Game Center optional.',
       highlights: [
         {
           icon: 'share',
@@ -710,8 +712,8 @@ export const apps: App[] = [
         },
       ],
       tech: ['Godot 4', 'Game Center', 'Local JSON saves'],
-      minOS: 'iOS 15',
-      devices: 'iPhone and iPad',
+      minOS: 'iOS 14',
+      devices: 'iPhone',
     },
   },
   {

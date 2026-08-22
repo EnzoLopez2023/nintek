@@ -12,12 +12,12 @@ registry, homepage, and `/ios` links.
 
 ## Audience, job, action, and proof
 
-iPhone and iPad strategy players should understand Sortie's permanent
+iPhone strategy players should understand Sortie's permanent
 supply-line mechanic, believe the 1,500-level campaign is concrete, and leave
 with an honest picture of its pre-release state. Current Godot footage, the
 byte-identical app icon, current keep and biome art, executable level data,
-local-save code, Game Center bridge, Xcode target, and public-store lookup are
-the proof.
+local-save code, Game Center bridge, iPhone-only Xcode target, and public-store
+lookup are the proof.
 
 ## Direction and memorable moment
 
