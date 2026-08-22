@@ -289,6 +289,10 @@ for (const stale of [
 
 const homepageTermsLink = homepage.includes('href="/terms"');
 assert(homepageTermsLink, 'Global site footer is missing the terms link.');
+for (const route of ['/sortie', '/sortie/privacy', '/sortie/support', '/salvo']) {
+  const html = readFileSync(routeFile(route), 'utf8');
+  assert(html.includes('href="/terms"'), `${route}: missing shared terms link`);
+}
 
 const evidenceLedger = readFileSync(join(root, 'docs', 'MARKETING_EVIDENCE.md'), 'utf8');
 assert(

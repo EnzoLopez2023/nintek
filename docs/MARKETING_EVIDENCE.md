@@ -49,6 +49,7 @@ not a claim that provider terms or legal requirements cannot change.
 | `/shopkeep/privacy`, `/shopkeep/support` | Separate provider accounts; bearer-authenticated SQLite BLOB media; CSV/PDF/database exports; no offline mode; generation-safe deletion/recreation/restore; physical/App Store readiness gap. | `ShopKeep@948c439`; `ShopKeepNative@9f5597a`. |
 | `/cairn/privacy`, `/cairn/support` | No account/backend; local SwiftData and private CloudKit; unresolved rejected submission/IAP boundary; Apple-controlled purchase and data records. | `CairnNative@48f6472`. |
 | `/cortex/privacy`, `/cortex/support` | No account/backend; local gameplay; Sudoku-only private iCloud key-value data; App Group widgets; optional Game Center; no erase-all/export. | `Cortex@e09c594`. |
+| `/sortie/privacy`, `/sortie/support` | iPhone-only pre-release boundary; local save and Apple-managed backup limits; optional Game Center; no Nintek account/backend or public listing. | `Sortie@60b5cdd`. |
 | `/tabloom/privacy`, `/tabloom/support` | Microsoft identity/email/activity; Anthropic/Voyage/Azure OCR and scan cleanup; shared SQLite/uploads; unencrypted read-only IndexedDB; ZIP/HTML export, 30-day Trash, 50-version history, quotas, manual account-deletion gap. | `tabloom@c4fad48`. |
 | `/pulsewire/privacy`, `/pulsewire/support` | Entra owner plus read-only demo; PostgreSQL/pgvector; Azure AI Foundry; source egress; unencrypted Saved snapshots; retention tiers; session revocation; manual export/deletion gap. | `PulseWire@5e64d62`. |
 
