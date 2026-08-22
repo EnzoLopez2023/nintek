@@ -145,7 +145,9 @@ const pageAssertions = {
   '/pulsewire': ['317', 'Synthetic interface diagram', 'PostgreSQL · pgvector'],
   '/tabloom': ['Archive &amp; Restore', 'Offline Reading', 'identity-scoped IndexedDB'],
   '/cortex': ['TestFlight beta · iPhone only', 'no public App Store'],
-  '/sortie': ['Pre-release', 'Not available yet'],
+  '/sortie': ['Pre-release', 'iPhone only', 'iOS 14', 'Not available yet'],
+  '/sortie/privacy': ['iPhone-only, portrait pre-release game', 'Optional Apple Game Center', 'no tracking'],
+  '/sortie/support': ['iPhone-only, portrait pre-release build', 'iOS 14 or later', 'no public App Store listing'],
   '/salvo': ['In development', 'Not available yet'],
 };
 for (const [route, values] of Object.entries(pageAssertions)) {

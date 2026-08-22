@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { COMPANY, getApp } from '../../data/apps';
+
+const app = getApp('sortie')!;
+const effectiveDate = 'August 22, 2026';
+const policyVersion = '1.0';
+---
+
+<BaseLayout
+  title={`${app.name} Privacy Policy - ${COMPANY.name}`}
+  description="How Sortie handles local campaign data and optional Apple Game Center achievements on iPhone."
+  path="/sortie/privacy"
+  noindex={true}
+  socialImage="/apps/sortie.png"
+  socialImageAlt="Sortie app icon"
+>
+  <article class="prose container">
+    <a class="back-link" href="/sortie">&larr; {app.name}</a>
+    <h1>{app.name} Privacy Policy</h1>
+    <p class="updated">Version {policyVersion} - Effective {effectiveDate}</p>
+
+    <p>
+      This policy explains how {COMPANY.name} ("we", "us") handles information
+      in {app.name}, an iPhone-only, portrait pre-release game for iOS 14 or
+      later.
+    </p>
+
+    <p class="callout">
+      <strong>The short version.</strong> {app.name} keeps campaign progress,
+      records, and settings in a local JSON save inside the app's container. It
+      has no Nintek account, login, cloud-save service, or gameplay backend.
+      Apple Game Center is optional and is used only for achievements.
+    </p>
+
+    <h2>Information Nintek receives</h2>
+    <p>
+      The {app.name} app does not send your player profile, campaign progress,
+      level records, settings, or Game Center identity to {COMPANY.name}. If you
+      email us, we receive the address and information you choose to include so
+      we can respond. The app does not automatically attach its local save or
+      your Apple Account information to a support message.
+    </p>
+
+    <h2>Data stored on your iPhone</h2>
+    <p>
+      {app.name} stores completed campaign progress, per-level wins, best times
+      and play counts, total and flawless wins, and gameplay, audio, haptic, and
+      text-size settings in a local JSON file. The file remains in the app's
+      container on your iPhone. {app.name} does not implement account-based or
+      app-level cloud sync, and {COMPANY.name} does not receive a server copy.
+    </p>
+    <p>
+      Apple may include app data in a device backup according to the backup
+      settings and services you control. Those backups are operated by Apple,
+      not by {COMPANY.name}.
+    </p>
+
+    <h2>Optional Apple Game Center</h2>
+    <p>
+      When Game Center is available and enabled for your Apple Account,
+      {app.name} can authenticate the local Game Center player and report
+      achievement progress. The current integration does not use leaderboards,
+      and the full campaign remains playable without Game Center.
+    </p>
+    <p>
+      Apple handles the Game Center player name, identifier, achievements, and
+      related profile activity under Apple's terms and privacy practices.
+      {COMPANY.name} does not operate the Game Center account system or receive
+      your Apple Account password.
+    </p>
+    <p>
+      <a href="https://support.apple.com/guide/iphone/set-up-your-game-center-profile-iphd26b2beaa/ios">
+        Apple: set up and manage a Game Center profile
+      </a>
+      <span aria-hidden="true"> - </span>
+      <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a>
+    </p>
+
+    <h2>Advertising, analytics, and tracking</h2>
+    <p>
+      {app.name} has no ads and sends no analytics or tracking data to
+      {COMPANY.name}. The current iOS privacy manifest declares no tracking.
+    </p>
+
+    <h2>Retention and deletion</h2>
+    <p>
+      Local game data remains on an iPhone until {app.name} changes it or you
+      delete the app. Deleting {app.name} removes its local save from that
+      iPhone. Because there is no Nintek account or gameplay backend,
+      {COMPANY.name} cannot retrieve, restore, or delete a server copy.
+    </p>
+    <p>
+      Deleting {app.name} does not delete your Apple Account, Game Center
+      profile, or Apple-held achievement records. Use Apple's Game Center and
+      privacy controls to manage information held by Apple.
+    </p>
+
+    <h2>Children and regional privacy rights</h2>
+    <p>
+      {app.name} is a general-audience strategy game. It does not knowingly send
+      a child's personal information or gameplay to a Nintek service. Apple's
+      age, family, consent, and account controls apply when a child uses Game
+      Center.
+    </p>
+    <p>
+      Privacy laws in your region may provide rights over personal information
+      a business holds. {COMPANY.name} does not hold {app.name} gameplay or
+      Game Center account data. Contact us if you believe we hold personal
+      information in support correspondence.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      We may update this policy if {app.name}, its Apple service integrations,
+      or our data practices change. The version and effective date above
+      identify the policy currently published for {app.name}.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy or information you sent to {COMPANY.name}?
+      Email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      For help using {app.name}, visit
+      <a href="/sortie/support/">Sortie Support</a>.
+    </p>
+  </article>
+</BaseLayout>

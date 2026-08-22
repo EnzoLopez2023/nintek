@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { COMPANY, getApp } from '../../data/apps';
+
+const app = getApp('sortie')!;
+const updatedDate = 'August 22, 2026';
+---
+
+<BaseLayout
+  title={`${app.name} Support - ${COMPANY.name}`}
+  description="Help with the iPhone-only Sortie pre-release build, local campaign saves, and optional Apple Game Center achievements."
+  path="/sortie/support"
+  noindex={true}
+  socialImage="/apps/sortie.png"
+  socialImageAlt="Sortie app icon"
+>
+  <article class="prose container">
+    <a class="back-link" href="/sortie">&larr; {app.name}</a>
+    <h1>{app.name} Support</h1>
+    <p class="updated">Updated: {updatedDate}</p>
+
+    <p class="callout">
+      <strong>Current availability.</strong> {app.name} is an iPhone-only,
+      portrait pre-release build for iOS 14 or later. It is not supported on
+      iPad, and there is no public App Store listing, public TestFlight
+      acquisition link, or announced price.
+    </p>
+
+    <h2>Get direct help</h2>
+    <p>
+      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> with the
+      iPhone model, iOS version, {app.name} version or build number, affected
+      level, and the steps that led to the problem. Include a screenshot only
+      if you are comfortable sharing what it contains.
+    </p>
+    <p>
+      Do not send your Apple Account password, verification codes, payment
+      information, or other credentials.
+    </p>
+
+    <h2>If Sortie will not launch</h2>
+    <ol>
+      <li>Confirm the device is an iPhone running iOS 14 or later.</li>
+      <li>Install the newest authorized pre-release build available to you.</li>
+      <li>Hold the iPhone in portrait orientation and reopen {app.name}.</li>
+      <li>Restart the iPhone and confirm it has available storage.</li>
+    </ol>
+    <p>
+      Avoid deleting {app.name} as an early troubleshooting step if the iPhone
+      may contain the only local copy of campaign progress you want to keep.
+    </p>
+
+    <h2>Local campaign progress</h2>
+    <p>
+      {app.name} stores completed campaign progress, level records, wins, best
+      times, and settings in a local JSON save inside the app's container. It
+      has no Nintek account, cloud-save service, or gameplay backend.
+      {COMPANY.name} cannot retrieve or rebuild that local save from a server.
+    </p>
+    <p>
+      If progress or a record looks wrong, do not delete or reinstall the app.
+      Note the last completed level you remember, whether the problem followed
+      an update, and what changed, then include those details when contacting
+      support.
+    </p>
+
+    <h2>Optional Game Center achievements</h2>
+    <p>
+      The full 1,500-level campaign works without Game Center. To report
+      achievements, confirm Game Center is enabled and signed in under Apple
+      Settings, connect the iPhone to the internet, and reopen {app.name}. The
+      current integration reports achievements only; it does not use
+      leaderboards.
+    </p>
+    <p>
+      Apple controls Game Center authentication, player profiles, and
+      achievement records. {COMPANY.name} cannot reset a Game Center profile,
+      change an Apple Account, or delete Apple-held records.
+    </p>
+    <p>
+      <a href="https://support.apple.com/guide/iphone/set-up-your-game-center-profile-iphd26b2beaa/ios">
+        Apple: set up and manage a Game Center profile
+      </a>
+    </p>
+
+    <h2>Deleting or reinstalling Sortie</h2>
+    <p>
+      Deleting {app.name} removes its local save from that iPhone. The data
+      cannot be recovered from a Nintek server. Apple-managed device backups
+      may behave according to your Apple backup settings, while Game Center
+      achievements remain associated with Apple's service.
+    </p>
+
+    <h2>Privacy</h2>
+    <p>
+      Read the <a href="/sortie/privacy/">Sortie Privacy Policy</a> for details
+      about local storage, Apple-managed backups, optional Game Center,
+      tracking, retention, and deletion.
+    </p>
+  </article>
+</BaseLayout>
