@@ -54,8 +54,10 @@ const structuredData = {
   themeColor="#10192a"
   socialImage={poster.src}
   socialImageAlt="Sortie pre-release campaign on iPhone"
+  socialImageWidth={poster.width}
+  socialImageHeight={poster.height}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
   <!--
     THESIS: Sortie is a campaign atlas threaded by one permanent supply line, not a generic game landing page; every section shows how routes, terrain, and captured keeps reshape the front.

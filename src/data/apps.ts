@@ -306,7 +306,7 @@ export const apps: App[] = [
     sunset: {
       label: 'The web app is retired',
       body:
-        'Tare no longer has a supported browser interface or web sign-in. The legacy web database remains isolated while final native migration and deletion validation completes; it is not connected to the native store and is not represented as already deleted. The stateless, consent-gated AI relay remains only for optional native features.',
+        'Tare no longer has a supported browser interface or web sign-in. Production web traffic is relay-only for optional native AI features: there is no installable PWA, offline web mode, or browser background-reminder claim. The legacy web database remains isolated while final native migration and deletion validation completes; it is not connected to the native store and is not represented as already deleted.',
       successor: 'Tare for iPhone, iPad and Apple Watch',
     },
   },
@@ -409,7 +409,7 @@ export const apps: App[] = [
     tagline: 'Pass the exam. Keep the knowledge.',
     headline: { lead: 'Study with intent.', em: 'Walk in ready.' },
     description:
-      'Fifty-four Microsoft certification tracks with practice, flashcards, study guides and timed papers. The native build is local-first with private iCloud sync, but version 3.0 is not publicly available after App Review rejected the combined submission.',
+      'The Cairn web workspace is online and account-backed. CairnNative is a separate local-first app with private iCloud sync and no shared progress; version 3.0 is not publicly available after App Review rejected the combined submission.',
     quiet: 'No public App Store listing. The $14.99 Full Exam Library IAP remains in review.',
     icon: 'layers',
     bundleId: 'com.nintek.cairn',
@@ -494,7 +494,7 @@ export const apps: App[] = [
     tagline: 'Keep the whole build connected.',
     headline: { lead: 'Keep the whole build', em: 'connected.' },
     description:
-      'Workshop keeps a woodworking project together from first idea through dimensions, materials, cuts, shopping, build notes, and finish records. The web workspace remains current while the native release is withdrawn for rework.',
+      'Workshop keeps woodworking plans, dimensions, materials, cuts, shopping, build notes, and finish records together. Its web workspace is online and account-backed, while the separate native release is withdrawn for rework.',
     quiet: 'No public App Store or TestFlight link. Current media is from the Living Plan Table build.',
     icon: 'package',
     bundleId: 'com.nintek.workshop',

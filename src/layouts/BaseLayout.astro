@@ -20,6 +20,9 @@ interface Props {
   socialImage?: string;
   /** Accessible description for the social preview image. */
   socialImageAlt?: string;
+  /** Intrinsic social preview dimensions. Common public assets are inferred. */
+  socialImageWidth?: number;
+  socialImageHeight?: number;
   /** Browser chrome tint. Defaults to the Nintek house cream; a re-skinned
       app page should pass its own page colour so the chrome matches. */
   themeColor?: string;
@@ -36,6 +39,8 @@ const {
   libraryFonts = false,
   socialImage = '/bg.png',
   socialImageAlt = `${COMPANY.name} portfolio`,
+  socialImageWidth: socialImageWidthProp,
+  socialImageHeight: socialImageHeightProp,
   themeColor = '#f5f0ea',
 } = Astro.props;
 
@@ -43,6 +48,68 @@ const canonical = new URL(path, Astro.site ?? 'https://www.nintek.com').href;
 const socialImageUrl = socialImage
   ? new URL(socialImage, Astro.site ?? 'https://www.nintek.com').href
   : undefined;
+const commonSocialDimensions =
+  socialImage === '/bg.png'
+    ? { width: 1536, height: 1024 }
+    : /^\/apps\/[^/]+\.png$/.test(socialImage)
+      ? { width: 1024, height: 1024 }
+      : undefined;
+const socialImageWidth = socialImageWidthProp ?? commonSocialDimensions?.width;
+const socialImageHeight = socialImageHeightProp ?? commonSocialDimensions?.height;
+const socialImageType = socialImage.endsWith('.png')
+  ? 'image/png'
+  : socialImage.endsWith('.webp')
+    ? 'image/webp'
+    : socialImage.endsWith('.jpg') || socialImage.endsWith('.jpeg')
+      ? 'image/jpeg'
+      : undefined;
+const twitterCard =
+  socialImageWidth && socialImageHeight && socialImageWidth / socialImageHeight >= 1.5
+    ? 'summary_large_image'
+    : 'summary';
+const schemaType =
+  path === '/'
+    ? 'WebSite'
+    : path === '/about'
+      ? 'AboutPage'
+      : path === '/ios'
+        ? 'CollectionPage'
+        : 'WebPage';
+const organizationId = 'https://www.nintek.com/#organization';
+const websiteId = 'https://www.nintek.com/#website';
+const pageStructuredData = {
+  '@context': 'https://schema.org',
+  '@graph':
+    path === '/'
+      ? [
+          {
+            '@type': 'Organization',
+            '@id': organizationId,
+            name: COMPANY.name,
+            url: canonical,
+            email: COMPANY.email,
+          },
+          {
+            '@type': 'WebSite',
+            '@id': websiteId,
+            url: canonical,
+            name: COMPANY.name,
+            description,
+            publisher: { '@id': organizationId },
+          },
+        ]
+      : [
+          {
+            '@type': schemaType,
+            '@id': `${canonical}#webpage`,
+            url: canonical,
+            name: title,
+            description,
+            isPartOf: { '@id': websiteId },
+            publisher: { '@id': organizationId },
+          },
+        ],
+};
 const year = new Date().getFullYear();
 ---
 
@@ -55,7 +122,10 @@ const year = new Date().getFullYear();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {
@@ -102,13 +172,18 @@ const year = new Date().getFullYear();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {socialImageUrl && <meta property="og:image" content={socialImageUrl} />}
+    {socialImageUrl && <meta property="og:image:secure_url" content={socialImageUrl} />}
+    {socialImageType && <meta property="og:image:type" content={socialImageType} />}
+    {socialImageWidth && <meta property="og:image:width" content={socialImageWidth} />}
+    {socialImageHeight && <meta property="og:image:height" content={socialImageHeight} />}
     {socialImageUrl && <meta property="og:image:alt" content={socialImageAlt} />}
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
     {socialImageUrl && <meta name="twitter:image:alt" content={socialImageAlt} />}
     <meta name="theme-color" content={themeColor} />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(pageStructuredData)} />}
   </head>
   <body>
     {

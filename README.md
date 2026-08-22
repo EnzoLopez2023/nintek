@@ -31,6 +31,7 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 | `src/pages/<app>/privacy.astro` | Per-app privacy policy. |
 | `src/pages/<app>/support.astro` | Per-app support and account-lifecycle guidance. |
 | `public/apps/<slug>.png` | App icon (copied from each app's `app-store/AppIcon-1024.png`). |
+| `public/social/<slug>.png` | 1200×630 social preview for reviewed public product routes. |
 | `staticwebapp.config.json` | SWA routing + security headers. |
 | `.github/workflows/azure-static-web-apps.yml` | CI/CD deploy. |
 
@@ -68,3 +69,16 @@ One-time setup:
 4. Add indexable routes to `public/sitemap.xml`; use page-level `noindex` for
    routes that should remain out of search.
 5. Add claim and asset provenance to `docs/MARKETING_EVIDENCE.md`.
+
+## Publication and platform policy
+
+Only genuine public studio and product-marketing routes belong in the sitemap.
+Privacy, support, retired, and private/gated product surfaces stay reachable but
+carry `noindex, follow`. `npm run check` enforces the route set, canonical host,
+structured data, social metadata, image dimensions, and local links.
+
+PWA status is product-specific. Tare's browser product is retired and production
+web traffic is relay-only. Workshop and Cairn are online, account-backed web
+workspaces, not installable/offline PWAs. CairnNative is a separate offline
+private-iCloud product with no shared web data; Workshop's native app is a
+separate client.

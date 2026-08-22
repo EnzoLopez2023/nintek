@@ -271,6 +271,20 @@
   line-height: 1.62;
 }
 
+.wk-delivery-note {
+  max-width: 62ch;
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--wk-divider);
+  color: var(--wk-muted);
+  font-size: 0.88rem;
+  line-height: 1.68;
+}
+
+.wk-delivery-note strong {
+  color: var(--wk-ink);
+}
+
 .wk-action {
   display: inline-flex;
   min-height: 46px;

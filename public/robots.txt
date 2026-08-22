@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 
-# Index policy is declared per page with robots metadata. Studio terms and
-# selected marketing routes are indexed; app privacy and support routes remain
-# crawlable with noindex so public listings can still reach them directly.
+# Index policy is declared per page with robots metadata. Genuine studio and
+# product marketing routes are indexed; private, retired, privacy, and support
+# routes remain crawlable with noindex so direct links continue to work.
 
 Sitemap: https://www.nintek.com/sitemap.xml

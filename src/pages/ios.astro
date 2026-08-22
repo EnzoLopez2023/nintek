@@ -101,7 +101,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     icon: 'book',
     title: 'Each product has its own platform relationship',
     body:
-      'Cairn and the web app have separate progress stores. ShopKeep shares its backend across web and native. Tare is replacing its browser interface while retaining the native app’s consent-gated AI relay. The status belongs to each product, not to a blanket “web versus native” promise.',
+      'Cairn and the web app have separate progress stores. ShopKeep shares its backend across web and native. Tare’s browser product is retired, while production web remains only as the native app’s consent-gated AI relay. The status belongs to each product, not to a blanket “web versus native” promise.',
   },
 ];
 ---
@@ -453,15 +453,16 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     <div class="reveal">
       <h2>The web story differs by product.</h2>
       <p>
-        Most utility products still have web workspaces. Tare&rsquo;s browser
-        interface is retiring while its stateless AI relay remains for the native
-        app; Cairn keeps web and Apple-device progress separate; ShopKeep and
-        Workshop share their backends. Public availability is stated per product.
+        Tare&rsquo;s browser product is retired and production web traffic is
+        relay-only for optional native AI features. Workshop and Cairn remain
+        online, account-backed web workspaces, not installable or offline PWAs.
+        Workshop&rsquo;s native app is a separate client; CairnNative is a separate
+        offline/private-iCloud product with no shared web data.
       </p>
       <p class="iend-links">
         <a href="/#apps">Browse the apps →</a>
         &ensp;·&ensp;
-        <a href="/about">The story behind them</a>
+        <a href="/about#platform-policy">Read the platform policy</a>
         &ensp;·&ensp;
         <a href={`mailto:${COMPANY.email}`}>Get in touch</a>
       </p>

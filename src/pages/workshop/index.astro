@@ -52,17 +52,32 @@ const manifest = [
   { row: 'Account ownership', detail: 'Sign in with Apple or Microsoft, export a JSON project summary, and permanently delete the Workshop account in-app.', where: 'iOS' },
   { row: 'Insights', detail: 'Spend over time, cost by project, and how often you are in the shop.', where: 'iOS' },
 ];
+const pageTitle = 'Workshop — Keep the whole build connected.';
+const pageDescription =
+  'Workshop connects woodworking plans, cut lists, materials, shopping and build records in an online account-backed web workspace.';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Workshop',
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'Web browser, iOS 17 or later, iPadOS 17 or later',
+  description: pageDescription,
+  identifier: wkApp.bundleId,
+  url: 'https://www.nintek.com/workshop',
+};
 ---
 
 <BaseLayout
   bare
-  noindex
   path="/workshop"
-  title="Workshop — Keep the whole build connected."
-  description="Workshop keeps a woodworking project connected from plan through dimensions, materials, cuts, shopping, build notes, and finish records on the web, iPhone, and iPad."
-  socialImage="/apps/workshop.png"
-  socialImageAlt="Workshop app icon"
+  title={pageTitle}
+  description={pageDescription}
+  socialImage="/social/workshop.png"
+  socialImageAlt="Workshop social preview with its canonical icon and a current web project capture"
+  socialImageWidth={1200}
+  socialImageHeight={630}
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <!--
     THESIS: Workshop marketing becomes a living plan table built from the current running apps, refusing the retired departure-board imitation.
     OWN-WORLD: Cool vellum, deep spruce structure, a functional 24px drafting grid, pencil-blue annotations, restrained amber actions, and soft 14/24px geometry.
@@ -106,6 +121,12 @@ const manifest = [
               There is no public App Store listing, TestFlight acquisition link,
               or announced price. The web workspace and the current private build
               are shown here as separate, dated evidence.
+            </p>
+            <p class="wk-delivery-note">
+              <strong>Web delivery:</strong> Workshop is an online, account-backed
+              workspace. It is not an installable or offline PWA, and the web page
+              does not promise background reminders. The native app is a separate
+              client with its own release state.
             </p>
             <div class="wk-actions">
               <a class="wk-action primary" href="#inside-workshop">Explore real screens</a>

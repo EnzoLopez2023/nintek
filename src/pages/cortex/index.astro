@@ -114,8 +114,10 @@ const structuredData = {
   themeColor="#080b1d"
   socialImage={hubImage.src}
   socialImageAlt="Cortex game hub on iPhone"
+  socialImageWidth={hubImage.width}
+  socialImageHeight={hubImage.height}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
   <!--
     THESIS: Cortex is an arcade constellation, not a catalogue grid; the real hub is the center of gravity and every game becomes its own vivid world.

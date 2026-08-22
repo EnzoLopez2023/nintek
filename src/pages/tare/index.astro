@@ -123,17 +123,32 @@ const vitals = [
   { lbl: 'WEIGHT',   val: '242 lb', color: 'var(--lp-wgt-deep)' },
   { lbl: 'A1C TRAJ', val: '↘ −0.4', color: 'var(--lp-act-deep)' },
 ];
+const pageTitle = 'Tare — Reset to baseline. Every week.';
+const pageDescription =
+  'Tare is a native iPhone, iPad and Apple Watch companion for GLP-1 tracking, with Apple Health, private iCloud, local reminders and no account.';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Tare',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'iOS 17 or later, iPadOS 17 or later, watchOS 10 or later',
+  description: pageDescription,
+  identifier: app.bundleId,
+  url: 'https://www.nintek.com/tare',
+};
 ---
 
 <BaseLayout
   bare
-  noindex
   path="/tare"
-  title="Tare — Reset to baseline. Every week."
-  description="A native iPhone, iPad and Apple Watch app for the GLP-1 journey — glucose, doses, weight and well-being, with two-way Apple Health sync, widgets, complications and no account at all."
-  socialImage="/apps/tare.png"
-  socialImageAlt="Tare app icon"
+  title={pageTitle}
+  description={pageDescription}
+  socialImage="/social/tare.png"
+  socialImageAlt="Tare social preview with its canonical capsule icon and weekly calibration motif"
+  socialImageWidth={1200}
+  socialImageHeight={630}
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
   <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   {/* Archivo is the app's own family — the bundled faces are static instances

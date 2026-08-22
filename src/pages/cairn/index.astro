@@ -42,19 +42,50 @@ const demo = {
   explanation:
     'The six Microsoft Responsible AI principles are Fairness, Reliability and Safety, Privacy and Security, Inclusiveness, Transparency, and Accountability. “Maximum throughput” is a performance metric, not a principle.',
 };
+const pageTitle = `${app.name} — Your Microsoft certification study companion`;
+const pageDescription =
+  'Cairn is an online, account-backed Microsoft certification workspace. CairnNative is a separate offline app with private iCloud and no shared web data.';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['SoftwareApplication', 'WebApplication'],
+      '@id': 'https://www.nintek.com/cairn#web-app',
+      name: 'Cairn web',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'Web browser',
+      description:
+        'An online, account-backed Microsoft certification study workspace. It is not an installable or offline PWA.',
+      url: 'https://www.nintek.com/cairn',
+    },
+    {
+      '@type': ['SoftwareApplication', 'MobileApplication'],
+      '@id': 'https://www.nintek.com/cairn#native-app',
+      name: 'CairnNative',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'iOS 17 or later, iPadOS 17 or later',
+      description:
+        'A separate offline study app with optional private iCloud sync and no shared web identity, progress, or data.',
+      identifier: app.bundleId,
+      url: 'https://www.nintek.com/cairn',
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title={`${app.name} — Your Microsoft certification study companion`}
-  description={app.description}
+  title={pageTitle}
+  description={pageDescription}
   path={`/${app.slug}`}
-  noindex={true}
   bare={true}
   cairnFonts={true}
   themeColor="#edf2f8"
-  socialImage="/apps/cairn.png"
-  socialImageAlt="Cairn app icon"
+  socialImage="/social/cairn.png"
+  socialImageAlt="Cairn social preview with its canonical icon and certification-trail motif"
+  socialImageWidth={1200}
+  socialImageHeight={630}
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <div class="lp">
     {/* ── Background atmosphere ── */}
     <div class="lp__bg" aria-hidden="true">
@@ -91,10 +122,12 @@ const demo = {
               whether you&rsquo;re ready. The iOS app adds eight complete Microsoft
               curricula for learning the ground without chasing a certificate.
             </p>
-            <div class="lp__cta-row">
-              <span class="lp__cta-meta">
-                <span class="lp__cta-meta-dot"></span>
-                Private iCloud sync between Apple devices; web progress is separate.
+            <div class="lp__platform-policy">
+              <strong>Two products, no shared progress.</strong>
+              <span>
+                The web workspace is online and account-backed; it is not an
+                installable or offline PWA. CairnNative is a separate offline app
+                whose progress may sync only through private iCloud.
               </span>
             </div>
           </div>

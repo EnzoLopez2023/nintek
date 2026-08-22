@@ -193,7 +193,7 @@ import { COMPANY } from '../data/apps';
           years of my own health data and I open it every day, so it was the one
           port I could not afford to get wrong — the other three were the
           practice. It went furthest in one particular way: the native version
-          has no account at all, where the web app signs into Microsoft. Every
+          has no account at all, where the retired web app used Microsoft. Every
           weight, dose, glucose reading and lab result lives on the phone and
           syncs through my own iCloud, and the whole history came across in a
           single backup file.
@@ -214,6 +214,40 @@ import { COMPANY } from '../data/apps';
           <a href="/ios#workshop" class="story-app-pill">Workshop</a>
           <a href="/ios#cortex" class="story-app-pill">Cortex</a>
         </div>
+      </section>
+
+      <section class="story-section platform-policy reveal" id="platform-policy">
+        <h2>Web and native are not the same promise.</h2>
+        <p>
+          Installability and offline behavior are product decisions, not a
+          portfolio-wide badge. These boundaries are the current public policy:
+        </p>
+        <dl class="platform-decisions">
+          <div>
+            <dt><a href="/tare">Tare</a></dt>
+            <dd>
+              The browser product is retired. Production web traffic is relay-only
+              for optional native AI features; there is no Tare PWA, offline web
+              app, browser sign-in, or web background-reminder claim.
+            </dd>
+          </div>
+          <div>
+            <dt><a href="/workshop">Workshop</a></dt>
+            <dd>
+              The web workspace is online and account-backed, not an installable or
+              offline PWA. Its native app is a separate client currently withdrawn
+              for rework.
+            </dd>
+          </div>
+          <div>
+            <dt><a href="/cairn">Cairn</a></dt>
+            <dd>
+              The web workspace is online and account-backed. CairnNative is a
+              separate offline product with private iCloud sync; the two products
+              never share progress or account data.
+            </dd>
+          </div>
+        </dl>
       </section>
 
       <section class="story-close reveal">
@@ -390,6 +424,55 @@ import { COMPANY } from '../data/apps';
   .story-native p strong {
     color: var(--ink);
     font-weight: 600;
+  }
+
+  .platform-policy > p {
+    max-width: 62ch;
+  }
+
+  .platform-policy {
+    scroll-margin-top: 120px;
+  }
+
+  .platform-decisions {
+    margin: 2rem 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+
+  .platform-decisions > div {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.28fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+
+  .platform-decisions dt,
+  .platform-decisions dd {
+    margin: 0;
+  }
+
+  .platform-decisions dt {
+    font-family: var(--font-brand);
+    font-weight: 700;
+  }
+
+  .platform-decisions dd {
+    color: var(--ink-soft);
+    line-height: 1.72;
+  }
+
+  .platform-decisions a {
+    color: var(--ink);
+    text-decoration-color: color-mix(in srgb, var(--copper) 40%, transparent);
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 560px) {
+    .platform-decisions > div {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
   }
 
   .story-close {

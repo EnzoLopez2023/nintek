@@ -44,6 +44,7 @@ const icon = app
     ? '/apps/tabloom.svg'
     : `/apps/${app.slug}.png`
   : undefined;
+const socialImage = app ? `/apps/${app.slug}.png` : '/bg.png';
 
 const documentLinks = app
   ? [
@@ -63,7 +64,7 @@ const documentLinks = app
   description={description}
   path={path}
   noindex={noindex}
-  socialImage={icon ?? '/bg.png'}
+  socialImage={socialImage}
   socialImageAlt={app ? `${app.name} app icon` : 'Abstract copper Nintek circuit motif'}
 >
   <div class={`legal-root legal-root--${theme}`}>

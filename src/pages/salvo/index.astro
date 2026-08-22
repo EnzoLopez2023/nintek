@@ -66,8 +66,10 @@ const structuredData = {
   themeColor="#07101c"
   socialImage={home.src}
   socialImageAlt="Salvo pre-release command screen on iPad"
+  socialImageWidth={home.width}
+  socialImageHeight={home.height}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
   <!--
     THESIS: Salvo reads as a live campaign dossier, not a generic game grid; actual command screens and source art carry the proof while incomplete campaign scope stays visibly incomplete.
