@@ -12,7 +12,9 @@ const expectedIndexedRoutes = new Set([
   '/ios',
   '/salvo',
   '/sortie',
+  '/terms',
 ]);
+const reviewedLegalApps = ['tare', 'workshop', 'shopkeep', 'cairn', 'cortex', 'tabloom', 'pulsewire'];
 
 function fail(message) {
   throw new Error(message);
@@ -149,6 +151,7 @@ const pageAssertions = {
   '/sortie/privacy': ['iPhone-only, portrait pre-release game', 'Optional Apple Game Center', 'no tracking'],
   '/sortie/support': ['iPhone-only, portrait pre-release build', 'iOS 14 or later', 'no public App Store listing'],
   '/salvo': ['In development', 'Not available yet'],
+  '/terms': ['Terms of Use', 'Your content and your responsibility', 'AI output and professional-advice limits'],
 };
 for (const [route, values] of Object.entries(pageAssertions)) {
   const html = readFileSync(routeFile(route), 'utf8');
@@ -156,6 +159,144 @@ for (const [route, values] of Object.entries(pageAssertions)) {
   for (const value of values) {
     assert(normalized.includes(value), `${route}: missing required evidence text "${value}"`);
   }
+}
+
+const legalAssertions = {
+  '/tare/privacy': [
+    'no account or sign-in',
+    'stateless relay',
+    'Legacy databases have <strong>not</strong> been represented as deleted',
+    '14 days',
+  ],
+  '/tare/support': [
+    'no web login',
+    'no in-app erase-all',
+    'former web database is separate and has not yet been destructively removed',
+  ],
+  '/workshop/privacy': [
+    'separate Workshop accounts',
+    'online-only for account data',
+    'manual deletion reconciliation',
+  ],
+  '/workshop/support': [
+    'withdrawn for rework',
+    'project-list summary',
+    'not automated by the restore code',
+  ],
+  '/shopkeep/privacy': [
+    'SQLite BLOBs',
+    'generation matches an active account',
+    'physical-device Apple and Microsoft sign-in and deletion checks',
+  ],
+  '/shopkeep/support': [
+    'no offline inventory mode',
+    'Location-label CSV',
+    'Delete ShopKeep Account',
+  ],
+  '/tabloom/privacy': [
+    'not end-to-end encrypted',
+    'most recent 50 versions',
+    'no self-service Tabloom account export-and-delete flow',
+  ],
+  '/tabloom/support': [
+    'bounded, and read only',
+    'Trash is retained for up to 30 days',
+    'Current account-deletion gap',
+  ],
+  '/pulsewire/privacy': [
+    '24-hour, read-only demo',
+    'Azure AI Foundry',
+    'no self-service account export, account deletion',
+  ],
+  '/pulsewire/support': [
+    'no public account registration',
+    'Sign out all devices',
+    'not end-to-end encrypted',
+  ],
+  '/cairn/privacy': [
+    'no account, no login',
+    'Private iCloud progress copy',
+    'Full Exam Library',
+  ],
+  '/cairn/support': [
+    'combined app-and-IAP submission remains unresolved',
+    'do not require a purchase',
+    'Independent study material',
+  ],
+  '/cortex/privacy': [
+    'no custom account or login',
+    'Private iCloud key-value storage',
+    'Cortex data lifecycle and account-control boundaries',
+  ],
+  '/cortex/support': [
+    'iPhone-only TestFlight beta',
+    'no single in-app erase-all control',
+    'Troubleshoot optional Game Center',
+  ],
+};
+
+for (const [route, values] of Object.entries(legalAssertions)) {
+  assert(routeExists(route), `${route}: required legal route is missing`);
+  const html = readFileSync(routeFile(route), 'utf8');
+  const normalized = html.replace(/\s+/g, ' ');
+  assert(
+    normalized.includes('August 22, 2026'),
+    `${route}: missing the current effective or updated date`,
+  );
+  for (const value of values) {
+    assert(normalized.includes(value), `${route}: missing required legal evidence "${value}"`);
+  }
+}
+
+for (const app of reviewedLegalApps) {
+  const product = readFileSync(routeFile(`/${app}`), 'utf8');
+  const privacy = readFileSync(routeFile(`/${app}/privacy`), 'utf8');
+  const support = readFileSync(routeFile(`/${app}/support`), 'utf8');
+
+  assert(product.includes(`href="/${app}/privacy"`), `/${app}: missing privacy link`);
+  assert(product.includes(`href="/${app}/support"`), `/${app}: missing support link`);
+  assert(product.includes('href="/terms"'), `/${app}: missing terms link`);
+
+  assert(privacy.includes(`href="/${app}/support"`), `/${app}/privacy: missing support link`);
+  assert(privacy.includes('href="/terms"'), `/${app}/privacy: missing terms link`);
+  assert(
+    privacy.includes('lifecycle-table'),
+    `/${app}/privacy: missing data lifecycle table`,
+  );
+
+  assert(support.includes(`href="/${app}/privacy"`), `/${app}/support: missing privacy link`);
+  assert(support.includes('href="/terms"'), `/${app}/support: missing terms link`);
+}
+
+const terms = readFileSync(routeFile('/terms'), 'utf8');
+for (const app of reviewedLegalApps) {
+  assert(terms.includes(`href="/${app}/privacy"`), `/terms: missing ${app} privacy link`);
+  assert(terms.includes(`href="/${app}/support"`), `/terms: missing ${app} support link`);
+}
+
+const reviewedLegalHtml = Object.keys(legalAssertions)
+  .map((route) => readFileSync(routeFile(route), 'utf8'))
+  .join('\n');
+for (const stale of [
+  'DRAFT',
+  'Tare on the web is in maintenance',
+  'While it remains available',
+  'not a public reader or demo entry point',
+  'per-user SQLite database hosted on Microsoft Azure. Media may use account-scoped Azure storage',
+]) {
+  assert(!reviewedLegalHtml.includes(stale), `Reviewed legal routes contain stale claim: ${stale}`);
+}
+
+const homepageTermsLink = homepage.includes('href="/terms"');
+assert(homepageTermsLink, 'Global site footer is missing the terms link.');
+
+const evidenceLedger = readFileSync(join(root, 'docs', 'MARKETING_EVIDENCE.md'), 'utf8');
+assert(
+  evidenceLedger.includes('**Verified:** 2026-08-22'),
+  'Marketing evidence ledger does not carry the current verification date.',
+);
+for (const route of ['/terms', ...Object.keys(legalAssertions)]) {
+  assert(evidenceLedger.includes(`\`${route}\``), `Evidence ledger is missing legal route ${route}`);
 }
 
 const sitemap = readFileSync(join(dist, 'sitemap.xml'), 'utf8');

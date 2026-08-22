@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
 
-# Index policy is declared per page with robots metadata. The sitemap contains
-# only routes intended for search discovery.
+# Index policy is declared per page with robots metadata. Studio terms and
+# selected marketing routes are indexed; app privacy and support routes remain
+# crawlable with noindex so public listings can still reach them directly.
 
 Sitemap: https://www.nintek.com/sitemap.xml

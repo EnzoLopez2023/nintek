@@ -1,215 +1,245 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import DataLifecycleTable from '../../components/DataLifecycleTable.astro';
+import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tare')!;
-const lastUpdated = 'August 21, 2026';
+const effectiveDate = 'August 22, 2026';
+const sections = [
+  { href: '#scope', label: 'Scope and short version' },
+  { href: '#device-cloud', label: 'Device and iCloud data' },
+  { href: '#health', label: 'Apple Health' },
+  { href: '#ai', label: 'Optional AI relay' },
+  { href: '#backups', label: 'Backups and portability' },
+  { href: '#lifecycle', label: 'Deletion and retention' },
+  { href: '#legacy-web', label: 'Retired web data' },
+  { href: '#contact', label: 'Contact' },
+];
+const lifecycleRows = [
+  {
+    data: 'Native health records and settings',
+    location: 'SwiftData on your iPhone or iPad. Nintek does not operate a Tare account or native health-record database.',
+    portability: 'Tare exports an interchangeable JSON backup containing all 16 native data tables and can restore a compatible native or former web backup.',
+    deletion: 'Tare has no in-app erase-all control. Delete individual records where offered or delete Tare to remove local app data from that device. Exported files remain wherever saved.',
+  },
+  {
+    data: 'Private iCloud copy',
+    location: 'Your private CloudKit database under the Apple Account signed in on the device.',
+    portability: 'The native backup is created from the local Tare store; iCloud itself is controlled through Apple.',
+    deletion: 'Deleting the app from one device does not by itself promise deletion of Apple-held CloudKit data. Use Apple’s iCloud controls for the synced copy.',
+  },
+  {
+    data: 'Apple Health data',
+    location: 'Apple Health on your device and any Apple-controlled Health sync you have enabled.',
+    portability: 'Apple provides Health export and account controls. Tare does not receive a server copy of HealthKit data.',
+    deletion: 'Change Tare’s Health permissions or manage the records in Apple Health. Deleting Tare does not delete the underlying Health records.',
+  },
+  {
+    data: 'Optional AI request and answer',
+    location: 'Sent through a stateless Nintek relay to Anthropic only for the operation you request. The relay keeps no transcript database.',
+    portability: 'AI output appears in the app and may be included only where the app’s own record or backup behavior says so; the relay offers no transcript export.',
+    deletion: 'The relay does not retain the request or answer. Anthropic may retain provider-side records under its commercial terms, safety controls, and legal obligations.',
+  },
+  {
+    data: 'Retired web-app database',
+    location: 'A separate, legacy per-user database in protected Azure storage. It is not connected to the native SwiftData or CloudKit store.',
+    portability: 'The former web backup format remains compatible with native migration. The retirement page does not offer a web login or new export session.',
+    deletion: 'Destructive cleanup has not run. Physical-device verification, the current soak, cleanup review, and explicit confirmation must finish first. Contact Nintek about the retained legacy copy.',
+  },
+  {
+    data: 'Support correspondence',
+    location: 'Nintek’s support mailbox when you choose to email.',
+    portability: 'You can keep your sent message and request a copy of correspondence that Nintek still holds, where applicable.',
+    deletion: 'Nintek may retain correspondence as needed to answer, secure, document, or meet legal obligations; you may request review or deletion.',
+  },
+];
 ---
 
-<BaseLayout
+<LegalLayout
+  app={app}
   title={`${app.name} Privacy Policy — ${COMPANY.name}`}
-  description={`How ${app.name} handles your health information.`}
-  path={`/${app.slug}/privacy`}
-  noindex={true}
-  socialImage="/apps/tare.png"
-  socialImageAlt="Tare app icon"
+  description="How Tare handles local SwiftData health records, private CloudKit sync, HealthKit, backups, the optional stateless Anthropic relay, and retained legacy web data."
+  path="/tare/privacy"
+  page="privacy"
+  heading="Tare Privacy Policy"
+  documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
+  summary="Tare’s supported product is native for iPhone, iPad, and Apple Watch. It has no Tare account. Health records stay in SwiftData and your private CloudKit database; optional AI requests pass through a stateless relay to Anthropic only after consent."
+  sections={sections}
+  evidenceNote="Reviewed against the current Tare relay-only deployment, the current Tare-for-iOS default branch, and the active web-retirement runbook on August 22, 2026. Legacy web-data cleanup is prepared but has not been executed."
 >
-  <article class="prose container">
-    <a class="back-link" href="/tare">← {app.name}</a>
-    <h1>{app.name} Privacy Policy</h1>
-    <p class="updated">Last updated: {lastUpdated}</p>
-
+  <section id="scope" class="legal-section">
+    <h2>Scope and the short version</h2>
     <p>
       This policy explains how {COMPANY.name} (“we”, “us”) handles information in
-      {app.name} for iOS. {app.name} is a GLP-1 and metabolic-health tracker, so
-      most of what you enter is health information — some of the most personal
-      information there is. This policy is written to be specific about where it
-      goes rather than reassuring about it.
+      {app.name}. Tare is a native GLP-1 and metabolic-health tracker. Its former
+      browser app has retired; the only live web service used by the product is
+      the consent-gated AI relay described below.
     </p>
+    <p class="legal-callout">
+      Tare has no account or sign-in. Native records stay on your device and may
+      sync through your private Apple CloudKit database. Nintek cannot browse
+      either store. Optional AI features send only the inputs needed for the
+      selected operation through a stateless relay to Anthropic. Tare has no ads,
+      analytics SDK, crash-reporting SDK, or cross-app tracking.
+    </p>
+    <p>
+      Health information can be sensitive. This policy distinguishes the native
+      store, Apple-controlled data, transient AI processing, backup files, and the
+      separate legacy web database instead of treating them as one system.
+    </p>
+  </section>
 
-    <p class="callout">
-      <strong>The short version.</strong> {app.name} has no account and no
-      sign-in. Your health data is stored on your device, and in your own
-      private iCloud account if you have iCloud on — we cannot read either one.
-      Nothing is sent to us unless you turn on the optional AI features, and if
-      you do, only the specific figures named on the consent screen are sent,
-      only when you ask a question, and nothing about them is stored afterwards.
-      There is no advertising, no analytics and no tracking of any kind.
+  <section id="device-cloud" class="legal-section">
+    <h2>SwiftData on device and private CloudKit</h2>
+    <p>
+      Tare stores weights, glucose readings, injections and doses, meals and
+      macros, well-being, side effects, measurements, lab results, vitals,
+      diagnoses, medications, procedures, photos, settings, and related history
+      in SwiftData on the device.
     </p>
+    <p>
+      When iCloud is available, Apple’s SwiftData and CloudKit integration can
+      sync that store through the private CloudKit database associated with your
+      Apple Account. The app continues with local storage when CloudKit is
+      unavailable. Nintek does not operate the account, receive a server copy, or
+      have a console for reading your private CloudKit records.
+    </p>
+    <p>
+      Widgets, Live Activities, complications, and the Apple Watch app receive
+      limited local snapshots through Apple App Group and device-to-device
+      mechanisms. Those surfaces do not create a Nintek account or health-record
+      server.
+    </p>
+  </section>
 
-    <h2>What stays on your device</h2>
-    <p>
-      Everything you log — weights, blood-glucose readings, injections and doses,
-      meals and macros, well-being and mood, side effects, body measurements,
-      lab results, vitals, diagnoses, medications, procedures, progress photos
-      and meal photos — is written to a database on your iPhone.
-    </p>
-    <p>
-      If iCloud is enabled on your device, that database also syncs through
-      <strong>your own private iCloud account</strong> so your data is available
-      on your other devices and survives a lost phone. That data lives in your
-      Apple account, under Apple’s encryption, and we have no access to it. We
-      operate no server that holds your health records, and we could not produce
-      a copy of your data if we were asked to.
-    </p>
-
-    <h2>What leaves your device, and only if you turn it on</h2>
-    <p>
-      {app.name} includes optional AI features — the analyst that answers
-      questions about your data, the summaries on the Insights and Doctor Report
-      screens, meal estimates from a name or a photo, lab-document import, and
-      the knowledge base.
-    </p>
-    <p>
-      <strong>These are off until you turn them on.</strong> The first time you
-      use one, {app.name} shows a screen naming exactly which fields would be
-      sent, and nothing is sent unless you accept it. You can turn it back off
-      at any time in Settings → Privacy, and if we ever change what would be
-      sent, we ask again rather than relying on the answer you gave to a
-      different question.
-    </p>
-    <p>When the features are on, and only when you ask for something:</p>
-    <ul>
-      <li>
-        The relevant figures for that request are sent over an encrypted
-        connection to a small relay service we operate.
-      </li>
-      <li>
-        For questions about your own records, the assistant does not receive
-        your database. It writes a query, your device runs that query against
-        its own copy, and only the rows that come back — the specific figures
-        needed to answer what you asked — are returned to it. There is no bulk
-        upload and no export.
-      </li>
-      <li>
-        The relay forwards them to <strong>Anthropic</strong>, which generates
-        the answer, and returns it to your device.
-      </li>
-      <li>
-        <strong>The relay does not store your request or the answer.</strong> It
-        keeps no database and writes no copy of them; it records error messages
-        only, which do not contain your data.
-      </li>
-      <li>
-        Anthropic processes the request under its applicable commercial terms
-        and may retain inputs for a limited period for safety and
-        abuse-prevention purposes. Those provider terms and controls can change,
-        which is why the App Store privacy label for {app.name} lists health
-        data as collected even though our relay keeps no copy.
-      </li>
-    </ul>
-    <p>
-      To stop the relay being abused by anyone other than the app, it verifies
-      that requests come from a genuine copy of {app.name} using Apple’s App
-      Attest. That checks the <em>app</em>, not you. It is not an account, it
-      carries no name or email, and it is not used to build any profile.
-    </p>
-    <p>
-      Some things are never sent, whatever you have turned on: your profile
-      details, your progress photos, and any meal photo you have not
-      specifically chosen to analyse.
-    </p>
-
+  <section id="health" class="legal-section">
     <h2>Apple Health</h2>
     <p>
-      If you allow it, {app.name} can read weight, glucose, sleep and step data
-      from Apple Health so you do not have to enter it twice, and write back the
-      weights and glucose readings you log. Nothing else is written — your
-      doses, meals, well-being check-ins and medical records stay inside
-      {app.name}. After you deliberately enable Health access, the app checks for
-      new data when it opens or returns to the foreground; you can also choose
-      <strong>Sync now</strong>. That exchange is between {app.name} and Health
-      on your device. We never receive it, and Health data is not included in
-      anything sent to the AI features unless it is also a record you logged in
-      {app.name}.
+      If you grant permission, Tare can read weight, glucose, sleep, and step data
+      from Apple Health. Weight and glucose can flow both ways; sleep and steps
+      are read only. After you enable access, Tare checks for approved Health data
+      when the app opens or returns to the foreground, and a manual
+      <strong>Sync now</strong> control remains available.
     </p>
+    <p>
+      HealthKit access is controlled by Apple’s permission interface. Tare does
+      not receive your Apple Account credentials, and Nintek does not receive a
+      server copy of the HealthKit exchange. A Health record is not automatically
+      included in an AI request merely because Tare can read it; the selected AI
+      operation and consent scope control what is sent.
+    </p>
+  </section>
 
-    <h2>Widgets, complications and the Apple Watch</h2>
+  <section id="ai" class="legal-section">
+    <h2>Optional AI processing</h2>
     <p>
-      To draw a widget or a watch complication, iOS runs a separate small
-      program that cannot read {app.name}’s database. So {app.name} writes a
-      short summary — the few figures those faces actually show, such as your
-      latest weight and glucose and the days until your next dose — into a
-      shared container on your device that only {app.name} and its own
-      extensions can open. It contains no history and no records, and it never
-      leaves the device.
+      AI features are off until you enable them. Tare presents the categories of
+      information needed for an operation and asks again when that scope changes.
+      You can turn AI access off in the app’s privacy settings.
     </p>
-    <p>
-      The Apple Watch app receives that same summary from your iPhone directly,
-      over Apple’s device-to-device link. It does not use iCloud and does not
-      talk to any server. When you log something on the watch, the entry is held
-      on the watch and handed to the iPhone, which is what actually records it.
+    <p>When you deliberately use an enabled AI feature:</p>
+    <ul>
+      <li>
+        Tare sends the prompt, selected photo or document, or scoped record values
+        needed for that operation over an encrypted connection to the Nintek relay.
+      </li>
+      <li>
+        For questions about your records, the model can produce a query for the
+        device to run locally. The device returns the query result needed for the
+        answer rather than uploading the entire database.
+      </li>
+      <li>
+        The relay verifies the app with Apple App Attest, forwards the request to
+        Anthropic, returns the result, and does not store a transcript database,
+        request body, or answer.
+      </li>
+      <li>
+        Anthropic processes the scoped input under its commercial terms and may
+        retain provider-side records for safety, abuse prevention, security, or
+        legal obligations. Those provider controls can change.
+      </li>
+    </ul>
+    <p class="legal-callout">
+      AI-generated nutrition estimates, summaries, reports, and answers can be
+      wrong. Tare does not provide medical advice, diagnosis, treatment, or dose
+      selection. Use a qualified healthcare professional for care decisions.
     </p>
+  </section>
 
-    <h2>Backups and export</h2>
+  <section id="backups" class="legal-section">
+    <h2>Backups, export, and offline use</h2>
     <p>
-      {app.name} can write a complete backup of your data to a file, and restore
-      from one. Those files are created on your device and go wherever you choose
-      to put them. If you save one to a third-party service, that service’s
-      privacy policy applies to it, not this one.
+      Tare exports a readable JSON file containing all 16 data tables and can
+      restore the same envelope from a native or former web backup. It also keeps
+      one rolling local backup per day for 14 days in Application Support. Before
+      a restore replaces the store, Tare attempts a separate pre-restore safety
+      copy; those safety copies are not removed by the 14-day rolling trim.
     </p>
+    <p>
+      Native records and core tracking remain available without a network
+      connection. CloudKit sync, Apple Health delivery, and optional AI processing
+      may wait for the relevant Apple or internet service.
+    </p>
+    <p>
+      A backup file goes wherever you choose to save or share it. Nintek does not
+      receive a copy merely because Tare created it. Protect the file as health
+      data and use the destination provider’s privacy and deletion controls.
+    </p>
+  </section>
 
-    <h2>What we do not collect</h2>
+  <section id="lifecycle" class="legal-section">
+    <h2>Deletion, retention, and account boundaries</h2>
     <p>
-      No advertising identifiers, no location, no contacts, no analytics, no
-      crash reporting, no usage tracking, and no third-party software
-      development kits of any kind. {app.name} does not track you across apps or
-      websites, and there is nothing in it that could.
+      Native Tare has no app account to close. Device deletion, private CloudKit
+      deletion, Apple Health controls, backup-file deletion, provider retention,
+      and legacy web cleanup are separate actions. Tare has no single in-app
+      erase-all command.
     </p>
+    <DataLifecycleTable
+      caption="Tare data lifecycle and deletion boundaries"
+      rows={lifecycleRows}
+    />
+  </section>
 
-    <h2>Keeping and deleting your data</h2>
+  <section id="legacy-web" class="legal-section">
+    <h2>The retired web product</h2>
     <p>
-      Because we hold nothing, there is no account to close and no deletion
-      request to make. Deleting the app removes the data on that device;
-      deleting {app.name}’s iCloud data in iOS Settings removes the synced copy.
-      You can export everything to a file first if you want to keep it.
+      The former Microsoft-sign-in browser app is retired and its live surface is
+      now an informational retirement page. Retired API paths no longer provide a
+      supported login or health-record session. The native app and relay do not
+      connect to the legacy per-user database.
     </p>
     <p>
-      If you have a question about any of this, or believe we hold something we
-      have said we do not, email
+      Legacy databases have <strong>not</strong> been represented as deleted. They
+      remain intact while physical-device App Attest and operation checks, the
+      current 24-hour soak, native-successor acceptance, cleanup dry-run review,
+      and explicit authorization finish. This deliberate hold avoids destructive
+      cleanup before the native migration path is accepted.
+    </p>
+    <p>
+      To ask about a retained legacy copy, email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>. A
+      request does not delete the Microsoft account itself or Microsoft-held
+      sign-in records.
+    </p>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Children, changes, and contact</h2>
+    <p>
+      Tare is intended for a general adult audience and is not directed to
+      children. We do not knowingly create Tare accounts for children; native Tare
+      has no account system.
+    </p>
+    <p>
+      We may update this policy when the app, relay, provider configuration, or
+      retirement state changes. The dates at the top identify this version.
+    </p>
+    <p>
+      Questions about data handling can be sent to
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      Product help is available on <a href="/tare/support">Tare Support</a>. Use
+      of Tare is also subject to the <a href="/terms">Nintek Terms of Use</a>.
     </p>
-
-    <h2>Children’s privacy</h2>
-    <p>
-      {app.name} is intended for a general, adult audience and is not directed to
-      children. We do not knowingly collect personal information from children.
-    </p>
-
-    <h2>Not medical advice</h2>
-    <p>
-      {app.name} helps you record and review your own health information,
-      including optional AI-generated summaries. Those summaries are generated by
-      software and can be wrong. {app.name} does not provide medical advice,
-      diagnosis or treatment, and will not tell you what dose to take. Always
-      consult a qualified healthcare professional about your care.
-    </p>
-
-    <h2>The earlier web version</h2>
-    <p>
-      {app.name} began as a web application that used a Microsoft account to sign
-      in and stored data in a private per-user database hosted on Microsoft
-      Azure. That version is being retired in favour of the iOS app described
-      above. While it remains available, the health data you entered there is
-      held in that per-user database, encrypted in transit, and you may request
-      access to or deletion of it at
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>. It
-      is not connected to the iOS app, which keeps its own copy on your device.
-      The stateless, consent-gated AI relay is a separate service used by the
-      native app and is retained after the browser interface retires.
-    </p>
-
-    <h2>Changes to this policy</h2>
-    <p>
-      We may update this policy from time to time. Material changes are reflected
-      by updating the “Last updated” date above, and a change to what leaves your
-      device also re-triggers the consent screen inside the app.
-    </p>
-
-    <h2>Contact</h2>
-    <p>
-      Questions about this policy or your data? Email
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
-    </p>
-  </article>
-</BaseLayout>
+  </section>
+</LegalLayout>

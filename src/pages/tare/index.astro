@@ -1,7 +1,7 @@
 ---
 /* ── Tare landing page ─────────────────────────────────────────────────────
    This page sells the *native iOS app*, which is now the product. The React
-   web app it grew out of is winding down, and the page says so out loud
+   web app it grew out of is retired, and the page says so out loud
    rather than quietly dropping it.
 
    Every claim here is checked against the shipped app in
@@ -689,7 +689,9 @@ const vitals = [
         </p>
         <p class="lp-finale__foot">Tare &middot; Reset to baseline. Every week.</p>
         <p class="lp-finale__privacy">
-          Questions about your data? Read the <a href="/tare/privacy">Tare Privacy Policy</a>.
+          Need help? Visit <a href={app.supportPath}>Tare Support</a>, read the
+          <a href={app.privacyPath}>Tare Privacy Policy</a>, or review the
+          <a href={app.termsPath}>Nintek Terms</a>.
         </p>
       </section>
     </div>

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('cairn')!;
+const updatedDate = 'August 22, 2026';
 ---
 
 <BaseLayout
@@ -16,6 +17,7 @@ const app = getApp('cairn')!;
   <article class="prose container">
     <a class="back-link" href="/cairn">← {app.name}</a>
     <h1>{app.name} Support</h1>
+    <p class="updated">Updated: {updatedDate}</p>
 
     <p>
       {app.name} is a native Microsoft certification exam-prep app for iPhone
@@ -149,7 +151,8 @@ const app = getApp('cairn')!;
     <p>
       Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> for app
       support. For details about data handling, read the
-      <a href="/cairn/privacy/">Cairn Privacy Policy</a>.
+      <a href={app.privacyPath}>Cairn Privacy Policy</a>. Use of Cairn is subject
+      to the <a href={app.termsPath}>Nintek Terms of Use</a>.
     </p>
   </article>
 </BaseLayout>

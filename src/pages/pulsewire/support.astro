@@ -1,0 +1,153 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { getApp, COMPANY } from '../../data/apps';
+
+const app = getApp('pulsewire')!;
+const updatedDate = 'August 22, 2026';
+const sections = [
+  { href: '#availability', label: 'Availability and access' },
+  { href: '#sessions', label: 'Sign-in and sessions' },
+  { href: '#offline', label: 'Offline Saved copies' },
+  { href: '#sources-ai', label: 'Sources and AI' },
+  { href: '#data-controls', label: 'Export and deletion' },
+  { href: '#troubleshooting', label: 'Troubleshooting' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<LegalLayout
+  app={app}
+  title={`${app.name} Support — ${COMPANY.name}`}
+  description="Help with PulseWire private access, the read-only demo, Entra sessions, source freshness, AI processing, offline Saved snapshots, and current data-control gaps."
+  path="/pulsewire/support"
+  page="support"
+  heading="PulseWire Support"
+  documentMeta={`Updated ${updatedDate} · Web and installable PWA`}
+  summary="PulseWire is a private web reader and installable PWA. The owner workspace uses Microsoft Entra; a separate 24-hour read-only demo creates no personal account. There is no native iOS or Android app."
+  sections={sections}
+  evidenceNote="Availability, session, offline, retention, and account-control guidance was checked against the current executable service and its matching live deployment on August 22, 2026."
+>
+  <section id="availability" class="legal-section">
+    <h2>Current availability and access</h2>
+    <p class="legal-callout">
+      PulseWire has no public account registration. Owner access is restricted to
+      configured Microsoft Entra principals. The service landing page also offers
+      a read-only demo session that expires after 24 hours and does not save
+      personal changes.
+    </p>
+    <p>
+      The web app can be installed as a PWA in a supported browser. Installing it
+      does not make the full workspace local-first and does not create a separate
+      device account.
+    </p>
+  </section>
+
+  <section id="sessions" class="legal-section">
+    <h2>Microsoft sign-in and session controls</h2>
+    <ul>
+      <li>
+        If owner sign-in is rejected, confirm the intended Microsoft account and
+        ask support to verify that its Entra principal is authorized.
+      </li>
+      <li>
+        Settings can revoke the current session or use
+        <strong>Sign out all devices</strong> for owner sessions.
+      </li>
+      <li>
+        Sign-out clears identity-scoped offline data before the server session is
+        revoked. If that clear fails, PulseWire blocks sign-out and asks you to
+        recover rather than silently leaving private data behind.
+      </li>
+      <li>
+        Demo sessions cannot use the owner’s all-device revoke control and expire
+        on their own.
+      </li>
+    </ul>
+    <p>
+      Revoking PulseWire sessions does not sign out of, disable, or delete the
+      underlying Microsoft account.
+    </p>
+  </section>
+
+  <section id="offline" class="legal-section">
+    <h2>Offline Saved copies</h2>
+    <p>
+      Choose the offline action on a Saved story while connected. PulseWire
+      downloads a sanitized text snapshot to IndexedDB in that browser profile;
+      article images are not included. Offline access applies only to explicitly
+      downloaded Saved items, not the whole edition, search, live sources, or AI.
+    </p>
+    <p>
+      The local copy is not end-to-end encrypted. Remove it before sharing a
+      browser profile or device. If a download appears stale, reconnect, open the
+      Saved item, remove the local copy, and download it again after the current
+      server snapshot loads.
+    </p>
+  </section>
+
+  <section id="sources-ai" class="legal-section">
+    <h2>Source freshness and generated briefs</h2>
+    <p>
+      A feed or article can be late or unavailable because the publisher changed
+      its feed, blocked a request, removed a page, or returned an error. Retry
+      later and compare the story with its linked source. Opening a source leaves
+      PulseWire and loads the publisher’s site under that publisher’s terms.
+    </p>
+    <p>
+      Briefs, embeddings, and grouping use configured Azure AI Foundry
+      deployments. Generated text can be incomplete or wrong, and an AI feature
+      can pause when provider or service controls are unavailable. Treat source
+      evidence as authoritative and report a repeatable mismatch with the story
+      title and time observed.
+    </p>
+  </section>
+
+  <section id="data-controls" class="legal-section">
+    <h2>Export, account deletion, and retention</h2>
+    <p>
+      PulseWire does not currently provide a self-service account export or
+      account-deletion control. A downloaded Saved snapshot is an offline reading
+      copy, not a full workspace export. Email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a> to
+      start a manual access or deletion review.
+    </p>
+    <p>
+      Deleting or revoking PulseWire data does not delete the Microsoft account,
+      Microsoft sign-in records, publisher records, or provider-held operational
+      data. The <a href="/pulsewire/privacy">PulseWire Privacy Policy</a> lists the
+      current article-retention tiers and Saved-snapshot exceptions.
+    </p>
+  </section>
+
+  <section id="troubleshooting" class="legal-section">
+    <h2>Troubleshooting checklist</h2>
+    <ol>
+      <li>Reconnect and reload the current page once.</li>
+      <li>Confirm the correct owner or demo session is active.</li>
+      <li>For owner access, check whether another device can open the workspace.</li>
+      <li>
+        For an offline issue, remain online until the Saved snapshot finishes
+        downloading, then test that specific item offline.
+      </li>
+      <li>
+        If the problem repeats, record the browser, operating system, time,
+        affected story or feature, and the visible recovery message.
+      </li>
+    </ol>
+    <p>
+      Do not send Microsoft passwords, verification codes, cookies, access tokens,
+      private source credentials, or a complete private workspace export.
+    </p>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Contact and legal documents</h2>
+    <p>
+      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> for product
+      support. Include only the minimum story title or screenshot needed to
+      explain the problem. For data handling, read the
+      <a href="/pulsewire/privacy">PulseWire Privacy Policy</a>. Use of PulseWire
+      is subject to the <a href="/terms">Nintek Terms of Use</a>.
+    </p>
+  </section>
+</LegalLayout>

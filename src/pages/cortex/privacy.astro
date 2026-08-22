@@ -1,13 +1,46 @@
 ---
 import CortexLegalLayout from '../../layouts/CortexLegalLayout.astro';
+import DataLifecycleTable from '../../components/DataLifecycleTable.astro';
 import { COMPANY, getApp } from '../../data/apps';
 
 const app = getApp('cortex')!;
-const effectiveDate = 'August 21, 2026';
-const policyVersion = '1.0';
+const effectiveDate = 'August 22, 2026';
+const policyVersion = '1.1';
 const title = `${app.name} Privacy Policy — ${COMPANY.name}`;
 const description =
   'How Cortex handles on-device game data, private iCloud Sudoku statistics, widgets, and optional Apple Game Center services.';
+const lifecycleRows = [
+  {
+    data: 'Local game data',
+    location: 'UserDefaults and Codable storage on the iPhone.',
+    portability: 'Cortex has no full user-data export or Nintek server backup.',
+    deletion: 'Deleting Cortex removes local app data from that iPhone. Cortex has no single in-app erase-all control.',
+  },
+  {
+    data: 'Sudoku statistics in private iCloud',
+    location: 'Apple’s private iCloud key-value store for the Apple Account on the device.',
+    portability: 'Apple controls the iCloud account and service. Nintek has no server copy to export.',
+    deletion: 'Use Apple’s iCloud controls. Private Sudoku statistics may return after reinstalling if the Apple-held copy remains.',
+  },
+  {
+    data: 'Widget snapshot',
+    location: 'The private App Group shared only by Cortex and its widget extension.',
+    portability: 'The snapshot is compact display state, not a gameplay backup or export.',
+    deletion: 'Removing a widget does not erase the snapshot or app data. Deleting Cortex removes its local App Group data from that iPhone.',
+  },
+  {
+    data: 'Game Center profile, scores, and achievements',
+    location: 'Apple Game Center when you choose to use it.',
+    portability: 'Apple provides profile and account controls. Cortex can keep pending submissions locally until Game Center is available.',
+    deletion: 'Deleting Cortex does not delete the Apple Account, Game Center profile, scores, leaderboards, or achievements.',
+  },
+  {
+    data: 'Support correspondence',
+    location: 'Nintek’s mailbox only when you choose to email.',
+    portability: 'You control the message you send and can request review of correspondence Nintek still holds.',
+    deletion: 'Nintek may retain correspondence for response, security, documentation, or legal obligations.',
+  },
+];
 ---
 
 <CortexLegalLayout
@@ -197,6 +230,11 @@ const description =
           may ask us to delete support correspondence, subject to applicable legal
           or security requirements.
         </p>
+        <DataLifecycleTable
+          caption="Cortex data lifecycle and account-control boundaries"
+          rows={lifecycleRows}
+          tone="dark"
+        />
       </section>
 
       <section id="children-regions" class="cx-legal-section">
@@ -230,7 +268,8 @@ const description =
         <p>
           Questions about this policy or information you sent to Nintek? Email
           <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
-          For help using Cortex, visit <a href="/cortex/support/">Cortex Support</a>.
+          For help using Cortex, visit <a href={app.supportPath}>Cortex Support</a>.
+          Use of Cortex is subject to the <a href={app.termsPath}>Nintek Terms of Use</a>.
         </p>
       </section>
     </div>

@@ -1,72 +1,156 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('shopkeep')!;
+const updatedDate = 'August 22, 2026';
+const sections = [
+  { href: '#availability', label: 'Availability and readiness' },
+  { href: '#identity', label: 'Sign-in and identity' },
+  { href: '#media', label: 'Private media' },
+  { href: '#offline', label: 'Offline limits' },
+  { href: '#export', label: 'Exports and backups' },
+  { href: '#deletion', label: 'Deletion and recreation' },
+  { href: '#troubleshooting', label: 'Troubleshooting' },
+  { href: '#contact', label: 'Contact' },
+];
 ---
 
-<BaseLayout
+<LegalLayout
+  app={app}
   title={`${app.name} Support — ${COMPANY.name}`}
-  description="Help with ShopKeep sign-in, private photos and documents, account deletion, inventory exports, and the current native release state."
+  description="Help with ShopKeep Apple and Microsoft sign-in, private photos and documents, offline limits, CSV/PDF/database exports, backups, account deletion, and current native readiness."
   path="/shopkeep/support"
-  noindex={true}
-  socialImage="/apps/shopkeep.png"
-  socialImageAlt="ShopKeep app icon"
+  page="support"
+  heading="ShopKeep Support"
+  documentMeta={`Updated ${updatedDate} · Private web and native pre-release`}
+  summary="ShopKeep has a private account-backed web app and a private native build for iPhone and iPad. Account deletion is implemented, but physical-device and App Store readiness checks remain open. There is no public App Store listing, TestFlight acquisition link, or announced price."
+  sections={sections}
+  evidenceNote="Support guidance was reviewed against the current live server, matching default-branch code, native lifecycle implementation, and release-readiness notes on August 22, 2026."
 >
-  <article class="prose container">
-    <a class="back-link" href="/shopkeep">← {app.name}</a>
-    <h1>{app.name} Support</h1>
-
-    <p class="callout">
-      <strong>Current availability.</strong> ShopKeep has a working web app and a
-      private native pre-release build. There is no public App Store listing,
-      TestFlight acquisition link, or announced price.
+  <section id="availability" class="legal-section">
+    <h2>Current availability and readiness</h2>
+    <p class="legal-callout">
+      ShopKeep’s server and deletion lifecycle are implemented and tested. The
+      private native app is not yet App Store-ready: physical-device Apple and
+      Microsoft sign-in and deletion checks, privacy-report reconciliation, and
+      submission remain pending.
     </p>
-
-    <h2>Get direct help</h2>
     <p>
-      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> with the
-      device or browser, ShopKeep version when known, sign-in provider, and the
-      steps that led to the problem. Do not send passwords, verification codes,
-      access tokens, payment details, or private inventory files unless support
-      explicitly asks for a redacted example.
+      Current private access does not imply a public beta, public App Store
+      listing, price, or release date.
     </p>
+  </section>
 
+  <section id="identity" class="legal-section">
     <h2>Apple and Microsoft sign-in</h2>
     <p>
-      Apple and Microsoft create separate ShopKeep accounts, even when both
-      providers use the same email address. Confirm which provider you used
-      before assuming inventory is missing. Signing out and choosing the other
-      provider opens that provider’s separate account.
+      Apple and Microsoft create separate ShopKeep accounts. If inventory looks
+      empty, confirm the active provider before assuming data was lost. Signing in
+      with the other provider opens that provider’s separate inventory.
     </p>
+    <p>
+      Support will not ask for passwords, verification codes, Apple authorization
+      codes, Microsoft bearer tokens, deletion-retry tokens, or encrypted provider
+      credentials.
+    </p>
+  </section>
 
-    <h2>Photos and documents</h2>
+  <section id="media" class="legal-section">
+    <h2>Private photos and documents</h2>
     <p>
-      Tool photos and attached documents require an authenticated account
-      request. If media stops loading, confirm the account session is active,
-      retry on a stable connection, and avoid sharing the raw request URL: it is
-      not a public file link.
+      ShopKeep stores media in the selected account’s SQLite database and returns
+      it only through authenticated, account-scoped, no-store requests. A raw
+      media request is not a public share link.
     </p>
+    <p>
+      If media stops loading, confirm the correct provider session, reconnect, and
+      reopen the tool. A generic not-found response can mean the item belongs to a
+      different account, was permanently removed, or is not available to the
+      current bearer session; it does not reveal another account’s inventory.
+    </p>
+  </section>
 
-    <h2>Delete a ShopKeep account</h2>
+  <section id="offline" class="legal-section">
+    <h2>Installable PWA and offline limits</h2>
     <p>
-      In the native app, open <strong>Settings → Account &amp; Data</strong>,
-      review the deletion summary, and confirm <strong>Delete ShopKeep
-      Account</strong>. The app signs out only after the backend confirms
-      deletion. A failure leaves the account active and shows a recovery action;
-      do not assume a failed request removed data.
+      ShopKeep has no offline inventory mode. The native app has no local database
+      mirror, write queue, or persistent media cache; it fetches inventory from the
+      Azure service and keeps media only in memory. The web client can install an
+      application shell, but inventory, authenticated media, exports, account
+      changes, and deletion remain online operations. A visible shell is not a data
+      backup.
     </p>
-    <p>
-      Deletion applies only to the selected Apple or Microsoft ShopKeep account.
-      It does not delete the provider account or a ShopKeep account made with the
-      other provider.
-    </p>
+  </section>
 
-    <h2>Privacy</h2>
+  <section id="export" class="legal-section">
+    <h2>Exports and recovery</h2>
+    <ul>
+      <li><strong>CSV inventory</strong> is suitable for rows and spreadsheet review.</li>
+      <li><strong>Location-label CSV</strong> carries location, sub-location, and QR data.</li>
+      <li><strong>Insurance PDF dossier</strong> is a formatted report, not a restorable database.</li>
+      <li>
+        <strong>Database backup</strong> is a downloadable SQLite copy and can
+        include sensitive photos and documents stored as BLOBs.
+      </li>
+    </ul>
     <p>
-      Read the <a href="/shopkeep/privacy/">ShopKeep Privacy Policy</a> for
-      details about account data, private media, AI processing, retention, and
-      deletion.
+      ShopKeep also keeps up to 14 local operator recovery bundles. An optional
+      protected off-host exporter can publish private recovery copies to Azure
+      Blob storage when enabled. Operator backups are not a substitute for keeping
+      your own export.
     </p>
-  </article>
-</BaseLayout>
+  </section>
+
+  <section id="deletion" class="legal-section">
+    <h2>Delete or recreate a ShopKeep account</h2>
+    <p>
+      In the private native build, open <strong>Settings → Account &amp;
+      Data</strong>, review the deletion scope, and confirm
+      <strong>Delete ShopKeep Account</strong>. The app clears local credentials,
+      caches, widgets, search state, and temporary exports only after the server
+      confirms the selected account was deleted.
+    </p>
+    <p>
+      If deletion fails, the account remains active and the app provides a recovery
+      path; do not assume the data is gone. Contact support with the provider,
+      build, time, and visible error. Physical-device verification is still a
+      release gate, so report any mismatch rather than repeating destructive steps.
+    </p>
+    <p>
+      Deletion affects only the active ShopKeep account. It does not delete the
+      Apple or Microsoft account or the other provider’s ShopKeep account. A later
+      fresh sign-in can create a new empty generation; it does not restore deleted
+      inventory from an old session.
+    </p>
+  </section>
+
+  <section id="troubleshooting" class="legal-section">
+    <h2>Troubleshooting checklist</h2>
+    <ol>
+      <li>Confirm web versus native and record the app or browser version.</li>
+      <li>Confirm the Apple or Microsoft provider used for the affected inventory.</li>
+      <li>Reconnect, reopen the tool, and retry one failed save or media load.</li>
+      <li>Keep original documents and make an export before destructive recovery.</li>
+      <li>
+        For a repeated failure, record the time, tool identifier, action, and
+        visible recovery message without sending credentials.
+      </li>
+    </ol>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Contact and legal documents</h2>
+    <p>
+      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> with the
+      platform, version, sign-in provider, affected feature, and steps already
+      tried. Do not send tokens, passwords, payment details, or an unredacted
+      database backup unless support requests a specific safe sample.
+    </p>
+    <p>
+      Read the <a href="/shopkeep/privacy">ShopKeep Privacy Policy</a> for storage,
+      providers, exports, backups, and account-lifecycle boundaries. Use of
+      ShopKeep is subject to the <a href="/terms">Nintek Terms of Use</a>.
+    </p>
+  </section>
+</LegalLayout>

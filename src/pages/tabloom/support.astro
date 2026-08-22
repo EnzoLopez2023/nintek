@@ -1,0 +1,150 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { getApp, COMPANY } from '../../data/apps';
+
+const app = getApp('tabloom')!;
+const updatedDate = 'August 22, 2026';
+const sections = [
+  { href: '#availability', label: 'Availability and identity' },
+  { href: '#offline', label: 'Offline reading' },
+  { href: '#export', label: 'Export, Trash, and history' },
+  { href: '#ai', label: 'AI, OCR, and quotas' },
+  { href: '#deletion', label: 'Account deletion gap' },
+  { href: '#troubleshooting', label: 'Troubleshooting' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<LegalLayout
+  app={app}
+  title={`${app.name} Support — ${COMPANY.name}`}
+  description="Help with Tabloom private web access, Microsoft identity, guest sharing, explicit offline reading, exports, Trash, history, AI/OCR quotas, and the current account-deletion gap."
+  path="/tabloom/support"
+  page="support"
+  heading="Tabloom Support"
+  documentMeta={`Updated ${updatedDate} · Private web app and installable PWA`}
+  summary="Tabloom is a private Microsoft-authenticated notebook workspace for one owner and invited guests. It can be installed as a PWA, but offline access is explicit, bounded, and read only. There is no native mobile app or public account registration."
+  sections={sections}
+  evidenceNote="Support guidance was reviewed against the current Tabloom default branch and its matching live deployment on August 22, 2026."
+>
+  <section id="availability" class="legal-section">
+    <h2>Availability, Microsoft identity, and sharing</h2>
+    <p class="legal-callout">
+      Tabloom has no public self-service sign-up. Microsoft identity authorizes the
+      owner and invited guests. A share is tied to the invited email and role; it
+      does not merge Microsoft accounts or create a public notebook.
+    </p>
+    <p>
+      If access is missing, confirm the intended Microsoft account and ask the
+      notebook owner to verify the invitation email and role. Support will not ask
+      for a password, verification code, Microsoft token, or browser identity key.
+    </p>
+  </section>
+
+  <section id="offline" class="legal-section">
+    <h2>Explicit offline reading</h2>
+    <p>
+      Download a notebook while connected to create a sanitized read-only copy in
+      identity-scoped IndexedDB. A bounded recent-page setting can also retain
+      eligible pages. Offline copies are not end-to-end encrypted and can be read
+      by someone with access to that browser profile.
+    </p>
+    <p>
+      Offline mode does not support editing, creation, deletion, sharing, scans,
+      AI, Search, Inbox, Trash, live History, or server settings. Reconnecting does
+      not immediately enable editing: Tabloom first completes an authoritative
+      refresh. If it cannot, the copy stays read only.
+    </p>
+    <p>
+      Sign-out clears private offline stores and is blocked if that clear fails.
+      Before sharing or disposing of a device, remove downloaded notebooks or
+      clear Tabloom site data in the browser.
+    </p>
+  </section>
+
+  <section id="export" class="legal-section">
+    <h2>Exports, Archive, Trash, and History</h2>
+    <p>
+      Tabloom provides page, notebook, and workspace exports. The default workspace
+      export is a ZIP containing Markdown pages, notebook indexes, optional link
+      listings, and referenced or Media-tab attachments by default. HTML is also
+      available; the PDF option creates printable HTML for browser print-to-PDF.
+      Exports do not include the Microsoft account or independent provider records.
+    </p>
+    <p>
+      Archive is reversible and does not free stored content. Trash is retained for
+      up to 30 days before the daily permanent-delete sweep. Page History keeps the
+      latest 50 versions per page. Restore content before those limits if you need
+      it.
+    </p>
+    <p>
+      Operator backups are different from exports: verified local SQLite-and-upload
+      bundles are retained for 14 days. They are used for service recovery and are
+      not available as a self-service account download.
+    </p>
+  </section>
+
+  <section id="ai" class="legal-section">
+    <h2>AI, semantic search, OCR, and quotas</h2>
+    <p>
+      Anthropic handles selected generation requests, Voyage AI creates semantic
+      embeddings, Azure Computer Vision Read API performs configured OCR, and a
+      configured Azure OpenAI gpt-image-1 deployment can clean a selected Inkbox
+      scan into a PDF. If a provider is disabled or unavailable, Tabloom reports a
+      failure instead of treating the operation as successful.
+    </p>
+    <p>
+      The current per-identity limits are 30 admitted requests in a rolling hour
+      and a $5 estimated monthly processing budget. Wait for the rolling window or
+      next monthly period after a quota message; repeatedly retrying does not move
+      the request to another identity. Generated and extracted output should be
+      checked against the original.
+    </p>
+  </section>
+
+  <section id="deletion" class="legal-section">
+    <h2>Current account-deletion gap</h2>
+    <p>
+      Tabloom does not currently have a self-service account-deletion control or
+      account-deletion API. Emptying Trash or permanently deleting a notebook is
+      content deletion, not Microsoft-account or full Tabloom-account deletion.
+    </p>
+    <p>
+      Email <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>
+      to request a manual review of Tabloom-held account data. The request does not
+      delete the underlying Microsoft account, another identity’s records, or
+      provider-held operational data, and it is not an immediate automated action.
+    </p>
+  </section>
+
+  <section id="troubleshooting" class="legal-section">
+    <h2>Troubleshooting checklist</h2>
+    <ol>
+      <li>Confirm the intended Microsoft identity and notebook role.</li>
+      <li>Reconnect and wait for a complete authoritative refresh before editing.</li>
+      <li>
+        For offline issues, remove and redownload the affected notebook while
+        connected.
+      </li>
+      <li>Check Trash and History before assuming recent content is permanently gone.</li>
+      <li>
+        Record the browser, operating system, time, notebook or page title, and
+        visible recovery message for support.
+      </li>
+    </ol>
+    <p>
+      Do not send Microsoft credentials, private tokens, full notebook exports, or
+      unredacted personal scans unless support requests a specific safe sample.
+    </p>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Contact and legal documents</h2>
+    <p>
+      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> for product
+      help. Read the <a href="/tabloom/privacy">Tabloom Privacy Policy</a> for
+      identity, processor, storage, quota, retention, and deletion details. Use of
+      Tabloom is subject to the <a href="/terms">Nintek Terms of Use</a>.
+    </p>
+  </section>
+</LegalLayout>

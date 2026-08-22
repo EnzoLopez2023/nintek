@@ -1,0 +1,112 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { App } from '../data/apps';
+import { COMPANY, TERMS_PATH } from '../data/apps';
+import '../styles/legal.css';
+
+interface SectionLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  app?: App;
+  title: string;
+  description: string;
+  path: string;
+  page: 'privacy' | 'support' | 'terms';
+  heading: string;
+  summary: string;
+  documentMeta: string;
+  sections: SectionLink[];
+  evidenceNote?: string;
+  theme?: 'house' | 'workshop';
+  noindex?: boolean;
+}
+
+const {
+  app,
+  title,
+  description,
+  path,
+  page,
+  heading,
+  summary,
+  documentMeta,
+  sections,
+  evidenceNote,
+  theme = 'house',
+  noindex = page !== 'terms',
+} = Astro.props;
+
+const icon = app
+  ? app.slug === 'tabloom'
+    ? '/apps/tabloom.svg'
+    : `/apps/${app.slug}.png`
+  : undefined;
+
+const documentLinks = app
+  ? [
+      app.privacyPath && { href: app.privacyPath, label: 'Privacy', key: 'privacy' },
+      app.supportPath && { href: app.supportPath, label: 'Support', key: 'support' },
+      { href: app.termsPath, label: 'Terms', key: 'terms' },
+    ].filter(Boolean)
+  : [
+      { href: '/', label: 'Portfolio', key: 'portfolio' },
+      { href: '/#apps', label: 'Apps', key: 'apps' },
+      { href: TERMS_PATH, label: 'Terms', key: 'terms' },
+    ];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  noindex={noindex}
+  socialImage={icon ?? '/bg.png'}
+  socialImageAlt={app ? `${app.name} app icon` : 'Abstract copper Nintek circuit motif'}
+>
+  <div class={`legal-root legal-root--${theme}`}>
+    <div class="legal-shell">
+      <header class="legal-heading">
+        <a class="legal-back" href={app ? `/${app.slug}` : '/'}>← {app ? app.name : COMPANY.name}</a>
+        <div class="legal-title-row">
+          {icon && <img src={icon} alt="" width="68" height="68" />}
+          <div>
+            <h1>{heading}</h1>
+            <p class="legal-meta">{documentMeta}</p>
+          </div>
+        </div>
+        <p class="legal-summary">{summary}</p>
+        <nav class="legal-document-nav" aria-label={`${app?.name ?? COMPANY.name} legal documents`}>
+          {
+            documentLinks.map((link) => (
+              <a href={link!.href} aria-current={link!.key === page ? 'page' : undefined}>
+                {link!.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+
+      <div class="legal-layout">
+        <nav class="legal-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          {sections.map((section) => <a href={section.href}>{section.label}</a>)}
+        </nav>
+
+        <article class="legal-copy">
+          <slot />
+
+          {
+            evidenceNote && (
+              <p class="legal-evidence">
+                <strong>Evidence note.</strong> {evidenceNote}
+              </p>
+            )
+          }
+        </article>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,177 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { getApp, COMPANY } from '../../data/apps';
+
+const app = getApp('tare')!;
+const updatedDate = 'August 22, 2026';
+const sections = [
+  { href: '#availability', label: 'Availability' },
+  { href: '#identity', label: 'Accounts and identity' },
+  { href: '#health-cloud', label: 'Health and iCloud' },
+  { href: '#ai', label: 'Optional AI' },
+  { href: '#backup', label: 'Backup and restore' },
+  { href: '#deletion', label: 'Deletion and retired web data' },
+  { href: '#troubleshooting', label: 'Troubleshooting' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<LegalLayout
+  app={app}
+  title={`${app.name} Support — ${COMPANY.name}`}
+  description="Help with Tare for iPhone, iPad, and Apple Watch, including HealthKit, private CloudKit, optional AI, backups, offline use, and retired web data."
+  path="/tare/support"
+  page="support"
+  heading="Tare Support"
+  documentMeta={`Updated ${updatedDate} · iOS 17+ · watchOS 10+`}
+  summary="Tare is now a native-only product for iPhone, iPad, and Apple Watch. It has no Tare account, no web login, and no public App Store listing. Its former browser app is an informational retirement page; the stateless AI relay remains for optional native features."
+  sections={sections}
+  evidenceNote="Support guidance was reviewed against the current native default branch, the matching relay-only live deployment, and the active retirement gates on August 22, 2026."
+>
+  <section id="availability" class="legal-section">
+    <h2>Current availability</h2>
+    <p class="legal-callout">
+      Tare is a private pre-release native build for iPhone and iPad on iOS 17 or
+      later, with an Apple Watch companion on watchOS 10 or later. There is no
+      verified public App Store listing, public acquisition link, or announced
+      price.
+    </p>
+    <p>
+      The retired web address shows retirement information only. It is not a
+      supported Tare web app, sign-in page, export portal, or route to the native
+      health store.
+    </p>
+  </section>
+
+  <section id="identity" class="legal-section">
+    <h2>No Tare account or web sign-in</h2>
+    <p>
+      Native Tare opens without an account. Your Apple Account may provide private
+      CloudKit sync and Apple Health may provide approved records, but neither is
+      a Nintek-managed Tare account. Support will never ask for an Apple password,
+      verification code, App Attest token, or iCloud credential.
+    </p>
+  </section>
+
+  <section id="health-cloud" class="legal-section">
+    <h2>Troubleshoot Apple Health and private iCloud</h2>
+    <h3>Apple Health</h3>
+    <ul>
+      <li>Review Tare’s Health permissions in Apple Settings or the Health app.</li>
+      <li>
+        Open Tare or return it to the foreground after enabling access, then use
+        <strong>Sync now</strong> if you need an immediate check.
+      </li>
+      <li>
+        Weight and glucose can sync both ways; sleep and steps are read only.
+        Manually entered Tare values take precedence over imports.
+      </li>
+      <li>
+        Apple Health authorization is a system control. Reinstalling Tare does not
+        guarantee that Apple will present the same permission prompt again.
+      </li>
+    </ul>
+    <h3>Private CloudKit</h3>
+    <ul>
+      <li>Confirm the device is signed in to the intended Apple Account.</li>
+      <li>Check iCloud availability, network access, and free iCloud storage.</li>
+      <li>Open Tare on each device and allow Apple time to deliver changes.</li>
+      <li>
+        Do not delete the app while troubleshooting if a device may contain the
+        only local copy of records you need.
+      </li>
+    </ul>
+    <p>
+      Nintek cannot inspect, merge, force, or restore a private CloudKit database.
+    </p>
+  </section>
+
+  <section id="ai" class="legal-section">
+    <h2>Troubleshoot optional AI features</h2>
+    <p>
+      AI is off until you accept the current consent scope. Confirm AI is enabled
+      under Tare’s privacy settings, the device is online, and the selected input
+      is within the feature’s stated scope. A changed scope asks for consent again.
+    </p>
+    <p>
+      If a request fails, retry once after reconnecting. The relay keeps no request
+      or answer database, so support cannot retrieve a failed transcript. Report
+      the feature name, time, app build, and visible error without sending a full
+      health database, medication history, or unredacted lab document.
+    </p>
+    <p>
+      Generated output can be wrong and is not medical advice. Do not use it to
+      choose a medication, dose, diagnosis, or treatment.
+    </p>
+  </section>
+
+  <section id="backup" class="legal-section">
+    <h2>Backup, restore, export, and offline limits</h2>
+    <p>
+      Tare exports a JSON backup containing all 16 data tables and can restore a
+      compatible native or former web backup. It keeps one rolling local backup
+      per day for 14 days and attempts a separate safety copy before every restore.
+      Keep an independent copy before a device migration or destructive
+      troubleshooting step. The file contains health information; store and share
+      it accordingly.
+    </p>
+    <p>
+      Core records remain usable offline. CloudKit, Health delivery between
+      services, and optional AI wait for the required Apple or internet service.
+      Nintek does not hold a native server backup and cannot recreate a lost local
+      store from the relay.
+    </p>
+  </section>
+
+  <section id="deletion" class="legal-section">
+    <h2>Deletion and the retained legacy web database</h2>
+    <p>
+      There is no native Tare account to delete. Deleting the app removes its local
+      data from that device, but private CloudKit data, Apple Health records, and
+      exported backup files have separate controls. Tare has no in-app erase-all
+      control.
+    </p>
+    <p>
+      The former web database is separate and has not yet been destructively
+      removed. Cleanup is waiting for physical-device validation, completion and
+      review of the active soak, native-successor acceptance, and explicit
+      confirmation. Email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a> about
+      access to or deletion of a retained legacy copy. Do not use obsolete web
+      login instructions; the web product is retired.
+    </p>
+  </section>
+
+  <section id="troubleshooting" class="legal-section">
+    <h2>General troubleshooting</h2>
+    <ol>
+      <li>Confirm the device meets the iOS, iPadOS, or watchOS requirement.</li>
+      <li>Install the newest private build available to the authorized Apple Account.</li>
+      <li>Force-quit and reopen Tare, then restart the device if needed.</li>
+      <li>Check free device storage before importing or creating a backup.</li>
+      <li>
+        For Apple Watch delivery, keep Bluetooth and Wi-Fi available, open Tare on
+        the iPhone, and allow queued entries time to transfer.
+      </li>
+    </ol>
+    <p>
+      Avoid deleting Tare as an early recovery step when the device may hold the
+      only local copy of important records.
+    </p>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Contact and legal documents</h2>
+    <p>
+      Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> with the
+      device model, operating-system version, Tare build, affected feature, and
+      recovery steps already tried. Do not send credentials or more health data
+      than the issue requires.
+    </p>
+    <p>
+      Read the <a href="/tare/privacy">Tare Privacy Policy</a> for data locations,
+      providers, retention, and deletion boundaries. Use of Tare is subject to the
+      <a href="/terms">Nintek Terms of Use</a>.
+    </p>
+  </section>
+</LegalLayout>

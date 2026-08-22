@@ -206,6 +206,11 @@ h3 {
 .site-footer a {
   color: var(--ink-soft);
 }
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
 
 /* ---- Pill / eyebrow ---- */
 .eyebrow {

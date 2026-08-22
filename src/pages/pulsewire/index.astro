@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import { getApp } from '../../data/apps';
 import '../../styles/pulsewire-landing.css';
+
+const app = getApp('pulsewire')!;
 
 const capabilities = [
   {
@@ -24,7 +27,7 @@ const capabilities = [
 const architecture = [
   ['Catalog', '317 unique feeds · 64 categories'],
   ['Data', 'PostgreSQL · pgvector'],
-  ['Identity', 'Private Microsoft Entra sign-in'],
+  ['Identity', 'Microsoft Entra owner · 24-hour read-only demo'],
   ['AI', 'Azure AI briefs and embeddings'],
   ['Offline', 'Explicit Saved snapshots in the PWA'],
 ];
@@ -35,7 +38,7 @@ const architecture = [
   noindex
   path="/pulsewire"
   title="PulseWire — Follow developing stories, not an endless feed."
-  description="A private story-intelligence reader with a 317-feed catalogue, evidence-first story grouping, PostgreSQL and pgvector, and explicit offline Saved snapshots."
+  description="A story-intelligence reader with an Entra-protected owner workspace, a separate 24-hour read-only demo, a 317-feed catalogue, PostgreSQL and pgvector, and explicit offline Saved snapshots."
   themeColor="#f6f7fb"
   socialImage="/apps/pulsewire.png"
   socialImageAlt="PulseWire app icon"
@@ -48,7 +51,7 @@ const architecture = [
           <img src="/apps/pulsewire.png" alt="" width="40" height="40" />
           <span>PulseWire</span>
         </a>
-        <span class="pw-private">Private workspace</span>
+        <span class="pw-private">Owner workspace · demo separate</span>
       </div>
     </header>
 
@@ -58,9 +61,9 @@ const architecture = [
           <div class="pw-hero__copy">
             <h1>Follow developing stories, not an endless feed.</h1>
             <p>
-              PulseWire is a private, single-owner intelligence layer over RSS
-              sources. It groups related reporting, shows what changed, and
-              keeps source evidence near every brief.
+              PulseWire is a story-intelligence layer over RSS sources. Its owner
+              workspace is private and Entra-protected; a separate read-only demo
+              shows the reading model without creating a personal account.
             </p>
             <dl class="pw-proof-strip">
               <div>
@@ -72,13 +75,14 @@ const architecture = [
                 <dd>catalog categories</dd>
               </div>
               <div>
-                <dt>Private</dt>
-                <dd>authenticated reader</dd>
+                <dt>24h</dt>
+                <dd>read-only demo session</dd>
               </div>
             </dl>
             <p class="pw-availability">
-              This portfolio page is not a public reader or demo entry point.
-              The production workspace remains access-controlled.
+              This portfolio page does not publish the service entry point. The
+              production owner workspace remains access-controlled; the live
+              service currently offers a separate, non-personal read-only demo.
             </p>
           </div>
 
@@ -159,8 +163,12 @@ const architecture = [
 
     <footer class="pw-foot">
       <div class="pw-wrap pw-foot__inner">
-        <p>PulseWire · private story intelligence for selected sources</p>
-        <a href="/pulsewire/privacy">Privacy policy</a>
+        <p>PulseWire · private owner workspace · separate read-only demo</p>
+        <nav aria-label="PulseWire help and legal">
+          <a href={app.supportPath}>Support</a>
+          <a href={app.privacyPath}>Privacy</a>
+          <a href={app.termsPath}>Terms</a>
+        </nav>
       </div>
     </footer>
   </div>

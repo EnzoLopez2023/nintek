@@ -3,8 +3,8 @@ import CortexLegalLayout from '../../layouts/CortexLegalLayout.astro';
 import { COMPANY, getApp } from '../../data/apps';
 
 const app = getApp('cortex')!;
-const updatedDate = 'August 21, 2026';
-const supportVersion = '1.0';
+const updatedDate = 'August 22, 2026';
+const supportVersion = '1.1';
 const title = `${app.name} Support — ${COMPANY.name}`;
 const description =
   'Help with Cortex on iPhone, including local game data, private iCloud Sudoku sync, optional Game Center, widgets, resets, and pre-release availability.';
@@ -187,7 +187,7 @@ const description =
       <section id="privacy" class="cx-legal-section">
         <h2>Privacy</h2>
         <p>
-          Read the <a href="/cortex/privacy/">Cortex Privacy Policy</a> for details
+          Read the <a href={app.privacyPath}>Cortex Privacy Policy</a> for details
           about local storage, private iCloud Sudoku statistics, App Group widget
           snapshots, optional Game Center, permissions, retention, and deletion.
         </p>
@@ -229,6 +229,8 @@ const description =
           Do not send your Apple Account password, verification codes, payment
           information, or other credentials. For privacy questions, email
           <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+          Use of Cortex is subject to the
+          <a href={app.termsPath}>Nintek Terms of Use</a>.
         </p>
       </section>
     </div>

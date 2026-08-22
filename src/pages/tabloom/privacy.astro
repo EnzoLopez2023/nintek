@@ -1,148 +1,233 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import DataLifecycleTable from '../../components/DataLifecycleTable.astro';
+import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tabloom')!;
-const lastUpdated = 'August 21, 2026';
+const effectiveDate = 'August 22, 2026';
+const sections = [
+  { href: '#scope', label: 'Scope and identity' },
+  { href: '#data', label: 'Data processed' },
+  { href: '#processors', label: 'AI, embeddings, and OCR' },
+  { href: '#storage', label: 'Server and offline storage' },
+  { href: '#lifecycle', label: 'Export, trash, history, and deletion' },
+  { href: '#quotas', label: 'Quotas and operations' },
+  { href: '#contact', label: 'Contact' },
+];
+const lifecycleRows = [
+  {
+    data: 'Identity, email, sharing, and activity',
+    location: 'Microsoft identity supplies tenant and object identifiers, name, and email. Tabloom stores first-seen and last-seen activity and sharing grants by email in its server database.',
+    portability: 'Workspace exports include content, not the underlying Microsoft account or every provider security record.',
+    deletion: 'There is no self-service account-deletion route. A manual request can be reviewed for Tabloom-held records; it does not delete the Microsoft account.',
+  },
+  {
+    data: 'Notebooks, pages, archive, Trash, versions, and generated content',
+    location: 'A server-side SQLite workspace database hosted on Microsoft Azure. This is a shared owner-and-guest workspace, not a separate database for every identity.',
+    portability: 'Page, notebook, and workspace exports support ZIP, HTML, and browser print-to-PDF. ZIP includes Markdown and, by default, referenced and Media-tab attachments.',
+    deletion: 'Archive is not deletion. Trash is permanently swept after 30 days; owners can permanently delete sooner. Page history keeps the most recent 50 versions per page.',
+  },
+  {
+    data: 'Uploads and Inkbox media',
+    location: 'Account-scoped files on the Azure App Service persistent uploads volume, referenced by the SQLite database.',
+    portability: 'Exports include only the media supported by the selected export format. Keep independent originals for files that must survive outside Tabloom.',
+    deletion: 'Permanent content deletion removes associated active records and files as implemented. Recovery bundles can retain older copies until their retention expires.',
+  },
+  {
+    data: 'Explicit offline reading copies',
+    location: 'Sanitized, identity-scoped IndexedDB in the browser profile. Remote images are stripped. Copies are not end-to-end encrypted.',
+    portability: 'The copy is a bounded read-only notebook or recent-page download, not a full editable workspace export.',
+    deletion: 'Clear the downloaded notebook or site data, change identity, or complete sign-out. Sign-out is blocked if Tabloom cannot clear the private offline stores.',
+  },
+  {
+    data: 'AI, embedding, and OCR inputs and outputs',
+    location: 'Scoped content can be sent to Anthropic, Voyage AI, or configured Azure image-processing services for the selected operation. Resulting text, vectors, and usage records can be stored with the workspace.',
+    portability: 'Saved generated content can appear in content exports; provider-side operational records are controlled by the provider.',
+    deletion: 'Delete the saved content or request review of account-associated records. Provider retention follows each provider’s terms and legal obligations.',
+  },
+  {
+    data: 'Recovery and support records',
+    location: 'Verified local recovery bundles include SQLite and uploads and are retained for 14 days. Optional off-host Azure export is a separate, off-by-default recovery control. Support mail exists only if you contact Nintek.',
+    portability: 'Operator recovery bundles are not a user account export. You control any support message you send.',
+    deletion: 'Deleted data can remain in local backups until expiry. Nintek reviews support-mail requests subject to response, security, and legal needs.',
+  },
+];
 ---
 
-<BaseLayout
+<LegalLayout
+  app={app}
   title={`${app.name} Privacy Policy — ${COMPANY.name}`}
-  description="How Tabloom handles account, notebook, archive, AI, and offline-reading data."
-  path={`/${app.slug}/privacy`}
-  noindex={true}
-  socialImage="/apps/tabloom.png"
-  socialImageAlt="Tabloom app icon"
+  description="How Tabloom handles Microsoft identity, notebook and sharing data, Anthropic, Voyage AI, Azure OCR, SQLite and uploads, explicit IndexedDB offline copies, exports, Trash, history, quotas, and the current account-deletion gap."
+  path="/tabloom/privacy"
+  page="privacy"
+  heading="Tabloom Privacy Policy"
+  documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
+  summary="Tabloom is a private owner-and-guest notebook workspace and installable PWA. It stores content in a server-side SQLite workspace with persistent uploads, offers explicit read-only IndexedDB downloads, and uses separate processors for generation, semantic search, and selected image operations."
+  sections={sections}
+  evidenceNote="Reviewed against the current Tabloom default branch and its matching live deployment on August 22, 2026. Account deletion remains a manual process because no self-service deletion endpoint exists."
 >
-  <article class="prose container">
-    <a class="back-link" href="/tabloom">← {app.name}</a>
-    <h1>{app.name} Privacy Policy</h1>
-    <p class="updated">Last updated: {lastUpdated}</p>
-
+  <section id="scope" class="legal-section">
+    <h2>Scope, identity, and sharing</h2>
     <p>
-      This policy explains how {COMPANY.name} (“we”, “us”) handles information
-      in {app.name}, a private notebook workspace with sharing, archive, AI
-      assistance, and explicit offline reading.
+      This policy explains how {COMPANY.name} (“we”, “us”) handles information in
+      {app.name}. Tabloom is a private, single-owner notebook workspace that can
+      grant selected guest access by email. It has no public self-service sign-up.
     </p>
+    <p class="legal-callout">
+      Microsoft identity provides the tenant and object identifiers, name, and
+      email needed for access. Tabloom records first-seen and last-seen activity
+      and uses email for sharing grants. Offline copies are identity-scoped but are
+      not end-to-end encrypted.
+    </p>
+    <p>
+      Tabloom does not use third-party advertising or cross-app tracking and does
+      not request precise location, contacts, or advertising identifiers.
+    </p>
+  </section>
 
-    <h2>Information we process</h2>
+  <section id="data" class="legal-section">
+    <h2>Information Tabloom processes</h2>
     <ul>
       <li>
-        <strong>Account information.</strong> Microsoft identity services provide
-        the stable account identifier and basic profile details, such as name
-        and email address, needed to create and secure the account.
+        <strong>Identity and sharing.</strong> Microsoft tenant and object
+        identifiers, profile name, lower-cased sign-in email, first-seen and
+        last-seen timestamps, and email-based notebook grants.
       </li>
       <li>
-        <strong>Notebook content.</strong> Notebooks, pages, rich-text blocks,
-        tags, links, media, shares, versions, archive state, Inkbox scans, and
-        generated content are stored so Tabloom can organize, search, share,
-        restore, and return the workspace.
+        <strong>Workspace content.</strong> Notebooks, pages, rich-text blocks,
+        links, tags, shares, archive and Trash state, versions, generated content,
+        and settings.
       </li>
       <li>
-        <strong>Operational records.</strong> Request timing, errors, AI usage
-        and quota records, version information, and security events are processed
-        as needed to run, secure, recover, and troubleshoot the service.
+        <strong>Uploads and scans.</strong> Images and files you add, Inkbox input,
+        OCR text, image-processing output, and references needed to return the
+        content.
+      </li>
+      <li>
+        <strong>Operations.</strong> Request timing, errors, version information,
+        security activity, AI-call status, quota and estimated-cost records,
+        backup manifests, and recovery checks.
+      </li>
+    </ul>
+  </section>
+
+  <section id="processors" class="legal-section">
+    <h2>Anthropic, Voyage AI, and Azure image processing</h2>
+    <p>Tabloom uses different processors for distinct tasks:</p>
+    <ul>
+      <li>
+        <strong>Anthropic</strong> processes selected text, retrieved note context,
+        or a chosen scan for summarizing, rewriting, Ask Your Notes, suggestions,
+        and related generation.
+      </li>
+      <li>
+        <strong>Voyage AI</strong> creates semantic-search embeddings from page
+        text and search queries. The resulting vectors are stored with the private
+        workspace.
+      </li>
+      <li>
+        <strong>Azure Computer Vision Read API</strong> can extract text from an
+        uploaded image when OCR is configured and you invoke that workflow.
+      </li>
+      <li>
+        <strong>Azure OpenAI Service</strong> can use the configured
+        <strong>gpt-image-1</strong> deployment to clean a selected Inkbox
+        handwriting scan and place the result into a PDF. This narrow feature is
+        disabled when its Azure configuration is absent.
       </li>
     </ul>
     <p>
-      Tabloom does not use third-party advertising or cross-app tracking and
-      does not need precise location, contacts, or advertising identifiers.
+      Only the content needed for the selected operation is sent. Generated or
+      extracted output can be wrong; compare it with the original before relying
+      on it. Provider-side processing and retention follow the provider’s terms.
     </p>
+  </section>
 
-    <h2>AI and embedding processors</h2>
+  <section id="storage" class="legal-section">
+    <h2>Server storage and explicit offline reading</h2>
     <p>
-      Different features use different configured processors:
+      Tabloom stores its owner-and-guest workspace in SQLite on a persistent
+      Microsoft Azure App Service volume. Upload bytes live in an account-scoped
+      uploads directory referenced by the database; they are not authoritative
+      live media in Azure Blob Storage. HTTPS protects service traffic in transit.
     </p>
-    <ul>
-      <li>
-        Anthropic Claude processes selected text, retrieved note context, or a
-        chosen scan when you use summarizing, rewriting, Ask Your Notes, tag or
-        notebook suggestions, or related assistance.
-      </li>
-      <li>
-        Voyage AI creates semantic-search embeddings from page text and search
-        queries when semantic search is enabled. The resulting vectors are stored
-        with the private workspace.
-      </li>
-      <li>
-        A configured Azure AI image service may process a scan selected for
-        Inkbox image cleanup or extraction.
-      </li>
-    </ul>
-    <p>
-      Content needed for the chosen operation is sent to the relevant provider.
-      Provider processing follows that provider’s applicable service terms; this
-      policy does not promise controls beyond the configuration actually
-      deployed.
-    </p>
-
-    <h2>Server storage</h2>
-    <p>
-      Account notebooks, pages, tags, archive state, and generated content are
-      stored in a private per-user SQLite database hosted on Microsoft Azure.
-      Media may use account-scoped Azure storage. Information is encrypted in
-      transit using HTTPS, and service access is limited to what is needed to
-      operate and secure Tabloom.
-    </p>
-
-    <h2>Offline reading and IndexedDB</h2>
     <p>
       Tabloom is installable but is not local-first. When you explicitly download
-      a notebook, or when the bounded recent-page setting keeps an eligible page,
-      sanitized read-only copies are stored in identity-scoped IndexedDB in the
-      browser profile. The service worker caches only the public shell and static
-      assets; it does not cache authenticated API responses.
+      a notebook, or when a bounded recent-page setting keeps an eligible page,
+      sanitized read-only copies are stored in identity-scoped IndexedDB. The
+      service worker caches the public shell and static assets, not authenticated
+      API responses.
     </p>
     <p>
-      Offline copies can include selected notebooks, pages, and optional eligible
-      images within configured limits. Editing, creation, deletion, sharing,
-      scanning, AI, Search, Inbox, Trash, live History, and server-backed settings
-      remain unavailable offline. Reconnecting stays read-only until a complete
-      authoritative refresh succeeds.
+      Offline editing, creation, deletion, sharing, scanning, AI, Search, Inbox,
+      Trash, live History, and server-backed settings remain unavailable. After
+      reconnecting, the workspace stays read only until a complete authoritative
+      refresh succeeds. Anyone with access to the browser profile may be able to
+      read offline copies, and the browser may evict them.
     </p>
-    <p>
-      IndexedDB copies are not end-to-end encrypted. Anyone with access to the
-      browser profile may be able to read them, and the browser may evict them.
-      Tabloom clears private offline stores when the active identity changes and
-      blocks sign-out if that privacy clear fails.
-    </p>
+  </section>
 
-    <h2>Archive, retention, and deletion</h2>
+  <section id="lifecycle" class="legal-section">
+    <h2>Export, Archive, Trash, history, and account deletion</h2>
     <p>
-      Archiving hides a page or notebook tree from the active workspace but does
-      not delete it; archived content remains stored so an authorized owner can
-      restore it. We retain account data while the account is active and as
-      needed for recovery, security, or legal obligations. To request access to
-      or deletion of account-associated data, email
+      Tabloom provides page, notebook, and workspace export routes. Workspace ZIP
+      is the default and contains Markdown pages, indexes, links when selected,
+      and referenced or Media-tab attachments by default. HTML is also available;
+      the PDF choice produces printable HTML for browser print-to-PDF. Exports do
+      not include the underlying Microsoft account, every provider record, or
+      operator backup history.
+    </p>
+    <p>
+      Archive hides content from the active workspace but does not delete it.
+      Trash is a soft-delete state: a daily sweep permanently removes items older
+      than 30 days, and owners can permanently delete supported content sooner.
+      Page history retains the most recent 50 versions for each page.
+    </p>
+    <p>
+      There is currently no self-service Tabloom account export-and-delete flow
+      and no account-deletion API route. Emailing a request starts a manual review;
+      it is not a promise of immediate automated deletion and does not delete the
+      Microsoft account or independent provider records.
+    </p>
+    <DataLifecycleTable
+      caption="Tabloom data lifecycle and account-control boundaries"
+      rows={lifecycleRows}
+    />
+  </section>
+
+  <section id="quotas" class="legal-section">
+    <h2>AI quotas, backups, and operations</h2>
+    <p>
+      AI and image operations are admitted per Microsoft principal. The current
+      limits are 30 requests in a rolling hour and a $5 estimated monthly
+      processing budget. A quota failure stops the requested operation rather than
+      silently switching identity or charging another user’s allowance.
+    </p>
+    <p>
+      Tabloom creates verified daily recovery bundles from SQLite and the uploads
+      tree and retains local bundles for 14 days. A managed-identity off-host
+      exporter exists but is off by default and remains an operator recovery
+      control, not a user export or a promise that every deployment has an
+      activated off-host copy.
+    </p>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Children, changes, and contact</h2>
+    <p>
+      Tabloom is intended for a general adult audience and is not directed to
+      children. We do not knowingly create Tabloom access for children.
+    </p>
+    <p>
+      We may update this policy when the service, processors, quotas, offline
+      scope, retention, or deletion controls change. The dates at the top identify
+      this version.
+    </p>
+    <p>
+      Privacy, access, and manual deletion requests can be sent to
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      Product help is available on <a href="/tabloom/support">Tabloom Support</a>.
+      Use of Tabloom is subject to the <a href="/terms">Nintek Terms of Use</a>.
     </p>
-
-    <h2>Sharing and service providers</h2>
-    <p>
-      We do not sell personal information. Microsoft provides identity and Azure
-      hosting or storage. The AI and embedding providers described above process
-      content only for their part of the selected or configured feature.
-      Information may also be disclosed where required by law or needed to
-      protect the service.
-    </p>
-
-    <h2>Children’s privacy</h2>
-    <p>
-      The Service is intended for a general, adult audience and is not directed
-      to children. We do not knowingly collect personal information from
-      children.
-    </p>
-
-    <h2>Changes to this policy</h2>
-    <p>
-      We may update this policy when the service or its data practices change.
-      The “Last updated” date above identifies the current version.
-    </p>
-
-    <h2>Contact</h2>
-    <p>
-      Questions about this policy or your data? Email
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
-    </p>
-  </article>
-</BaseLayout>
+  </section>
+</LegalLayout>

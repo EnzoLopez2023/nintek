@@ -1,130 +1,212 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import DataLifecycleTable from '../../components/DataLifecycleTable.astro';
+import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('pulsewire')!;
-const lastUpdated = 'August 21, 2026';
+const effectiveDate = 'August 22, 2026';
+const sections = [
+  { href: '#scope', label: 'Scope and access' },
+  { href: '#data', label: 'Data processed' },
+  { href: '#ai-sources', label: 'AI and source requests' },
+  { href: '#offline', label: 'Offline Saved snapshots' },
+  { href: '#lifecycle', label: 'Export, deletion, and retention' },
+  { href: '#sessions', label: 'Sessions and security' },
+  { href: '#contact', label: 'Contact' },
+];
+const lifecycleRows = [
+  {
+    data: 'Microsoft Entra identity and PulseWire sessions',
+    location: 'Microsoft authenticates the identity. PulseWire stores the allowed principal and a server-side session ledger; the ledger does not store raw tokens, IP addresses, or user-agent strings.',
+    portability: 'PulseWire has no self-service identity or account export. Microsoft provides controls for the underlying Microsoft account.',
+    deletion: 'You can revoke the current session or all PulseWire sessions. Revocation does not delete the Microsoft account or Microsoft-held sign-in records.',
+  },
+  {
+    data: 'Articles, story groups, embeddings, briefs, read state, and source settings',
+    location: 'PulseWire stores this workspace data in Azure-hosted PostgreSQL, including pgvector embeddings.',
+    portability: 'There is no self-service account or workspace export in the current product.',
+    deletion: 'Unsaved article bodies and embeddings are kept in full for 7 days, reduced after 7 days, and removed after 30 days. Saved or read-referenced records keep a reduced breadcrumb or saved snapshot as described below.',
+  },
+  {
+    data: 'Saved stories and immutable server snapshots',
+    location: 'A Saved item and its sanitized, checksummed snapshot remain in the private server workspace so the saved edition can be reproduced.',
+    portability: 'A Saved snapshot can be explicitly downloaded for offline reading. This is a reading copy, not a full account export.',
+    deletion: 'Saved records are exempt from ordinary article pruning while they remain referenced. Removing a Saved item does not delete a separate browser copy until that copy is also removed or cleared.',
+  },
+  {
+    data: 'Offline Saved copies',
+    location: 'Identity-scoped IndexedDB in the browser profile. Copies exclude article images and are not end-to-end encrypted; SHA-256 is used for integrity, not encryption.',
+    portability: 'The copy is already local to that browser profile and is intended only for offline reading.',
+    deletion: 'Remove the download in PulseWire, clear the site’s browser storage, or sign out successfully. Sign-out is blocked until the client confirms its private offline stores were cleared.',
+  },
+  {
+    data: 'Read-only demo session',
+    location: 'A 24-hour demo session uses a shared demo workspace. Demo mutations are disabled rather than saved as a personal account.',
+    portability: 'There is no personal demo-account export because the demo does not create a personal PulseWire account.',
+    deletion: 'The demo session expires and its session-ledger record is eligible for cleanup. Shared demonstration source data is not personal account content.',
+  },
+  {
+    data: 'Provider and support records',
+    location: 'Microsoft, Azure AI Foundry, source websites, and any support mailbox may retain records needed to provide, secure, or support their part of the service.',
+    portability: 'Use the provider’s controls for provider-held data. Support correspondence can be requested from Nintek when applicable.',
+    deletion: 'Provider retention follows the provider’s terms and legal obligations. Nintek reviews support-data deletion requests subject to security and legal needs.',
+  },
+];
 ---
 
-<BaseLayout
+<LegalLayout
+  app={app}
   title={`${app.name} Privacy Policy — ${COMPANY.name}`}
-  description="How PulseWire handles private account, reading, story, AI, and offline Saved data."
-  path={`/${app.slug}/privacy`}
-  noindex={true}
-  socialImage="/apps/pulsewire.png"
-  socialImageAlt="PulseWire app icon"
+  description="How PulseWire handles Entra identity, PostgreSQL story data, Azure AI processing, source requests, sessions, retention, and offline Saved snapshots."
+  path="/pulsewire/privacy"
+  page="privacy"
+  heading="PulseWire Privacy Policy"
+  documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
+  summary="PulseWire is an installable private story-intelligence service with owner access and a separate read-only demo. It uses Microsoft identity, Azure-hosted PostgreSQL and pgvector, Azure AI Foundry, source websites, and explicit offline Saved copies."
+  sections={sections}
+  evidenceNote="Reviewed against the executable PulseWire default branch and its matching live deployment on August 22, 2026. Model deployment names remain operator-configured, so this policy does not name an unverified model."
 >
-  <article class="prose container">
-    <a class="back-link" href="/pulsewire">← {app.name}</a>
-    <h1>{app.name} Privacy Policy</h1>
-    <p class="updated">Last updated: {lastUpdated}</p>
-
+  <section id="scope" class="legal-section">
+    <h2>Scope, private access, and the demo</h2>
     <p>
-      This policy explains how {COMPANY.name} (“we”, “us”) handles information
-      in {app.name}, a private, single-owner story-intelligence reader. The
-      production workspace is access-controlled and is not exposed from the
-      portfolio as a public reader or demo.
+      This policy explains how {COMPANY.name} (“we”, “us”) handles information in
+      {app.name}. The owner workspace uses Microsoft Entra ID and an allow-list of
+      authorized principals. There is no public account registration.
     </p>
+    <p>
+      The live service also has a separate 24-hour, read-only demo. The demo does
+      not require Microsoft sign-in, uses a shared demonstration workspace, and
+      disables mutations rather than creating a personal account. A demo session
+      is still recorded in the session ledger so it can expire and be revoked.
+    </p>
+    <p class="legal-callout">
+      PulseWire does not use advertising SDKs, cross-app tracking, or behavioral
+      advertising. It does process reading, source, generated-analysis, session,
+      and operational data needed to run the private reader and demo.
+    </p>
+  </section>
 
-    <h2>Information the service processes</h2>
+  <section id="data" class="legal-section">
+    <h2>Information PulseWire processes</h2>
     <ul>
       <li>
-        <strong>Account information.</strong> Microsoft Entra ID provides the
-        stable account identifier and basic profile claims needed to create and
-        secure the allowed session. Access is restricted to configured
-        principals.
+        <strong>Identity and sessions.</strong> Microsoft Entra provides the
+        principal and profile claims needed to authorize the owner workspace.
+        PulseWire keeps a database-backed session ledger so a session can be
+        revoked even before its signed cookie expires.
       </li>
       <li>
-        <strong>Sources and reading activity.</strong> PulseWire stores selected
-        feed subscriptions, source records, story groupings, chronology,
-        evidence and review state, Saved stories, and read state needed to
-        operate the reader.
+        <strong>Sources and reading activity.</strong> Feed subscriptions, source
+        records, article metadata and text, story groupings, chronology, evidence
+        and review state, Saved items, read state, and reader preferences.
       </li>
       <li>
-        <strong>Generated analysis.</strong> Briefs, embeddings, ranking inputs,
-        and related model output are stored where needed to build and explain
-        the private edition.
+        <strong>Generated analysis.</strong> Embeddings, briefs, scores, ranking
+        inputs, and related model output used to group, retrieve, and explain the
+        private edition.
       </li>
       <li>
-        <strong>Operational records.</strong> Authentication-session state,
-        worker and feed health, request timing, version information, and errors
-        are processed to secure, run, recover, and troubleshoot the service.
+        <strong>Operations.</strong> Worker and feed health, request timing,
+        version information, errors, and AI usage or cost records needed to run,
+        secure, recover, and troubleshoot the service.
       </li>
     </ul>
-    <p>
-      PulseWire does not use third-party advertising or cross-app tracking and
-      does not need precise location, contacts, or advertising identifiers.
-    </p>
+  </section>
 
-    <h2>Server storage</h2>
+  <section id="ai-sources" class="legal-section">
+    <h2>Azure AI and requests to source websites</h2>
     <p>
-      PulseWire uses PostgreSQL on Microsoft Azure. The database includes
-      pgvector data used for story and source retrieval. This is a private
-      single-owner service, not a claim that every record lives in a separate
-      per-user database. Information is encrypted in transit using HTTPS, and
-      service access is limited to what is needed to operate and secure the
-      workspace.
+      PulseWire uses Azure AI Foundry’s OpenAI-compatible service for configured
+      chat and embedding deployments. It sends the source material, story context,
+      or query needed for a brief, embedding, ranking, or retrieval operation and
+      stores the resulting analysis needed by the reader. Deployment names are
+      configuration, not a hard-coded model claim.
     </p>
-
-    <h2>AI processing</h2>
     <p>
-      PulseWire uses configured Azure AI services to generate briefs and
-      embeddings from source material and story context. The service sends the
-      content required for that operation and stores the resulting analysis
-      needed by the reader. Provider processing is governed by the applicable
-      service terms; this policy does not promise legal or technical controls
-      beyond the configuration actually deployed.
+      To ingest reporting, PulseWire requests RSS feeds and source pages over the
+      public internet. A source or its hosting provider can receive ordinary
+      network information about that request, such as timing, service IP address,
+      and request headers, under its own privacy practices. If you open a source
+      link, your browser contacts that publisher directly and the publisher may
+      receive the usual browser request information.
     </p>
+    <p>
+      Microsoft provides Entra identity and Azure hosting, PostgreSQL, and AI
+      services. We do not sell personal information. Information may also be
+      disclosed where required by law or reasonably needed to protect the service.
+    </p>
+  </section>
 
+  <section id="offline" class="legal-section">
     <h2>Offline Saved snapshots</h2>
     <p>
-      The installable web app can explicitly download a Saved story snapshot
-      for offline reading. That local copy may include the story text, source
-      evidence, and presentation data needed to read it. PulseWire does not
-      silently download the whole workspace and does not represent this
-      server-backed reader as local-first.
+      PulseWire can explicitly download a sanitized Saved-story snapshot to
+      identity-scoped IndexedDB for offline reading. The snapshot can include text,
+      source evidence, chronology, and presentation data, but it excludes article
+      images. The service worker caches the public app shell and static assets; it
+      does not turn the private workspace into a local-first database.
     </p>
     <p>
-      Offline data remains in the browser profile until it is removed by the
-      app, the browser, the operating system, or the person controlling that
-      profile. Anyone with access to the profile may be able to read local
-      copies. Remove Saved downloads before sharing or disposing of a device.
+      Offline snapshots are <strong>not end-to-end encrypted</strong>. PulseWire
+      verifies snapshot integrity with a checksum, which does not prevent someone
+      with access to the browser profile from reading the stored copy. The browser
+      or operating system may also evict it.
     </p>
+  </section>
 
-    <h2>Sharing and service providers</h2>
+  <section id="lifecycle" class="legal-section">
+    <h2>Export, deletion, and retention</h2>
     <p>
-      We do not sell personal information. Microsoft provides identity, Azure
-      hosts the application and database, and configured AI services process
-      content needed for generated analysis. Information may also be disclosed
-      where required by law or needed to protect the service.
+      PulseWire currently has no self-service account export, account deletion, or
+      automated bulk-deletion route. Emailing a request starts a manual review; it
+      is not a promise of an immediate, one-click, or fully automated result. The
+      scope may include workspace records Nintek controls, but it does not include
+      the underlying Microsoft account or independent provider records.
     </p>
-
-    <h2>Retention and deletion</h2>
+    <DataLifecycleTable
+      caption="PulseWire data lifecycle and account-control boundaries"
+      rows={lifecycleRows}
+    />
     <p>
-      Server records are retained while the private workspace is active and as
-      needed for recovery, security, or legal obligations. Offline Saved copies
-      follow the browser-storage behavior above. To request access to or
-      deletion of account-associated data, email
+      To request access to or deletion of account-associated data, email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>. We
+      will confirm identity, scope, and any records that must be retained for
+      security, recovery, or legal reasons.
+    </p>
+  </section>
+
+  <section id="sessions" class="legal-section">
+    <h2>Sessions and security</h2>
+    <p>
+      Production sessions use a secure host-only cookie plus the server session
+      ledger. Settings can revoke the current session or all owner sessions. A
+      successful sign-out first clears identity-scoped offline data and then
+      revokes the server session; if the privacy clear fails, sign-out is stopped
+      instead of leaving a private browser copy behind under a signed-out screen.
+    </p>
+    <p>
+      The session ledger stores identifiers and lifecycle timestamps needed for
+      revocation. It does not store raw Microsoft tokens, IP addresses, or
+      user-agent strings. Expired ledger entries are removed by a cleanup task.
+    </p>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Children, changes, and contact</h2>
+    <p>
+      PulseWire is a general adult reading tool and is not directed to children.
+      We do not knowingly create personal PulseWire accounts for children.
+    </p>
+    <p>
+      We may update this policy when the service or its data practices change. The
+      effective and review dates at the top identify this version.
+    </p>
+    <p>
+      Questions about data handling can be sent to
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      Product help is available on <a href="/pulsewire/support">PulseWire
+      Support</a>. Use of the service is also subject to the
+      <a href="/terms">Nintek Terms of Use</a>.
     </p>
-
-    <h2>Children’s privacy</h2>
-    <p>
-      The Service is intended for a general, adult audience and is not directed
-      to children. We do not knowingly collect personal information from
-      children.
-    </p>
-
-    <h2>Changes to this policy</h2>
-    <p>
-      We may update this policy when the service or its data practices change.
-      The “Last updated” date above identifies the current version.
-    </p>
-
-    <h2>Contact</h2>
-    <p>
-      Questions about this policy or your data? Email
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
-    </p>
-  </article>
-</BaseLayout>
+  </section>
+</LegalLayout>

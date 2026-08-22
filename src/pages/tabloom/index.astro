@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import { getApp } from '../../data/apps';
 import '../../styles/tabloom-landing.css';
+
+const app = getApp('tabloom')!;
 
 /* Current Tabloom capabilities, including the archive and bounded offline reader. */
 const FEATURES = [
@@ -309,8 +312,9 @@ const DETAILS = [
 
     {/* ── Privacy line ── */}
     <p class="landing-privacy-line">
-      Questions about your data? Read the
-      <a href="/tabloom/privacy">Tabloom Privacy Policy</a>.
+      Need help? Visit <a href={app.supportPath}>Tabloom Support</a>, read the
+      <a href={app.privacyPath}>Privacy Policy</a>, or review the
+      <a href={app.termsPath}>Nintek Terms</a>.
     </p>
   </div>
 </BaseLayout>

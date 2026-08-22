@@ -11,6 +11,7 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 - `www.nintek.com/<app>/privacy` — app-specific privacy policy.
 - `www.nintek.com/<app>/support` — app-specific support page where release
   evidence requires one.
+- `www.nintek.com/terms` — shared studio terms linked from product and legal pages.
 
 > Note: `www.nintek.com/cairn` (marketing/legal) is **separate** from
 > `cairn.nintek.com` (the running web app).
@@ -22,10 +23,13 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 | `src/data/apps.ts` | Single source of truth for every app (name, tagline, icon, bundle ID). Add an app here. |
 | `docs/MARKETING_EVIDENCE.md` | Claim, release-state, and asset provenance ledger. |
 | `src/layouts/BaseLayout.astro` | Shared HTML shell, header, footer, SEO/`noindex`. |
+| `src/layouts/LegalLayout.astro` | Shared reading layout for terms and reviewed app legal/support pages. |
+| `src/components/DataLifecycleTable.astro` | Accessible export/deletion/retention boundary table. |
 | `src/components/AppPromo.astro` | Home-page product showcase. |
 | `src/pages/index.astro` | Company home page. |
 | `src/pages/<app>/index.astro` | Per-app marketing page. |
 | `src/pages/<app>/privacy.astro` | Per-app privacy policy. |
+| `src/pages/<app>/support.astro` | Per-app support and account-lifecycle guidance. |
 | `public/apps/<slug>.png` | App icon (copied from each app's `app-store/AppIcon-1024.png`). |
 | `staticwebapp.config.json` | SWA routing + security headers. |
 | `.github/workflows/azure-static-web-apps.yml` | CI/CD deploy. |
@@ -59,7 +63,8 @@ One-time setup:
 
 1. Add an entry to `src/data/apps.ts` and set `hasPage: true`.
 2. Copy its icon to `public/apps/<slug>.png`.
-3. Create `src/pages/<slug>/index.astro` and `src/pages/<slug>/privacy.astro`.
+3. Create `src/pages/<slug>/index.astro`, privacy, and support routes as required
+   by the product’s release and account lifecycle.
 4. Add indexable routes to `public/sitemap.xml`; use page-level `noindex` for
    routes that should remain out of search.
 5. Add claim and asset provenance to `docs/MARKETING_EVIDENCE.md`.

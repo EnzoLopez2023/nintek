@@ -1,0 +1,204 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { apps, COMPANY } from '../data/apps';
+
+const effectiveDate = 'August 22, 2026';
+const coveredSlugs = new Set([
+  'tare',
+  'workshop',
+  'shopkeep',
+  'cairn',
+  'cortex',
+  'tabloom',
+  'pulsewire',
+]);
+const coveredApps = apps.filter((app) => coveredSlugs.has(app.slug));
+const sections = [
+  { href: '#scope', label: 'Scope' },
+  { href: '#accounts', label: 'Accounts' },
+  { href: '#your-content', label: 'Your content' },
+  { href: '#acceptable-use', label: 'Acceptable use' },
+  { href: '#third-parties', label: 'Third-party services' },
+  { href: '#ai', label: 'AI and advice limits' },
+  { href: '#availability', label: 'Availability and pre-release use' },
+  { href: '#warranties', label: 'Warranties and liability' },
+  { href: '#changes', label: 'Changes and contact' },
+];
+---
+
+<LegalLayout
+  title={`Terms of Use — ${COMPANY.name}`}
+  description="Plain-language terms for using the Nintek website, apps, private services, and pre-release software."
+  path="/terms"
+  page="terms"
+  heading="Terms of Use"
+  documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
+  summary="These terms explain the practical rules for using Nintek’s website, apps, private services, and pre-release software. They are written in plain language and do not replace advice about your own legal circumstances."
+  sections={sections}
+>
+  <section id="scope" class="legal-section">
+    <h2>Scope and product status</h2>
+    <p>
+      These terms apply when you use {COMPANY.name} websites, apps, private web
+      services, and pre-release builds (together, the “Services”). A product page
+      may describe a public website, a private workspace, a TestFlight build, or
+      software still being prepared for release. The release status stated on the
+      product and support pages controls; a portfolio page is not an offer to sell
+      an unavailable app or a promise of future availability.
+    </p>
+    <p>
+      Product-specific privacy and support pages describe how each Service works.
+      If these general terms conflict with a product-specific notice about data
+      handling or availability, the more specific notice controls for that issue.
+    </p>
+  </section>
+
+  <section id="accounts" class="legal-section">
+    <h2>Accounts and access</h2>
+    <p>
+      Some Services have no Nintek account. Others use Apple or Microsoft to
+      authenticate an app-specific account. You are responsible for the provider
+      account and device you use, for keeping credentials and verification codes
+      private, and for activity performed through your authorized session.
+    </p>
+    <p>
+      An Apple account, a Microsoft account, and a Nintek app account are different
+      things. Deleting app data does not delete the underlying Apple or Microsoft
+      account. Where Apple and Microsoft sign-in create separate app identities,
+      deleting one does not delete the other.
+    </p>
+    <p>
+      Private Services are for people Nintek has authorized. Do not bypass an
+      access restriction, share a private session, or treat a private demo as a
+      public sign-up service.
+    </p>
+  </section>
+
+  <section id="your-content" class="legal-section">
+    <h2>Your content and your responsibility</h2>
+    <p>
+      You keep ownership of notes, records, photos, documents, inventory, project
+      data, health records, and other content you provide. You give Nintek a
+      limited permission to host, copy, transform, transmit, and process that
+      content only as needed to operate, secure, back up, restore, and support the
+      feature you chose.
+    </p>
+    <p>
+      You are responsible for having the right to upload or process your content,
+      checking important outputs, keeping exports or backups appropriate to your
+      needs, and avoiding content that violates another person’s rights or the
+      law. Product support pages explain current export, backup, offline, and
+      deletion limits.
+    </p>
+  </section>
+
+  <section id="acceptable-use" class="legal-section">
+    <h2>Acceptable use</h2>
+    <p>Do not use the Services to:</p>
+    <ul>
+      <li>break the law, infringe rights, harass people, or distribute harmful content;</li>
+      <li>probe, disrupt, overload, or bypass security, authentication, quotas, or access controls;</li>
+      <li>introduce malware, scrape private content, or attempt to access another person’s data;</li>
+      <li>misrepresent an AI-generated or app-generated result as verified professional advice; or</li>
+      <li>resell, sublicense, or make a private Service available to unauthorized users.</li>
+    </ul>
+    <p>
+      Nintek may restrict or end access when reasonably necessary to protect a
+      Service, its users, or others, or to comply with law.
+    </p>
+  </section>
+
+  <section id="third-parties" class="legal-section">
+    <h2>Third-party services</h2>
+    <p>
+      A Service may rely on Apple, Microsoft, cloud hosting, identity providers,
+      model providers, source websites, or other processors named in its privacy
+      page. Their services are governed by their own terms and privacy practices.
+      Nintek does not control provider accounts, App Store or TestFlight
+      availability, iCloud or Game Center records, Microsoft identity records,
+      publisher websites, or a provider’s independent retention obligations.
+    </p>
+    <p>
+      Links and imported source material are provided for context. Nintek does not
+      endorse every linked site and is not responsible for third-party content,
+      availability, or changes.
+    </p>
+  </section>
+
+  <section id="ai" class="legal-section">
+    <h2>AI output and professional-advice limits</h2>
+    <p class="legal-callout">
+      AI and automated outputs can be incomplete, outdated, or wrong. Review them
+      before relying on them, especially where health, safety, money, legal rights,
+      certification, or a physical build is involved.
+    </p>
+    <p>
+      The Services do not provide medical, legal, financial, engineering, or other
+      professional advice. Tare does not diagnose, treat, or choose medication or a
+      dose. Study tools do not guarantee an exam result. Cut plans, measurements,
+      extracted receipts, imported projects, summaries, and generated briefs must
+      be checked against the original material and safe real-world practice.
+    </p>
+  </section>
+
+  <section id="availability" class="legal-section">
+    <h2>Availability, changes, and pre-release software</h2>
+    <p>
+      Nintek may change, pause, retire, or limit a Service or feature. Private,
+      beta, review-blocked, and pre-release builds may expire, contain defects,
+      change without notice, or lose local data. Keep an export or independent
+      backup when a product offers one and the information matters to you.
+    </p>
+    <p>
+      No product page promises an App Store approval, public release date, price,
+      permanent free access, uninterrupted service, or compatibility beyond the
+      current support page.
+    </p>
+  </section>
+
+  <section id="warranties" class="legal-section">
+    <h2>Warranties and liability</h2>
+    <p>
+      The Services are provided on an “as available” basis. To the extent the law
+      permits, Nintek does not make implied promises of merchantability, fitness
+      for a particular purpose, uninterrupted operation, or error-free output.
+      Nothing here limits a right or remedy that cannot legally be limited.
+    </p>
+    <p>
+      To the extent the law permits, Nintek is not responsible for indirect,
+      incidental, special, consequential, or lost-profit damages arising from use
+      of a Service, loss of local or provider-held data, reliance on generated
+      output, or a third-party service. This paragraph does not exclude liability
+      that applicable law does not allow Nintek to exclude.
+    </p>
+  </section>
+
+  <section id="changes" class="legal-section">
+    <h2>Changes, questions, and product documents</h2>
+    <p>
+      Nintek may update these terms as the Services change. The effective date at
+      the top identifies the published version. Continued use after an update
+      means the updated terms apply from that point, subject to rights that cannot
+      be changed this way.
+    </p>
+    <p>
+      Questions about these terms or product support can be sent to
+      <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. Privacy and data
+      requests can be sent to
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+    </p>
+    <ul class="legal-route-list" aria-label="Product privacy and support documents">
+      {
+        coveredApps.map((app) => (
+          <li>
+            <strong>{app.name}</strong>
+            <span>
+              {app.privacyPath && <a href={app.privacyPath}>Privacy</a>}
+              {app.supportPath && <a href={app.supportPath}>Support</a>}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</LegalLayout>

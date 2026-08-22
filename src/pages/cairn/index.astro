@@ -394,7 +394,8 @@ const demo = {
             The current iOS build bundles eight learning curricula for offline
             reading. They are not certification workspaces and do not carry a
             pass score or timed paper. Rights, attribution, and asset-provenance
-            remediation remains pending integration before App Store resubmission.
+            remediation is source-ready in the current branch; a higher-numbered
+            build and App Store resubmission still remain.
           </p>
         </div>
 
@@ -502,8 +503,9 @@ const demo = {
           Cairn · Built for working engineers studying at the kitchen table.
         </p>
         <p class="lp__privacy-line">
-          Need help? Visit <a href="/cairn/support/">Cairn Support</a> or read the
-          <a href="/cairn/privacy/">{app.name} Privacy Policy</a>.
+          Need help? Visit <a href={app.supportPath}>Cairn Support</a> or read the
+          <a href={app.privacyPath}>{app.name} Privacy Policy</a>. Use of Cairn is
+          subject to the <a href={app.termsPath}>Nintek Terms</a>.
         </p>
       </div>
     </section>

@@ -87,10 +87,10 @@ export interface Native {
   watch?: WatchApp;
 }
 
-/** A web app that is being retired in favour of its native successor. Rendered
- *  as a standing notice so nobody starts a migration they'd have to redo. */
+/** A retired web predecessor and its native successor. Rendered as a standing
+ *  notice so nobody looks for a browser login that no longer exists. */
 export interface Sunset {
-  /** Short label, e.g. 'Web app winding down'. */
+  /** Short label, e.g. 'Web app retired'. */
   label: string;
   /** The full notice. */
   body: string;
@@ -112,10 +112,12 @@ export interface App {
   /** Public app-specific policy and help routes, when available. */
   privacyPath?: string;
   supportPath?: string;
+  /** Shared studio terms covering this product. */
+  termsPath: string;
   platforms: Platforms;
   mockup: Mockup;
   native?: Native;
-  /** Set when the web app is being retired in favour of the native one. */
+  /** Set when a retired web predecessor needs a standing migration notice. */
   sunset?: Sunset;
 }
 
@@ -135,6 +137,8 @@ export const COMPANY = {
   privacyEmail: 'privacy@nintek.com',
   tagline: 'Small, thoughtful software for everyday life.',
 };
+
+export const TERMS_PATH = '/terms';
 
 /** The shared Swift foundation the native utility apps are built on. */
 export const ECOSYSTEM = {
@@ -182,8 +186,10 @@ export const apps: App[] = [
     icon: 'drop',
     bundleId: 'com.nintek.tare',
     hasPage: true,
-    privacyPath: '/tare/privacy/',
-    platforms: { web: true, ios: true },
+    privacyPath: '/tare/privacy',
+    supportPath: '/tare/support',
+    termsPath: TERMS_PATH,
+    platforms: { web: false, ios: true },
     mockup: {
       title: 'This Month',
       subtitle: 'Trend · weight, doses & glucose',
@@ -195,13 +201,13 @@ export const apps: App[] = [
       thesis:
         'The longest history in the catalogue, carried by the phone, the wrist and the Home Screen — with no account behind any of it.',
       intro:
-        'Tare is the app that gets opened every day, and the one carrying the most history, so the native version was built to hold that history without asking for an account at all. Where the web app signs into Microsoft, this one keeps everything in SwiftData on the device and syncs through your own private iCloud database. After you opt in, it imports approved Apple Health data whenever the app opens or returns, while a manual Sync now control stays available. It also adds widgets, a dose-day Live Activity, Apple Watch logging, Siri, Face ID and local reminders. The web backup remains the migration path into the native store.',
+        'Tare is the app that gets opened every day, and the one carrying the most history, so the native version was built to hold that history without asking for an account at all. The retired web app used Microsoft sign-in; the native app keeps everything in SwiftData on the device and syncs through your own private iCloud database. After you opt in, it imports approved Apple Health data whenever the app opens or returns, while a manual Sync now control stays available. It also adds widgets, a dose-day Live Activity, Apple Watch logging, Siri, Face ID and local reminders. A compatible backup created before retirement remains a migration path into the native store.',
       highlights: [
         {
           icon: 'cloud',
           title: 'No account, and nothing to sign into',
           body:
-            'The web app needs a Microsoft login. This one has no sign-in screen at all. Your history lives on the phone and syncs through your own private iCloud database, so there is no server holding a copy and no password to lose. With no iCloud it degrades to a local store and says so, rather than refusing to launch.',
+            'The retired web app needed a Microsoft login. This one has no sign-in screen at all. Your history lives on the phone and syncs through your own private iCloud database, so there is no native server holding a copy and no password to lose. With no iCloud it degrades to a local store and says so, rather than refusing to launch.',
         },
         {
           icon: 'heart',
@@ -243,7 +249,7 @@ export const apps: App[] = [
           icon: 'package',
           title: 'Bring the whole history with you',
           body:
-            'Export a backup from the web app and open it here — all sixteen tables land in one pass. A safety copy of whatever is already on the phone is written first, without being asked, so a restore can always be undone. After that it keeps rolling daily backups on device.',
+            'Open a compatible backup created before the web app retired — all sixteen tables land in one pass. A safety copy of whatever is already on the phone is written first, without being asked, and the app keeps fourteen rolling daily backups on device.',
         },
       ],
       tech: [
@@ -298,9 +304,9 @@ export const apps: App[] = [
       },
     },
     sunset: {
-      label: 'The web app is winding down',
+      label: 'The web app is retired',
       body:
-        'Tare on the web is in maintenance while people finish moving their data. New product work is native-only, and the browser interface will retire after migration is complete. The backup format remains the transfer path. The stateless, consent-gated AI relay is separate from the web interface and is retained for the native app.',
+        'Tare no longer has a supported browser interface or web sign-in. The legacy web database remains isolated while final native migration and deletion validation completes; it is not connected to the native store and is not represented as already deleted. The stateless, consent-gated AI relay remains only for optional native features.',
       successor: 'Tare for iPhone, iPad and Apple Watch',
     },
   },
@@ -316,8 +322,9 @@ export const apps: App[] = [
     icon: 'hammer',
     bundleId: 'com.nintek.shopkeep',
     hasPage: true,
-    privacyPath: '/shopkeep/privacy/',
-    supportPath: '/shopkeep/support/',
+    privacyPath: '/shopkeep/privacy',
+    supportPath: '/shopkeep/support',
+    termsPath: TERMS_PATH,
     platforms: { web: true, ios: true },
     mockup: {
       title: 'Shop status',
@@ -407,8 +414,9 @@ export const apps: App[] = [
     icon: 'layers',
     bundleId: 'com.nintek.cairn',
     hasPage: true,
-    privacyPath: '/cairn/privacy/',
-    supportPath: '/cairn/support/',
+    privacyPath: '/cairn/privacy',
+    supportPath: '/cairn/support',
+    termsPath: TERMS_PATH,
     platforms: { web: true, ios: true },
     /* The home-page frame is browser chrome, so it shows the web dashboard.
        Courses are iOS-only and must not be advertised on a web surface. */
@@ -491,7 +499,9 @@ export const apps: App[] = [
     icon: 'package',
     bundleId: 'com.nintek.workshop',
     hasPage: true,
-    privacyPath: '/workshop/privacy/',
+    privacyPath: '/workshop/privacy',
+    supportPath: '/workshop/support',
+    termsPath: TERMS_PATH,
     platforms: { web: true, ios: true },
     mockup: {
       title: 'Workshop',
@@ -583,8 +593,9 @@ export const apps: App[] = [
     icon: 'gamepad',
     bundleId: 'com.nintek.cortex',
     hasPage: true,
-    privacyPath: '/cortex/privacy/',
-    supportPath: '/cortex/support/',
+    privacyPath: '/cortex/privacy',
+    supportPath: '/cortex/support',
+    termsPath: TERMS_PATH,
     platforms: { web: false, ios: true },
     mockup: {
       title: 'Cortex',
@@ -658,8 +669,9 @@ export const apps: App[] = [
     icon: 'gamepad',
     bundleId: 'com.nintek.sortie',
     hasPage: true,
-    privacyPath: '/sortie/privacy/',
-    supportPath: '/sortie/support/',
+    privacyPath: '/sortie/privacy',
+    supportPath: '/sortie/support',
+    termsPath: TERMS_PATH,
     platforms: { web: false, ios: true },
     mockup: {
       title: 'Sortie',
@@ -728,6 +740,7 @@ export const apps: App[] = [
     icon: 'gamepad',
     bundleId: 'com.nintek.salvo',
     hasPage: true,
+    termsPath: TERMS_PATH,
     platforms: { web: false, ios: true },
     mockup: {
       title: 'Salvo',
@@ -796,7 +809,9 @@ export const apps: App[] = [
     icon: 'book',
     bundleId: 'com.nintek.tabloom',
     hasPage: true,
-    privacyPath: '/tabloom/privacy/',
+    privacyPath: '/tabloom/privacy',
+    supportPath: '/tabloom/support',
+    termsPath: TERMS_PATH,
     platforms: { web: true, ios: false },
     mockup: {
       title: 'Tabloom workspace',
@@ -812,12 +827,14 @@ export const apps: App[] = [
     tagline: 'The signal, not the noise.',
     headline: { lead: 'A hundred sources.', em: 'One clear briefing.' },
     description:
-      'A private story-intelligence reader that groups related reporting, keeps source evidence close, and offers a current Discover catalogue of 317 unique feeds across 64 categories.',
-    quiet: 'Private Microsoft sign-in, PostgreSQL + pgvector, and explicit offline Saved snapshots.',
+      'A story-intelligence reader with a private Microsoft Entra owner workspace, a separate 24-hour read-only demo, and a Discover catalogue of 317 unique feeds across 64 categories.',
+    quiet: 'PostgreSQL + pgvector, Azure AI Foundry, and explicit offline Saved snapshots.',
     icon: 'news',
     bundleId: 'com.nintek.pulsewire',
     hasPage: true,
-    privacyPath: '/pulsewire/privacy/',
+    privacyPath: '/pulsewire/privacy',
+    supportPath: '/pulsewire/support',
+    termsPath: TERMS_PATH,
     platforms: { web: true, ios: false },
     mockup: {
       title: 'Today’s Edition',
@@ -838,6 +855,7 @@ export const apps: App[] = [
     icon: 'flame',
     bundleId: 'com.nintek.hearth',
     hasPage: true,
+    termsPath: TERMS_PATH,
     platforms: { web: true, ios: false },
     mockup: {
       title: 'At a Glance',

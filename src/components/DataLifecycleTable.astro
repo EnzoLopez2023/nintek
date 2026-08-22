@@ -1,0 +1,128 @@
+---
+export interface LifecycleRow {
+  data: string;
+  location: string;
+  portability: string;
+  deletion: string;
+}
+
+interface Props {
+  caption: string;
+  rows: LifecycleRow[];
+  tone?: 'light' | 'dark';
+}
+
+const { caption, rows, tone = 'light' } = Astro.props;
+---
+
+<div
+  class={`lifecycle-table-wrap lifecycle-table-wrap--${tone}`}
+  role="region"
+  aria-label={caption}
+  tabindex="0"
+>
+  <table class="lifecycle-table">
+    <caption>{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Data or control</th>
+        <th scope="col">Where it lives</th>
+        <th scope="col">Export or backup</th>
+        <th scope="col">Deletion and retention</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            <th scope="row">{row.data}</th>
+            <td>{row.location}</td>
+            <td>{row.portability}</td>
+            <td>{row.deletion}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+<p class="lifecycle-scroll-hint">Scroll horizontally to read all four columns →</p>
+
+<style>
+  .lifecycle-table-wrap {
+    max-width: 100%;
+    margin-block: 24px;
+    overflow-x: auto;
+    border-block: 1px solid var(--lifecycle-line, #d4c4b8);
+    background: var(--lifecycle-surface, #fdfaf7);
+    scrollbar-color: var(--lifecycle-accent, #a0522d) transparent;
+  }
+
+  .lifecycle-table-wrap:focus-visible {
+    outline: 3px solid var(--lifecycle-accent, #a0522d);
+    outline-offset: 4px;
+  }
+
+  .lifecycle-table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    color: var(--lifecycle-ink, #1c0f07);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .lifecycle-table caption {
+    padding: 16px 18px 14px;
+    color: var(--lifecycle-ink, #1c0f07);
+    font-weight: 750;
+    text-align: start;
+  }
+
+  .lifecycle-table th,
+  .lifecycle-table td {
+    width: 25%;
+    padding: 14px 18px;
+    border-top: 1px solid var(--lifecycle-line, #d4c4b8);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .lifecycle-table thead th {
+    color: var(--lifecycle-muted, #5c3d2a);
+    font-size: 0.875rem;
+    font-weight: 760;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+
+  .lifecycle-table tbody th {
+    color: var(--lifecycle-ink, #1c0f07);
+    font-weight: 720;
+  }
+
+  .lifecycle-table tbody td {
+    color: var(--lifecycle-muted, #5c3d2a);
+  }
+
+  .lifecycle-table-wrap--dark {
+    --lifecycle-line: rgb(255 255 255 / 0.14);
+    --lifecycle-surface: rgb(255 255 255 / 0.035);
+    --lifecycle-ink: #f6f8ff;
+    --lifecycle-muted: #bcc5dc;
+    --lifecycle-accent: #61d6ee;
+  }
+
+  .lifecycle-scroll-hint {
+    display: none;
+    margin: -14px 0 24px;
+    color: var(--lifecycle-muted, #5c3d2a);
+    font-size: 0.875rem;
+    font-weight: 650;
+  }
+
+  @media (max-width: 780px) {
+    .lifecycle-scroll-hint {
+      display: block;
+    }
+  }
+</style>

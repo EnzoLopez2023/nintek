@@ -1,9 +1,36 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import DataLifecycleTable from '../../components/DataLifecycleTable.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('cairn')!;
-const effectiveDate = 'August 21, 2026';
+const effectiveDate = 'August 22, 2026';
+const lifecycleRows = [
+  {
+    data: 'Study progress and preferences',
+    location: 'SwiftData on the iPhone or iPad.',
+    portability: 'Cairn has no current full progress-export feature. Exam and course content is bundled with the app.',
+    deletion: 'Deleting Cairn removes local app data from that device. A game-style reset is not an account deletion because Cairn has no account.',
+  },
+  {
+    data: 'Private iCloud progress copy',
+    location: 'The private CloudKit database associated with the Apple Account on the device.',
+    portability: 'Apple controls iCloud account and device sync. Nintek has no server copy to export.',
+    deletion: 'Use Apple’s iCloud controls for Apple-held data. Deleting the app from one device does not itself promise removal of the private iCloud copy.',
+  },
+  {
+    data: 'Proposed Full Exam Library purchase',
+    location: 'Apple controls App Store transaction and entitlement records. The submitted purchase remains unresolved and is not publicly available.',
+    portability: 'Apple provides purchase-history, restore, refund, and account controls.',
+    deletion: 'Deleting Cairn does not delete Apple purchase records or the Apple Account. Nintek does not receive payment-card details.',
+  },
+  {
+    data: 'Support correspondence',
+    location: 'Nintek’s mailbox only when you choose to contact support.',
+    portability: 'You control the message you send and can request review of correspondence Nintek still holds.',
+    deletion: 'Nintek may retain correspondence as needed to answer, secure, document, or meet legal obligations.',
+  },
+];
 ---
 
 <BaseLayout
@@ -17,7 +44,7 @@ const effectiveDate = 'August 21, 2026';
   <article class="prose container">
     <a class="back-link" href="/cairn">← {app.name}</a>
     <h1>{app.name} Privacy Policy</h1>
-    <p class="updated">Effective: {effectiveDate}</p>
+    <p class="updated">Effective: {effectiveDate} · Last reviewed: {effectiveDate}</p>
 
     <p>
       This policy explains how {COMPANY.name} (“we”, “us”) handles information
@@ -112,6 +139,10 @@ const effectiveDate = 'August 21, 2026';
       Because {COMPANY.name} has no {app.name} account or progress server, there
       is no account or server-side study history for us to delete.
     </p>
+    <DataLifecycleTable
+      caption="Cairn data lifecycle and account-control boundaries"
+      rows={lifecycleRows}
+    />
 
     <h2>Children</h2>
     <p>
@@ -129,7 +160,8 @@ const effectiveDate = 'August 21, 2026';
     <p>
       Questions about this policy or your data? Email
       <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>. For
-      help using the app, visit <a href="/cairn/support/">Cairn Support</a>.
+      help using the app, visit <a href={app.supportPath}>Cairn Support</a>. Use
+      of Cairn is subject to the <a href={app.termsPath}>Nintek Terms of Use</a>.
     </p>
   </article>
 </BaseLayout>
