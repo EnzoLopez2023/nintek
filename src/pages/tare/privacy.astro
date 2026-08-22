@@ -38,7 +38,7 @@ const lifecycleRows = [
     data: 'Optional AI request and answer',
     location: 'Sent through a stateless Nintek relay to Anthropic only for the operation you request. The relay keeps no transcript database.',
     portability: 'AI output appears in the app and may be included only where the app’s own record or backup behavior says so; the relay offers no transcript export.',
-    deletion: 'The relay does not retain the request or answer. Anthropic may retain provider-side records under its commercial terms, safety controls, and legal obligations.',
+    deletion: 'The relay does not retain the request or answer. Anthropic’s current commercial terms state it may not train models on this content, but Anthropic may still retain provider-side records under its own data-retention, trust and safety, legal-hold, or model-specific policies.',
   },
   {
     data: 'Retired web-app database',
@@ -115,11 +115,15 @@ const lifecycleRows = [
   <section id="health" class="legal-section">
     <h2>Apple Health</h2>
     <p>
-      If you grant permission, Tare can read weight, glucose, sleep, and step data
-      from Apple Health. Weight and glucose can flow both ways; sleep and steps
-      are read only. After you enable access, Tare checks for approved Health data
-      when the app opens or returns to the foreground, and a manual
-      <strong>Sync now</strong> control remains available.
+      If you grant permission, Tare can read weight, glucose, sleep, steps, and
+      dietary water from Apple Health, and can write weight, glucose, and
+      dietary water back to Health. Sleep and steps are read only. Water is
+      handled differently from weight and glucose: rather than preserving
+      exactly what you entered, Tare re-totals the day’s water straight from
+      Health after writing to it, so the figure reflects every source
+      contributing to that total. After you enable access, Tare checks for
+      approved Health data when the app opens or returns to the foreground, and
+      a manual <strong>Sync now</strong> control remains available.
     </p>
     <p>
       HealthKit access is controlled by Apple’s permission interface. Tare does
@@ -154,9 +158,14 @@ const lifecycleRows = [
         request body, or answer.
       </li>
       <li>
-        Anthropic processes the scoped input under its commercial terms and may
-        retain provider-side records for safety, abuse prevention, security, or
-        legal obligations. Those provider controls can change.
+        Anthropic processes the scoped input as the processor for this
+        feature. Anthropic’s current
+        <a href="https://www.anthropic.com/legal/commercial-terms">Commercial Terms of Service</a>
+        state that it may not train models on this content. Anthropic may
+        still retain provider-side records under its own data-retention, trust
+        and safety, legal-hold, or model-specific policies — Tare’s stateless
+        relay does not add any further retention on top of that. Those
+        provider terms can change independently of this page.
       </li>
     </ul>
     <p class="legal-callout">

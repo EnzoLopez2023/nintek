@@ -213,7 +213,7 @@ export const apps: App[] = [
           icon: 'heart',
           title: 'Two-way Apple Health sync',
           body:
-            'After you opt in, Tare checks Health whenever the app opens or returns. Weight and glucose flow both directions; sleep and steps are read only. What you typed always wins — Health fills days you left blank and never overwrites a figure you entered yourself.',
+            'After you opt in, Tare checks Health whenever the app opens or returns. Weight, glucose and dietary water flow both directions; sleep and steps are read only. For weight and glucose, what you typed always wins — Health fills days you left blank and never overwrites a figure you entered yourself. Water works differently: Tare writes what you log to Health, then re-totals the day\u2019s figure from Health so it reflects every source contributing to it.',
         },
         {
           icon: 'apple',

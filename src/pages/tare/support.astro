@@ -63,8 +63,11 @@ const sections = [
         <strong>Sync now</strong> if you need an immediate check.
       </li>
       <li>
-        Weight and glucose can sync both ways; sleep and steps are read only.
-        Manually entered Tare values take precedence over imports.
+        Weight, glucose, and dietary water can sync both ways; sleep and steps
+        are read only. Manually entered weight and glucose values take
+        precedence over imports. Water is the exception — Tare re-totals the
+        day’s figure from Health after writing to it, so it does not preserve
+        an entered override.
       </li>
       <li>
         Apple Health authorization is a system control. Reinstalling Tare does not
@@ -102,6 +105,13 @@ const sections = [
     <p>
       Generated output can be wrong and is not medical advice. Do not use it to
       choose a medication, dose, diagnosis, or treatment.
+    </p>
+    <p>
+      Anthropic processes the scoped input as the processor behind these
+      features, under its own
+      <a href="https://www.anthropic.com/legal/commercial-terms">Commercial Terms of Service</a>.
+      See the <a href="/tare/privacy#ai">Tare Privacy Policy</a> for the full
+      data-handling and retention detail.
     </p>
   </section>
 

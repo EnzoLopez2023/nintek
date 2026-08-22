@@ -31,7 +31,7 @@ const sunset = app.sunset!;
 const trust = [
   { num: 'No', tail: 'account', lbl: 'No sign-up, no password, no server-side profile. Open it and start.' },
   { num: 'On', tail: 'device', lbl: 'Everything lives in a local store, mirrored only to your own iCloud.' },
-  { num: 'Two-way', tail: 'Apple Health', lbl: 'Weight and glucose sync both directions. Steps and sleep read in.' },
+  { num: 'Two-way', tail: 'Apple Health', lbl: 'Weight, glucose and water sync both directions. Steps and sleep read in.' },
   { num: 'AI', tail: 'off by default', lbl: 'Nine assisted features, every one behind a switch that starts off.' },
 ];
 
@@ -47,6 +47,7 @@ const demo = {
 const healthRows = [
   { name: 'Weight',  dir: 'both',  note: 'Read in and written back' },
   { name: 'Glucose', dir: 'both',  note: 'Read in and written back' },
+  { name: 'Water',   dir: 'both',  note: 'Written back, then re-totalled from Health' },
   { name: 'Steps',   dir: 'in',    note: 'Read only' },
   { name: 'Sleep',   dir: 'in',    note: 'Read only' },
 ];
@@ -258,10 +259,13 @@ const structuredData = {
             It talks to the rest of your <em>health data</em>.
           </h2>
           <p class="lp-section__lede">
-            Weight and glucose move in both directions, so a reading taken on a
-            smart scale or a connected meter shows up in Tare — and anything you
-            log in Tare shows up in Health. Steps and sleep are read in to give
-            your check-ins context.
+            Weight, glucose and water move in both directions, so a reading
+            taken on a smart scale or a connected meter shows up in Tare — and
+            anything you log in Tare shows up in Health. Water works a little
+            differently: after writing what you logged to Health, Tare
+            re-totals the day’s figure straight from Health, rather than
+            preserving your entered value as an override. Steps and sleep are
+            read in to give your check-ins context.
           </p>
         </div>
 
@@ -282,8 +286,10 @@ const structuredData = {
             <div class="lp-note">
               <p class="lp-note__title">What you typed always wins</p>
               <p>
-                If a reading exists in both places, the value you entered in Tare
-                is the one kept. Imported samples never overwrite your own.
+                For weight and glucose, if a reading exists in both places,
+                the value you entered in Tare is the one kept — imported
+                samples never overwrite your own. Water is the exception: its
+                daily total is always re-read from Health, by design.
               </p>
             </div>
             <div class="lp-note">
