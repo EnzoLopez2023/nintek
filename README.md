@@ -48,17 +48,21 @@ npm run preview
 ## Deploy (Azure Static Web Apps)
 
 This site deploys via GitHub Actions, **not** the ACR/App Service pipeline used by
-the other apps. Static Web Apps is its own resource (Free tier) and does **not**
-run on the shared App Service Plan.
+the other apps. The deployed Free-tier resource is `swa-nintek-prod` in
+`rg-personal-apps-prod`, with default host
+`lively-field-047efca0f.7.azurestaticapps.net`. It does **not** run on the shared
+App Service Plan.
 
-One-time setup:
+Current deployment contract:
 
-1. Create a Static Web App resource (Free tier) in `rg-personal-apps-prod`,
-   connected to this repo / `main` branch.
-2. Copy its deployment token into the repo secret
-   `AZURE_STATIC_WEB_APPS_API_TOKEN`.
-3. Add custom domains `nintek.com` and `www.nintek.com`; set `www` as the
-   canonical host and redirect the apex to it.
+1. Pushes and pull requests to `main` run
+   `.github/workflows/azure-static-web-apps.yml`.
+2. The workflow builds and verifies the site before deploying with the
+   `AZURE_STATIC_WEB_APPS_API_TOKEN` repository secret.
+3. `https://www.nintek.com` is the canonical Azure host. The GoDaddy-owned apex
+   still forwards only the root and does not preserve subpaths such as
+   `/cairn/`, `/robots.txt`, or `/sitemap.xml`; do not describe that external
+   registrar blocker as fixed or mutate registrar settings from this repo.
 
 ## Adding a new app page
 

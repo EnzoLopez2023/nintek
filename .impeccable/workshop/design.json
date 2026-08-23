@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-20T21:30:00Z",
+  "generatedAt": "2026-08-23T13:30:00Z",
   "title": "Design System: Workshop (Nintek portfolio surface)",
   "extensions": {
     "colorMeta": {
@@ -214,8 +214,8 @@
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Lower-emphasis action paired with Primary (e.g. 'Request TestFlight access' in the hero).",
-      "html": "<a class=\"ds-wk-btn ds-wk-btn-secondary\" href=\"#\">Request TestFlight access</a>",
+      "description": "Lower-emphasis action paired with Primary (e.g. the privacy policy in the hero).",
+      "html": "<a class=\"ds-wk-btn ds-wk-btn-secondary\" href=\"#\">Read the privacy policy</a>",
       "css": ".ds-wk-btn-secondary { border: 1px solid #afc7c0; background: #fafcfb; color: #15332e; } .ds-wk-btn-secondary:hover { border-color: #356d85; background: #e0ebe7; }"
     },
     {
@@ -223,7 +223,7 @@
       "kind": "button",
       "refersTo": "button-next",
       "description": "The single amber 'progression' action, used only in the dark native section and /ios proof card.",
-      "html": "<a class=\"ds-wk-btn ds-wk-btn-next\" href=\"#\">Request TestFlight access</a>",
+      "html": "<a class=\"ds-wk-btn ds-wk-btn-next\" href=\"#\">Read current status</a>",
       "css": ".ds-wk-btn-next { background: #d99724; color: #2a1b04; } .ds-wk-btn-next:hover { background: #bf7b16; }"
     },
     {
@@ -253,7 +253,7 @@
   ],
   "narrative": {
     "northStar": "The Living Plan Table",
-    "overview": "Workshop's marketing surface is a drafting table, not a status board: cool vellum paper, deep spruce structural ink, a functional 24px grid across the dedicated page field and scoped shared placements, pencil-blue for annotation and wayfinding, and a single restrained amber for the one \"next step\" action per section. The system exists to hold real evidence — the current web app and fresh, read-only WORKSHOP_DEMO_MODE=1 Simulator captures taken from iOS commit 4b9c2da7234aa8fd4dec58463ae1a73d85c087c8 on iPhone 17 Pro and iPad Pro 13-inch (M5) running iOS 26.5 — at readable scale, never to dress up an invented screen or a stale App Store/release asset.\n\nThis is a Workshop-scoped visual system, confined to /workshop, /workshop/privacy, and Workshop's guest appearances on the Nintek homepage and /ios. It does not restyle the Nintek shell, other product pages, or their sibling apps; every surface that carries it redeclares the same token values locally rather than leaking them outward. The build explicitly rejects the retired \"Concourse Board\" direction — a departure-board/flip-timetable treatment — in favor of this plan-table language.",
+    "overview": "Workshop's marketing surface is a drafting table, not a status board: cool vellum paper, deep spruce structural ink, a functional 24px grid across the dedicated page field and scoped shared placements, pencil-blue for annotation and wayfinding, and a single restrained amber for the one \"next step\" action per section. The system exists to hold real evidence — the current web app and fresh, read-only WORKSHOP_DEMO_MODE=1 Simulator captures taken from iOS commit 4b9c2da7234aa8fd4dec58463ae1a73d85c087c8 on iPhone 17 Pro and iPad Pro 13-inch (M5) running iOS 26.5 — at readable scale, never to dress up an invented screen or a stale App Store/release asset. Release-state copy follows Workshop-for-iOS@87d1743: draft 2.2.1 (12) is assigned to internal TestFlight under the fallback name Nintek Workshop. It is free with no IAP, but it is not public and physical review gates remain. These facts constrain copy only and do not alter the visual direction.\n\nThis is a Workshop-scoped visual system, confined to /workshop, /workshop/privacy, and Workshop's guest appearances on the Nintek homepage and /ios. It does not restyle the Nintek shell, other product pages, or their sibling apps; every surface that carries it redeclares the same token values locally rather than leaking them outward. The build explicitly rejects the retired \"Concourse Board\" direction — a departure-board/flip-timetable treatment — in favor of this plan-table language.",
     "keyCharacteristics": [
       "Cool vellum paper with deep spruce-green ink, not warm Nintek neutrals.",
       "A faint 24px pencil-blue drafting grid across the dedicated page canvas and Workshop-owned shared placements.",

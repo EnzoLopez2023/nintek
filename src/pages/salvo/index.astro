@@ -44,7 +44,7 @@ const eras = [
 
 const pageTitle = 'Salvo - Five-era tower defense built for portrait iPad';
 const description =
-  'Salvo is a tower-defense campaign in active development for portrait iPad, with 16 current operations, five era identities, local saves, and optional Game Center.';
+  'Salvo is a tower-defense campaign in active development for portrait iPad, with 16 current operations, five era identities, local saves, and Game Center disabled for v1.';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -183,7 +183,7 @@ const structuredData = {
               </div>
               <div>
                 <dt>Game Center</dt>
-                <dd>Status stays compact and never blocks local play.</dd>
+                <dd>Disabled and excluded from the v1 player export.</dd>
               </div>
             </dl>
           </div>
@@ -301,8 +301,8 @@ const structuredData = {
               <div>
                 <h3>Commit the local result first.</h3>
                 <p>
-                  Stars and progress reach the on-device save before any optional
-                  Game Center submission is attempted.
+                  Stars and progress stay in the on-device save. The v1 export
+                  does not attempt Game Center submission.
                 </p>
               </div>
             </li>
@@ -326,7 +326,7 @@ const structuredData = {
             </div>
             <div>
               <dt>Game Center</dt>
-              <dd>Optional achievements and leaderboards with a local retry ledger.</dd>
+              <dd>Deferred; disabled and excluded from the v1 export.</dd>
             </div>
             <div>
               <dt>Custom account</dt>
@@ -345,9 +345,9 @@ const structuredData = {
           <div>
             <h2 id="release-title">A working iPad build, still under campaign and release verification.</h2>
             <p>
-              Salvo currently exports as a portrait, iPad-only Godot target. It has
-              no public US App Store listing as of August 20, 2026, and this page
-              does not turn pre-release evidence into a launch claim.
+              Salvo currently exports as a portrait, iPad-only Godot target. It
+              has no public App Store listing, and this page does not turn local
+              build or in-flight distribution evidence into a launch claim.
             </p>
             <p>
               The product intent is paid upfront with no in-app purchases. A final
