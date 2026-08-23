@@ -4,7 +4,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tabloom')!;
-const effectiveDate = 'August 22, 2026';
+const effectiveDate = 'August 23, 2026';
 const sections = [
   { href: '#scope', label: 'Scope and identity' },
   { href: '#data', label: 'Data processed' },
@@ -64,7 +64,7 @@ const lifecycleRows = [
   documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
   summary="Tabloom is a private owner-and-guest notebook workspace and installable PWA. It stores content in a server-side SQLite workspace with persistent uploads, offers explicit read-only IndexedDB downloads, and uses separate processors for generation, semantic search, and selected image operations."
   sections={sections}
-  evidenceNote="Reviewed against the current Tabloom default branch and its matching live deployment on August 22, 2026. Account deletion remains a manual process because no self-service deletion endpoint exists."
+  evidenceNote="Reviewed against immutable Tabloom release-visual authority acfa8a9 and its matching live deployment on August 23, 2026. Account deletion remains a manual process because no self-service deletion endpoint exists."
 >
   <section id="scope" class="legal-section">
     <h2>Scope, identity, and sharing</h2>

@@ -18,9 +18,10 @@ The hub capture and all eight game-home captures are the proof. The page must st
 optional Game Center, no Nintek backend, and bundle `com.nintek.cortex` without
 inventing multiplayer, economies, or sync.
 
-Current default-branch evidence records a private pre-release draft and no
-uploaded replacement build. Do not claim public TestFlight or App Store
-availability, and do not guess the outcome of later distribution work.
+Immutable authority `Cortex@32a7bde` records version 1.1 build 21 as VALID,
+attached, and internal TestFlight. External beta and App Store availability are
+not public. The 1200x630 social composition uses the canonical light icon and
+violet/teal neural identity without presenting a screenshot or availability CTA.
 
 ## Direction and memorable moment
 

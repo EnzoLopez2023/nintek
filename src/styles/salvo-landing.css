@@ -314,6 +314,7 @@
 
 .sa-command,
 .sa-campaign,
+.sa-battle-proof,
 .sa-orders,
 .sa-release {
   color: var(--sa-paper-ink);
@@ -436,6 +437,18 @@
 .sa-campaign {
   padding: 126px 0 140px;
   background: #d9e1e5;
+}
+
+.sa-battle-proof {
+  padding: 126px 0 140px;
+  background: var(--sa-paper);
+}
+
+.sa-battle-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 34px);
+  margin-top: 58px;
 }
 
 .sa-campaign-grid {
@@ -850,6 +863,7 @@
 
   .sa-command,
   .sa-campaign,
+  .sa-battle-proof,
   .sa-eras,
   .sa-orders,
   .sa-local,
@@ -925,6 +939,10 @@
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 28px 0 31px;
+  }
+
+  .sa-battle-proof-grid {
+    grid-template-columns: 1fr;
   }
 
   .sa-brief-lines > div,

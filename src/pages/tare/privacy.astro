@@ -4,7 +4,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tare')!;
-const effectiveDate = 'August 22, 2026';
+const effectiveDate = 'August 23, 2026';
 const sections = [
   { href: '#scope', label: 'Scope and short version' },
   { href: '#device-cloud', label: 'Device and iCloud data' },
@@ -65,7 +65,7 @@ const lifecycleRows = [
   documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
   summary="Tare’s supported product is native for iPhone, iPad, and Apple Watch. It has no Tare account. Health records stay in SwiftData and your private CloudKit database; optional AI requests pass through a stateless relay to Anthropic only after consent."
   sections={sections}
-  evidenceNote="Reviewed against the current Tare relay-only deployment, the current Tare-for-iOS default branch, and the active web-retirement runbook on August 22, 2026. Legacy web-data cleanup is prepared but has not been executed."
+  evidenceNote="Reviewed against the Tare relay-only deployment, immutable Tare-for-iOS release-visual authority 9154a7e, and the active web-retirement runbook on August 23, 2026. Legacy web-data cleanup is prepared but has not been executed."
 >
   <section id="scope" class="legal-section">
     <h2>Scope and the short version</h2>

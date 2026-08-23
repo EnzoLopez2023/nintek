@@ -1,0 +1,125 @@
+---
+import PhoneMock from './PhoneMock.astro';
+
+interface Props {
+  variant?: 'phone' | 'cluster';
+  eager?: boolean;
+}
+
+const { variant = 'phone', eager = false } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
+---
+
+{
+  variant === 'phone' ? (
+    <figure class="trv trv-phone">
+      <PhoneMock tone="enamel" fullBleed>
+        <img
+          src="/apps/tare/iphone-01-today.webp"
+          alt="Tare Today screen with fictional sample health data"
+          width="1320"
+          height="2868"
+          loading={loading}
+          decoding="async"
+        />
+      </PhoneMock>
+      <figcaption>iOS 26.5 Simulator capture · fictional sample data</figcaption>
+    </figure>
+  ) : (
+    <div class="trv trv-cluster">
+      <figure class="trv-pad">
+        <img
+          src="/apps/tare/ipad-01-today.webp"
+          alt="Tare Today screen on iPad with fictional sample health data"
+          width="2064"
+          height="2752"
+          loading={loading}
+          decoding="async"
+        />
+        <figcaption>iPadOS 26.5 Simulator · fictional data</figcaption>
+      </figure>
+      <figure class="trv-handset">
+        <img
+          src="/apps/tare/iphone-01-today.webp"
+          alt="Tare Today screen on iPhone with fictional sample health data"
+          width="1320"
+          height="2868"
+          loading={loading}
+          decoding="async"
+        />
+        <figcaption>iOS 26.5 Simulator · fictional data</figcaption>
+      </figure>
+    </div>
+  )
+}
+
+<style>
+  .trv {
+    position: relative;
+    margin: 0;
+  }
+
+  .trv :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .trv-phone {
+    width: min(100%, 320px);
+    margin-inline: auto;
+  }
+
+  .trv-phone :global(.phone) {
+    width: 100%;
+  }
+
+  .trv figcaption {
+    margin-top: 12px;
+    color: var(--lp-wood-600, #5e6e79);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.055em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .trv-cluster {
+    width: min(100%, 560px);
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(130px, 0.48fr);
+    gap: 18px;
+    align-items: end;
+  }
+
+  .trv-cluster figure {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .trv-cluster figure > img {
+    height: auto;
+    border: 1px solid rgba(186, 203, 212, 0.72);
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 24px 58px -30px rgba(34, 44, 51, 0.48);
+  }
+
+  .trv-pad {
+    transform: rotate(-1.5deg);
+  }
+
+  .trv-handset {
+    transform: translateY(26px) rotate(1.5deg);
+  }
+
+  @media (max-width: 640px) {
+    .trv-cluster {
+      grid-template-columns: minmax(0, 1fr) minmax(108px, 0.46fr);
+      gap: 12px;
+    }
+  }
+</style>

@@ -26,30 +26,30 @@ const loading = eager ? 'eager' : 'lazy';
       <figcaption class="ws-proof-label">Current web capture</figcaption>
     </figure>
   ) : (
-    <div class="ws-proof ws-proof-native">
-      <figure class="ws-native-ipad">
-        <img
-          src="/apps/workshop/ipad-projects.webp"
-          alt="Workshop read-only demo on iPad showing the separate Projects context, active cabinet plan, and project library"
-          width="1548"
-          height="2064"
-          loading={loading}
-          decoding="async"
-        />
-        <figcaption class="ws-proof-label">Current iPad Simulator capture</figcaption>
-      </figure>
-      <figure class="ws-native-phone">
-        <img
-          src="/apps/workshop/iphone-projects.webp"
-          alt="Workshop read-only demo on iPhone showing the Projects context and active Hand Tool Storage Cabinet next action"
-          width="906"
-          height="1970"
-          loading={loading}
-          decoding="async"
-        />
-        <figcaption class="ws-proof-label">Current iPhone Simulator capture</figcaption>
-      </figure>
-    </div>
+    <figure class="ws-proof ws-proof-native">
+      <div class="ws-release-head">
+        <span>Native release evidence</span>
+        <strong>2.2.1 (13)</strong>
+      </div>
+      <img
+        class="ws-release-icon"
+        src="/apps/workshop.png"
+        alt="Workshop canonical mallet app icon"
+        width="1024"
+        height="1024"
+        loading={loading}
+        decoding="async"
+      />
+      <dl class="ws-release-facts">
+        <div><dt>Build</dt><dd>Attached · VALID</dd></div>
+        <div><dt>Channel</dt><dd>Internal TestFlight</dd></div>
+        <div><dt>Public release</dt><dd>Not available</dd></div>
+      </dl>
+      <figcaption class="ws-proof-label">
+        Build 13 screenshot masters are recorded in App Store Connect but are not
+        committed upstream, so no substitute screenshot is shown.
+      </figcaption>
+    </figure>
   )
 }
 
@@ -130,10 +130,6 @@ const loading = eager ? 'eager' : 'lazy';
   }
 
   .ws-proof-native {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.34fr);
-    gap: clamp(14px, 2.5vw, 24px);
-    align-items: end;
     padding: clamp(16px, 3vw, 28px);
     overflow: hidden;
     border: 1px solid var(--ws-divider);
@@ -144,26 +140,55 @@ const loading = eager ? 'eager' : 'lazy';
       linear-gradient(145deg, var(--ws-canvas), var(--ws-recessed));
   }
 
-  .ws-native-ipad,
-  .ws-native-phone {
-    margin: 0;
+  .ws-release-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ws-divider);
+    color: var(--ws-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
-  .ws-native-ipad img,
-  .ws-native-phone img {
-    border-radius: 22px;
+  .ws-release-head strong {
+    color: var(--ws-action);
+  }
+
+  .ws-release-icon {
+    width: min(58%, 220px) !important;
+    margin: clamp(22px, 4vw, 34px) auto;
+    border-radius: 22.5%;
     box-shadow: 0 22px 48px -26px rgba(9, 17, 15, 0.52);
   }
 
-  .ws-native-ipad .ws-proof-label,
-  .ws-native-phone .ws-proof-label {
-    color: var(--ws-ink);
-    text-align: center;
+  .ws-release-facts {
+    margin: 0;
+    border-top: 1px solid var(--ws-divider);
   }
 
-  .ws-native-phone {
-    z-index: 1;
-    width: 100%;
+  .ws-release-facts div {
+    display: grid;
+    grid-template-columns: minmax(100px, 0.42fr) minmax(0, 1fr);
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--ws-divider);
+  }
+
+  .ws-release-facts dt,
+  .ws-release-facts dd {
+    margin: 0;
+    color: var(--ws-muted);
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .ws-release-facts dd {
+    color: var(--ws-ink);
+    font-weight: 650;
   }
 
   @media (max-width: 700px) {
@@ -179,18 +204,7 @@ const loading = eager ? 'eager' : 'lazy';
     }
 
     .ws-proof-native {
-      grid-template-columns: 1fr;
-      gap: 18px;
       border-radius: 18px;
-    }
-
-    .ws-native-ipad {
-      display: none;
-    }
-
-    .ws-native-phone {
-      width: min(88%, 340px);
-      margin: 0 auto;
     }
   }
 

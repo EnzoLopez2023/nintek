@@ -1,0 +1,626 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-23",
+  "socialRenderer": {
+    "command": "npm run social:build",
+    "checkCommand": "npm run social:check",
+    "sharpVersion": "0.35.3",
+    "provenanceGeneratorValue": "Deterministic local SVG composition rendered with sharp 0.34.5",
+    "density": 144,
+    "png": {
+      "compressionLevel": 9,
+      "adaptiveFiltering": true,
+      "palette": false
+    },
+    "metadataOrder": ["Title", "Prompt", "Source", "Generator"],
+    "metadataEncoding": "PNG tEXt chunks inserted after IHDR with IEEE CRC-32",
+    "pixelsPerMeter": [5669, 5669, 1]
+  },
+  "products": {
+    "tare": {
+      "repository": "EnzoLopez2023/Tare-for-iOS",
+      "authorityCommit": "9154a7e061fe9be31426741ee94ba09da5a4c050",
+      "manifestPath": "app-store/release-visuals.json",
+      "manifestBytes": 31108,
+      "manifestSha256": "2a63f42b0953585543e0d65d81170f25c5153e97c861e0734a9af58b86e2ab2f",
+      "release": {
+        "version": "1.0",
+        "build": "31",
+        "state": "internal-testflight",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/tare.png",
+          "sha256": "457bbf0e4b1fbb66e7e95a298ed0ce49393b759d296bfbde2803e366df225a87",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "public/social/tare.png",
+          "sha256": "3eb68730de37c1d371f8c64ca32f8f1460ff67259a2a0a8c122ff0fc313a5da0",
+          "width": 1200,
+          "height": 630,
+          "captureClass": "deterministic-branded-composition"
+        },
+        {
+          "path": "public/social/source/tare.svg",
+          "sha256": "b662618f7ced2238c603d6eef08f65a8fee2d9dd5334dd6a0738ab02f0e8317c",
+          "captureClass": "editable-social-source"
+        },
+        {
+          "path": "public/apps/tare/iphone-01-today.webp",
+          "sha256": "fce5e1174dd06dc75d174ded8eaa42ab4a98452a8cdfbcb0e11d2e200bc93692",
+          "width": 1320,
+          "height": 2868,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/iphone-6.9/01-today.png",
+          "sourceSha256": "0faf2db0d4c08591979b580bd6e1360e98e85f18d9695404c4b61138460050f0"
+        },
+        {
+          "path": "public/apps/tare/iphone-02-medication.webp",
+          "sha256": "849324fde07f365f19657af1be803f9a81c3f3ecc538f23e826aa12df842ebea",
+          "width": 1320,
+          "height": 2868,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/iphone-6.9/02-medication.png",
+          "sourceSha256": "b168aa61971be168d33e5d0394dd2d3af03375a14c2ae7c4cf7d5dbc771f70ff"
+        },
+        {
+          "path": "public/apps/tare/iphone-03-glucose.webp",
+          "sha256": "73a70246495fa0f54eb894710f62dd92d71c513bc086ea778cd0edfea797f0bb",
+          "width": 1320,
+          "height": 2868,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/iphone-6.9/03-glucose.png",
+          "sourceSha256": "651165d19656ad43792b2aa4e1c643d52c016099884558bb0779d297fc639f25"
+        },
+        {
+          "path": "public/apps/tare/iphone-04-progress.webp",
+          "sha256": "a0aa9dcb1d09f91ac04e653e17d6b45400993dc52d9d3c8c261e92c26a8fae68",
+          "width": 1320,
+          "height": 2868,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/iphone-6.9/04-progress.png",
+          "sourceSha256": "92f9e11a21ed42c3ce8f09ff32c4bc9b08bc83927d35de1064ce35a264197ea1"
+        },
+        {
+          "path": "public/apps/tare/iphone-05-nutrition.webp",
+          "sha256": "2b8b63ac2e7696812928739cb1603fe01812bc3855b9f1f3bd08db9f795a1729",
+          "width": 1320,
+          "height": 2868,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/iphone-6.9/05-nutrition.png",
+          "sourceSha256": "c3a52ecba9c6f27e059768eebdfb83b12ace49cef7f7cacf0cdcf20be2f9bbfb"
+        },
+        {
+          "path": "public/apps/tare/iphone-06-reports.webp",
+          "sha256": "c3916a3817533adb278e61d58e4bda1f16ce4be345408fa9a95150ae5e5d9b16",
+          "width": 1320,
+          "height": 2868,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/iphone-6.9/06-reports.png",
+          "sourceSha256": "31f16c124fce60140c50e7b1cfe265b08d0800a6fa71102f969cf2829620657d"
+        },
+        {
+          "path": "public/apps/tare/ipad-01-today.webp",
+          "sha256": "08b0591515699bfcc833d911a1e317ec9ff4302a75f4dc1e655d05117196ef32",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/ipad-13/01-today.png",
+          "sourceSha256": "e0acb03733c4d1a7eca30d921e2398a5531de282f9dd955aef70a05de813fe2a"
+        },
+        {
+          "path": "public/apps/tare/ipad-02-medication.webp",
+          "sha256": "a36b4d65c39d0495042372778b7653a2fad8c6b4f311f641cdc7ab3967072e90",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/ipad-13/02-medication.png",
+          "sourceSha256": "565d4bdbd22588b95351da3b191738da3a3d1f4df876f20d15cfc518cff2b090"
+        },
+        {
+          "path": "public/apps/tare/ipad-03-glucose.webp",
+          "sha256": "2a2b123b617d3866e2484736ee534de11f6b82908f3c90ed64330630a6fc5362",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/ipad-13/03-glucose.png",
+          "sourceSha256": "56d998f59350e7999c8659e2aee3e1aa9f022a3a9aee6f22fddca7c2459573c0"
+        },
+        {
+          "path": "public/apps/tare/ipad-04-progress.webp",
+          "sha256": "0d43537a9099dae4e6427ffb126927749b2b6506691ec1edd9aac2a931a6a8dc",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/ipad-13/04-progress.png",
+          "sourceSha256": "0714ec49a33488b93bbcccabefd3b3c19d8524f4b00c9aa574e7bd711ec853c0"
+        },
+        {
+          "path": "public/apps/tare/ipad-05-nutrition.webp",
+          "sha256": "1f5ff5aa295a414d7fbe2acf7dfedca20625c51789813b9a694ed667e4fb7941",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/ipad-13/05-nutrition.png",
+          "sourceSha256": "0ce9fd10fc54c5cb93d1d6575520c61d15aefeffc73d2ca9c93bcf859fc35f50"
+        },
+        {
+          "path": "public/apps/tare/ipad-06-reports.webp",
+          "sha256": "55a43b0c270be7eee119e8cc1a972cbb466b06e3a285ccc59dc907e573a5e725",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "simulator-marketing-derivative",
+          "sourcePath": "app-store/screenshots/simulator/ipad-13/06-reports.png",
+          "sourceSha256": "090f63658b6a73a47c4b13b49ba253a752188c37a4e38a980b68ac8794909e4a"
+        },
+        {
+          "path": "public/apps/tare/watch-01-home.webp",
+          "sha256": "9d6a42bc6503883e9cfa938aee11c6dd14018ff7ed3675f3a908b081641130b7",
+          "width": 416,
+          "height": 496,
+          "captureClass": "simulator-support-derivative",
+          "sourcePath": "app-store/screenshots/simulator/watch-46mm/01-watch-home.png",
+          "sourceSha256": "87c13787ab8db95e78fe59ca1bf4342c2317687ffe093ff488fe9ead250d88c4"
+        }
+      ]
+    },
+    "workshop": {
+      "repository": "EnzoLopez2023/Workshop-for-iOS",
+      "authorityCommit": "32248fcfec06195f847aaaa56e036f5b92d2981a",
+      "manifestPath": "AppStore/RELEASE_VISUAL_MANIFEST.json",
+      "manifestBytes": 11981,
+      "manifestSha256": "89615b9c298415591e180ea629424663b8af5b5c73acab8322064daa6ab3e4b2",
+      "release": {
+        "version": "2.2.1",
+        "build": "13",
+        "state": "internal-testflight-attached",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/workshop.png",
+          "sha256": "cdf1ceedf57c10f71d543cae9aa0688683fb17d01dd503a5f9ebd275f0b8cc3e",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "public/apps/workshop/web-project.webp",
+          "sha256": "e5e9dd857345619062b50437c8db5b7530bbc89f86480b294628ecf7f3c4f583",
+          "width": 598,
+          "height": 500,
+          "captureClass": "current-web-capture"
+        },
+        {
+          "path": "public/social/workshop.png",
+          "sha256": "2c9863c24291ae42b414110fb730df9372c0340482533b94c72f100473a3c086",
+          "width": 1200,
+          "height": 630,
+          "captureClass": "deterministic-web-capture-composition"
+        },
+        {
+          "path": "public/social/source/workshop.svg",
+          "sha256": "2ff71d4960f1561e84b786e76b181b26675263534f6d390ca6c470244b9f4599",
+          "captureClass": "editable-social-source"
+        }
+      ],
+      "omissions": [
+        "Ten build 13 screenshot masters are recorded in App Store Connect but are untracked and absent from the immutable repository; stale native captures and CDN recompressions are not substituted."
+      ]
+    },
+    "shopkeep": {
+      "repository": "EnzoLopez2023/ShopKeepNative",
+      "authorityCommit": "b1a757b84500fc7b051b0c0b7599b9f7906a0a1e",
+      "manifestPath": "AppStorePreview/release-visual-manifest.json",
+      "manifestBytes": 11588,
+      "manifestSha256": "6de1f3573886c0cfd1947197c54f4842f5e1290dcb538ff8d87ac81b71b3df03",
+      "release": {
+        "version": "2.0.1",
+        "build": "35",
+        "state": "private-attached-valid",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/shopkeep.png",
+          "sha256": "1da578d78344b7d4a6b3dd68e261fa52590186b52ba6b8efc54cb40808370025",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "public/social/shopkeep.png",
+          "sha256": "acd6420c4677e9b1edcc04a9d2b45ba914e488b792e6b9b6ea40406460fc67eb",
+          "width": 1200,
+          "height": 630,
+          "captureClass": "deterministic-branded-composition"
+        },
+        {
+          "path": "public/social/source/shopkeep.svg",
+          "sha256": "75e36c81c9fdba253ffd1a24b1b92daf6450f491d2fd11287917fabf95a790c3",
+          "captureClass": "editable-social-source"
+        }
+      ],
+      "omissions": [
+        "Fourteen build 35 screenshot masters are intentionally untracked and absent from the immutable repository; retired and synthetic interface art is not substituted."
+      ]
+    },
+    "cairn": {
+      "repository": "EnzoLopez2023/CairnNative",
+      "authorityCommit": "07f2ecea7e31bddb0b66612571010ac1514ac14f",
+      "manifestPath": "AppStore/ReleaseVisuals/manifest.json",
+      "manifestBytes": 23640,
+      "manifestSha256": "607e525f9efbb8c64cb59b345538cf3ec7c3b6ac1eaa927233186e7f443b63d4",
+      "release": {
+        "version": "3.0",
+        "build": "2",
+        "state": "rejected",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/cairn.png",
+          "sha256": "f2195c75597a8f3fe94d5f57d6e1445ce59b8a9773d14bf9778d480ba798efb5",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "public/social/cairn.png",
+          "sha256": "0fe7a02598009b06d13ce9eca3b9c4cfb3317656e6e8a6ca2e8134290daac32e",
+          "width": 1200,
+          "height": 630,
+          "captureClass": "deterministic-branded-composition"
+        },
+        {
+          "path": "public/social/source/cairn.svg",
+          "sha256": "f9fed69568a46d2a080f4131f9959d1700420c954c55c2343b2023fa87c285db",
+          "captureClass": "editable-social-source"
+        }
+      ]
+    },
+    "cortex": {
+      "repository": "EnzoLopez2023/Cortex",
+      "authorityCommit": "32a7bde9cb5a4cc4af0507a35e53faa5ae58d01f",
+      "manifestPath": "AppStore/release_visual_manifest.json",
+      "manifestBytes": 12437,
+      "manifestSha256": "c0b8758bab7e4201ab5d61bd774eb4a097dfb79d6b809558448d08fb7f603ec2",
+      "release": {
+        "version": "1.1",
+        "build": "21",
+        "state": "internal-testflight-attached",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/cortex.png",
+          "sha256": "b48d58b783ce57bd83522935c1d818211a493f43202a268f5e0f7ce9baa83d5e",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "src/assets/cortex/hub.webp",
+          "sha256": "5e64d0f577157230e41e4695288b9d136fb0f2d83f9892ede615e4ff5acb6864",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/sudoku.webp",
+          "sha256": "8f8843893cec5418e71fc0faf014d56c8d7c6e6eb201d62d19a5cfa633034048",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/sumweave.webp",
+          "sha256": "38d564c245a09768435398a63ca64799fc98060bb766e0f14c94f64603a38131",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/word-search.webp",
+          "sha256": "1c25e9001532eba5e9ad8a98ac84812e93831ad58034d336aabe4de64444150e",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/letter-sprint.webp",
+          "sha256": "3d8ce0e30bb0f63fa02b1afcbec54dd344bb1023db810cdd010321b3b8ae4bbd",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/wordfoundry.webp",
+          "sha256": "dddc4955433561a53bdb80350f2c9a0dfacf86d6645cc3688f22d4d40d5fb2a0",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/grid-blast.webp",
+          "sha256": "58e7b78c7d0e4c5a2022068bd50343a126c77a534c5fe32991af4d23476f8b60",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/pixel-flow.webp",
+          "sha256": "7e5b907d263f46c0944c6d74a3053449f56e8a1fb884a916c0df2e249521f432",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "src/assets/cortex/neon-drop.webp",
+          "sha256": "3bb352385f3d6204a86ec1d381784061720131b2b48c3ae50d17ccb0b43eccf7",
+          "width": 1206,
+          "height": 2622,
+          "captureClass": "simulator-marketing-derivative"
+        },
+        {
+          "path": "public/social/cortex.png",
+          "sha256": "e5cf088a0939911a7980e09934cb4c37adf5a638c14f4ee207a8517d9b4029c4",
+          "width": 1200,
+          "height": 630,
+          "captureClass": "deterministic-branded-composition"
+        },
+        {
+          "path": "public/social/source/cortex.svg",
+          "sha256": "8c925a1c4fbc6f81512e39133f3ac9a57c0e7805d28b4b75bf4435a701f6539d",
+          "captureClass": "editable-social-source"
+        }
+      ]
+    },
+    "sortie": {
+      "repository": "EnzoLopez2023/Sortie",
+      "authorityCommit": "be654b971f5011537c479511f1122c0b94b5d337",
+      "manifestPath": "appstore/release-visuals.json",
+      "manifestBytes": 27473,
+      "manifestSha256": "4d3b23985ede46439daca018e346fd17ea7f9728f320fbd76b46dea48fd20da8",
+      "release": {
+        "version": "1.0",
+        "build": "13",
+        "state": "internal-testflight-unattached",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/sortie.png",
+          "sha256": "6ffc68d514b6dc94555e3481086951c70bf0bab43ed7deb34621558ed8d43e06",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "src/assets/sortie/logo.webp",
+          "sha256": "29d0d5d632b43af1cba921d014d5de9868de823968cab4a237399bece87feb72",
+          "width": 1200,
+          "height": 515,
+          "captureClass": "source-art-derivative"
+        },
+        {
+          "path": "src/assets/sortie/home-poster.webp",
+          "sha256": "65a764b1413d30e74b1883724862800aeb03d795f0d167cdffd2899317f6b30b",
+          "width": 720,
+          "height": 1280,
+          "captureClass": "handoff-footage-frame-unasserted"
+        },
+        {
+          "path": "src/assets/sortie/tundra.webp",
+          "sha256": "aa302ee1c2ca3a64bc4adfbdff7f8c9772510c7d3232080c1734311961e79ab8",
+          "width": 1024,
+          "height": 2224,
+          "captureClass": "source-art-derivative"
+        },
+        {
+          "path": "src/assets/sortie/meadow.webp",
+          "sha256": "dc47761eed39778282622043b303d21029673c0eeeee9b4bc912179f53a1158c",
+          "width": 1024,
+          "height": 2224,
+          "captureClass": "source-art-derivative"
+        },
+        {
+          "path": "src/assets/sortie/keep-player.webp",
+          "sha256": "f6cf104c8bf479ca2261c0ff8f93167dd34e9c722befa4918136b7a3e4ff50f9",
+          "width": 512,
+          "height": 512,
+          "captureClass": "source-art-derivative"
+        },
+        {
+          "path": "src/assets/sortie/keep-enemy.webp",
+          "sha256": "9ce97177c9c49a39e2ae4c56ed85a9140d7e032f1f977f05d2e5430af802a793",
+          "width": 512,
+          "height": 512,
+          "captureClass": "source-art-derivative"
+        },
+        {
+          "path": "src/assets/sortie/keep-neutral.webp",
+          "sha256": "b7428dc662b1e7b518509e2ba34814181645d487014aa98f863721a82cf7353a",
+          "width": 512,
+          "height": 512,
+          "captureClass": "source-art-derivative"
+        },
+        {
+          "path": "public/apps/sortie/hero-loop.mp4",
+          "sha256": "7a15d773759d7fd50f0fea971c05b746f4d2746bcecd5fbac5a84695de606ae6",
+          "captureClass": "handoff-footage-unasserted"
+        },
+        {
+          "path": "public/social/sortie.png",
+          "sha256": "d10d298b61ccecc11f0f772e8adf4352cc007d2e7dd49e45c1847a4ea5397a73",
+          "width": 1200,
+          "height": 630,
+          "captureClass": "deterministic-branded-composition"
+        },
+        {
+          "path": "public/social/source/sortie.svg",
+          "sha256": "543a8c571cea872baf2a9c1fed67d6e0fce06f9bfdfa51dc7a5aab2ec0c63646",
+          "captureClass": "upstream-authored-social-source"
+        }
+      ],
+      "omissions": [
+        "Physical-device gameplay screenshots remain blocked; source art, desktop captures, debug captures, iPad captures, and synthetic gameplay are prohibited substitutes."
+      ]
+    },
+    "salvo": {
+      "repository": "EnzoLopez2023/Salvo",
+      "authorityCommit": "3fb91b02f9ec1d29c63caa7ba3080290b3b9e607",
+      "manifestPath": "release/release-visuals.json",
+      "manifestBytes": 18646,
+      "manifestSha256": "1bd4308390cac4f66005bf5691afd4f3504d2afaec90f6cbf2740de28732fc20",
+      "release": {
+        "version": "1.0.0",
+        "build": "4",
+        "state": "prepare-for-submission-content-blocked",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/salvo.png",
+          "sha256": "ec67b89f1c333d957464266117ffa66162abe37bd58be99827bc9e1aebbb3792",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "src/assets/salvo/release/01-title.png",
+          "sha256": "79c2bea84e85db58f2c636eaecece2aacbadab9357ec0d518f325f005ff6eafe",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "automated-ipad-release-capture"
+        },
+        {
+          "path": "src/assets/salvo/release/02-command.png",
+          "sha256": "346d33f8349ae208bdce0228cf5f99ebd585136cd8876c873585cddda9897b27",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "automated-ipad-release-capture"
+        },
+        {
+          "path": "src/assets/salvo/release/03-campaign.png",
+          "sha256": "69e6c2414e0b39ffea5092532c1280c7aff179d39c13d3e17dcd46405f7ed3c7",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "automated-ipad-release-capture"
+        },
+        {
+          "path": "src/assets/salvo/release/04-placement.png",
+          "sha256": "b5df5aacff7eed0dc0ea641f42427635f858457a50c97069f3ed289024248632",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "automated-ipad-release-capture"
+        },
+        {
+          "path": "src/assets/salvo/release/05-combat.png",
+          "sha256": "a5fd168d4e11d0f33773e7719f57506d688e9b025ab0d13b9fe4877864271cb8",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "automated-ipad-release-capture"
+        },
+        {
+          "path": "src/assets/salvo/release/06-result.png",
+          "sha256": "6224a014e3b72b5a80d34d5315ca4ee4f2b4fa79a76c5e834d82fcaec9ad409e",
+          "width": 2064,
+          "height": 2752,
+          "captureClass": "automated-ipad-release-capture"
+        }
+      ],
+      "omissions": [
+        "Owner-approved social assets are empty; release screenshots are not used as social previews.",
+        "Only 16 Age of Siege operations are current; the wider five-era campaign remains blocked pending pilot and blueprint approval."
+      ]
+    },
+    "tabloom": {
+      "repository": "EnzoLopez2023/tabloom",
+      "authorityCommit": "acfa8a95d1b9e39b995c9e34549f638aafd77352",
+      "manifestPath": "docs/release-visuals/manifest.json",
+      "manifestSha256": "e26df22695e3bf0fb41c0c2beb2837401955200c1646555c654db6b394474c85",
+      "release": {
+        "version": "2.5.0+59",
+        "build": "32645251001-1",
+        "state": "deployed-private-web",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/tabloom.png",
+          "sha256": "10012328cd4ad77c1a588f929a879b90a9a8e996156d7b900376653d655e1bce",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-social-raster"
+        },
+        {
+          "path": "public/apps/tabloom.svg",
+          "sha256": "5ebdc6ad05672b96597a5d3e76b2567f11cc24946f51a770a0a3e90f72a847fd",
+          "captureClass": "canonical-social-vector"
+        },
+        {
+          "path": "public/apps/tabloom/editor-desktop.png",
+          "sha256": "f1890b9273c50971f67bf4fdfcb3de7cefc73267fe603136185a65000a3b93d0",
+          "width": 1440,
+          "height": 900,
+          "captureClass": "deterministic-fictional-fixture"
+        },
+        {
+          "path": "public/apps/tabloom/editor-mobile.png",
+          "sha256": "a87908fe0a765a94a6d720b6201f7037f664ad6da8c8eaca1dd3fceaad44fa7e",
+          "width": 390,
+          "height": 844,
+          "captureClass": "deterministic-fictional-fixture"
+        }
+      ]
+    },
+    "pulsewire": {
+      "repository": "EnzoLopez2023/PulseWire",
+      "authorityCommit": "6b4c1c79e5158ad1d1ec8b89195751e469e7310e",
+      "manifestPath": "docs/release-visuals/manifest.json",
+      "manifestBytes": 8605,
+      "manifestSha256": "e490a4664ced9cf06e1334178ff28ee402c17296176b8968d1b3f3469c345fe7",
+      "release": {
+        "version": "web",
+        "build": "2cb4b7d",
+        "state": "private-owner-and-read-only-demo",
+        "public": false
+      },
+      "assets": [
+        {
+          "path": "public/apps/pulsewire.png",
+          "sha256": "114af94c6267534fc39ff38531969a1e9c91ac1bea37df65b21a2cb530773187",
+          "width": 1024,
+          "height": 1024,
+          "captureClass": "canonical-app-icon"
+        },
+        {
+          "path": "public/apps/pulsewire/dashboard-desktop.png",
+          "sha256": "d8df550df77f88854c4b561021eb7f151eee801bd3f1c09bbbcf6161d53a6156",
+          "width": 1440,
+          "height": 900,
+          "captureClass": "deterministic-fictional-fixture"
+        },
+        {
+          "path": "public/apps/pulsewire/dashboard-mobile.png",
+          "sha256": "96d0ba995eec9f84ef60ee6f7cefa1b7afb463a65e2c3367c7356a978be4bfde",
+          "width": 390,
+          "height": 844,
+          "captureClass": "deterministic-fictional-fixture"
+        },
+        {
+          "path": "public/social/pulsewire.png",
+          "sha256": "cc0c6818ff12887c748dce29b2584492e4b77a4d3b9e2a365a98712025eecea4",
+          "width": 1200,
+          "height": 630,
+          "captureClass": "deterministic-fictional-fixture"
+        }
+      ]
+    }
+  }
+}

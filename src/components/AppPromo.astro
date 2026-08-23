@@ -2,18 +2,16 @@
 import type { App } from '../data/apps';
 import MockShell from './MockShell.astro';
 import PhoneMock from './PhoneMock.astro';
-import TabletMock from './TabletMock.astro';
 import PlatformBadges from './PlatformBadges.astro';
 import Cairn from './mocks/Cairn.astro';
-import PulseWire from './mocks/PulseWire.astro';
 import Hearth from './mocks/Hearth.astro';
-import ShopKeep from './mocks/ShopKeep.astro';
-import Tabloom from './mocks/Tabloom.astro';
 import CortexPhone from './mocks/ios/Cortex.astro';
-import TarePhone from './mocks/ios/Tare.astro';
 import WorkshopShowcase from './WorkshopShowcase.astro';
 import SortiePhone from './mocks/ios/Sortie.astro';
-import SalvoPad from './mocks/ios/Salvo.astro';
+import SalvoReleaseVisual from './SalvoReleaseVisual.astro';
+import ShopKeepReleaseVisual from './ShopKeepReleaseVisual.astro';
+import TareReleaseVisual from './TareReleaseVisual.astro';
+import WebReleaseVisual from './WebReleaseVisual.astro';
 
 interface Props {
   app: App;
@@ -25,10 +23,7 @@ const reverse = index % 2 === 1;
 
 const bodies: Record<string, any> = {
   cairn: Cairn,
-  pulsewire: PulseWire,
   hearth: Hearth,
-  shopkeep: ShopKeep,
-  tabloom: Tabloom,
 };
 
 /** Apps whose home is a phone get a device frame instead of browser chrome.
@@ -36,25 +31,12 @@ const bodies: Record<string, any> = {
  *  browser window would advertise the version being retired. */
 const phoneBodies: Record<string, any> = {
   cortex: CortexPhone,
-  tare: TarePhone,
   sortie: SortiePhone,
 };
 
-const tabletBodies: Record<string, any> = {
-  salvo: SalvoPad,
-};
-
-/** Cortex ships a dark UI; Tare's is a cool enamel, so it gets a shell to
- *  match rather than the default walnut. */
-const phoneTones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
-  tare: 'enamel',
-};
-
 const PhoneBody = phoneBodies[app.slug];
-const TabletBody = tabletBodies[app.slug];
 const Body = bodies[app.slug];
 const isCurrentNative = app.native && app.native.status !== 'next';
-const isScreenshotBody = app.slug === 'tabloom';
 const isWorkshop = app.slug === 'workshop';
 const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug}.png`;
 ---
@@ -141,29 +123,23 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
         {
           isWorkshop ? (
             <WorkshopShowcase variant="web" />
-          ) : TabletBody ? (
-            <TabletMock
-              orientation="portrait"
-              tone="navy"
-              chip={app.mockup.chip}
-              live={app.mockup.live}
-              fullBleed
-            >
-              <TabletBody />
-            </TabletMock>
+          ) : app.slug === 'tare' ? (
+            <TareReleaseVisual />
+          ) : app.slug === 'shopkeep' ? (
+            <ShopKeepReleaseVisual compact />
+          ) : app.slug === 'salvo' ? (
+            <SalvoReleaseVisual />
+          ) : app.slug === 'tabloom' || app.slug === 'pulsewire' ? (
+            <WebReleaseVisual product={app.slug} />
           ) : PhoneBody ? (
             <PhoneMock
-              tone={phoneTones[app.slug] ?? 'dark'}
+              tone="dark"
               chip={app.mockup.chip}
               live={app.mockup.live}
               fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
             >
               <PhoneBody />
             </PhoneMock>
-          ) : isScreenshotBody ? (
-            <div class="mockup-wrap">
-              <Body />
-            </div>
           ) : (
             <MockShell
               title={app.mockup.title}

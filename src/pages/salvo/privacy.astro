@@ -1,0 +1,124 @@
+---
+import DataLifecycleTable from '../../components/DataLifecycleTable.astro';
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { COMPANY, getApp } from '../../data/apps';
+
+const app = getApp('salvo')!;
+const effectiveDate = 'August 23, 2026';
+const sections = [
+  { href: '#scope', label: 'Scope and short version' },
+  { href: '#local-data', label: 'Local game data' },
+  { href: '#apple', label: 'Apple services' },
+  { href: '#lifecycle', label: 'Retention and deletion' },
+  { href: '#release', label: 'Release boundary' },
+  { href: '#contact', label: 'Contact' },
+];
+const lifecycleRows = [
+  {
+    data: 'Progress, stars, settings, and endless record',
+    location: 'A versioned JSON save inside Salvo’s app container on the iPad.',
+    portability: 'Salvo has no account export or Nintek server copy.',
+    deletion: 'Deleting Salvo removes its local save from that iPad.',
+  },
+  {
+    data: 'Apple-managed device backup',
+    location: 'Apple backup services only when enabled for the device and app.',
+    portability: 'Apple provides the applicable device and account controls.',
+    deletion: 'Manage or delete Apple-held backup data through Apple; Nintek cannot access it.',
+  },
+  {
+    data: 'Support correspondence',
+    location: 'Nintek’s support mailbox only when you choose to email.',
+    portability: 'You can keep your sent message and request review of correspondence Nintek still holds.',
+    deletion: 'Nintek may retain correspondence for response, security, documentation, or legal obligations.',
+  },
+];
+---
+
+<LegalLayout
+  app={app}
+  title={`${app.name} Privacy Policy — ${COMPANY.name}`}
+  description="How the unreleased Salvo iPad build handles local game data, Apple-managed backups, support correspondence, and its no-collection boundary."
+  path="/salvo/privacy"
+  page="privacy"
+  heading="Salvo Privacy Policy"
+  documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
+  summary="Salvo is an unreleased, offline iPad game. It has no account, Nintek backend, analytics, advertising, in-app purchase, cloud save, or Game Center integration in the v1 player export."
+  sections={sections}
+  evidenceNote="Reviewed against Salvo release source a73921c and immutable release-visual authority 3fb91b0 on August 23, 2026. App Privacy publication and physical-iPad verification remain open release gates."
+>
+  <section id="scope" class="legal-section">
+    <h2>Scope and the short version</h2>
+    <p>
+      This policy describes the current Salvo version 1.0.0 build 4 candidate.
+      Salvo runs locally on a supported iPad and does not send gameplay, settings,
+      identifiers, or analytics to a Nintek service.
+    </p>
+    <p class="legal-callout">
+      The v1 player export contains no account, backend, ads, analytics, tracking,
+      in-app purchase, cloud-save feature, or Game Center capability. App Store
+      privacy metadata still requires manual publication before release.
+    </p>
+  </section>
+
+  <section id="local-data" class="legal-section">
+    <h2>Local game data</h2>
+    <p>
+      Salvo stores campaign progress, stars, settings, navigation state, and the
+      highest completed endless wave in a versioned JSON file inside its app
+      container. Nintek does not operate a gameplay database or receive a server
+      copy.
+    </p>
+    <p>
+      The current app does not request the camera, microphone, or photo library.
+      It also does not include advertising or third-party analytics SDKs.
+    </p>
+  </section>
+
+  <section id="apple" class="legal-section">
+    <h2>Apple services</h2>
+    <p>
+      Apple distributes private or future release builds and may include app data
+      in a device backup according to the Apple Account and backup settings you
+      control. Nintek cannot inspect or manage those Apple-held records.
+    </p>
+    <p>
+      Game Center is disabled and excluded from the v1 player export. Salvo does
+      not submit achievements, leaderboards, scores, or player identity in this
+      candidate.
+    </p>
+  </section>
+
+  <section id="lifecycle" class="legal-section">
+    <h2>Retention and deletion</h2>
+    <p>
+      Local data remains until Salvo changes it or the app is deleted. Because
+      there is no Salvo account or Nintek gameplay backend, Nintek cannot retrieve,
+      restore, export, or delete that local save for you.
+    </p>
+    <DataLifecycleTable
+      caption="Salvo data lifecycle and account-control boundaries"
+      rows={lifecycleRows}
+    />
+  </section>
+
+  <section id="release" class="legal-section">
+    <h2>Release boundary</h2>
+    <p>
+      Build 4 is valid and attached to an editable App Store version, but no App
+      Review submission, public TestFlight group, or public release exists.
+      Physical-device verification, campaign approval, App Privacy publication,
+      and other release decisions remain open.
+    </p>
+  </section>
+
+  <section id="contact" class="legal-section">
+    <h2>Contact and related documents</h2>
+    <p>
+      Privacy questions can be sent to
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      Product help is available on <a href={app.supportPath}>Salvo Support</a>.
+      Use of Salvo is subject to the <a href={app.termsPath}>Nintek Terms of Use</a>.
+    </p>
+  </section>
+</LegalLayout>

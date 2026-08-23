@@ -195,8 +195,8 @@ export const apps: App[] = [
     mockup: {
       title: 'This Month',
       subtitle: 'Trend · weight, doses & glucose',
-      chip: 'Synthetic UI study · sample data',
-      live: 'Illustrative',
+      chip: 'Simulator capture · fictional data',
+      live: 'Build 31',
     },
     native: {
       status: 'internal-testflight',
@@ -320,7 +320,7 @@ export const apps: App[] = [
     headline: { lead: 'Every tool numbered.', em: 'Every move accounted for.' },
     description:
       'A numbered register for the whole shop, with Apple or Microsoft sign-in, account-scoped photos and documents, and permanent in-app account deletion. One readout says what is out, what is in service and what the shelf is worth.',
-    quiet: 'Web app available; the native build has no public listing or announced price.',
+    quiet: 'Build 35 is attached and VALID, but there is no public listing, acquisition link, or authorized price.',
     icon: 'hammer',
     bundleId: 'com.nintek.shopkeep',
     hasPage: true,
@@ -329,17 +329,17 @@ export const apps: App[] = [
     termsPath: TERMS_PATH,
     platforms: { web: true, ios: true },
     mockup: {
-      title: 'Shop status',
-      subtitle: 'Tool library · LIB.01',
-      chip: 'Synthetic UI study · sample records',
-      live: 'Illustrative',
+      title: 'Release evidence',
+      subtitle: 'Canonical build 35 identity',
+      chip: 'Attached · VALID',
+      live: 'Private',
     },
     native: {
       status: 'pre-release',
       thesis:
         'The whole register in your pocket, the readout on your Home Screen, and a camera instead of a keyboard.',
       intro:
-        'ShopKeep and its native counterpart are the same instrument on two screens. The phone adds camera-first scanning, widgets and Siri, while Apple and Microsoft sign-in reach separate account-backed inventories. Photos and documents load only through authenticated private-media requests, and Account & Data can permanently delete the selected ShopKeep account.',
+        'ShopKeep 2.0.1 (35) is a valid attached private build for iPhone and iPad. The native client adds camera-first scanning, widgets and Siri, while Apple and Microsoft sign-in reach separate account-backed workspaces. Photos and documents load only through authenticated private-media requests, and Account & Data can permanently delete only the selected provider workspace after server confirmation.',
       highlights: [
         {
           icon: 'scan',
@@ -385,9 +385,9 @@ export const apps: App[] = [
         },
         {
           icon: 'layers',
-          title: 'Eight palettes, one structure',
+          title: 'Native iOS inventory canon',
           body:
-            'Tool Library is the default and the identity — the machine control panel the app is built as. ShopKeep, GitHub, Fox, IC Orange PPL, Monochrome, Noctis Azureus and Notionish are inherited skins you can switch to in Settings. Only the token values change; the structure never does.',
+            'Semantic system surfaces, restrained SF typography, continuous containers, and one selectable interaction accent replace the retired web palette and toolpath-arrow identity.',
         },
         {
           icon: 'apple',
@@ -496,8 +496,8 @@ export const apps: App[] = [
     tagline: 'Keep the whole build connected.',
     headline: { lead: 'Keep the whole build', em: 'connected.' },
     description:
-      'Workshop keeps woodworking plans, dimensions, materials, cuts, shopping, build notes, and finish records together. Its web workspace is online and account-backed, while native draft 2.2.1 (12) is in internal TestFlight.',
-    quiet: 'Nintek Workshop is free with no IAP, but it is not public and physical review gates remain.',
+      'Workshop keeps woodworking plans, dimensions, materials, cuts, shopping, build notes, and finish records together. Its web workspace is online and account-backed, while native build 2.2.1 (13) is in internal TestFlight.',
+    quiet: 'Build 13 is VALID and attached, but Nintek Workshop is not public and physical review gates remain.',
     icon: 'package',
     bundleId: 'com.nintek.workshop',
     hasPage: true,
@@ -514,9 +514,9 @@ export const apps: App[] = [
     native: {
       status: 'internal-testflight',
       thesis:
-        'Draft 2.2.1 (12) carries plans, parts, materials and progress into the shop; internal TestFlight is preparation, not public availability.',
+        'Build 2.2.1 (13) carries plans, parts, materials and progress into the shop; internal TestFlight is preparation, not public availability.',
       intro:
-        'Workshop uses the Living Plan Table system shown in these current web and Simulator captures. Native draft 2.2.1 (12) includes seven starter projects, an on-device cut-plan optimiser, Lock Screen surfaces and a purpose-built iPad workspace. Its App Store fallback name is Nintek Workshop. The draft is free with no in-app purchases and assigned to internal TestFlight, but it is not public; physical-device, accessibility, privacy, reviewer-account and review-evidence gates remain.',
+        'Workshop uses the Living Plan Table system shown in the current web capture. Native build 2.2.1 (13) is valid, attached, and assigned to internal TestFlight under the listing name Nintek Workshop, but it is not public and physical review gates remain. The app includes seven starter projects, an on-device cut-plan optimiser, Lock Screen surfaces and a purpose-built iPad workspace.',
       highlights: [
         {
           icon: 'package',
@@ -591,7 +591,7 @@ export const apps: App[] = [
     headline: { lead: 'Eight games, one hub.', em: 'Built for iOS.' },
     description:
       'A native games hub for iPhone: Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop, with optional Game Center and no Nintek account or backend.',
-    quiet: 'Private pre-release build. No public App Store listing or public TestFlight claim.',
+    quiet: 'Build 1.1 (21) is internal TestFlight, not external or public; there is no App Store listing.',
     icon: 'gamepad',
     bundleId: 'com.nintek.cortex',
     hasPage: true,
@@ -606,10 +606,10 @@ export const apps: App[] = [
       live: 'No Nintek backend',
     },
     native: {
-      status: 'pre-release',
+      status: 'internal-testflight',
       thesis: 'Eight native games, optional Game Center, and no Nintek backend.',
       intro:
-        'Cortex is a self-contained games hub built for iPhone. Eight distinct word, number, logic and arcade games share one native home, with optional Game Center and no Nintek account or backend service sitting between you and a game.',
+        'Cortex 1.1 (21) is a valid, attached internal TestFlight build for iPhone. Eight distinct word, number, logic and arcade games share one native home, with optional Game Center and no Nintek account or backend service sitting between you and a game. External beta and public App Store availability are not established.',
       highlights: [
         {
           icon: 'grid',
@@ -734,28 +734,30 @@ export const apps: App[] = [
     slug: 'salvo',
     name: 'Salvo',
     category: 'Games · iPad',
-    tagline: 'Command five eras. Hold the line.',
-    headline: { lead: 'Build the defense.', em: 'Carry it through five eras.' },
+    tagline: 'Hold the line in Age of Siege.',
+    headline: { lead: 'Build the defense.', em: 'Hold the first era.' },
     description:
-      'A portrait, touch-first tower-defense campaign for iPad. The current pre-release build pairs 16 synchronized operations with era-specific towers and three difficulty settings; Game Center is disabled for v1.',
-    quiet: 'In development. Campaign expansion and release verification are still underway.',
+      'An unreleased portrait-iPad tower-defense build with 16 synchronized Age of Siege operations, three difficulty settings, local progress, and a separate endless mode.',
+    quiet: 'Build 4 is attached and VALID, but wider campaign content and release approval remain blocked.',
     icon: 'gamepad',
     bundleId: 'com.nintek.salvo',
     hasPage: true,
+    privacyPath: '/salvo/privacy',
+    supportPath: '/salvo/support',
     termsPath: TERMS_PATH,
     platforms: { web: false, ios: true },
     mockup: {
       title: 'Salvo',
       subtitle: 'Five-era tower defense',
-      chip: '16 current operations',
-      live: 'In development',
+      chip: '16 Age of Siege operations',
+      live: 'Unreleased',
     },
     native: {
       status: 'development',
       showcase: 'tablet',
-      thesis: 'A premium, portrait iPad campaign built around readable tactical choices.',
+      thesis: 'An unreleased portrait iPad build centered on readable tactical choices.',
       intro:
-        'Salvo turns Puzzlebox Tower Defense into a standalone Godot game built specifically for portrait iPad play. Its campaign framework spans five military eras; the current build contains 16 synchronized operations in the opening era, three difficulty settings, ranked endurance, and local progress. Game Center code is retained for later work but disabled and excluded from the v1 export.',
+        'Salvo turns Puzzlebox Tower Defense into a standalone Godot game built specifically for portrait iPad play. Version 1.0.0 (4) contains 16 synchronized Age of Siege operations, three difficulty settings, a separate endless mode, and local progress. The wider five-era campaign remains blocked, and Game Center is excluded from v1.',
       highlights: [
         {
           icon: 'grid',
@@ -765,9 +767,9 @@ export const apps: App[] = [
         },
         {
           icon: 'layers',
-          title: 'Five eras, one combat model',
+          title: 'A five-era framework',
           body:
-            'Siege, Wastes, Modern, Future, and Xeno each bring their own battlefield art, towers, enemies, and fort language while the underlying economy stays deterministic.',
+            'Siege is the current playable era. Wastes, Modern, Future, and Xeno define the wider art and campaign direction but are not shipped v1 content.',
         },
         {
           icon: 'ruler',
@@ -777,21 +779,21 @@ export const apps: App[] = [
         },
         {
           icon: 'gauge',
-          title: 'Campaign and ranked endurance',
+          title: 'Campaign and local endless mode',
           body:
-            'Three difficulties sit alongside a fixed-rules endurance mode, keeping campaign mastery and comparable Game Center scores as separate goals.',
+            'Three difficulties sit alongside a separate endless run whose highest completed wave stays on the device.',
         },
         {
           icon: 'lock',
           title: 'Local progress comes first',
           body:
-            'Results commit to a versioned on-device save before any social submission. The full local game remains usable without an account or network.',
+            'Results commit to a versioned on-device save. The current local game remains usable without an account or network.',
         },
         {
           icon: 'trophy',
-          title: 'Game Center deferred from v1',
+          title: 'No Game Center in v1',
           body:
-            'The retained integration is disabled and excluded from the v1 player export. Salvo does not currently claim achievements or leaderboards.',
+            'The player export excludes Game Center entirely: no achievements, leaderboards, ranked scores, authentication, or retry ledger.',
         },
       ],
       tech: ['Godot 4', 'Local JSON saves'],
@@ -818,8 +820,8 @@ export const apps: App[] = [
     mockup: {
       title: 'Tabloom workspace',
       subtitle: 'Library · pages · editor',
-      chip: 'Autosaved on change',
-      live: 'Real capture',
+      chip: 'Deterministic fictional fixture',
+      live: 'Current UI',
     },
   },
   {
@@ -827,9 +829,9 @@ export const apps: App[] = [
     name: 'PulseWire',
     category: 'News & Reading',
     tagline: 'The signal, not the noise.',
-    headline: { lead: 'A hundred sources.', em: 'One clear briefing.' },
+    headline: { lead: 'Developing stories.', em: 'Evidence in view.' },
     description:
-      'A story-intelligence reader with a private Microsoft Entra owner workspace, a separate 24-hour read-only demo, and a Discover catalogue of 317 unique feeds across 64 categories.',
+      'A story-intelligence reader with a private Microsoft Entra owner workspace, a separate 24-hour read-only demo, evidence-linked stories, and explicit offline Saved snapshots.',
     quiet: 'PostgreSQL + pgvector, Azure AI Foundry, and explicit offline Saved snapshots.',
     icon: 'news',
     bundleId: 'com.nintek.pulsewire',
@@ -841,8 +843,8 @@ export const apps: App[] = [
     mockup: {
       title: 'Today’s Edition',
       subtitle: 'Stories · evidence · chronology',
-      chip: '317 feeds · 64 categories',
-      live: 'Synthetic layout',
+      chip: 'Controlled fictional fixture',
+      live: 'No owner data',
     },
   },
   {

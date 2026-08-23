@@ -22,6 +22,7 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 | --- | --- |
 | `src/data/apps.ts` | Single source of truth for every app (name, tagline, icon, bundle ID). Add an app here. |
 | `docs/MARKETING_EVIDENCE.md` | Claim, release-state, and asset provenance ledger. |
+| `docs/release-visuals.json` | Machine-checked immutable source commits, manifest hashes, capture classes, and local asset hashes. |
 | `src/layouts/BaseLayout.astro` | Shared HTML shell, header, footer, SEO/`noindex`. |
 | `src/layouts/LegalLayout.astro` | Shared reading layout for terms and reviewed app legal/support pages. |
 | `src/components/DataLifecycleTable.astro` | Accessible export/deletion/retention boundary table. |
@@ -31,7 +32,8 @@ Built with [Astro](https://astro.build) and deployed to **Azure Static Web Apps*
 | `src/pages/<app>/privacy.astro` | Per-app privacy policy. |
 | `src/pages/<app>/support.astro` | Per-app support and account-lifecycle guidance. |
 | `public/apps/<slug>.png` | App icon (copied from each app's `app-store/AppIcon-1024.png`). |
-| `public/social/<slug>.png` | 1200×630 social preview for reviewed public product routes. |
+| `public/social/<slug>.png` | Reviewed 1200×630 social preview or exact upstream social handoff. |
+| `public/social/source/<slug>.svg` | Editable source for locally rendered social previews. |
 | `staticwebapp.config.json` | SWA routing + security headers. |
 | `.github/workflows/azure-static-web-apps.yml` | CI/CD deploy. |
 
@@ -42,6 +44,8 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # outputs to dist/
 npm run check    # build + route/link/asset/metadata assertions
+npm run social:build  # regenerate local SVG-based social cards
+npm run social:check  # require byte-identical social outputs
 npm run preview
 ```
 

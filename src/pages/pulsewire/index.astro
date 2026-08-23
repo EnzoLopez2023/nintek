@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import WebReleaseVisual from '../../components/WebReleaseVisual.astro';
 import { getApp } from '../../data/apps';
 import '../../styles/pulsewire-landing.css';
 
@@ -25,7 +26,7 @@ const capabilities = [
 ];
 
 const architecture = [
-  ['Catalog', '317 unique feeds · 64 categories'],
+  ['Sources', 'Evidence-linked coverage · count intentionally omitted'],
   ['Data', 'PostgreSQL · pgvector'],
   ['Identity', 'Microsoft Entra owner · 24-hour read-only demo'],
   ['AI', 'Azure AI briefs and embeddings'],
@@ -38,10 +39,12 @@ const architecture = [
   noindex
   path="/pulsewire"
   title="PulseWire — Follow developing stories, not an endless feed."
-  description="A story-intelligence reader with an Entra-protected owner workspace, a separate 24-hour read-only demo, a 317-feed catalogue, PostgreSQL and pgvector, and explicit offline Saved snapshots."
+  description="A private story-intelligence reader with a separate 24-hour read-only demo, evidence-linked stories, explainable ranking, and explicit offline Saved snapshots."
   themeColor="#f6f7fb"
-  socialImage="/apps/pulsewire.png"
-  socialImageAlt="PulseWire app icon"
+  socialImage="/social/pulsewire.png"
+  socialImageAlt="PulseWire dashboard showing a fictional regional energy story with source evidence"
+  socialImageWidth={1200}
+  socialImageHeight={630}
 >
   <div class="pw-root">
     <header class="pw-header">
@@ -67,12 +70,12 @@ const architecture = [
             </p>
             <dl class="pw-proof-strip">
               <div>
-                <dt>317</dt>
-                <dd>unique feeds</dd>
+                <dt>Fictional</dt>
+                <dd>release fixture</dd>
               </div>
               <div>
-                <dt>64</dt>
-                <dd>catalog categories</dd>
+                <dt>Evidence</dt>
+                <dd>source-linked coverage</dd>
               </div>
               <div>
                 <dt>24h</dt>
@@ -86,33 +89,7 @@ const architecture = [
             </p>
           </div>
 
-          <figure class="pw-dashboard">
-            <div class="pw-dashboard__bar">
-              <div>
-                <strong>Today</strong>
-                <span>Premium News Dashboard</span>
-              </div>
-              <span class="pw-dashboard__state">Private edition</span>
-            </div>
-            <div class="pw-dashboard__lead">
-              <div class="pw-dashboard__meta">
-                <span>DEVELOPING STORY</span>
-                <span>6 REPORTS</span>
-              </div>
-              <h2>One story record, assembled from independent coverage.</h2>
-              <p>
-                The live product places a generated brief beside source evidence,
-                chronology, and review state. No real headline or live link is
-                reproduced in this marketing diagram.
-              </p>
-            </div>
-            <div class="pw-dashboard__facts">
-              <div><span>Coverage</span><strong>Sources remain inspectable</strong></div>
-              <div><span>Chronology</span><strong>Changes stay ordered</strong></div>
-              <div><span>Saved</span><strong>Snapshot available offline</strong></div>
-            </div>
-            <figcaption>Synthetic interface diagram · no live story data</figcaption>
-          </figure>
+          <WebReleaseVisual product="pulsewire" eager />
         </div>
       </section>
 

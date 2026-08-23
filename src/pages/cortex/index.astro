@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CortexScreen from '../../components/CortexScreen.astro';
 import NintekBack from '../../components/NintekBack.astro';
-import hubImage from '../../assets/cortex/hub.webp';
 import { getApp } from '../../data/apps';
 import '../../styles/cortex-landing.css';
 
@@ -112,10 +111,10 @@ const structuredData = {
   title={pageTitle}
   description={description}
   themeColor="#080b1d"
-  socialImage={hubImage.src}
-  socialImageAlt="Cortex game hub on iPhone"
-  socialImageWidth={hubImage.width}
-  socialImageHeight={hubImage.height}
+  socialImage="/social/cortex.png"
+  socialImageAlt="Cortex title and canonical neural-node icon on a violet and teal field"
+  socialImageWidth={1200}
+  socialImageHeight={630}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
@@ -161,7 +160,7 @@ const structuredData = {
 
         <div class="cx-shell cx-hero-grid">
           <div class="cx-hero-copy">
-            <p class="cx-platform">Private pre-release · iPhone only</p>
+            <p class="cx-platform">Internal TestFlight · 1.1 (21) · iPhone only</p>
             <h1 id="cortex-title">
               Eight games.
               <span>One vivid little universe.</span>
@@ -315,8 +314,9 @@ const structuredData = {
           <img src="/apps/cortex.png" alt="" width="88" height="88" />
           <h2 id="closing-title">Eight ways into the zone.</h2>
           <p>
-            Cortex is a private pre-release build for iPhone. Current repository
-            evidence does not establish a public TestFlight or App Store release.
+            Build 21 is VALID, attached, and available only through internal
+            TestFlight. External beta and App Store availability are not public,
+            and no App Review submission or customer price is claimed.
           </p>
           <a class="cx-button cx-button-primary" href="/ios#cortex">
             See Cortex in the iOS collection

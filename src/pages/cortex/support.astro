@@ -3,7 +3,7 @@ import CortexLegalLayout from '../../layouts/CortexLegalLayout.astro';
 import { COMPANY, getApp } from '../../data/apps';
 
 const app = getApp('cortex')!;
-const updatedDate = 'August 22, 2026';
+const updatedDate = 'August 23, 2026';
 const supportVersion = '1.1';
 const title = `${app.name} Support — ${COMPANY.name}`;
 const description =
@@ -17,7 +17,7 @@ const description =
   page="support"
   heading="Cortex Support"
   documentMeta={`Version ${supportVersion} · Updated ${updatedDate}`}
-  summary="Cortex is an iPhone-only private pre-release build for iOS 18 or later. It has no verified public TestFlight or App Store availability."
+  summary="Cortex 1.1 (21) is an iPhone-only internal TestFlight build for iOS 18 or later. External beta and App Store availability are not public."
 >
   <div class="cx-legal-layout">
     <nav class="cx-legal-toc" aria-label="Support sections">
@@ -36,10 +36,10 @@ const description =
       <section id="availability" class="cx-legal-section">
         <h2>Current availability</h2>
         <p class="cx-legal-callout">
-          Cortex is currently a private pre-release build for iPhone. The app
-          target supports iOS 18 or later. Cortex does not support iPad, and current
-          repository evidence does not establish public TestFlight or App Store
-          availability.
+          Cortex 1.1 (21) is VALID, attached, and available through internal
+          TestFlight for iPhone. The app target supports iOS 18 or later. Cortex
+          does not support iPad, and external beta or App Store availability is not
+          public.
         </p>
         <p>
           Distribution work may change independently of this page. This page does

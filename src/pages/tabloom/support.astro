@@ -3,7 +3,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tabloom')!;
-const updatedDate = 'August 22, 2026';
+const updatedDate = 'August 23, 2026';
 const sections = [
   { href: '#availability', label: 'Availability and identity' },
   { href: '#offline', label: 'Offline reading' },
@@ -25,7 +25,7 @@ const sections = [
   documentMeta={`Updated ${updatedDate} · Private web app and installable PWA`}
   summary="Tabloom is a private Microsoft-authenticated notebook workspace for one owner and invited guests. It can be installed as a PWA, but offline access is explicit, bounded, and read only. There is no native mobile app or public account registration."
   sections={sections}
-  evidenceNote="Support guidance was reviewed against the current Tabloom default branch and its matching live deployment on August 22, 2026."
+  evidenceNote="Support guidance was reviewed against immutable Tabloom release-visual authority acfa8a9 and its matching live deployment on August 23, 2026."
 >
   <section id="availability" class="legal-section">
     <h2>Availability, Microsoft identity, and sharing</h2>

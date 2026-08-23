@@ -3,7 +3,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('tare')!;
-const updatedDate = 'August 22, 2026';
+const updatedDate = 'August 23, 2026';
 const sections = [
   { href: '#availability', label: 'Availability' },
   { href: '#identity', label: 'Accounts and identity' },
@@ -24,17 +24,18 @@ const sections = [
   page="support"
   heading="Tare Support"
   documentMeta={`Updated ${updatedDate} · iOS 17+ · watchOS 10+`}
-  summary="Tare is now a native-only product for iPhone, iPad, and Apple Watch. It has no Tare account, no web login, and no public App Store listing. Its former browser app is an informational retirement page; the stateless AI relay remains for optional native features."
+  summary="Tare 1.0 (31) is a native-only internal TestFlight build for iPhone, iPad, and Apple Watch. It has no Tare account, no web login, and no public App Store listing."
   sections={sections}
-  evidenceNote="Support guidance was reviewed against the current native default branch, the matching relay-only live deployment, and the active retirement gates on August 22, 2026."
+  evidenceNote="Support guidance was reviewed against immutable Tare-for-iOS release-visual authority 9154a7e, the matching relay-only deployment, and active retirement gates on August 23, 2026."
 >
   <section id="availability" class="legal-section">
     <h2>Current availability</h2>
     <p class="legal-callout">
-      Tare is a private pre-release native build for iPhone and iPad on iOS 17 or
-      later, with an Apple Watch companion on watchOS 10 or later. There is no
-      verified public App Store listing, public acquisition link, or announced
-      price.
+      Tare 1.0 (31) is VALID, attached to an editable App Store version, and
+      assigned only to internal TestFlight. It supports iPhone and iPad on iOS 17
+      or later, with an Apple Watch companion on watchOS 10 or later. There is no
+      public TestFlight acquisition link, public App Store listing, authorized
+      price, or territory claim.
     </p>
     <p>
       The retired web address shows retirement information only. It is not a

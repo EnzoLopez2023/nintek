@@ -5,6 +5,20 @@ import { extname, join, relative, resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const dist = join(root, 'dist');
 const site = 'https://www.nintek.com';
+const releaseVisuals = JSON.parse(
+  readFileSync(join(root, 'docs', 'release-visuals.json'), 'utf8'),
+);
+const expectedAuthorities = new Map([
+  ['tare', ['EnzoLopez2023/Tare-for-iOS', '9154a7e061fe9be31426741ee94ba09da5a4c050', 'app-store/release-visuals.json', '2a63f42b0953585543e0d65d81170f25c5153e97c861e0734a9af58b86e2ab2f']],
+  ['workshop', ['EnzoLopez2023/Workshop-for-iOS', '32248fcfec06195f847aaaa56e036f5b92d2981a', 'AppStore/RELEASE_VISUAL_MANIFEST.json', '89615b9c298415591e180ea629424663b8af5b5c73acab8322064daa6ab3e4b2']],
+  ['shopkeep', ['EnzoLopez2023/ShopKeepNative', 'b1a757b84500fc7b051b0c0b7599b9f7906a0a1e', 'AppStorePreview/release-visual-manifest.json', '6de1f3573886c0cfd1947197c54f4842f5e1290dcb538ff8d87ac81b71b3df03']],
+  ['cairn', ['EnzoLopez2023/CairnNative', '07f2ecea7e31bddb0b66612571010ac1514ac14f', 'AppStore/ReleaseVisuals/manifest.json', '607e525f9efbb8c64cb59b345538cf3ec7c3b6ac1eaa927233186e7f443b63d4']],
+  ['cortex', ['EnzoLopez2023/Cortex', '32a7bde9cb5a4cc4af0507a35e53faa5ae58d01f', 'AppStore/release_visual_manifest.json', 'c0b8758bab7e4201ab5d61bd774eb4a097dfb79d6b809558448d08fb7f603ec2']],
+  ['sortie', ['EnzoLopez2023/Sortie', 'be654b971f5011537c479511f1122c0b94b5d337', 'appstore/release-visuals.json', '4d3b23985ede46439daca018e346fd17ea7f9728f320fbd76b46dea48fd20da8']],
+  ['salvo', ['EnzoLopez2023/Salvo', '3fb91b02f9ec1d29c63caa7ba3080290b3b9e607', 'release/release-visuals.json', '1bd4308390cac4f66005bf5691afd4f3504d2afaec90f6cbf2740de28732fc20']],
+  ['tabloom', ['EnzoLopez2023/tabloom', 'acfa8a95d1b9e39b995c9e34549f638aafd77352', 'docs/release-visuals/manifest.json', 'e26df22695e3bf0fb41c0c2beb2837401955200c1646555c654db6b394474c85']],
+  ['pulsewire', ['EnzoLopez2023/PulseWire', '6b4c1c79e5158ad1d1ec8b89195751e469e7310e', 'docs/release-visuals/manifest.json', 'e490a4664ced9cf06e1334178ff28ee402c17296176b8968d1b3f3469c345fe7']],
+]);
 const expectedIndexedRoutes = new Set([
   '/',
   '/about',
@@ -27,11 +41,15 @@ const indexedSoftwareRoutes = new Set([
 ]);
 const expectedSocialImages = new Map([
   ['/cairn', `${site}/social/cairn.png`],
+  ['/cortex', `${site}/social/cortex.png`],
+  ['/pulsewire', `${site}/social/pulsewire.png`],
   ['/shopkeep', `${site}/social/shopkeep.png`],
+  ['/sortie', `${site}/social/sortie.png`],
   ['/tare', `${site}/social/tare.png`],
   ['/workshop', `${site}/social/workshop.png`],
 ]);
-const reviewedLegalApps = ['tare', 'workshop', 'shopkeep', 'cairn', 'cortex', 'tabloom', 'pulsewire'];
+const reviewedLegalApps = ['tare', 'workshop', 'shopkeep', 'cairn', 'cortex', 'sortie', 'salvo', 'tabloom', 'pulsewire'];
+const lifecycleTableApps = new Set(reviewedLegalApps.filter((app) => app !== 'sortie'));
 
 function fail(message) {
   throw new Error(message);
@@ -361,6 +379,8 @@ const forbidden = [
   'Request TestFlight access',
   '6-feed demo',
   '237 vetted feeds',
+  '237 unique feeds',
+  '317 unique feeds',
   'Ceasefire talks resume',
   'Europa Clipper returns',
   'Tare is replacing its browser interface',
@@ -396,19 +416,22 @@ assert(
 const pageAssertions = {
   '/tare': [
     'Automatic after you opt in',
+    'Recorded release views',
+    'iOS 26.5 Simulator',
     'No public App Store listing or announced price',
     'there is no installable PWA, offline web mode, or browser background-reminder claim',
   ],
   '/workshop': [
     'Internal TestFlight',
-    'Native draft 2.2.1 (12)',
+    '2.2.1 (13)',
+    'Attached · VALID',
     'Nintek Workshop',
-    'Current iPhone Simulator capture',
+    'does not publish a stale capture',
     'not an installable or offline PWA',
     'does not promise background reminders',
   ],
-  '/shopkeep': ['Apple or Microsoft', 'Synthetic UI study', 'No public App Store listing'],
-  '/shopkeep/support': ['Delete ShopKeep Account', 'no public App Store listing'],
+  '/shopkeep': ['2.0.1 (35)', 'Apple or Microsoft', 'does not substitute synthetic UI', 'no App Review submission'],
+  '/shopkeep/support': ['Delete ShopKeep Account', 'public beta, public App Store listing'],
   '/cairn': [
     'Version 3.0 build',
     'Full Exam Library · $14.99',
@@ -416,13 +439,13 @@ const pageAssertions = {
     'Two products, no shared progress.',
     'not an installable or offline PWA',
   ],
-  '/pulsewire': ['317', 'Synthetic interface diagram', 'PostgreSQL · pgvector'],
-  '/tabloom': ['Archive &amp; Restore', 'Offline Reading', 'identity-scoped IndexedDB'],
-  '/cortex': ['Private pre-release · iPhone only', 'does not establish a public TestFlight or App Store release'],
-  '/sortie': ['iPhone only', 'iOS 14', '1.0 (13) · internal TestFlight', 'Not available yet'],
+  '/pulsewire': ['controlled fictional fixture', 'PostgreSQL · pgvector', 'count intentionally omitted'],
+  '/tabloom': ['Archive &amp; Restore', 'Offline Reading', 'fictional local fixture'],
+  '/cortex': ['Internal TestFlight · 1.1 (21) · iPhone only', 'External beta and App Store availability are not public'],
+  '/sortie': ['iPhone only', 'iOS 14', '1.0 (13) · internal TestFlight', 'physical iPhone', 'Not available yet'],
   '/sortie/privacy': ['iPhone-only, portrait pre-release game', 'Optional Apple Game Center', 'no tracking'],
   '/sortie/support': ['iPhone-only, portrait pre-release build', 'iOS 14 or later', 'no public App Store listing'],
-  '/salvo': ['In development', 'Game Center disabled for v1', 'Not available yet'],
+  '/salvo': ['1.0.0 (4)', '16 Age of Siege operations', 'Game Center is disabled and excluded from v1', 'content remains blocked', 'Not available yet'],
   '/terms': ['Terms of Use', 'Your content and your responsibility', 'AI output and professional-advice limits'],
   '/about': [
     'Web and native are not the same promise.',
@@ -465,7 +488,7 @@ const legalAssertions = {
     'Nintek Workshop',
     'More → Account',
     'does not automatically link or merge',
-    'does not claim that attached build 12 contains newer contextual deletion copy',
+    'Build 13 contains the provider-scoped sign-in and deletion copy',
     'project-list summary',
     'not automated by the restore code',
   ],
@@ -515,9 +538,19 @@ const legalAssertions = {
     'Cortex data lifecycle and account-control boundaries',
   ],
   '/cortex/support': [
-    'iPhone-only private pre-release build',
+    'iPhone-only internal TestFlight build',
     'no single in-app erase-all control',
     'Troubleshoot optional Game Center',
+  ],
+  '/salvo/privacy': [
+    'no account, Nintek backend, analytics, advertising, in-app purchase, cloud save, or Game Center integration',
+    'Salvo data lifecycle and account-control boundaries',
+    'no App Review submission',
+  ],
+  '/salvo/support': [
+    '16 synchronized Age of Siege operations',
+    'Game Center is disabled and excluded from v1',
+    'no App Review submission',
   ],
 };
 
@@ -525,9 +558,7 @@ for (const [route, values] of Object.entries(legalAssertions)) {
   assert(routeExists(route), `${route}: required legal route is missing`);
   const html = readFileSync(routeFile(route), 'utf8');
   const normalized = html.replace(/\s+/g, ' ');
-  const expectedLegalDate = route.startsWith('/workshop')
-    ? 'August 23, 2026'
-    : 'August 22, 2026';
+  const expectedLegalDate = 'August 23, 2026';
   assert(
     normalized.includes(expectedLegalDate),
     `${route}: missing the current effective or updated date`,
@@ -548,10 +579,12 @@ for (const app of reviewedLegalApps) {
 
   assert(privacy.includes(`href="/${app}/support"`), `/${app}/privacy: missing support link`);
   assert(privacy.includes('href="/terms"'), `/${app}/privacy: missing terms link`);
-  assert(
-    privacy.includes('lifecycle-table'),
-    `/${app}/privacy: missing data lifecycle table`,
-  );
+  if (lifecycleTableApps.has(app)) {
+    assert(
+      privacy.includes('lifecycle-table'),
+      `/${app}/privacy: missing data lifecycle table`,
+    );
+  }
 
   assert(support.includes(`href="/${app}/privacy"`), `/${app}/support: missing privacy link`);
   assert(support.includes('href="/terms"'), `/${app}/support: missing terms link`);
@@ -578,7 +611,7 @@ for (const stale of [
 
 const homepageTermsLink = homepage.includes('href="/terms"');
 assert(homepageTermsLink, 'Global site footer is missing the terms link.');
-for (const route of ['/sortie', '/sortie/privacy', '/sortie/support', '/salvo']) {
+for (const route of ['/sortie', '/sortie/privacy', '/sortie/support', '/salvo', '/salvo/privacy', '/salvo/support']) {
   const html = readFileSync(routeFile(route), 'utf8');
   assert(html.includes('href="/terms"'), `${route}: missing shared terms link`);
 }
@@ -586,7 +619,7 @@ for (const route of ['/sortie', '/sortie/privacy', '/sortie/support', '/salvo'])
 const evidenceLedger = readFileSync(join(root, 'docs', 'MARKETING_EVIDENCE.md'), 'utf8');
 assert(
   evidenceLedger.includes('**Base verification:** 2026-08-22') &&
-    evidenceLedger.includes('**Release-state refresh:** 2026-08-23'),
+    evidenceLedger.includes('**Canonical visual sync:** 2026-08-23'),
   'Marketing evidence ledger does not carry the base and release-state verification dates.',
 );
 for (const phrase of [
@@ -625,31 +658,100 @@ assert(robots.includes('Allow: /'), 'robots.txt must allow crawling so page-leve
 assert(!robots.includes('Disallow:'), 'robots.txt must not conflict with page-level index policy.');
 assert(robots.includes(`${site}/sitemap.xml`), 'robots.txt has the wrong sitemap URL.');
 
-const expectedHashes = {
-  'apps/tare.png': '457bbf0e4b1fbb66e7e95a298ed0ce49393b759d296bfbde2803e366df225a87',
-  'apps/workshop.png': 'cdf1ceedf57c10f71d543cae9aa0688683fb17d01dd503a5f9ebd275f0b8cc3e',
-  'apps/shopkeep.png': '1da578d78344b7d4a6b3dd68e261fa52590186b52ba6b8efc54cb40808370025',
-  'apps/cairn.png': 'f2195c75597a8f3fe94d5f57d6e1445ce59b8a9773d14bf9778d480ba798efb5',
-  'apps/cortex.png': 'b48d58b783ce57bd83522935c1d818211a493f43202a268f5e0f7ce9baa83d5e',
-  'apps/pulsewire.png': 'c9c139e99a4477d09ef2e9bd6c52234cebd085f8fcdd1d3237e10101567c6cdd',
-  'apps/tabloom.png': '10012328cd4ad77c1a588f929a879b90a9a8e996156d7b900376653d655e1bce',
-  'apps/sortie.png': '6ffc68d514b6dc94555e3481086951c70bf0bab43ed7deb34621558ed8d43e06',
-  'apps/salvo.png': 'ec67b89f1c333d957464266117ffa66162abe37bd58be99827bc9e1aebbb3792',
-  'social/cairn.png': '0fe7a02598009b06d13ce9eca3b9c4cfb3317656e6e8a6ca2e8134290daac32e',
-  'social/shopkeep.png': 'acd6420c4677e9b1edcc04a9d2b45ba914e488b792e6b9b6ea40406460fc67eb',
-  'social/tare.png': '3eb68730de37c1d371f8c64ca32f8f1460ff67259a2a0a8c122ff0fc313a5da0',
-  'social/workshop.png': '2c9863c24291ae42b414110fb730df9372c0340482533b94c72f100473a3c086',
-};
-for (const [asset, expected] of Object.entries(expectedHashes)) {
-  const file = join(dist, asset);
-  assert(existsSync(file), `Missing canonical icon ${asset}`);
-  const actual = createHash('sha256').update(readFileSync(file)).digest('hex');
-  assert(actual === expected, `${asset}: canonical icon hash drifted`);
-  if (asset.startsWith('social/')) {
-    assert(statSync(file).size < 500_000, `${asset}: social preview exceeds 500 KB`);
+assert(releaseVisuals.schemaVersion === 1, 'Unsupported release visual manifest schema.');
+assert(releaseVisuals.verifiedAt === '2026-08-23', 'Release visual verification date is stale.');
+assert(
+  Object.keys(releaseVisuals.products).length === 9,
+  'Release visual manifest must cover all nine synchronized products.',
+);
+assert(
+  JSON.stringify(Object.keys(releaseVisuals.products).sort()) ===
+    JSON.stringify([...expectedAuthorities.keys()].sort()),
+  'Release visual manifest product set drifted.',
+);
+
+const releaseAssets = Object.entries(releaseVisuals.products).flatMap(([slug, product]) => {
+  const expected = expectedAuthorities.get(slug);
+  assert(expected, `${slug}: unexpected release authority`);
+  assert(
+    JSON.stringify([
+      product.repository,
+      product.authorityCommit,
+      product.manifestPath,
+      product.manifestSha256,
+    ]) === JSON.stringify(expected),
+    `${slug}: immutable release authority drifted`,
+  );
+  assert(/^[0-9a-f]{40}$/.test(product.authorityCommit), `${product.repository}: invalid authority commit`);
+  assert(/^[0-9a-f]{64}$/.test(product.manifestSha256), `${product.repository}: invalid manifest hash`);
+  assert(product.release.public === false, `${product.repository}: public release is not authorized`);
+  return product.assets;
+});
+
+const seenReleaseAssets = new Set();
+for (const asset of releaseAssets) {
+  assert(!seenReleaseAssets.has(asset.path), `Duplicate release visual path ${asset.path}`);
+  seenReleaseAssets.add(asset.path);
+  assert(asset.captureClass, `${asset.path}: missing capture classification`);
+  if (asset.sourceSha256) {
+    assert(/^[0-9a-f]{64}$/.test(asset.sourceSha256), `${asset.path}: invalid source hash`);
+  }
+
+  const sourceFile = join(root, asset.path);
+  assert(existsSync(sourceFile), `Missing release visual ${asset.path}`);
+  const sourceBytes = readFileSync(sourceFile);
+  const actualHash = createHash('sha256').update(sourceBytes).digest('hex');
+  assert(actualHash === asset.sha256, `${asset.path}: release visual hash drifted`);
+
+  if (asset.width && asset.height) {
+    const actualImage = inspectImage(sourceFile);
+    assert(
+      actualImage.width === asset.width && actualImage.height === asset.height,
+      `${asset.path}: release visual dimensions drifted`,
+    );
+  }
+
+  if (asset.path.startsWith('public/')) {
+    const publicPath = asset.path.slice('public/'.length);
+    const emitted = join(dist, publicPath);
+    assert(existsSync(emitted), `Missing emitted release visual ${publicPath}`);
+    const emittedHash = createHash('sha256').update(readFileSync(emitted)).digest('hex');
+    assert(emittedHash === asset.sha256, `${publicPath}: emitted release visual hash drifted`);
+  }
+
+  if (asset.path.startsWith('public/social/')) {
+    assert(sourceBytes.length < 500_000, `${asset.path}: social preview exceeds 500 KB`);
   }
 }
 
+for (const expectedSocialImage of expectedSocialImages.values()) {
+  const path = `public/${new URL(expectedSocialImage).pathname.replace(/^\/+/, '')}`;
+  assert(seenReleaseAssets.has(path), `${path}: social route is not in the release visual manifest`);
+}
+
+for (const stalePath of [
+  'public/apps/tabloom/editor-navigation-960.webp',
+  'public/apps/tabloom/editor-navigation.webp',
+  'public/apps/tabloom/page-editor-960.webp',
+  'public/apps/tabloom/page-editor.webp',
+  'public/apps/workshop/ipad-project-detail-focus.webp',
+  'public/apps/workshop/ipad-project-detail.webp',
+  'public/apps/workshop/ipad-projects.webp',
+  'public/apps/workshop/ipad-shaper-focus.webp',
+  'public/apps/workshop/ipad-shaper.webp',
+  'public/apps/workshop/iphone-projects.webp',
+  'public/apps/workshop/iphone-shopping.webp',
+  'public/apps/workshop/iphone-tables.webp',
+  'src/assets/salvo/home.webp',
+  'src/assets/salvo/command.webp',
+  'src/assets/salvo/campaign.webp',
+  'src/components/ShopKeepMark.astro',
+  'src/components/mocks/ShopKeep.astro',
+  'src/components/mocks/ios/ShopKeep.astro',
+]) {
+  assert(!existsSync(join(root, stalePath)), `Superseded release visual remains: ${stalePath}`);
+}
+
 console.log(
-  `Verified ${htmlFiles.length} HTML routes, ${sitemapRoutes.size} indexed routes, and ${Object.keys(expectedHashes).length} canonical assets.`,
+  `Verified ${htmlFiles.length} HTML routes, ${sitemapRoutes.size} indexed routes, and ${releaseAssets.length} canonical release assets.`,
 );

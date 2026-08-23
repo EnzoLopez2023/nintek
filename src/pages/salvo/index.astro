@@ -2,17 +2,23 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import BrandMark from '../../components/BrandMark.astro';
-import TabletMock from '../../components/TabletMock.astro';
-import home from '../../assets/salvo/home.webp';
-import command from '../../assets/salvo/command.webp';
-import campaign from '../../assets/salvo/campaign.webp';
+import { Image } from 'astro:assets';
+import SalvoReleaseVisual from '../../components/SalvoReleaseVisual.astro';
+import command from '../../assets/salvo/release/02-command.png';
+import campaign from '../../assets/salvo/release/03-campaign.png';
+import placement from '../../assets/salvo/release/04-placement.png';
+import combat from '../../assets/salvo/release/05-combat.png';
+import result from '../../assets/salvo/release/06-result.png';
 import battlefield from '../../assets/salvo/battlefield.webp';
 import towerSiege from '../../assets/salvo/tower-siege.webp';
 import towerWastes from '../../assets/salvo/tower-wastes.webp';
 import towerModern from '../../assets/salvo/tower-modern.webp';
 import towerFuture from '../../assets/salvo/tower-future.webp';
 import towerXeno from '../../assets/salvo/tower-xeno.webp';
+import { getApp } from '../../data/apps';
 import '../../styles/salvo-landing.css';
+
+const app = getApp('salvo')!;
 
 const eras = [
   {
@@ -42,9 +48,9 @@ const eras = [
   },
 ];
 
-const pageTitle = 'Salvo - Five-era tower defense built for portrait iPad';
+const pageTitle = 'Salvo - Unreleased tower defense for portrait iPad';
 const description =
-  'Salvo is a tower-defense campaign in active development for portrait iPad, with 16 current operations, five era identities, local saves, and Game Center disabled for v1.';
+  'Salvo is an unreleased portrait-iPad tower-defense build with 16 synchronized Age of Siege operations; wider campaign content remains blocked.';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -64,18 +70,16 @@ const structuredData = {
   title={pageTitle}
   description={description}
   themeColor="#07101c"
-  socialImage={home.src}
-  socialImageAlt="Salvo pre-release command screen on iPad"
-  socialImageWidth={home.width}
-  socialImageHeight={home.height}
+  socialImage="/apps/salvo.png"
+  socialImageAlt="Salvo app icon"
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
   <!--
     THESIS: Salvo reads as a live campaign dossier, not a generic game grid; actual command screens and source art carry the proof while incomplete campaign scope stays visibly incomplete.
     OWN-WORLD: Command-night navy, ordnance amber, cool-white type, hard steel rules, painted battlefields, and era-specific tower art, with Nintek copper confined to the portfolio signature.
-    STORY: Enter the current command surface, see the real 16-operation campaign, understand the five-era ambition and tactical loop, then leave with exact privacy, device, premium, and release facts.
-    FIRST VIEWPORT: A broad command brief occupies the left while the actual pre-release title screen stands in a portrait iPad on the right, crossed once by a restrained amber instrument sweep.
+    STORY: Enter the current command surface, see the 16-operation Age of Siege campaign, distinguish the wider five-era framework from shipped content, then leave with exact privacy, device, and release facts.
+    FIRST VIEWPORT: A broad command brief occupies the left while the automated release capture stands in a portrait iPad on the right, crossed once by a restrained amber instrument sweep.
     FORM: The sixth grounded structure, staged as a vertical field-command dispatch with real build evidence at every seam; seed 218250a5.
   -->
   <div class="sa-root">
@@ -90,7 +94,7 @@ const structuredData = {
         </div>
         <nav aria-label="Salvo">
           <a href="#command">Command</a>
-          <a href="#eras">Five eras</a>
+          <a href="#eras">Campaign frame</a>
           <a href="#release">Release</a>
         </nav>
         <span class="sa-nav-state">In development</span>
@@ -107,13 +111,13 @@ const structuredData = {
         <div class="sa-shell sa-hero-grid">
           <div class="sa-hero-copy">
             <h1 id="salvo-title">
-              Five eras.
-              <span>One line to hold.</span>
+              One era playable.
+              <span>A wider campaign waiting.</span>
             </h1>
             <p class="sa-hero-lede">
-              Salvo is a portrait, touch-first tower-defense campaign for iPad.
-              Build the defense, survive the wave, and carry one deterministic
-              combat model from siege engines to alien machinery.
+              Salvo is a portrait, touch-first tower-defense build for iPad. Its
+              current executable contains 16 synchronized Age of Siege operations;
+              the wider five-era campaign remains blocked on content approval.
             </p>
             <div class="sa-hero-actions">
               <a class="sa-button sa-button-primary" href="#command">
@@ -125,47 +129,37 @@ const structuredData = {
               </a>
             </div>
             <p class="sa-hero-proof">
-              Current build: 16 operations <span aria-hidden="true">/</span>
-              portrait iPad <span aria-hidden="true">/</span> local-first progress
+              Version 1.0.0 (4) <span aria-hidden="true">/</span>
+              16 Age of Siege operations <span aria-hidden="true">/</span> unreleased
             </p>
           </div>
 
-          <figure class="sa-hero-device" aria-labelledby="salvo-home-caption">
-            <div class="sa-pad">
-              <TabletMock orientation="portrait" tone="navy" fullBleed>
-                <img
-                  src={home.src}
-                  alt="Salvo pre-release title screen showing campaign progress and the Begin the Campaign action"
-                  width={home.width}
-                  height={home.height}
-                />
-              </TabletMock>
-            </div>
-            <figcaption id="salvo-home-caption">
-              Actual current pre-release capture
-            </figcaption>
-          </figure>
+          <div class="sa-hero-device">
+            <SalvoReleaseVisual eager />
+          </div>
         </div>
       </section>
 
       <section id="command" class="sa-command" aria-labelledby="command-title">
         <div class="sa-shell sa-command-grid">
           <figure class="sa-capture sa-capture-command">
-            <img
-              src={command.src}
-              alt="Current Salvo command screen with difficulty, campaign map, and ranked endurance controls"
-              width={command.width}
-              height={command.height}
+            <Image
+              src={command}
+              format="webp"
+              widths={[420, 620, 820, 1032]}
+              sizes="(max-width: 1000px) min(92vw, 520px), 42vw"
+              alt="Salvo command screen with difficulty, campaign map, and endless mode controls"
               loading="lazy"
+              decoding="async"
             />
-            <figcaption>Actual pre-release command screen</figcaption>
+            <figcaption>Automated release capture · not physical-device evidence</figcaption>
           </figure>
           <div class="sa-command-copy">
             <h2 id="command-title">The decision comes before the spectacle.</h2>
             <p>
               Salvo's command surface makes the next tactical choice legible:
               current operation, campaign progress, difficulty, campaign route,
-              and ranked endurance. The player always knows what will start
+              and a separate endless mode. The player always knows what will start
               before the battlefield opens.
             </p>
             <dl class="sa-brief-lines">
@@ -179,11 +173,11 @@ const structuredData = {
               </div>
               <div>
                 <dt>Endurance</dt>
-                <dd>A fixed-rules run keeps ranked scores comparable.</dd>
+                <dd>A separate run records its highest completed wave on the device.</dd>
               </div>
               <div>
-                <dt>Game Center</dt>
-                <dd>Disabled and excluded from the v1 player export.</dd>
+                <dt>Online service</dt>
+                <dd>None. Game Center is disabled and excluded from v1.</dd>
               </div>
             </dl>
           </div>
@@ -195,10 +189,9 @@ const structuredData = {
           <div class="sa-campaign-copy">
             <h2 id="campaign-title">The campaign is real. It is not finished.</h2>
             <p>
-              The current executable source and versioned manifest contain 16
-              synchronized operations in the opening era. The navigation already
-              resolves a five-era campaign, but the wider content and release
-              verification remain active development.
+              The current executable source contains 16 synchronized Age of Siege
+              operations. A five-era framework exists, but the remaining campaign
+              content is blocked pending pilot and blueprint approval.
             </p>
             <dl class="sa-campaign-ledger">
               <div><dt>Playable now</dt><dd>16 synchronized operations</dd></div>
@@ -208,15 +201,52 @@ const structuredData = {
             </dl>
           </div>
           <figure class="sa-capture sa-capture-campaign">
-            <img
-              src={campaign.src}
+            <Image
+              src={campaign}
+              format="webp"
+              widths={[420, 620, 820, 1032]}
+              sizes="(max-width: 1000px) min(92vw, 520px), 42vw"
               alt="Current Salvo campaign screen showing five era tabs and a ten-operation route"
-              width={campaign.width}
-              height={campaign.height}
               loading="lazy"
+              decoding="async"
             />
-            <figcaption>Actual pre-release campaign screen</figcaption>
+            <figcaption>Automated release capture · not physical-device evidence</figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section class="sa-battle-proof" aria-labelledby="battle-proof-title">
+        <div class="sa-shell">
+          <div class="sa-eras-head">
+            <h2 id="battle-proof-title">Place. Fight. Read the result.</h2>
+            <p>
+              Three manifest-backed candidates complete the current release
+              sequence. They were rendered by the automated iPad capture harness;
+              none is presented as a physical-device screenshot.
+            </p>
+          </div>
+          <div class="sa-battle-proof-grid">
+            {
+              [
+                { image: placement, title: 'Placement', alt: 'Salvo placement capture with the tactical grid and tower controls' },
+                { image: combat, title: 'Combat', alt: 'Salvo combat capture with a running Age of Siege operation' },
+                { image: result, title: 'Result', alt: 'Salvo result capture after an Age of Siege operation' },
+              ].map((shot) => (
+                <figure class="sa-capture">
+                  <Image
+                    src={shot.image}
+                    format="webp"
+                    widths={[360, 520, 720]}
+                    sizes="(max-width: 700px) 92vw, 31vw"
+                    alt={shot.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>{shot.title} · automated release capture</figcaption>
+                </figure>
+              ))
+            }
+          </div>
         </div>
       </section>
 
@@ -228,11 +258,11 @@ const structuredData = {
       >
         <div class="sa-shell">
           <div class="sa-eras-head">
-            <h2 id="eras-title">The arsenal changes. The economy does not.</h2>
+            <h2 id="eras-title">Five identities define the unfinished campaign.</h2>
             <p>
-              Each era brings its own tower, enemy, fort, and battlefield
-              language. Underneath, one deterministic model keeps placement,
-              range, power, rate, waves, and results comparable.
+              Current source art establishes Siege, Wastes, Modern, Future, and
+              Xeno as the intended visual sequence. Only Age of Siege is currently
+              playable; the remaining era art is direction, not shipped content.
             </p>
           </div>
           <figure class="sa-era-line">
@@ -255,8 +285,8 @@ const structuredData = {
               }
             </ol>
             <figcaption>
-              Source-art composition built from current Salvo tower and battlefield
-              assets; it is not presented as a gameplay screenshot.
+              Source-art composition · not gameplay and not a claim that five eras
+              are playable.
             </figcaption>
           </figure>
         </div>
@@ -301,8 +331,8 @@ const structuredData = {
               <div>
                 <h3>Commit the local result first.</h3>
                 <p>
-                  Stars and progress stay in the on-device save. The v1 export
-                  does not attempt Game Center submission.
+                  Stars, progress, settings, and the highest endless wave remain
+                  in the on-device save.
                 </p>
               </div>
             </li>
@@ -325,8 +355,8 @@ const structuredData = {
               <dd>Progress, stars, endless records, settings, and navigation.</dd>
             </div>
             <div>
-              <dt>Game Center</dt>
-              <dd>Deferred; disabled and excluded from the v1 export.</dd>
+              <dt>Online services</dt>
+              <dd>No Game Center, account, cloud save, or Nintek backend in v1.</dd>
             </div>
             <div>
               <dt>Custom account</dt>
@@ -343,15 +373,16 @@ const structuredData = {
       <section id="release" class="sa-release" aria-labelledby="release-title">
         <div class="sa-shell sa-release-grid">
           <div>
-            <h2 id="release-title">A working iPad build, still under campaign and release verification.</h2>
+            <h2 id="release-title">A valid attached build, still blocked from release.</h2>
             <p>
-              Salvo currently exports as a portrait, iPad-only Godot target. It
-              has no public App Store listing, and this page does not turn local
-              build or in-flight distribution evidence into a launch claim.
+              Version 1.0.0 build 4 is VALID and attached to an editable App Store
+              version, but it remains PREPARE_FOR_SUBMISSION. No App Review
+              submission, public TestFlight group, or public release exists.
             </p>
             <p>
-              The product intent is paid upfront with no in-app purchases. A final
-              price has not been set.
+              Campaign publication is separately blocked pending pilot and
+              blueprint approval. Price, territories, and availability are not
+              authorized for publication.
             </p>
           </div>
           <dl class="sa-release-brief">
@@ -359,8 +390,9 @@ const structuredData = {
             <div><dt>Orientation</dt><dd>Portrait</dd></div>
             <div><dt>Minimum OS</dt><dd>iPadOS 15</dd></div>
             <div><dt>Bundle ID</dt><dd><code>com.nintek.salvo</code></dd></div>
+            <div><dt>Playable content</dt><dd>16 Age of Siege operations</dd></div>
             <div><dt>Public store link</dt><dd>Not available yet</dd></div>
-            <div><dt>Price</dt><dd>Not announced</dd></div>
+            <div><dt>Physical-device proof</dt><dd>Still pending</dd></div>
           </dl>
         </div>
         <div class="sa-shell sa-release-actions">
@@ -381,7 +413,9 @@ const structuredData = {
           <a href="/">All apps</a>
           <a href="/ios">iOS</a>
           <a href="/about">About</a>
-          <a href="/terms">Terms</a>
+          <a href={app.privacyPath}>Privacy</a>
+          <a href={app.supportPath}>Support</a>
+          <a href={app.termsPath}>Terms</a>
         </nav>
       </div>
     </footer>

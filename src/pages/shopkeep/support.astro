@@ -3,7 +3,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('shopkeep')!;
-const updatedDate = 'August 22, 2026';
+const updatedDate = 'August 23, 2026';
 const sections = [
   { href: '#availability', label: 'Availability and readiness' },
   { href: '#identity', label: 'Sign-in and identity' },
@@ -24,17 +24,17 @@ const sections = [
   page="support"
   heading="ShopKeep Support"
   documentMeta={`Updated ${updatedDate} · Private web and native pre-release`}
-  summary="ShopKeep has a private account-backed web app and a private native build for iPhone and iPad. Account deletion is implemented, but physical-device and App Store readiness checks remain open. There is no public App Store listing, TestFlight acquisition link, or announced price."
+  summary="ShopKeep has a private account-backed web app and a VALID attached native build 2.0.1 (35) for iPhone and iPad. It is not public, and physical-device and App Store release gates remain open."
   sections={sections}
-  evidenceNote="Support guidance was reviewed against the current live server, matching default-branch code, native lifecycle implementation, and release-readiness notes on August 22, 2026."
+  evidenceNote="Support guidance was reviewed against the current service and immutable ShopKeepNative build 35 authority b1a757b on August 23, 2026."
 >
   <section id="availability" class="legal-section">
     <h2>Current availability and readiness</h2>
     <p class="legal-callout">
-      ShopKeep’s server and deletion lifecycle are implemented and tested. The
-      private native app is not yet App Store-ready: physical-device Apple and
-      Microsoft sign-in and deletion checks, privacy-report reconciliation, and
-      submission remain pending.
+      ShopKeep’s server and deletion lifecycle are implemented and tested. Native
+      build 2.0.1 (35) is VALID and attached, but physical-device Apple and
+      Microsoft sign-in and deletion checks, App Privacy publication, reviewer
+      credentials, review submission, and public release remain pending.
     </p>
     <p>
       Current private access does not imply a public beta, public App Store
@@ -106,7 +106,7 @@ const sections = [
     <h2>Delete or recreate a ShopKeep account</h2>
     <p>
       In the private native build, open <strong>Settings → Account &amp;
-      Data</strong>, review the deletion scope, and confirm
+      Data</strong>, review the provider-scoped deletion boundary, and confirm
       <strong>Delete ShopKeep Account</strong>. The app clears local credentials,
       caches, widgets, search state, and temporary exports only after the server
       confirms the selected account was deleted.
@@ -118,9 +118,10 @@ const sections = [
       release gate, so report any mismatch rather than repeating destructive steps.
     </p>
     <p>
-      Deletion affects only the active ShopKeep account. It does not delete the
-      Apple or Microsoft account or the other provider’s ShopKeep account. A later
-      fresh sign-in can create a new empty generation; it does not restore deleted
+      Deletion cannot be undone. It affects only the active provider-backed
+      workspace. It does not delete the Apple or Microsoft account, combine
+      providers, or remove the other provider’s ShopKeep workspace. A later fresh
+      sign-in can create a new empty generation; it does not restore deleted
       inventory from an old session.
     </p>
   </section>
