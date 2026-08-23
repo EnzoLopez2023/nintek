@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
+import WebReleaseVisual from '../../components/WebReleaseVisual.astro';
 import { getApp } from '../../data/apps';
 import '../../styles/tabloom-landing.css';
 
@@ -136,23 +137,7 @@ const DETAILS = [
 
       <div class="landing-hero-right">
         <div class="mockup-wrap">
-          <figure class="product-shot product-shot-hero">
-            <picture>
-              <source
-                srcset="/apps/tabloom/editor-navigation-960.webp 960w, /apps/tabloom/editor-navigation.webp 1876w"
-                sizes="(max-width: 960px) min(480px, 92vw), 48vw"
-                type="image/webp"
-              />
-              <img
-                src="/apps/tabloom/editor-navigation.webp"
-                alt="Current Tabloom page editor with private notebook content obscured"
-                width="1876"
-                height="970"
-                decoding="async"
-              />
-            </picture>
-            <figcaption>Real current capture · private content obscured</figcaption>
-          </figure>
+          <WebReleaseVisual product="tabloom" eager />
         </div>
       </div>
     </section>
@@ -208,24 +193,7 @@ const DETAILS = [
         </div>
 
         <div class="inkbox-section-right">
-          <figure class="product-shot product-shot-dark">
-            <picture>
-              <source
-                srcset="/apps/tabloom/page-editor-960.webp 960w, /apps/tabloom/page-editor.webp 1876w"
-                sizes="(max-width: 768px) 92vw, 48vw"
-                type="image/webp"
-              />
-              <img
-                src="/apps/tabloom/page-editor.webp"
-                alt="Current Tabloom editor with private notebook and page content obscured"
-                width="1876"
-                height="970"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-            <figcaption>Real current capture · private content obscured</figcaption>
-          </figure>
+          <WebReleaseVisual product="tabloom" variant="mobile" />
         </div>
       </div>
     </section>
@@ -262,24 +230,7 @@ const DETAILS = [
         </div>
 
         <div class="ai-section-right">
-          <figure class="product-shot">
-            <picture>
-              <source
-                srcset="/apps/tabloom/editor-navigation-960.webp 960w, /apps/tabloom/editor-navigation.webp 1876w"
-                sizes="(max-width: 960px) 92vw, 48vw"
-                type="image/webp"
-              />
-              <img
-                src="/apps/tabloom/editor-navigation.webp"
-                alt="Current Tabloom page editor with private notebook content obscured"
-                width="1876"
-                height="970"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-            <figcaption>Real current capture · private content obscured</figcaption>
-          </figure>
+          <WebReleaseVisual product="tabloom" variant="desktop" />
         </div>
       </div>
     </section>

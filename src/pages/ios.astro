@@ -1,16 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PhoneMock from '../components/PhoneMock.astro';
-import TabletMock from '../components/TabletMock.astro';
 import WorkshopShowcase from '../components/WorkshopShowcase.astro';
 import Icon from '../components/Icon.astro';
 import CairnPhone from '../components/mocks/ios/Cairn.astro';
-import ShopKeepPhone from '../components/mocks/ios/ShopKeep.astro';
-import WorkshopPhone from '../components/mocks/ios/Workshop.astro';
 import CortexPhone from '../components/mocks/ios/Cortex.astro';
-import TarePhone from '../components/mocks/ios/Tare.astro';
 import SortiePhone from '../components/mocks/ios/Sortie.astro';
-import SalvoPad from '../components/mocks/ios/Salvo.astro';
+import SalvoReleaseVisual from '../components/SalvoReleaseVisual.astro';
+import ShopKeepReleaseVisual from '../components/ShopKeepReleaseVisual.astro';
+import TareReleaseVisual from '../components/TareReleaseVisual.astro';
 import {
   COMPANY,
   ECOSYSTEM,
@@ -23,22 +21,13 @@ import '../styles/ios.css';
 
 const phones: Record<string, any> = {
   cairn: CairnPhone,
-  shopkeep: ShopKeepPhone,
-  workshop: WorkshopPhone,
   cortex: CortexPhone,
-  tare: TarePhone,
   sortie: SortiePhone,
-};
-
-const tablets: Record<string, any> = {
-  salvo: SalvoPad,
 };
 
 const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   cairn: 'navy',
-  shopkeep: 'light',
   cortex: 'dark',
-  tare: 'enamel',
   sortie: 'dark',
 };
 
@@ -46,8 +35,6 @@ const publicStoreCount = 0;
 const watchAppCount = nativeApps.filter((app) => app.native?.watch).length;
 const evidenceLabels: Record<string, string> = {
   cairn: 'Synthetic UI study',
-  shopkeep: 'Synthetic UI study',
-  tare: 'Synthetic UI study',
   cortex: 'Release-build capture',
   sortie: 'Pre-release capture',
 };
@@ -95,7 +82,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     icon: 'cloud',
     title: 'Less infrastructure, not more',
     body:
-      'Cairn, Cortex, Sortie and Salvo keep their core experience off Nintek servers. The two Godot campaigns save on device; Game Center stays optional. Fewer moving parts is a feature, not a compromise.',
+      'Cairn, Cortex, Sortie and Salvo keep their core experience off Nintek servers. Both Godot campaigns save on device; Sortie keeps Game Center optional while Salvo excludes it from v1. Fewer moving parts is a feature, not a compromise.',
   },
   {
     icon: 'book',
@@ -136,9 +123,9 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
           </p>
           <p class="ih-lede">
             <strong>None has a public App Store listing today.</strong> Tare,
-            Workshop, and Sortie have internal TestFlight drafts; Cairn&rsquo;s
-            submitted release is blocked after review; Cortex and ShopKeep remain
-            private pre-release builds; and Salvo remains in development.
+            Workshop, Cortex, and Sortie have internal TestFlight builds;
+            Cairn&rsquo;s submitted release is blocked after review; ShopKeep has a
+            private attached build; and Salvo remains unreleased and content-blocked.
           </p>
           <div class="ih-stats">
             <div class="ih-stat">
@@ -174,9 +161,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
 
         <div class="ih-phones reveal" aria-hidden="true">
           <div class="ih-phone back">
-            <PhoneMock tone="light">
-              <ShopKeepPhone />
-            </PhoneMock>
+            <TareReleaseVisual />
           </div>
           <div class="ih-phone front">
             <PhoneMock tone="dark">
@@ -273,7 +258,6 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     {
       nativeApps.map((app, i) => {
         const Phone = phones[app.slug];
-        const Tablet = tablets[app.slug];
         const native = app.native!;
         return (
           <section
@@ -370,15 +354,17 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                   </div>
                 </div>
 
-                <div class={`iapp-phone reveal${Tablet ? ' iapp-tablet' : ''}`}>
+                <div class={`iapp-phone reveal${app.slug === 'salvo' ? ' iapp-tablet' : ''}`}>
                   <div class="iapp-phone-sticky">
                     {
                       app.slug === 'workshop' ? (
-                        <Phone />
-                      ) : Tablet ? (
-                        <TabletMock orientation="portrait" tone="navy" fullBleed>
-                          <Tablet />
-                        </TabletMock>
+                        <WorkshopShowcase />
+                      ) : app.slug === 'tare' ? (
+                        <TareReleaseVisual />
+                      ) : app.slug === 'shopkeep' ? (
+                        <ShopKeepReleaseVisual compact />
+                      ) : app.slug === 'salvo' ? (
+                        <SalvoReleaseVisual />
                       ) : (
                         <PhoneMock
                           tone={tones[app.slug] ?? 'dark'}
@@ -396,12 +382,12 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
               {app.slug === 'workshop' && (
                 <div class="ios-workshop-proof reveal">
                   <div class="ios-workshop-proof-copy">
-                    <h3>One shop. Two purpose-built canvases.</h3>
+                    <h3>One service. Two separately evidenced clients.</h3>
                     <p>
-                      The current SwiftUI build keeps active work close on iPhone.
-                      iPad opens purpose-built Projects and Shaper Hub contexts
-                      without simply stretching the phone interface or mixing
-                      their libraries.
+                      The current web workspace is shown here from a real capture.
+                      The native client carries the same account-backed project
+                      record into iPhone and iPad, but its build 13 screenshot
+                      masters are untracked upstream and are not substituted here.
                     </p>
                     <div class="ios-proof-facts">
                       <span>7 complete starter builds</span>
@@ -409,11 +395,11 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                       <span>Apple + Microsoft sign-in</span>
                     </div>
                     <p class="ios-proof-status">
-                      Draft 2.2.1 (12) is in internal TestFlight as Nintek Workshop.
-                      It is free with no IAP, but is not public and has no acquisition link.
+                      Build 2.2.1 (13) is VALID, attached, and in internal TestFlight
+                      as Nintek Workshop. It is not public and has no acquisition link.
                     </p>
                   </div>
-                  <WorkshopShowcase />
+                  <WorkshopShowcase variant="web" />
                 </div>
               )}
             </div>

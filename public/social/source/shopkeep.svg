@@ -1,0 +1,78 @@
+<!--
+  ShopKeep social handoff. The only product mark used here is the canonical
+  blue (#007AFF) and white tool-in-home icon from public/apps/shopkeep.png.
+  Do not substitute the retired dark teal/blue/green toolpath-arrow mark.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">ShopKeep social preview</title>
+  <desc id="desc">A deterministic machine-control composition using ShopKeep's canonical blue and white tool-in-home icon, pale enamel, graphite readouts, square status marks, and register rules. No product interface is depicted.</desc>
+  <defs>
+    <pattern id="shopkeep-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#9baea7" stroke-width="1" stroke-opacity="0.24"/>
+    </pattern>
+    <clipPath id="shopkeep-icon-clip">
+      <rect x="750" y="100" width="352" height="352" rx="78"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="630" fill="#dce6e0"/>
+  <rect width="1200" height="630" fill="url(#shopkeep-grid)"/>
+  <rect width="1200" height="18" fill="#101a17"/>
+  <rect y="612" width="1200" height="18" fill="#101a17"/>
+  <rect y="612" width="254" height="18" fill="#007aff"/>
+
+  <g aria-hidden="true" fill="none" stroke="#9baea7">
+    <path d="M42 42h34M42 42v34M1158 42h-34M1158 42v34M42 588h34M42 588v-34M1158 588h-34M1158 588v-34" stroke-width="2"/>
+    <line x1="64" y1="83" x2="624" y2="83"/>
+    <line x1="64" y1="75" x2="64" y2="91"/>
+    <line x1="624" y1="75" x2="624" y2="91"/>
+  </g>
+
+  <g>
+    <rect x="64" y="52" width="8" height="8" fill="#007aff"/>
+    <text x="86" y="62" fill="#5c6c66" font-family="Menlo, Consolas, monospace" font-size="14" font-weight="700" letter-spacing="3.2">NINTEK / SHOPKEEP</text>
+
+    <text x="64" y="185" fill="#101a17" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800" letter-spacing="-4">ShopKeep</text>
+
+    <text x="64" y="292" fill="#101a17" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800" letter-spacing="-2.2">Every tool numbered.</text>
+    <text x="64" y="350" fill="#007aff" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="800" letter-spacing="-1.9">Every move accounted for.</text>
+
+    <text x="66" y="419" fill="#3a4742" font-family="Arial, Helvetica, sans-serif" font-size="21">
+      The whole shop, on one register.
+    </text>
+
+    <g transform="translate(64 476)">
+      <rect width="570" height="70" fill="#fafdfb" stroke="#9baea7"/>
+      <rect x="18" y="21" width="8" height="8" fill="#00764a"/>
+      <text x="42" y="31" fill="#101a17" font-family="Menlo, Consolas, monospace" font-size="14" font-weight="700" letter-spacing="1.5">REGISTER</text>
+      <line x1="150" y1="14" x2="150" y2="56" stroke="#c6d3cd"/>
+      <rect x="174" y="21" width="8" height="8" fill="#007aff"/>
+      <text x="198" y="31" fill="#101a17" font-family="Menlo, Consolas, monospace" font-size="14" font-weight="700" letter-spacing="1.5">LOCATION</text>
+      <line x1="330" y1="14" x2="330" y2="56" stroke="#c6d3cd"/>
+      <rect x="354" y="21" width="8" height="8" fill="#9a6300"/>
+      <text x="378" y="31" fill="#101a17" font-family="Menlo, Consolas, monospace" font-size="14" font-weight="700" letter-spacing="1.5">SERVICE</text>
+      <text x="18" y="53" fill="#5c6c66" font-family="Menlo, Consolas, monospace" font-size="11" letter-spacing="1.3">TOOL LIBRARY / MACHINE CONTROL FOR THE SHOP</text>
+    </g>
+  </g>
+
+  <g aria-hidden="true">
+    <rect x="704" y="64" width="444" height="486" fill="#101a17"/>
+    <rect x="720" y="80" width="412" height="454" fill="#fafdfb" stroke="#9baea7" stroke-width="2"/>
+    <rect x="734" y="94" width="384" height="384" fill="#ebf2ee" stroke="#c6d3cd"/>
+    <image href="../../apps/shopkeep.png" x="750" y="100" width="352" height="352" preserveAspectRatio="xMidYMid slice" clip-path="url(#shopkeep-icon-clip)"/>
+
+    <line x1="750" y1="474" x2="1102" y2="474" stroke="#9baea7"/>
+    <rect x="750" y="493" width="8" height="8" fill="#007aff"/>
+    <text x="774" y="503" fill="#5c6c66" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="700" letter-spacing="2">TOOL LIBRARY / LIB.01</text>
+
+    <g fill="none" stroke="#9baea7">
+      <line x1="750" y1="518" x2="1102" y2="518"/>
+      <line x1="750" y1="511" x2="750" y2="525"/>
+      <line x1="820" y1="514" x2="820" y2="522"/>
+      <line x1="890" y1="514" x2="890" y2="522"/>
+      <line x1="960" y1="514" x2="960" y2="522"/>
+      <line x1="1030" y1="514" x2="1030" y2="522"/>
+      <line x1="1102" y1="511" x2="1102" y2="525"/>
+    </g>
+  </g>
+</svg>

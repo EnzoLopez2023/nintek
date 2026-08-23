@@ -4,7 +4,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('shopkeep')!;
-const effectiveDate = 'August 22, 2026';
+const effectiveDate = 'August 23, 2026';
 const sections = [
   { href: '#scope', label: 'Scope and identity' },
   { href: '#data', label: 'Data processed' },
@@ -64,7 +64,7 @@ const lifecycleRows = [
   documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
   summary="ShopKeep is an account-backed inventory service with private web and native builds. Apple and Microsoft create separate ShopKeep accounts. Inventory, photos, and documents live in a private per-user SQLite database; media is returned only through bearer-authenticated, no-store responses."
   sections={sections}
-  evidenceNote="Reviewed against the current ShopKeep server deployment, its matching default-branch code, and the current private native account-lifecycle implementation on August 22, 2026. Physical-device and App Store readiness remain separate open gates."
+  evidenceNote="Reviewed against the current ShopKeep service and immutable ShopKeepNative build 35 authority b1a757b on August 23, 2026. Physical-device, App Privacy, reviewer, and public-release gates remain open."
 >
   <section id="scope" class="legal-section">
     <h2>Scope and account identity</h2>
@@ -184,12 +184,11 @@ const lifecycleRows = [
   <section id="readiness" class="legal-section">
     <h2>Native readiness boundary</h2>
     <p>
-      The account-deletion server and native code are implemented and covered by
-      automated lifecycle tests. That does not mean the native app is publicly
-      released: physical-device Apple and Microsoft sign-in and deletion checks,
-      aggregate privacy-report reconciliation, App Store Connect readiness, and
-      submission remain open. There is no public App Store listing or TestFlight
-      acquisition link.
+      Build 35 is VALID and attached to an editable App Store version. That does
+      not mean the native app is publicly released: physical-device Apple and
+      Microsoft sign-in and deletion checks, App Privacy publication, reviewer
+      credentials, review submission, and release remain open. There is no public
+      App Store listing or TestFlight acquisition link.
     </p>
   </section>
 

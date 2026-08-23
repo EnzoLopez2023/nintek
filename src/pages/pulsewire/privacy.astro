@@ -4,7 +4,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('pulsewire')!;
-const effectiveDate = 'August 22, 2026';
+const effectiveDate = 'August 23, 2026';
 const sections = [
   { href: '#scope', label: 'Scope and access' },
   { href: '#data', label: 'Data processed' },
@@ -64,7 +64,7 @@ const lifecycleRows = [
   documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
   summary="PulseWire is an installable private story-intelligence service with owner access and a separate read-only demo. It uses Microsoft identity, Azure-hosted PostgreSQL and pgvector, Azure AI Foundry, source websites, and explicit offline Saved copies."
   sections={sections}
-  evidenceNote="Reviewed against the executable PulseWire default branch and its matching live deployment on August 22, 2026. Model deployment names remain operator-configured, so this policy does not name an unverified model."
+  evidenceNote="Reviewed against immutable PulseWire release-visual authority 6b4c1c7 on August 23, 2026. Model deployment names remain operator-configured, so this policy does not name an unverified model."
 >
   <section id="scope" class="legal-section">
     <h2>Scope, private access, and the demo</h2>

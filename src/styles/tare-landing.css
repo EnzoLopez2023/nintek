@@ -142,6 +142,89 @@
   z-index: 1;
 }
 
+.lp-release-visuals {
+  border-top: 1px solid rgba(120, 137, 148, 0.18);
+}
+
+.lp-release-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1140px;
+  margin: 42px auto 0;
+}
+
+.lp-release-grid figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.lp-release-grid img {
+  display: block;
+  width: 100%;
+}
+
+.lp-release-grid img {
+  height: auto;
+}
+
+.lp-release-pair {
+  min-height: 360px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+}
+
+.lp-release-pair img {
+  border: 1px solid var(--lp-wood-300);
+  border-radius: var(--lp-radius-sm);
+  box-shadow: var(--lp-shadow-soft);
+}
+
+.lp-release-phone {
+  max-width: 38%;
+}
+
+.lp-release-pad {
+  max-width: 58%;
+}
+
+.lp-release-grid figcaption {
+  display: grid;
+  gap: 4px;
+  padding: 13px 4px 0;
+  color: var(--lp-wood-600);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.lp-release-grid figcaption strong {
+  color: var(--lp-wood-900);
+  font-size: 0.9rem;
+}
+
+.lp-visual-boundary {
+  max-width: 72ch;
+  margin: 24px auto 0;
+  color: var(--lp-wood-600);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 880px) {
+  .lp-release-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .lp-release-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Nav (brand only) ────────────────────────────────────────────────── */
 .lp-nav {
   position: sticky;
@@ -1400,12 +1483,28 @@
 
 .lp-watch__devices {
   display: flex;
+  flex-direction: column;
   align-items: flex-end;
   justify-content: center;
   gap: 14px;
+  margin: 0;
+}
+.lp-watch__capture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lp-watch__devices figcaption {
+  max-width: 38ch;
+  margin: 4px auto 0;
+  color: rgba(228, 237, 241, 0.64);
+  font-size: 0.7rem;
+  line-height: 1.55;
+  text-align: center;
 }
 @media (max-width: 520px) {
-  .lp-watch__devices > :last-child { display: none; }
+  .lp-watch__devices { align-items: center; }
 }
 
 .lp-watch__text .lp-eyebrow { color: var(--lp-brand-400); }

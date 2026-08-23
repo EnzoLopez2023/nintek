@@ -1,50 +1,38 @@
 ---
 import PhoneMock from './PhoneMock.astro';
-import TabletMock from './TabletMock.astro';
 import CairnPhone from './mocks/ios/Cairn.astro';
-import ShopKeepPhone from './mocks/ios/ShopKeep.astro';
-import WorkshopPhone from './mocks/ios/Workshop.astro';
 import CortexPhone from './mocks/ios/Cortex.astro';
-import TarePhone from './mocks/ios/Tare.astro';
 import SortiePhone from './mocks/ios/Sortie.astro';
-import SalvoPad from './mocks/ios/Salvo.astro';
+import SalvoReleaseVisual from './SalvoReleaseVisual.astro';
+import ShopKeepReleaseVisual from './ShopKeepReleaseVisual.astro';
+import TareReleaseVisual from './TareReleaseVisual.astro';
+import WorkshopShowcase from './WorkshopShowcase.astro';
 import { nativeApps, nextNativeApp } from '../data/apps';
 
 const phones: Record<string, any> = {
   cairn: CairnPhone,
-  shopkeep: ShopKeepPhone,
-  workshop: WorkshopPhone,
   cortex: CortexPhone,
-  tare: TarePhone,
   sortie: SortiePhone,
-};
-
-const tablets: Record<string, any> = {
-  salvo: SalvoPad,
 };
 
 const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
   cairn: 'navy',
-  shopkeep: 'light',
   cortex: 'dark',
-  tare: 'enamel',
   sortie: 'dark',
 };
 
 const blurbs: Record<string, string> = {
   cairn: 'Local study with private iCloud sync; the rejected release is not public.',
-  shopkeep: 'Apple or Microsoft sign-in, private media, and in-app account deletion.',
-  workshop: 'Draft 2.2.1 (12) is internal TestFlight preparation, not a public release.',
-  cortex: 'Eight native games, optional Game Center, no Nintek backend.',
-  tare: 'Automatic Health imports, an Apple Watch app, and no account at all.',
+  shopkeep: 'Build 35 is attached and valid; Apple and Microsoft workspaces stay separate.',
+  workshop: 'Build 13 is attached and valid in internal TestFlight, not public.',
+  cortex: 'Build 21 is internal TestFlight; eight games, no Nintek backend.',
+  tare: 'Build 31 is internal TestFlight, with real Simulator evidence across three device families.',
   sortie: 'Supply-line conquest across 1,500 levels, saved entirely on device.',
-  salvo: 'Portrait iPad tower defense, with 16 current operations and five eras ahead.',
+  salvo: 'Sixteen Age of Siege operations; wider campaign content remains blocked.',
 };
 
 const evidenceLabels: Record<string, string> = {
   cairn: 'Synthetic UI study',
-  shopkeep: 'Synthetic UI study',
-  tare: 'Synthetic UI study',
   cortex: 'Release-build capture',
   sortie: 'Pre-release capture',
 };
@@ -62,9 +50,9 @@ const evidenceLabels: Record<string, string> = {
       </h2>
       <p class="ns-lede">
         {nativeApps.length} products now have native iOS builds in SwiftUI or Godot.
-        None has a public App Store listing today: Tare, Workshop, and Sortie are
-        internal TestFlight drafts; Cairn is blocked after review; and the rest
-        remain private pre-release or development builds.
+        None has a public App Store listing today: Tare, Workshop, Cortex, and
+        Sortie are internal TestFlight builds; Cairn is blocked after review;
+        ShopKeep has a private attached build; and Salvo remains unreleased.
       </p>
     </div>
 
@@ -72,20 +60,21 @@ const evidenceLabels: Record<string, string> = {
       {
         nativeApps.map((app) => {
           const Phone = phones[app.slug];
-          const Tablet = tablets[app.slug];
           return (
             <a
               class={`ns-card reveal${app.slug === 'workshop' ? ' workshop-card' : ''}`}
               href={['cortex', 'sortie', 'salvo'].includes(app.slug) ? `/${app.slug}` : `/ios#${app.slug}`}
             >
-              <div class={`ns-phone${Tablet ? ' ns-tablet' : ''}`}>
+              <div class={`ns-phone${app.slug === 'salvo' ? ' ns-tablet' : ''}`}>
                 {
                   app.slug === 'workshop' ? (
-                    <Phone />
-                  ) : Tablet ? (
-                    <TabletMock orientation="portrait" tone="navy" fullBleed>
-                      <Tablet />
-                    </TabletMock>
+                    <WorkshopShowcase />
+                  ) : app.slug === 'tare' ? (
+                    <TareReleaseVisual />
+                  ) : app.slug === 'shopkeep' ? (
+                    <ShopKeepReleaseVisual compact />
+                  ) : app.slug === 'salvo' ? (
+                    <SalvoReleaseVisual />
                   ) : (
                     <PhoneMock
                       tone={tones[app.slug] ?? 'dark'}

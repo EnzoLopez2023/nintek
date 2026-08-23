@@ -13,11 +13,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import Icon from '../../components/Icon.astro';
-import PhoneMock from '../../components/PhoneMock.astro';
-import TarePhone from '../../components/mocks/ios/Tare.astro';
 import WatchMock from '../../components/WatchMock.astro';
-import TareWatch from '../../components/mocks/watch/Tare.astro';
 import TareWidgets from '../../components/mocks/widgets/Tare.astro';
+import TareReleaseVisual from '../../components/TareReleaseVisual.astro';
 import { getApp, NATIVE_STATUS_LABELS } from '../../data/apps';
 import '../../styles/tare-landing.css';
 
@@ -50,6 +48,15 @@ const healthRows = [
   { name: 'Water',   dir: 'both',  note: 'Written back, then re-totalled from Health' },
   { name: 'Steps',   dir: 'in',    note: 'Read only' },
   { name: 'Sleep',   dir: 'in',    note: 'Read only' },
+];
+
+const releaseScreens = [
+  { file: '01-today', label: 'Today', alt: 'Tare Today overview with fictional sample health data' },
+  { file: '02-medication', label: 'Medication', alt: 'Tare medication screen with fictional sample dose data' },
+  { file: '03-glucose', label: 'Glucose', alt: 'Tare glucose screen with fictional sample readings' },
+  { file: '04-progress', label: 'Progress', alt: 'Tare progress screen with fictional sample trends' },
+  { file: '05-nutrition', label: 'Nutrition', alt: 'Tare nutrition screen with fictional sample meals' },
+  { file: '06-reports', label: 'Reports', alt: 'Tare reports screen with fictional sample health summaries' },
 ];
 
 /* ── Native platform features, grouped ── */
@@ -188,7 +195,7 @@ const structuredData = {
         <div class="lp-hero__copy">
           <p class="lp-eyebrow">
             <span class="lp-eyebrow__dot"></span>
-            Now on iPhone, iPad and Apple&nbsp;Watch
+            Built for iPhone, iPad and Apple&nbsp;Watch
           </p>
           <h1 class="lp-hero__title">
             Track your week. <em>Reset to baseline.</em>
@@ -207,24 +214,14 @@ const structuredData = {
           </ul>
 
           <p class="lp-hero__meta">
-            <span class="lp-native__beta">{NATIVE_STATUS_LABELS[native.status]}</span>
+            <span class="lp-native__beta">1.0 (31) · {NATIVE_STATUS_LABELS[native.status]}</span>
             {native.minOS} or later &middot; {native.devices} &middot; No public
             App Store listing or announced price
           </p>
         </div>
 
-        {/* Device cluster: the phone, with the watch tucked in front of it. */}
         <div class="lp-hero__devices">
-          <div class="lp-hero__phone">
-            <PhoneMock tone="enamel">
-              <TarePhone />
-            </PhoneMock>
-          </div>
-          <div class="lp-hero__watch" aria-hidden="true">
-            <WatchMock width={186}>
-              <TareWatch view="home" />
-            </WatchMock>
-          </div>
+          <TareReleaseVisual variant="cluster" eager />
         </div>
       </section>
 
@@ -248,6 +245,52 @@ const structuredData = {
               <p class="lp-trust__item-lbl">{t.lbl}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section class="lp-section lp-release-visuals" aria-labelledby="release-visuals-title">
+        <div class="lp-section__head">
+          <p class="lp-eyebrow">Recorded release views</p>
+          <h2 class="lp-section__title" id="release-visuals-title">
+            The real app, on both <em>native canvases</em>.
+          </h2>
+          <p class="lp-section__lede">
+            These paired iPhone and iPad images come from the version 1.0 build 31
+            release-visual set. They were recorded in Simulator with one fixed,
+            entirely fictional data set; they are not physical-device evidence.
+          </p>
+        </div>
+        <div class="lp-release-grid">
+          {
+            releaseScreens.map((screen, index) => (
+              <figure>
+                <div class="lp-release-pair">
+                  <img
+                    class="lp-release-phone"
+                    src={`/apps/tare/iphone-${screen.file}.webp`}
+                    alt={`${screen.alt} on iPhone`}
+                    width="1320"
+                    height="2868"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                  <img
+                    class="lp-release-pad"
+                    src={`/apps/tare/ipad-${screen.file}.webp`}
+                    alt={`${screen.alt} on iPad`}
+                    width="2064"
+                    height="2752"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                </div>
+                <figcaption>
+                  <strong>{screen.label}</strong>
+                  <span>iPhone / iPad Simulator pair · fictional sample data</span>
+                </figcaption>
+              </figure>
+            ))
+          }
         </div>
       </section>
 
@@ -323,6 +366,10 @@ const structuredData = {
             <p class="lp-wsec__cap">Home Screen</p>
             <TareWidgets kind="home" />
           </div>
+          <p class="lp-visual-boundary">
+            Widget and Live Activity illustrations on this page are synthetic UI
+            studies. The release manifest does not include recorded widget captures.
+          </p>
 
           <div class="lp-wsec__aside">
             <div class="lp-wsec__lock">
@@ -349,14 +396,23 @@ const structuredData = {
       {/* ── Apple Watch ── */}
       <section class="lp-watch" id="watch">
         <div class="lp-watch__grid">
-          <div class="lp-watch__devices" aria-hidden="true">
-            <WatchMock width={214}>
-              <TareWatch view="home" />
+          <figure class="lp-watch__devices">
+            <WatchMock width={214} chip="watchOS 26.5 Simulator">
+              <img
+                class="lp-watch__capture"
+                src="/apps/tare/watch-01-home.webp"
+                alt="Tare Apple Watch setup screen showing no readings or queued entries"
+                width="416"
+                height="496"
+                loading="lazy"
+                decoding="async"
+              />
             </WatchMock>
-            <WatchMock width={186}>
-              <TareWatch view="log" />
-            </WatchMock>
-          </div>
+            <figcaption>
+              Recorded support capture · setup state. It does not depict Quick Log,
+              queued delivery, complications, or physical-device verification.
+            </figcaption>
+          </figure>
 
           <div class="lp-watch__text">
             <p class="lp-eyebrow">Apple Watch</p>
@@ -654,9 +710,7 @@ const structuredData = {
       <section class="lp-native">
         <div class="lp-native__grid">
           <div class="lp-native__phone" aria-hidden="true">
-            <PhoneMock tone="enamel">
-              <TarePhone />
-            </PhoneMock>
+            <TareReleaseVisual />
           </div>
 
           <div class="lp-native__text">
@@ -690,7 +744,7 @@ const structuredData = {
             </ul>
 
             <p class="lp-native__meta">
-              <span class="lp-native__beta">{NATIVE_STATUS_LABELS[native.status]}</span>
+              <span class="lp-native__beta">1.0 (31) · {NATIVE_STATUS_LABELS[native.status]}</span>
               <span>{native.minOS} or later &middot; {native.devices}</span>
               <span>No public listing or announced price</span>
               <a href="/ios#tare">More about the native apps</a>

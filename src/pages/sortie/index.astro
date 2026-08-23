@@ -52,10 +52,10 @@ const structuredData = {
   title={pageTitle}
   description={description}
   themeColor="#10192a"
-  socialImage={poster.src}
-  socialImageAlt="Sortie pre-release campaign on iPhone"
-  socialImageWidth={poster.width}
-  socialImageHeight={poster.height}
+  socialImage="/social/sortie.png"
+  socialImageAlt="Sortie title and canonical keep icon on an abstract tactical route map"
+  socialImageWidth={1200}
+  socialImageHeight={630}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
@@ -168,7 +168,7 @@ const structuredData = {
               </PhoneMock>
             </div>
             <figcaption id="sortie-footage-caption">
-              <span>Current pre-release build footage</span>
+              <span>Current pre-release handoff footage</span>
               <button type="button" data-sortie-video-toggle aria-pressed="false">
                 Pause footage
               </button>
@@ -336,6 +336,11 @@ const structuredData = {
               Sortie 1.0 build 13 is valid and in internal TestFlight, but it is
               not attached for review and has no public App Store listing. Public
               launch details will appear here only when release evidence supports them.
+            </p>
+            <p>
+              App Store gameplay screenshots remain blocked until the exact build
+              runs on a supported physical iPhone. Source-art compositions, desktop
+              captures, and debug builds are not substitutes.
             </p>
             <p>
               The product is positioned as one paid-upfront, ad-free game.

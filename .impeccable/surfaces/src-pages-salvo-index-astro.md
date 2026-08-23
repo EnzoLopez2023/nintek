@@ -13,8 +13,9 @@ registry, homepage, and `/ios` links.
 ## Audience, job, action, and proof
 
 iPad tower-defense players should understand the touch-first five-era direction,
-see what the current 16-operation build really contains, and distinguish working
-software from unfinished campaign scope. Current Godot captures, the
+see what the current 16-operation Age of Siege build really contains, and
+distinguish working software from unfinished campaign scope. Six manifest-backed
+automated iPad release captures, the
 byte-identical app icon, versioned campaign manifest, source tower and
 battlefield art, local-save code, iPad-only Xcode target, and public-store
 lookup are the proof. Retained Game Center code is disabled and excluded from
@@ -29,6 +30,8 @@ page keeps the same deterministic command grammar.
 ## Constraints and unresolved decisions
 
 No public App Store acquisition control, final price, or release-complete claim.
-The five-era framework is current; only 16 synchronized operations are claimed
-as playable content. Synthetic source-art compositions are labeled. Public
-release timing, final campaign size, and price remain unresolved.
+Build 4 is VALID and attached but remains PREPARE_FOR_SUBMISSION. The five-era
+framework is current; only 16 synchronized Age of Siege operations are claimed
+as playable content. Game Center is excluded from v1. Automated captures are not
+physical-device evidence, and source-art compositions are labeled. Public release
+timing, final campaign size, and price remain unresolved.

@@ -1,0 +1,96 @@
+---
+interface Props {
+  product: 'tabloom' | 'pulsewire';
+  eager?: boolean;
+  variant?: 'responsive' | 'desktop' | 'mobile';
+}
+
+const { product, eager = false, variant = 'responsive' } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
+const isTabloom = product === 'tabloom';
+const base = isTabloom ? 'editor' : 'dashboard';
+const label = isTabloom
+  ? 'Deterministic current-product capture · fictional local fixture'
+  : 'Deterministic current-product capture · controlled fictional fixture · no owner data';
+const alt = isTabloom
+  ? 'Tabloom editor showing a fictional garden studio build plan'
+  : 'PulseWire Today dashboard showing a fictional regional energy story with source evidence';
+const src =
+  variant === 'mobile'
+    ? `/apps/${product}/${base}-mobile.png`
+    : `/apps/${product}/${base}-desktop.png`;
+const width = variant === 'mobile' ? 390 : 1440;
+const height = variant === 'mobile' ? 844 : 900;
+---
+
+<figure class:list={['wrv', `wrv-${product}`]}>
+  {
+    variant === 'responsive' ? (
+      <picture>
+        <source
+          media="(max-width: 620px)"
+          srcset={`/apps/${product}/${base}-mobile.png`}
+          width="390"
+          height="844"
+        />
+        <img
+          src={`/apps/${product}/${base}-desktop.png`}
+          alt={alt}
+          width="1440"
+          height="900"
+          loading={loading}
+          decoding="async"
+        />
+      </picture>
+    ) : (
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding="async"
+      />
+    )
+  }
+  <figcaption>{label}</figcaption>
+</figure>
+
+<style>
+  .wrv {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--wrv-border, #d8dde8);
+    border-radius: var(--wrv-radius, 14px);
+    background: var(--wrv-bg, #fff);
+    box-shadow: var(--wrv-shadow, 0 22px 54px -34px rgba(17, 24, 39, 0.46));
+  }
+
+  .wrv picture,
+  .wrv img {
+    display: block;
+    width: 100%;
+  }
+
+  .wrv img {
+    height: auto;
+  }
+
+  .wrv figcaption {
+    padding: 9px 12px;
+    color: var(--wrv-muted, #566174);
+    font-size: 0.67rem;
+    font-weight: 650;
+    line-height: 1.45;
+    text-align: right;
+  }
+
+  .wrv-tabloom {
+    --wrv-border: oklch(78% 0.014 70);
+    --wrv-bg: oklch(99.2% 0.003 85);
+    --wrv-muted: oklch(48% 0.012 70);
+    --wrv-shadow: 0 6px 14px oklch(20% 0.02 60 / 0.06),
+      0 22px 48px oklch(20% 0.02 60 / 0.1);
+  }
+</style>

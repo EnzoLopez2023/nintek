@@ -71,7 +71,13 @@ points:
 
 Each app repository remains authoritative for executable behavior and app-local
 release evidence. `docs/MARKETING_EVIDENCE.md` records the exact evidence used
-by this site and must be refreshed when a public claim changes.
+by this site, while `docs/release-visuals.json` pins the nine immutable source
+commits, manifest hashes, capture classes, local asset hashes, and explicit
+omissions. Both must be refreshed when a public claim or visual changes.
+
+The current synchronized authorities are Tare `9154a7e`, Workshop `32248fc`,
+ShopKeep `b1a757b`, Cairn `07f2ece`, Cortex `32a7bde`, Sortie `be654b9`,
+Salvo `3fb91b0`, Tabloom `acfa8a9`, and PulseWire `6b4c1c7`.
 
 ## Product Principles
 

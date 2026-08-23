@@ -225,56 +225,6 @@
   max-width: 620px;
 }
 
-.landing-root .product-shot {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: #171a20;
-  box-shadow:
-    0 4px 8px oklch(20% 0.02 60 / 0.06),
-    0 24px 56px oklch(20% 0.02 60 / 0.14),
-    0 0 0 1px var(--border-soft);
-}
-
-.landing-root .product-shot picture,
-.landing-root .product-shot img {
-  display: block;
-  width: 100%;
-}
-
-.landing-root .product-shot img {
-  height: auto;
-  aspect-ratio: 1876 / 970;
-  object-fit: cover;
-}
-
-.landing-root .product-shot figcaption {
-  position: absolute;
-  right: 12px;
-  bottom: 10px;
-  padding: 5px 9px;
-  border: 1px solid rgba(244, 246, 248, 0.18);
-  border-radius: var(--radius-pill);
-  background: rgba(23, 26, 32, 0.86);
-  color: #f4f6f8;
-  font-size: 10.5px;
-  font-weight: 600;
-  box-shadow: 0 4px 14px rgba(23, 26, 32, 0.28);
-}
-
-.landing-root .product-shot-hero {
-  transform: rotate(-1deg);
-}
-
-.landing-root .product-shot-dark {
-  border-color: rgba(185, 201, 255, 0.24);
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.18),
-    0 28px 64px rgba(0, 0, 0, 0.28);
-}
-
 /* ── Scroll hint ─────────────────────────────────────────── */
 .landing-root .scroll-hint {
   position: relative;
@@ -748,16 +698,6 @@
     max-width: 100%;
   }
 
-  .landing-root .product-shot img {
-    aspect-ratio: 4 / 3;
-    object-position: left center;
-  }
-
-  .landing-root .product-shot figcaption {
-    right: 8px;
-    bottom: 8px;
-    font-size: 9.5px;
-  }
 }
 
 /* ── Motion guard ────────────────────────────────────────── */

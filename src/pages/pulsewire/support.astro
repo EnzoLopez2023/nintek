@@ -3,7 +3,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('pulsewire')!;
-const updatedDate = 'August 22, 2026';
+const updatedDate = 'August 23, 2026';
 const sections = [
   { href: '#availability', label: 'Availability and access' },
   { href: '#sessions', label: 'Sign-in and sessions' },
@@ -25,7 +25,7 @@ const sections = [
   documentMeta={`Updated ${updatedDate} · Web and installable PWA`}
   summary="PulseWire is a private web reader and installable PWA. The owner workspace uses Microsoft Entra; a separate 24-hour read-only demo creates no personal account. There is no native iOS or Android app."
   sections={sections}
-  evidenceNote="Availability, session, offline, retention, and account-control guidance was checked against the current executable service and its matching live deployment on August 22, 2026."
+  evidenceNote="Availability, session, offline, retention, and account-control guidance was checked against immutable PulseWire release-visual authority 6b4c1c7 on August 23, 2026."
 >
   <section id="availability" class="legal-section">
     <h2>Current availability and access</h2>

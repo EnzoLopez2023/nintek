@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-23T09:30:00-04:00",
+  "generatedAt": "2026-08-23T13:21:05.384-04:00",
   "title": "Design System: Nintek",
   "extensions": {
     "colorMeta": {
@@ -8,6 +8,9 @@
       "copper": { "role": "primary", "displayName": "Nintek Copper", "canonical": "#c17a2e", "tonalRamp": ["#331e0a", "#563314", "#7a481d", "#9d5f26", "#c17a2e", "#d79c5f", "#e8c199", "#f7e6d2"] },
       "cream": { "role": "neutral", "displayName": "Warm Cream", "canonical": "#f5f0ea", "tonalRamp": ["#2a2621", "#4c463d", "#6f675b", "#94897a", "#b8ad9d", "#d6cdbf", "#eae3d8", "#f5f0ea"] },
       "ink": { "role": "neutral", "displayName": "Walnut Ink", "canonical": "#1c0f07", "tonalRamp": ["#1c0f07", "#3a2416", "#5c3d2a", "#7d5940", "#9c8476", "#bfaea2", "#ddd3cb", "#f4efe9"] },
+      "shopkeep-system-blue": { "role": "secondary", "displayName": "ShopKeep System Blue", "canonical": "#007aff", "tonalRamp": ["#001a3d", "#003c75", "#0057b8", "#007aff", "#3b99ff", "#75b7ff", "#add4ff", "#e5f2ff"] },
+      "shopkeep-system-grouped-background": { "role": "neutral", "displayName": "ShopKeep System Grouped Background", "canonical": "#f2f2f7", "tonalRamp": ["#1c1c1e", "#2c2c2e", "#48484a", "#636366", "#8e8e93", "#aeaeb2", "#d1d1d6", "#f2f2f7"] },
+      "shopkeep-label": { "role": "neutral", "displayName": "ShopKeep Label", "canonical": "#1c1c1e", "tonalRamp": ["#1c1c1e", "#353538", "#505054", "#6d6d72", "#8e8e93", "#b0b0b5", "#d1d1d6", "#f2f2f7"] },
       "sortie-cobalt": { "role": "secondary", "displayName": "Cobalt Keep", "canonical": "#2469e8", "tonalRamp": ["#0a1c40", "#0f2f6d", "#123d9d", "#1a52c6", "#2469e8", "#5c8cf0", "#94b4f6", "#cdddfb"] },
       "sortie-signal-red": { "role": "secondary", "displayName": "Signal-Red Keep", "canonical": "#d4473f", "tonalRamp": ["#3a1211", "#5e1d1a", "#832724", "#a83430", "#d4473f", "#e07771", "#eca5a1", "#f7d4d2"] },
       "sortie-route": { "role": "secondary", "displayName": "Parchment Route Gold", "canonical": "#f0d18c", "tonalRamp": ["#4a3b18", "#6e5824", "#927631", "#b7943e", "#d4ae68", "#e6c78a", "#f0d18c", "#f8e8c2"] },
@@ -21,14 +24,19 @@
       "display": { "displayName": "House Display", "purpose": "Space Grotesk 800 house hero H1 with copper-gradient emphasis span." },
       "body": { "displayName": "Body", "purpose": "Native system stack for house prose at line-height 1.6." },
       "subworld-display": { "displayName": "Subworld Display", "purpose": "Archivo 800, near-1.0 line-height, for subworld hero H1 and headings." },
-      "data": { "displayName": "Data / Telemetry", "purpose": "Martian Mono uppercase micro-labels, proof strips, and state chips inside subworlds." }
+      "data": { "displayName": "Data / Telemetry", "purpose": "Martian Mono uppercase micro-labels, proof strips, and state chips inside campaign subworlds." },
+      "shopkeep-display": { "displayName": "ShopKeep Display", "purpose": "SF Pro Display/system 760 for the Native iOS Inventory Canon hero and section headings." },
+      "shopkeep-body": { "displayName": "ShopKeep Body", "purpose": "SF Pro Text/system for inventory copy, evidence facts, and compact release labels." },
+      "tabloom-display": { "displayName": "Tabloom Display", "purpose": "Newsreader 500 for the product-native editorial notebook voice." },
+      "tabloom-body": { "displayName": "Tabloom Body", "purpose": "Geist 400–700 for the product-native worktable, navigation, prose, and fixture captions." }
     },
     "shadows": [
       { "name": "float", "value": "0 30px 80px -20px rgba(28,15,7,0.28), 0 8px 24px -12px rgba(28,15,7,0.18)", "purpose": "House hero device mock — highest lift." },
       { "name": "card", "value": "0 14px 40px -10px rgba(28,15,7,0.18), 0 4px 12px -6px rgba(28,15,7,0.12)", "purpose": "House cards and containers." },
       { "name": "accent", "value": "0 10px 28px -8px rgba(160,82,45,0.45)", "purpose": "Under the copper house CTA." },
       { "name": "sortie-action-glow", "value": "0 13px 30px -12px rgba(36,105,232,0.75)", "purpose": "Cobalt lift under Sortie's primary button; deepens on hover." },
-      { "name": "salvo-action-glow", "value": "0 15px 32px -13px rgba(245,158,61,0.7)", "purpose": "Amber lift under Salvo's primary button; deepens on hover." }
+      { "name": "salvo-action-glow", "value": "0 15px 32px -13px rgba(245,158,61,0.7)", "purpose": "Amber lift under Salvo's primary button; deepens on hover." },
+      { "name": "shopkeep-evidence", "value": "0 24px 60px -36px rgba(28,28,30,0.44)", "purpose": "Quiet native-system lift under ShopKeep's icon-led release evidence card." }
     ],
     "motion": [
       { "name": "ease-standard", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Shared easing across house and both subworlds (--ease / --so-ease / --sa-ease)." },
@@ -37,7 +45,9 @@
       { "name": "salvo-instrument-sweep", "value": "sa-instrument-sweep 7s ease 1 forwards", "purpose": "Single restrained amber instrument sweep across the command hero; removed under reduced motion." }
     ],
     "breakpoints": [
-      { "name": "collapse", "value": "880px" }
+      { "name": "collapse", "value": "880px" },
+      { "name": "shopkeep-collapse", "value": "900px" },
+      { "name": "shopkeep-mobile", "value": "620px" }
     ],
     "reducedMotion": "Every surface ships a complete prefers-reduced-motion block: subworlds hide their signature motion (Sortie route travel, Salvo instrument sweep) and clamp all animation/transition to ~0.001ms with scroll-behavior auto."
   },
@@ -75,6 +85,14 @@
       "css": ".ds-btn-salvo-ghost { min-height:48px; display:inline-flex; align-items:center; justify-content:center; gap:13px; padding:11px 18px; border:1px solid rgba(244,247,248,0.24); border-radius:0; background:transparent; color:rgba(244,247,248,0.82); font-family:'Archivo',system-ui,sans-serif; font-weight:800; font-size:0.82rem; text-decoration:none; transition:transform 0.25s cubic-bezier(0.22,1,0.36,1),background-color 0.25s cubic-bezier(0.22,1,0.36,1); } .ds-btn-salvo-ghost:hover { transform:translateY(-2px); background:rgba(244,247,248,0.07); } .ds-btn-salvo-ghost:focus-visible { outline:2px solid #ffd188; outline-offset:3px; }"
     },
     {
+      "name": "ShopKeep Primary Button",
+      "kind": "button",
+      "refersTo": "shopkeep-button-primary",
+      "description": "System-blue, continuous-corner action inside ShopKeep's Native iOS Inventory Canon.",
+      "html": "<a class=\"ds-btn-shopkeep\" href=\"#\">Understand account ownership</a>",
+      "css": ".ds-btn-shopkeep { min-height:48px; display:inline-flex; align-items:center; justify-content:center; padding:11px 19px; border:1px solid #007aff; border-radius:12px; background:#007aff; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif; font-size:0.88rem; font-weight:720; text-decoration:none; transition:transform 180ms cubic-bezier(0.22,1,0.36,1),background-color 180ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-shopkeep:hover { transform:translateY(-2px); background:#0057b8; } .ds-btn-shopkeep:focus-visible { outline:3px solid #007aff; outline-offset:3px; }"
+    },
+    {
       "name": "Nintek Home-Link Mark",
       "kind": "nav",
       "refersTo": "nav-home",
@@ -93,33 +111,42 @@
   ],
   "narrative": {
     "northStar": "The Studio and Its Rooms",
-    "overview": "Nintek is one warm, crafted studio that opens onto a hallway of rooms. The house world \u2014 cream paper, copper hardware, walnut shadow, Space Grotesk wordmark \u2014 is calm, product-led, and consistent across the marketing surfaces. Each dedicated app page is a room: it holds its own light, palette, type, and material so the product feels like itself, but it never stops being part of the house. Two things always travel between rooms \u2014 the Nintek home-link mark in the nav and the copper signature in the footer. The rooms are verified, product-native subworlds derived from real software and real captures, not free-for-all reskins. Release-state copy must distinguish private, internal, review-blocked, and public states. Sortie and Salvo stand as route-specific examples of the subworld pattern, never replacements for the house defaults.",
+    "overview": "Nintek is one warm, crafted studio that opens onto a hallway of rooms. The house world \u2014 cream paper, copper hardware, walnut shadow, Space Grotesk wordmark \u2014 is calm, product-led, and consistent across the marketing surfaces (home, iOS catalogue, footers, cross-links). Each dedicated app page is a room: it is allowed to hold its own light, palette, type, and material so the product feels like itself, but it never stops being part of the house. The Nintek home-link mark always travels in the nav; immersive game rooms that ship a shared branded footer repeat the copper signature there.\n\nThis documents the incumbent site system, not a redesign. The rooms are verified, product-native subworlds derived from executable software and manifest-backed visual evidence; they are not free-for-all reskins. A subworld earns its palette from the product it advertises, keeps the shared discipline (semantic structure, keyboard-visible focus, strong contrast, responsive layout, stable media dimensions, honest reduced-motion, and truthful release boundaries), and identifies what kind of evidence the visitor is seeing.\n\nThe portfolio is evidence-first. Each release visual starts with an immutable product authority and its manifest, then uses only the exact local asset and capture class supported there. A missing screenshot is represented as a visible gap \u2014 normally a canonical icon with release facts \u2014 rather than filled with stale art, synthetic UI, an App Store recompression, or a different capture class. Sortie, Salvo, and ShopKeep are route-specific examples of the room pattern, never replacements for the house defaults.",
     "keyCharacteristics": [
       "One warm house system (cream / copper / walnut, Space Grotesk) shared by all marketing surfaces.",
       "Dedicated app pages adopt a verified product-native subworld \u2014 its own color, type, form language, and real media.",
-      "The Nintek home-link mark (nav) and copper N signature (footer) are non-negotiable on every subworld.",
-      "Real shipped/pre-release captures only; no invented product UI.",
+      "The Nintek home-link mark is non-negotiable; the copper footer signature remains scoped to rooms that ship the shared branded footer.",
+      "Release evidence is manifest-backed, with exact capture classes and visible provenance labels.",
+      "Missing screenshot masters resolve to honest icon-led evidence, never substitute UI.",
+      "ShopKeep build 35 and Workshop build 13 use icon-led native evidence because their exact screenshot masters are untracked; Workshop separately retains its current web capture.",
+      "Tare uses labeled Simulator marketing/support derivatives; Salvo uses labeled automated iPad release captures and remains content-blocked.",
+      "Cortex and Sortie preserve distinct exact social handoffs; Tabloom and PulseWire use deterministic fictional fixtures, with PulseWire owner data excluded.",
       "Complete prefers-reduced-motion coverage on every surface, including subworlds."
     ],
     "rules": [
-      { "name": "The Copper Signature Rule", "body": "Copper (#c17a2e) is the family mark, not a subworld accent. Inside a subworld it appears only in the shared Nintek home-link and footer signature; the subworld's own actions use the subworld's own accent (Sortie cobalt, Salvo amber), never copper.", "section": "colors" },
+      { "name": "The Copper Signature Rule", "body": "Copper (#c17a2e) is the family mark, not a subworld accent. Inside a room it appears in the shared Nintek home-link and, where implemented, the branded footer signature; the room's own actions use its own accent, never copper.", "section": "colors" },
       { "name": "The Earned-Palette Rule", "body": "A subworld's colors must come from the real product it advertises (its art, its UI, its captures). Do not invent a palette to decorate a page.", "section": "colors" },
-      { "name": "The Two-Voice Rule", "body": "Each surface pairs exactly one display voice with the mono data voice. House = Space Grotesk + system body; a subworld = Archivo + Martian Mono. Do not mix a subworld's display face into the house chrome.", "section": "typography" },
-      { "name": "The Warm-Shadow Rule", "body": "House shadows are tinted with walnut (rgba(28,15,7,...)), never neutral black. Subworld glows are tinted with that subworld's accent.", "section": "elevation" }
+      { "name": "The Two-Voice Campaign Rule", "body": "Sortie and Salvo pair Archivo with Martian Mono. The house keeps Space Grotesk with system body, while ShopKeep uses SF display/text throughout. A room's product-native voice never leaks into the house chrome.", "section": "typography" },
+      { "name": "The Warm-Shadow Rule", "body": "House shadows are tinted with walnut (`rgba(28,15,7,…)`), never neutral black. Subworld glows are tinted with that subworld's accent.", "section": "elevation" },
+      { "name": "The Evidence-First Rule", "body": "Start with the immutable product authority and manifest, then select the exact asset bytes the manifest permits. When an exact screenshot master is unavailable, show the canonical icon and release facts; never fill the gap with retired art, synthetic UI, a CDN recompression, or a screenshot from another build.", "section": "components" },
+      { "name": "The Exact Capture-Class Rule", "body": "`simulator-marketing-derivative`, `simulator-support-derivative`, `automated-ipad-release-capture`, `current-web-capture`, `deterministic-fictional-fixture`, `source-art-derivative`, `deterministic-branded-composition`, `upstream-authored-social-source`, and physical-device evidence are different things. Preserve the manifest class internally and use a plain-language visible caption that does not upgrade the evidence.", "section": "components" }
     ],
     "dos": [
       "Do keep every marketing surface on the house world (cream #f5f0ea, copper #c17a2e, walnut ink, Space Grotesk).",
-      "Do give a dedicated app page its own verified subworld \u2014 palette, type (Archivo + Martian Mono), form language, and real media derived from the actual product.",
-      "Do ship the Nintek home-link mark in the subworld nav and the copper N signature in the subworld footer, every time.",
+      "Do give a dedicated app page its own verified subworld \u2014 product-native palette, typography, form language, and evidence treatment.",
+      "Do ship the Nintek home-link mark in every room; preserve the copper N signature wherever the route already uses the shared branded footer.",
       "Do use warm walnut-tinted shadows in the house and accent-tinted glows in subworlds.",
       "Do ship a complete prefers-reduced-motion block on every surface \u2014 subworlds disable their signature motion (Sortie route travel, Salvo instrument sweep) and clamp all animation/transition to ~0.001ms.",
-      "Do state pre-release status honestly and show only real shipped/pre-release captures."
+      "Do state release status honestly and caption every evidence visual with its exact class in human-readable language.",
+      "Do use an icon-led evidence state when exact screenshot masters are absent."
     ],
     "donts": [
       "Don't use copper as a subworld action color \u2014 copper is the family signature only (subworld actions use the subworld accent: Sortie cobalt, Salvo amber).",
       "Don't invent a subworld palette or product UI to decorate a page; earn it from the real product.",
+      "Don't collapse Simulator, automated, deterministic-fixture, source-art, social-composition, and physical-device evidence into the generic word \u201cscreenshot.\u201d",
+      "Don't replace an unavailable manifest-backed master with stale, regenerated, recompressed, or synthetic UI.",
       "Don't carry one subworld's form language into another \u2014 Sortie stays rounded/pill/organic, Salvo stays square/steel/no-radius.",
-      "Don't drop the Nintek nav home-link or footer signature from any app page, no matter how immersive the subworld.",
+      "Don't drop the Nintek nav home-link, or remove the copper signature from a route that ships the shared branded footer.",
       "Don't mix a subworld's display face (Archivo) into the house chrome, or the house wordmark face into a subworld hero.",
       "Don't animate without a reduced-motion fallback, or claim features the product doesn't ship (no multiplayer, economy, or backend sync)."
     ]

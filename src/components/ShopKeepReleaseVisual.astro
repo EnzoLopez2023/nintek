@@ -1,0 +1,131 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<figure class:list={['skv', compact && 'skv-compact']}>
+  <div class="skv-surface">
+    <div class="skv-heading">
+      <span>Native release evidence</span>
+      <strong>2.0.1 (35)</strong>
+    </div>
+    <img
+      src="/apps/shopkeep.png"
+      alt="ShopKeep canonical blue-and-white tool-in-home icon"
+      width="1024"
+      height="1024"
+      loading="lazy"
+      decoding="async"
+    />
+    <dl>
+      <div><dt>Build</dt><dd>Attached · VALID</dd></div>
+      <div><dt>Availability</dt><dd>Private · not public</dd></div>
+    </dl>
+  </div>
+  <figcaption>
+    Canonical build 35 icon. Exact release screenshots are not committed upstream,
+    so this page does not substitute synthetic UI.
+  </figcaption>
+</figure>
+
+<style>
+  .skv {
+    width: min(100%, 520px);
+    margin: 0 auto;
+    color: #1c1c1e;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  }
+
+  .skv-surface {
+    padding: clamp(22px, 4vw, 38px);
+    border: 1px solid #d1d1d6;
+    border-radius: 28px;
+    background: #f2f2f7;
+    box-shadow: 0 24px 60px -36px rgba(28, 28, 30, 0.44);
+  }
+
+  .skv-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #d1d1d6;
+    color: #636366;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .skv-heading strong {
+    color: #007aff;
+  }
+
+  .skv img {
+    display: block;
+    width: min(58%, 240px);
+    height: auto;
+    margin: clamp(24px, 5vw, 42px) auto;
+    border-radius: 22.5%;
+  }
+
+  .skv dl {
+    margin: 0;
+    border-top: 1px solid #d1d1d6;
+  }
+
+  .skv dl div {
+    display: grid;
+    grid-template-columns: minmax(92px, 0.42fr) minmax(0, 1fr);
+    gap: 16px;
+    padding: 13px 0;
+    border-bottom: 1px solid #d1d1d6;
+  }
+
+  .skv dt,
+  .skv dd {
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .skv dt {
+    color: #636366;
+  }
+
+  .skv dd {
+    color: #1c1c1e;
+    font-weight: 650;
+  }
+
+  .skv figcaption {
+    max-width: 58ch;
+    margin: 12px auto 0;
+    color: #636366;
+    font-size: 0.7rem;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .skv-compact {
+    max-width: 330px;
+  }
+
+  .skv-compact .skv-surface {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .skv-compact .skv-heading {
+    font-size: 0.62rem;
+  }
+
+  .skv-compact img {
+    width: min(62%, 168px);
+    margin-block: 24px;
+  }
+</style>
