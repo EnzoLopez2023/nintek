@@ -1372,10 +1372,6 @@
     font-size: 0.76rem;
   }
 
-  .cx-nav-brand :global(.nintek-back-sep) {
-    margin-inline: 7px;
-  }
-
   .cx-wordmark {
     font-size: 0.94rem;
   }
