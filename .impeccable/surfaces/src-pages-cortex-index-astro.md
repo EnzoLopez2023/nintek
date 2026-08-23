@@ -18,6 +18,10 @@ The hub capture and all eight game-home captures are the proof. The page must st
 optional Game Center, no Nintek backend, and bundle `com.nintek.cortex` without
 inventing multiplayer, economies, or sync.
 
+Current default-branch evidence records a private pre-release draft and no
+uploaded replacement build. Do not claim public TestFlight or App Store
+availability, and do not guess the outcome of later distribution work.
+
 ## Direction and memorable moment
 
 An arcade constellation in depth: the real hub anchors the first viewport, a sticky

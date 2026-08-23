@@ -101,6 +101,11 @@ components:
 
 Workshop's marketing surface is a drafting table, not a status board: cool vellum paper, deep spruce structural ink, a functional 24px grid across the dedicated page field and scoped shared placements, pencil-blue for annotation and wayfinding, and a single restrained amber for the one "next step" action per section. The system exists to hold real evidence — the current web app and fresh, read-only `WORKSHOP_DEMO_MODE=1` Simulator captures taken from iOS commit `4b9c2da7234aa8fd4dec58463ae1a73d85c087c8` on iPhone 17 Pro and iPad Pro 13-inch (M5) running iOS 26.5 — at readable scale, never to dress up an invented screen or a stale App Store/release asset.
 
+Release-state copy follows `Workshop-for-iOS@87d1743`: draft 2.2.1 (12) is
+assigned to internal TestFlight under the fallback name **Nintek Workshop**.
+The draft is free with no IAP, but it is not public and physical review gates
+remain. These facts constrain copy only; they do not alter the visual direction.
+
 This is a Workshop-scoped visual system, confined to `/workshop`, `/workshop/privacy`, and Workshop's guest appearances on the Nintek homepage and `/ios`. It does not restyle the Nintek shell, other product pages, or their sibling apps; every surface that carries it (`workshop-landing.css`, the `.workshop-promo` block in `global.css`, the `.workshop-iapp`/`.ios-workshop-proof` block in `ios.css`, and `WorkshopShowcase`'s own scoped styles) redeclares the same token values locally rather than leaking them outward. The build explicitly rejects the retired "Concourse Board" direction — a departure-board/flip-timetable treatment — in favor of this plan-table language.
 
 **Key Characteristics:**
@@ -115,13 +120,13 @@ This is a Workshop-scoped visual system, confined to `/workshop`, `/workshop/pri
 Cool, low-saturation vellum and spruce-green carry the surface; two narrow accent voices do all of the pointing.
 
 ### Primary
-- **Spruce Action** (`#125447`, hover `#0d4137`, fill `#1e7666`): the single primary-action color — "Explore real screens," "Request TestFlight access" (primary variant), in-nav links, and footer link color. On dark surfaces it inverts to a lighter mint (`#68c7b0`) under `prefers-color-scheme: dark`.
+- **Spruce Action** (`#125447`, hover `#0d4137`, fill `#1e7666`): the single primary-action color — "Explore real screens," privacy/support actions, in-nav links, and footer link color. On dark surfaces it inverts to a lighter mint (`#68c7b0`) under `prefers-color-scheme: dark`.
 
 ### Secondary
 - **Pencil Blue** (`#356d85`, strong `#29566a`, fill `#477f97`): reserved for annotation and wayfinding chrome, never for calls to action — the 24px background grid tint, focus-visible outlines, the journey step counters and "Planning" stage badge, the browser-chrome dot, and the manifest table's rightmost "Where" column.
 
 ### Tertiary
-- **Amber Next** (`#995d08`, fill `#d99724`, hover `#bf7b16`): the single "next step" progression accent — the hero fact-list separators, the "In progress" journey badge, and the `.next` action variant used specifically for "Request TestFlight access" inside the dark native section and the `/ios` proof card. It never appears as the primary CTA color.
+- **Amber Next** (`#995d08`, fill `#d99724`, hover `#bf7b16`): the single "next step" progression accent — the hero fact-list separators, the "In progress" journey badge, and the `.next` action variant. It never appears as the primary CTA color or imply public acquisition.
 
 ### Neutral
 - **Vellum** (`#eef4f2`) / **Vellum Recessed** (`#e0ebe7`): the cool paper canvas and its slightly deeper recessed variant (badge backgrounds, footer band, hover fills).
@@ -176,9 +181,9 @@ Two radius steps do all systemic work: **14px** (`--wk-radius`) for interactive 
 
 ### Buttons (`.wk-action`)
 - **Shape:** 14px radius, min-height 46px, 10px/16px padding.
-- **Primary** (`spruce-action` → `spruce-action-hover`, `on-action` text): the lead action in the hero and footer ("Explore real screens," "Request TestFlight access" primary instance).
+- **Primary** (`spruce-action` → `spruce-action-hover`, `on-action` text): the lead action in the hero and footer ("Explore real screens" and current privacy/support actions).
 - **Secondary** (`drafting-surface` fill, `divider-strong` border, `spruce-ink` text; hover moves the border to `pencil-blue` and fills `vellum-recessed`): the paired, lower-emphasis action next to Primary.
-- **Next** (`amber-next-fill` → `amber-next-hover`, `on-amber` text): the single amber progression action, used only inside the dark native section and the `/ios` proof card for "Request TestFlight access."
+- **Next** (`amber-next-fill` → `amber-next-hover`, `on-amber` text): the single amber progression action, reserved for a truthful next step and never a public-acquisition promise without evidence.
 - **States:** all three lift `translateY(-2px)` on hover with a 180ms `cubic-bezier(0.16,1,0.3,1)` transition; focus-visible gets a 3px pencil-blue outline with 3px offset, portfolio-wide.
 
 ### Cards / Containers

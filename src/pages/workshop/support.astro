@@ -3,7 +3,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('workshop')!;
-const updatedDate = 'August 22, 2026';
+const updatedDate = 'August 23, 2026';
 const sections = [
   { href: '#availability', label: 'Availability' },
   { href: '#identity', label: 'Sign-in and identity' },
@@ -23,19 +23,21 @@ const sections = [
   path="/workshop/support"
   page="support"
   heading="Workshop Support"
-  documentMeta={`Updated ${updatedDate} · Web current · Native withdrawn for rework`}
-  summary="Workshop’s account-backed web workspace remains current. The iPhone and iPad release has been withdrawn while rework continues. There is no public App Store listing, TestFlight acquisition link, public native price, or promised release date."
+  documentMeta={`Updated ${updatedDate} · Web current · Native internal draft`}
+  summary="Workshop’s account-backed web workspace remains current. Native draft 2.2.1 (12) is in internal TestFlight under the fallback name Nintek Workshop. It is free with no IAP, but it is not public and has no acquisition link."
   sections={sections}
-  evidenceNote="Support guidance was reviewed against the current web and native default branches, the matching live web deployment, and the current recovery runbook on August 22, 2026."
+  evidenceNote="Support guidance was reviewed against the current web and native default branches, the matching live web deployment, the current recovery runbook, and the provider-scoped deletion path on August 23, 2026."
   theme="workshop"
 >
   <section id="availability" class="legal-section">
     <h2>Current availability</h2>
     <p class="legal-callout">
       The private web workspace is the current Workshop service. The native build
-      supports iPhone and iPad on iOS 17 or later, but its public submission is
-      withdrawn for rework. Current private access does not imply App Store or
-      TestFlight availability.
+      supports iPhone and iPad on iOS 17 or later. Draft 2.2.1 (12) is assigned
+      to internal TestFlight under the fallback name Nintek Workshop, but current
+      private access does not imply public TestFlight or App Store availability.
+      Physical-device, accessibility, privacy, reviewer-account, and review-evidence
+      gates remain.
     </p>
   </section>
 
@@ -43,7 +45,8 @@ const sections = [
     <h2>Apple and Microsoft sign-in</h2>
     <p>
       Apple and Microsoft create separate Workshop accounts, even when both
-      providers use the same email address. If projects appear missing, sign out
+      providers use the same email address. Workshop does not automatically link
+      or merge those provider workspaces. If projects appear missing, sign out
       only after confirming the active provider, then return with the provider
       originally used for that workspace.
     </p>
@@ -112,9 +115,10 @@ const sections = [
   <section id="deletion" class="legal-section">
     <h2>Delete a Workshop account</h2>
     <p>
-      In the private native build, open <strong>Settings → Account &amp;
-      Data</strong>, review the scope, and confirm account deletion. Deletion
-      applies only to the active Apple or Microsoft Workshop account.
+      In the private native build, open <strong>More → Account</strong>, review
+      the scope, and confirm account deletion. Deletion applies only to the
+      current Apple- or Microsoft-backed Workshop workspace. It does not link,
+      merge, or delete a workspace created with the other provider.
     </p>
     <p>
       Apple-backed deletion revokes stored Apple authorization before Workshop
@@ -122,6 +126,12 @@ const sections = [
       the account intact and reports a retryable failure. Microsoft-backed
       deletion removes Workshop data but does not delete or revoke unrelated
       Microsoft account access.
+    </p>
+    <p>
+      This page corrects the navigation and provider scope for support purposes.
+      It does not claim that attached build 12 contains newer contextual deletion
+      copy. Build 12 is not the submission candidate; binary remediation is in
+      progress and remains subject to the release gates above.
     </p>
     <p>
       Export the project summary first if it is useful, while remembering that it

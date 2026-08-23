@@ -24,6 +24,7 @@ export interface Platforms {
 
 export type NativeStatus =
   | 'testflight'
+  | 'internal-testflight'
   | 'pre-release'
   | 'review-blocked'
   | 'rework'
@@ -32,6 +33,7 @@ export type NativeStatus =
 
 export const NATIVE_STATUS_LABELS: Record<NativeStatus, string> = {
   testflight: 'TestFlight beta',
+  'internal-testflight': 'Internal TestFlight',
   'pre-release': 'Pre-release build',
   'review-blocked': 'Release blocked after review',
   rework: 'Withdrawn for rework',
@@ -182,7 +184,7 @@ export const apps: App[] = [
     headline: { lead: 'Every number tells a story.', em: 'Read the trend.' },
     description:
       'Weight, doses, glucose, labs and well-being on a GLP-1 journey — read together, not in four separate places. The native build automatically imports approved Apple Health data when the app opens or returns, supports iPhone, iPad and Apple Watch, and needs no account.',
-    quiet: 'Private pre-release build. No public App Store listing or announced price.',
+    quiet: 'iOS-first draft 1.0 (31), assigned only to internal TestFlight. No public App Store listing or announced price.',
     icon: 'drop',
     bundleId: 'com.nintek.tare',
     hasPage: true,
@@ -197,7 +199,7 @@ export const apps: App[] = [
       live: 'Illustrative',
     },
     native: {
-      status: 'pre-release',
+      status: 'internal-testflight',
       thesis:
         'The longest history in the catalogue, carried by the phone, the wrist and the Home Screen — with no account behind any of it.',
       intro:
@@ -494,8 +496,8 @@ export const apps: App[] = [
     tagline: 'Keep the whole build connected.',
     headline: { lead: 'Keep the whole build', em: 'connected.' },
     description:
-      'Workshop keeps woodworking plans, dimensions, materials, cuts, shopping, build notes, and finish records together. Its web workspace is online and account-backed, while the separate native release is withdrawn for rework.',
-    quiet: 'No public App Store or TestFlight link. Current media is from the Living Plan Table build.',
+      'Workshop keeps woodworking plans, dimensions, materials, cuts, shopping, build notes, and finish records together. Its web workspace is online and account-backed, while native draft 2.2.1 (12) is in internal TestFlight.',
+    quiet: 'Nintek Workshop is free with no IAP, but it is not public and physical review gates remain.',
     icon: 'package',
     bundleId: 'com.nintek.workshop',
     hasPage: true,
@@ -510,11 +512,11 @@ export const apps: App[] = [
       live: 'Real captures',
     },
     native: {
-      status: 'rework',
+      status: 'internal-testflight',
       thesis:
-        'The current native build carries plans, parts, materials and progress into the shop, but its public release is withdrawn while rework continues.',
+        'Draft 2.2.1 (12) carries plans, parts, materials and progress into the shop; internal TestFlight is preparation, not public availability.',
       intro:
-        'Workshop is being reworked around the Living Plan Table system shown in these current web and Simulator captures. The private native build includes seven starter projects, an on-device cut-plan optimiser, Lock Screen surfaces and a purpose-built iPad workspace. There is no public App Store listing, price or TestFlight acquisition link.',
+        'Workshop uses the Living Plan Table system shown in these current web and Simulator captures. Native draft 2.2.1 (12) includes seven starter projects, an on-device cut-plan optimiser, Lock Screen surfaces and a purpose-built iPad workspace. Its App Store fallback name is Nintek Workshop. The draft is free with no in-app purchases and assigned to internal TestFlight, but it is not public; physical-device, accessibility, privacy, reviewer-account and review-evidence gates remain.',
       highlights: [
         {
           icon: 'package',
@@ -589,7 +591,7 @@ export const apps: App[] = [
     headline: { lead: 'Eight games, one hub.', em: 'Built for iOS.' },
     description:
       'A native games hub for iPhone: Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop, with optional Game Center and no Nintek account or backend.',
-    quiet: 'TestFlight beta. No public App Store listing yet.',
+    quiet: 'Private pre-release build. No public App Store listing or public TestFlight claim.',
     icon: 'gamepad',
     bundleId: 'com.nintek.cortex',
     hasPage: true,
@@ -604,7 +606,7 @@ export const apps: App[] = [
       live: 'No Nintek backend',
     },
     native: {
-      status: 'testflight',
+      status: 'pre-release',
       thesis: 'Eight native games, optional Game Center, and no Nintek backend.',
       intro:
         'Cortex is a self-contained games hub built for iPhone. Eight distinct word, number, logic and arcade games share one native home, with optional Game Center and no Nintek account or backend service sitting between you and a game.',
@@ -665,7 +667,7 @@ export const apps: App[] = [
     headline: { lead: 'Draw the supply line.', em: 'Watch the front move.' },
     description:
       'A tactical conquest campaign for iPhone. Link keeps into permanent supply lines, route reinforcements around terrain, and take 1,500 levels across 15 distinct biomes.',
-    quiet: 'Pre-release build. Local saves, optional Game Center, no account or backend.',
+    quiet: 'Build 13 is in internal TestFlight, not public. Local saves, optional Game Center, no account or backend.',
     icon: 'gamepad',
     bundleId: 'com.nintek.sortie',
     hasPage: true,
@@ -680,7 +682,7 @@ export const apps: App[] = [
       live: 'Pre-release build',
     },
     native: {
-      status: 'pre-release',
+      status: 'internal-testflight',
       showcase: 'phone',
       thesis: 'A 1,500-level supply-line campaign with local saves and optional Game Center.',
       intro:
@@ -735,7 +737,7 @@ export const apps: App[] = [
     tagline: 'Command five eras. Hold the line.',
     headline: { lead: 'Build the defense.', em: 'Carry it through five eras.' },
     description:
-      'A portrait, touch-first tower-defense campaign for iPad. The current pre-release build pairs 16 synchronized operations with era-specific towers, three difficulty settings, and ranked endurance.',
+      'A portrait, touch-first tower-defense campaign for iPad. The current pre-release build pairs 16 synchronized operations with era-specific towers and three difficulty settings; Game Center is disabled for v1.',
     quiet: 'In development. Campaign expansion and release verification are still underway.',
     icon: 'gamepad',
     bundleId: 'com.nintek.salvo',
@@ -753,7 +755,7 @@ export const apps: App[] = [
       showcase: 'tablet',
       thesis: 'A premium, portrait iPad campaign built around readable tactical choices.',
       intro:
-        'Salvo turns Puzzlebox Tower Defense into a standalone Godot game built specifically for portrait iPad play. Its campaign framework spans five military eras; the current build contains 16 synchronized operations in the opening era, three difficulty settings, ranked endurance, local progress, and optional Game Center.',
+        'Salvo turns Puzzlebox Tower Defense into a standalone Godot game built specifically for portrait iPad play. Its campaign framework spans five military eras; the current build contains 16 synchronized operations in the opening era, three difficulty settings, ranked endurance, and local progress. Game Center code is retained for later work but disabled and excluded from the v1 export.',
       highlights: [
         {
           icon: 'grid',
@@ -787,12 +789,12 @@ export const apps: App[] = [
         },
         {
           icon: 'trophy',
-          title: 'Game Center never blocks play',
+          title: 'Game Center deferred from v1',
           body:
-            'Achievements and leaderboards are optional system services. Failed authentication or an offline device never blocks campaign progress.',
+            'The retained integration is disabled and excluded from the v1 player export. Salvo does not currently claim achievements or leaderboards.',
         },
       ],
-      tech: ['Godot 4', 'Game Center', 'Local JSON saves'],
+      tech: ['Godot 4', 'Local JSON saves'],
       minOS: 'iOS 15',
       devices: 'iPad only',
     },

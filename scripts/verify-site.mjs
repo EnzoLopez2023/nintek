@@ -399,7 +399,9 @@ const pageAssertions = {
     'there is no installable PWA, offline web mode, or browser background-reminder claim',
   ],
   '/workshop': [
-    'Withdrawn for rework',
+    'Internal TestFlight',
+    'Native draft 2.2.1 (12)',
+    'Nintek Workshop',
     'Current iPhone Simulator capture',
     'not an installable or offline PWA',
     'does not promise background reminders',
@@ -415,11 +417,11 @@ const pageAssertions = {
   ],
   '/pulsewire': ['317', 'Synthetic interface diagram', 'PostgreSQL · pgvector'],
   '/tabloom': ['Archive &amp; Restore', 'Offline Reading', 'identity-scoped IndexedDB'],
-  '/cortex': ['TestFlight beta · iPhone only', 'no public App Store'],
-  '/sortie': ['Pre-release', 'iPhone only', 'iOS 14', 'Not available yet'],
+  '/cortex': ['Private pre-release · iPhone only', 'does not establish a public TestFlight or App Store release'],
+  '/sortie': ['iPhone only', 'iOS 14', '1.0 (13) · internal TestFlight', 'Not available yet'],
   '/sortie/privacy': ['iPhone-only, portrait pre-release game', 'Optional Apple Game Center', 'no tracking'],
   '/sortie/support': ['iPhone-only, portrait pre-release build', 'iOS 14 or later', 'no public App Store listing'],
-  '/salvo': ['In development', 'Not available yet'],
+  '/salvo': ['In development', 'Game Center disabled for v1', 'Not available yet'],
   '/terms': ['Terms of Use', 'Your content and your responsibility', 'AI output and professional-advice limits'],
   '/about': [
     'Web and native are not the same promise.',
@@ -458,7 +460,11 @@ const legalAssertions = {
     'manual deletion reconciliation',
   ],
   '/workshop/support': [
-    'withdrawn for rework',
+    'internal TestFlight',
+    'Nintek Workshop',
+    'More → Account',
+    'does not automatically link or merge',
+    'does not claim that attached build 12 contains newer contextual deletion copy',
     'project-list summary',
     'not automated by the restore code',
   ],
@@ -508,7 +514,7 @@ const legalAssertions = {
     'Cortex data lifecycle and account-control boundaries',
   ],
   '/cortex/support': [
-    'iPhone-only TestFlight beta',
+    'iPhone-only private pre-release build',
     'no single in-app erase-all control',
     'Troubleshoot optional Game Center',
   ],
@@ -518,8 +524,11 @@ for (const [route, values] of Object.entries(legalAssertions)) {
   assert(routeExists(route), `${route}: required legal route is missing`);
   const html = readFileSync(routeFile(route), 'utf8');
   const normalized = html.replace(/\s+/g, ' ');
+  const expectedLegalDate = route.startsWith('/workshop')
+    ? 'August 23, 2026'
+    : 'August 22, 2026';
   assert(
-    normalized.includes('August 22, 2026'),
+    normalized.includes(expectedLegalDate),
     `${route}: missing the current effective or updated date`,
   );
   for (const value of values) {
@@ -575,8 +584,9 @@ for (const route of ['/sortie', '/sortie/privacy', '/sortie/support', '/salvo'])
 
 const evidenceLedger = readFileSync(join(root, 'docs', 'MARKETING_EVIDENCE.md'), 'utf8');
 assert(
-  evidenceLedger.includes('**Verified:** 2026-08-22'),
-  'Marketing evidence ledger does not carry the current verification date.',
+  evidenceLedger.includes('**Base verification:** 2026-08-22') &&
+    evidenceLedger.includes('**Release-state refresh:** 2026-08-23'),
+  'Marketing evidence ledger does not carry the base and release-state verification dates.',
 );
 for (const phrase of [
   'Tare | **Retired, relay-only.**',

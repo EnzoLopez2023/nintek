@@ -4,7 +4,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('workshop')!;
-const effectiveDate = 'August 22, 2026';
+const effectiveDate = 'August 23, 2026';
 const sections = [
   { href: '#scope', label: 'Scope and identity' },
   { href: '#data', label: 'Data processed' },
@@ -62,9 +62,9 @@ const lifecycleRows = [
   page="privacy"
   heading="Workshop Privacy Policy"
   documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
-  summary="Workshop is a private, account-backed woodworking project companion. The current web workspace remains active; the native iPhone and iPad release is withdrawn for rework. Apple and Microsoft sign-in create separate Workshop accounts."
+  summary="Workshop is a private, account-backed woodworking project companion. The current web workspace remains active; native draft 2.2.1 (12) is internal TestFlight preparation, not a public release. Apple and Microsoft sign-in create separate Workshop accounts."
   sections={sections}
-  evidenceNote="Reviewed against the current Workshop and Workshop-for-iOS default branches, the matching live web deployment, and the current recovery documentation on August 22, 2026."
+  evidenceNote="Reviewed against the current Workshop and Workshop-for-iOS default branches, the matching live web deployment, and the provider-scoped account lifecycle on August 23, 2026."
   theme="workshop"
 >
   <section id="scope" class="legal-section">
@@ -175,6 +175,9 @@ const lifecycleRows = [
       local Workshop data is removed. If Apple revocation fails, deletion stops
       and leaves the account data intact for a safe retry. Microsoft-backed
       deletion removes Workshop data without deleting the Microsoft account.
+      Each action is scoped to the current provider-backed Workshop workspace;
+      Apple and Microsoft workspaces are not automatically linked or merged, and
+      deleting one does not delete the other.
     </p>
     <p>
       The service retains seven local daily recovery bundles. Protected off-host
