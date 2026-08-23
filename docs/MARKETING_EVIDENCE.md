@@ -95,6 +95,7 @@ not a claim that provider terms or legal requirements cannot change.
 | `public/social/tare.png` | **Deterministic branded composition; no product UI** | Built from the byte-verified Tare icon and the established Tare page visual language. Editable source: `public/social/source/tare.svg`. |
 | `public/social/workshop.png` | **Deterministic composition with a real current web capture** | Built from the byte-verified Workshop icon and `public/apps/workshop/web-project.webp`, already classified above as a current web capture. Editable source: `public/social/source/workshop.svg`. |
 | `public/social/cairn.png` | **Deterministic branded composition; no product UI** | Built from the byte-verified Cairn icon and established certification-trail motifs. Editable source: `public/social/source/cairn.svg`. |
+| `public/social/shopkeep.png` | **Deterministic branded composition; no product UI** | Built from the byte-verified `public/apps/shopkeep.png` icon and the established pale-enamel machine-control language. Editable source: `public/social/source/shopkeep.svg`. The canonical mark is the current blue (`#007AFF`) and white tool-in-home icon; the retired dark teal/blue/green toolpath-arrow mark from the ShopKeep web repository is explicitly excluded. |
 
 ## Refresh procedure
 

@@ -27,6 +27,7 @@ const indexedSoftwareRoutes = new Set([
 ]);
 const expectedSocialImages = new Map([
   ['/cairn', `${site}/social/cairn.png`],
+  ['/shopkeep', `${site}/social/shopkeep.png`],
   ['/tare', `${site}/social/tare.png`],
   ['/workshop', `${site}/social/workshop.png`],
 ]);
@@ -625,6 +626,7 @@ const expectedHashes = {
   'apps/sortie.png': '6ffc68d514b6dc94555e3481086951c70bf0bab43ed7deb34621558ed8d43e06',
   'apps/salvo.png': 'ec67b89f1c333d957464266117ffa66162abe37bd58be99827bc9e1aebbb3792',
   'social/cairn.png': '0fe7a02598009b06d13ce9eca3b9c4cfb3317656e6e8a6ca2e8134290daac32e',
+  'social/shopkeep.png': 'acd6420c4677e9b1edcc04a9d2b45ba914e488b792e6b9b6ea40406460fc67eb',
   'social/tare.png': '3eb68730de37c1d371f8c64ca32f8f1460ff67259a2a0a8c122ff0fc313a5da0',
   'social/workshop.png': '2c9863c24291ae42b414110fb730df9372c0340482533b94c72f100473a3c086',
 };
