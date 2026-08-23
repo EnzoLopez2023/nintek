@@ -17,7 +17,7 @@ supply-line mechanic, believe the 1,500-level campaign is concrete, and leave
 with an honest picture of its pre-release state. Current Godot footage, the
 byte-identical app icon, current keep and biome art, executable level data,
 local-save code, Game Center bridge, iPhone-only Xcode target, and public-store
-lookup are the proof.
+lookup and the 1.0 build 13 status record are the proof.
 
 ## Direction and memorable moment
 
@@ -27,7 +27,8 @@ through the first viewport, then following that same line into the campaign.
 
 ## Constraints and unresolved decisions
 
-No public App Store acquisition control, final price, or TestFlight claim.
+No public App Store acquisition control or final price. Build 13 may be described
+only as internal TestFlight; that is preparation evidence, not public availability.
 Synthetic source-art compositions are labeled and never presented as
 screenshots. Motion pauses on request and under reduced motion. Public release
 timing and price remain unresolved.

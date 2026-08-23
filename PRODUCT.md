@@ -8,10 +8,9 @@ web
 
 ## Users
 
-Nintek's public website serves people evaluating the studio and its apps. The Cortex
-surface specifically serves iPhone players looking for a polished collection
-of native word, number, logic, and arcade games that works without an account or
-backend.
+Nintek's public website serves people evaluating the studio and its apps across
+web, iPhone, iPad, and Apple Watch. It also serves reviewers and existing users
+who need accurate privacy, support, platform, and release-state boundaries.
 
 ## Product Purpose
 
@@ -19,28 +18,36 @@ Nintek is the public portfolio and marketing home for a collection of small,
 thoughtful apps. It helps visitors understand what each product does, see honest
 evidence from the shipped software, and reach the dedicated product pages.
 
-The Cortex page must make the real eight-game hub tangible and give every game a
-clear, accurate moment in the story.
+Dedicated product pages make current software tangible without converting
+private builds, internal testing, draft store records, or active review work
+into public availability claims.
 
 ## Positioning
 
-Cortex is one native iOS hub containing eight distinct games with optional Game
-Center integration and no Nintek account, backend, or API. Apple services may
-handle private iCloud Sudoku statistics and Game Center activity. It is not a web
-wrapper, a multiplayer service, or an economy-driven arcade.
+Nintek is the canonical public portfolio, not an engineering or distribution
+source of truth. Web and native products may be successors, separate clients,
+or independent siblings. Product code and the cross-repo release ledger outrank
+marketing copy whenever they differ.
 
 ## Operating Context
 
-Visitors arrive from the Nintek homepage, the native iOS catalogue, direct links, and
-social previews. Cortex itself runs on iPhone under bundle
-`com.nintek.cortex`.
+Visitors arrive from the homepage, the native catalogue, direct links, legal and
+support URLs, and social previews. The site is an Astro static build deployed to
+Azure Static Web Apps at canonical host `https://www.nintek.com`.
 
 ## Capabilities and Constraints
 
-- Cortex contains eight native games in this stable public order: Sudoku, Sumweave,
-  Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow, and Neon Drop.
-- Game Center is optional.
-- The app makes no calls to a Nintek backend or API.
+- A native build, internal TestFlight assignment, App Store Connect draft, or
+  review submission is not a public release.
+- Never invent or infer store links, prices, availability, release dates,
+  screenshots, or distribution outcomes.
+- Tare is the iOS-first successor to a retired relay-only web runtime.
+- Workshop and ShopKeep are native clients of current account-backed web
+  services; Cairn's native and web products do not share identity or progress.
+- Cortex, Sortie, and Salvo have distinct game and distribution boundaries;
+  Game Center must be claimed per current executable evidence, never by family.
+- The GoDaddy apex-subpath forwarding defect is external and remains blocked;
+  canonical, sitemap, and social URLs stay on HTTPS `www`.
 - Marketing must not claim multiplayer, coins or an economy, backend sync, or other
   unsupported features.
 - The website must remain responsive, accessible, performant, SEO-ready, and safe
@@ -49,17 +56,22 @@ social previews. Cortex itself runs on iPhone under bundle
 
 ## Brand Commitments
 
-Nintek's identity is warm, crafted, and product-led. Dedicated app pages may adopt
-the product's own visual vocabulary, but they remain recognizably part of the Nintek
-portfolio. Cortex should be the site's most vivid expression of that system: an
-unmistakable arcade hub with layered depth, purposeful motion, and high craft.
+Nintek's identity is warm, crafted, and product-led. Dedicated app pages may
+adopt the product's own visual vocabulary, but they remain recognizably part of
+the Nintek portfolio. Drift repair preserves these established product-native
+rooms rather than redesigning them.
 
 ## Evidence on Hand
 
-The source of truth is the Cortex app finalized at commit `5b34178` in
-`EnzoLopez2023/Cortex`. Real release-build screenshots are available for the hub and
-all eight game home screens under the creator session's artifact directory. These
-screens must be shown without inventing replacement UI.
+The cross-repo product map and release ledger are the portfolio-level starting
+points:
+
+- https://github.com/EnzoLopez2023/azure-infra/blob/main/PORTFOLIO.md
+- https://github.com/EnzoLopez2023/azure-infra/blob/main/RELEASE_LEDGER.md
+
+Each app repository remains authoritative for executable behavior and app-local
+release evidence. `docs/MARKETING_EVIDENCE.md` records the exact evidence used
+by this site and must be refreshed when a public claim changes.
 
 ## Product Principles
 

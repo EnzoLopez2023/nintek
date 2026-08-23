@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-20T17:42:04-04:00",
+  "generatedAt": "2026-08-23T09:30:00-04:00",
   "title": "Design System: Nintek",
   "extensions": {
     "colorMeta": {
@@ -93,7 +93,7 @@
   ],
   "narrative": {
     "northStar": "The Studio and Its Rooms",
-    "overview": "Nintek is one warm, crafted studio that opens onto a hallway of rooms. The house world \u2014 cream paper, copper hardware, walnut shadow, Space Grotesk wordmark \u2014 is calm, product-led, and consistent across the marketing surfaces. Each dedicated app page is a room: it holds its own light, palette, type, and material so the product feels like itself, but it never stops being part of the house. Two things always travel between rooms \u2014 the Nintek home-link mark in the nav and the copper signature in the footer. The rooms are verified, product-native subworlds derived from real software and real captures, not free-for-all reskins. Sortie and Salvo are the two newest rooms and stand as route-specific examples of the subworld pattern, never replacements for the house defaults.",
+    "overview": "Nintek is one warm, crafted studio that opens onto a hallway of rooms. The house world \u2014 cream paper, copper hardware, walnut shadow, Space Grotesk wordmark \u2014 is calm, product-led, and consistent across the marketing surfaces. Each dedicated app page is a room: it holds its own light, palette, type, and material so the product feels like itself, but it never stops being part of the house. Two things always travel between rooms \u2014 the Nintek home-link mark in the nav and the copper signature in the footer. The rooms are verified, product-native subworlds derived from real software and real captures, not free-for-all reskins. Release-state copy must distinguish private, internal, review-blocked, and public states. Sortie and Salvo stand as route-specific examples of the subworld pattern, never replacements for the house defaults.",
     "keyCharacteristics": [
       "One warm house system (cream / copper / walnut, Space Grotesk) shared by all marketing surfaces.",
       "Dedicated app pages adopt a verified product-native subworld \u2014 its own color, type, form language, and real media.",

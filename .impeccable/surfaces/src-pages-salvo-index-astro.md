@@ -16,8 +16,9 @@ iPad tower-defense players should understand the touch-first five-era direction,
 see what the current 16-operation build really contains, and distinguish working
 software from unfinished campaign scope. Current Godot captures, the
 byte-identical app icon, versioned campaign manifest, source tower and
-battlefield art, local-save and Game Center code, iPad-only Xcode target, and
-public-store lookup are the proof.
+battlefield art, local-save code, iPad-only Xcode target, and public-store
+lookup are the proof. Retained Game Center code is disabled and excluded from
+the v1 player export, so the surface must not claim achievements or leaderboards.
 
 ## Direction and memorable moment
 

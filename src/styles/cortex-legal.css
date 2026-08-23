@@ -271,10 +271,6 @@
 }
 
 @media (max-width: 520px) {
-  .cx-legal-root .cx-nav-brand :global(.nintek-back-sep) {
-    margin-inline: 5px;
-  }
-
   .cx-legal-root .cx-nav nav {
     gap: 10px;
   }
