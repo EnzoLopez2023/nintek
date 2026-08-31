@@ -2,11 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NintekBack from '../../components/NintekBack.astro';
 import WorkshopShowcase from '../../components/WorkshopShowcase.astro';
-import { COMPANY, getApp, NATIVE_STATUS_LABELS } from '../../data/apps';
+import { COMPANY, getApp } from '../../data/apps';
 import '../../styles/workshop-landing.css';
 
 const wkApp = getApp('workshop')!;
-const wkNative = wkApp.native!;
 
 const journey = [
   {
@@ -36,21 +35,17 @@ const journey = [
 ];
 
 const manifest = [
-  { row: 'Starter workspace', detail: 'Four complete woodworking projects and three Shaper projects, with original plans, parts, materials and instructions.', where: 'iOS' },
-  { row: 'Cut list', detail: 'Parts with fractional dimensions, quantities, material, and kerf.', where: 'Web · iOS' },
-  { row: 'Cut plan', detail: 'A guillotine packing optimiser over your real stock, with yield and offcuts.', where: 'Web · iOS' },
-  { row: 'Materials', detail: 'Per-project material lists that consolidate into one shopping list.', where: 'Web · iOS' },
-  { row: 'Build log', detail: 'Timestamped entries with photographs of the work as it happened.', where: 'Web · iOS' },
-  { row: 'Finish records', detail: 'Stain, topcoat and application notes, with recoat reminders on iOS.', where: 'Web · iOS' },
-  { row: 'Shaper Hub', detail: 'A parallel project type for CNC work — parts, bit info and design files.', where: 'Web · iOS' },
-  { row: 'Notebook', detail: 'An editable window onto Tabloom, synced as Markdown both ways.', where: 'Web' },
-  { row: 'Conversion tables', detail: 'A live mm ↔ inch calculator and fractional reference tables.', where: 'Web · iOS' },
-  { row: 'Templates', detail: 'Save any project as a template and clone it into a fresh build.', where: 'Web · iOS' },
-  { row: 'Command palette', detail: 'Search and navigate the whole shop record from ⌘K.', where: 'Web' },
-  { row: 'Appearance', detail: 'Five text sizes, five selectable annotation colors, light and dark appearances, and reduced-motion support.', where: 'iOS' },
-  { row: 'System surfaces', detail: 'Widgets, Live Activities, Spotlight, Siri, Handoff, and finish reminders.', where: 'iOS' },
-  { row: 'Account ownership', detail: 'Sign in with Apple or Microsoft, export a JSON project summary, and permanently delete the Workshop account in-app.', where: 'iOS' },
-  { row: 'Insights', detail: 'Spend over time, cost by project, and how often you are in the shop.', where: 'iOS' },
+  { row: 'Cut list', detail: 'Parts with fractional dimensions, quantities, material, and kerf.' },
+  { row: 'Cut plan', detail: 'A guillotine packing optimiser over your real stock, with yield and offcuts.' },
+  { row: 'Materials', detail: 'Per-project material lists that consolidate into one shopping list.' },
+  { row: 'Build log', detail: 'Timestamped entries with photographs of the work as it happened.' },
+  { row: 'Finish records', detail: 'Stain, topcoat, application notes, and the schedule behind each finish.' },
+  { row: 'Shaper Hub', detail: 'A parallel project type for CNC work — parts, bit info and design files.' },
+  { row: 'Notebook', detail: 'An editable window onto Tabloom, synced as Markdown both ways.' },
+  { row: 'Conversion tables', detail: 'A live mm ↔ inch calculator and fractional reference tables.' },
+  { row: 'Templates', detail: 'Save any project as a template and clone it into a fresh build.' },
+  { row: 'Command palette', detail: 'Search and navigate the whole shop record from ⌘K.' },
+  { row: 'Account controls', detail: 'Sign in with Microsoft, download a JSON project summary, or permanently delete the current workspace from Settings.' },
 ];
 const pageTitle = 'Workshop — Keep the whole build connected.';
 const pageDescription =
@@ -60,9 +55,8 @@ const structuredData = {
   '@type': 'SoftwareApplication',
   name: 'Workshop',
   applicationCategory: 'LifestyleApplication',
-  operatingSystem: 'Web browser, iOS 17 or later, iPadOS 17 or later',
+  operatingSystem: 'Web browser',
   description: pageDescription,
-  identifier: wkApp.bundleId,
   url: 'https://www.nintek.com/workshop',
 };
 ---
@@ -81,7 +75,7 @@ const structuredData = {
   <!--
     THESIS: Workshop marketing becomes a living plan table built from the current running apps, refusing the retired departure-board imitation.
     OWN-WORLD: Cool vellum, deep spruce structure, a functional 24px drafting grid, pencil-blue annotations, restrained amber actions, and soft 14/24px geometry.
-    STORY: Visitors see the current web workspace first, then an exact icon-led build 13 evidence boundary, the project journey, exact capabilities, and an honest internal-TestFlight release state.
+    STORY: Visitors see the current web workspace first, then follow the project journey, exact browser capabilities, and account-control boundaries.
     FIRST VIEWPORT: A slim product nav sits above a two-column field; direct copy and actions occupy the left while the current web app fills the right at readable scale.
     FORM: A pinned Living Plan Table evidence stack; product source fixed the direction, so no concept seed or staging roll was used.
   -->
@@ -96,7 +90,7 @@ const structuredData = {
             <small>Project Companion</small>
           </span>
         </a>
-        <a class="wk-nav-link" href="#the-native-app">Build 13 evidence</a>
+        <a class="wk-nav-link" href="https://workshop.nintek.com">Open Workshop</a>
       </div>
     </nav>
 
@@ -113,61 +107,23 @@ const structuredData = {
             </p>
             <ul class="wk-hero-facts" aria-label="Workshop availability">
               <li>Web app</li>
-              <li>{NATIVE_STATUS_LABELS[wkNative.status]}</li>
-              <li>Seven complete starter builds</li>
+              <li>Online and account-backed</li>
+              <li>Read-only demo available</li>
             </ul>
-            <p class="wk-release-note">
-              Native build 2.2.1 (13) is VALID, attached to the editable App Store
-              version, and assigned to internal TestFlight under the listing name
-              Nintek Workshop. It is not public and has no acquisition link.
-              Physical-device, privacy, reviewer-account, and final review-evidence
-              gates remain.
-            </p>
             <p class="wk-delivery-note">
               <strong>Web delivery:</strong> Workshop is an online, account-backed
-              workspace. It is not an installable or offline PWA, and the web page
-              does not promise background reminders. The native app is a separate
-              client with its own release state.
+              workspace. It is not an installable or offline PWA, and it does not
+              promise background reminders.
             </p>
             <div class="wk-actions">
-              <a class="wk-action primary" href="#the-native-app">Review build 13 evidence</a>
+              <a class="wk-action primary" href="https://workshop.nintek.com">Open Workshop</a>
               <a class="wk-action secondary" href="/workshop/privacy">Read the privacy policy</a>
             </div>
           </div>
 
-          <WorkshopShowcase variant="web" eager />
+          <WorkshopShowcase eager />
         </div>
       </header>
-
-      <section class="wk-section" id="the-native-app">
-        <div class="wk-wrap wk-proof-grid">
-          <div class="wk-section-copy">
-            <h2>The shop record finally fits the shop.</h2>
-            <p>
-              Build 13 replaced the detached build 12 candidate and its complete
-              iPhone and iPad screenshot sets in App Store Connect. The manifest
-              records all ten new masters, but those original bytes are intentionally
-              untracked upstream, so this portfolio does not publish a stale capture
-              or an Apple-recompressed substitute.
-            </p>
-            <dl class="wk-proof-points">
-              <div>
-                <dt>Start full</dt>
-                <dd>New accounts open to seven complete builds with original plan art, real parts, materials, costs, and instructions.</dd>
-              </div>
-              <div>
-                <dt>Work anywhere</dt>
-                <dd>The cut list follows you to the Lock Screen; the shopping list follows you down the aisle; the project record waits on every device.</dd>
-              </div>
-              <div>
-                <dt>Own the record</dt>
-                <dd>Sign in with Apple or Microsoft, export a portable JSON project summary, or permanently delete the account from inside the app.</dd>
-              </div>
-            </dl>
-          </div>
-          <WorkshopShowcase />
-        </div>
-      </section>
 
       <section class="wk-section">
         <div class="wk-wrap">
@@ -197,10 +153,9 @@ const structuredData = {
       <section class="wk-section">
         <div class="wk-wrap">
           <div class="wk-section-head">
-            <h2>What a project holds.</h2>
+            <h2>What the web workspace holds.</h2>
             <p>
-              The same record crosses the web and native apps without pretending
-              every surface has the same job.
+              Each tool stays connected to the same browser-based project record.
             </p>
           </div>
           <div
@@ -214,7 +169,6 @@ const structuredData = {
                 <tr>
                   <th scope="col">Section</th>
                   <th scope="col">Detail</th>
-                  <th scope="col">Where</th>
                 </tr>
               </thead>
               <tbody>
@@ -223,7 +177,6 @@ const structuredData = {
                     <tr>
                       <td>{item.row}</td>
                       <td>{item.detail}</td>
-                      <td>{item.where}</td>
                     </tr>
                   ))
                 }
@@ -233,40 +186,6 @@ const structuredData = {
         </div>
       </section>
 
-      <section class="wk-native-section">
-        <div class="wk-wrap">
-          <div class="wk-native-head">
-            <div>
-              <h2>The plan leaves the desk.</h2>
-              <p>{wkNative.intro}</p>
-            </div>
-            <div class="wk-native-actions">
-              <p class="wk-native-status">
-                2.2.1 (13) · {NATIVE_STATUS_LABELS[wkNative.status]} · no public acquisition link
-              </p>
-              <a class="wk-text-link" href="/ios#workshop">More about the native apps</a>
-            </div>
-          </div>
-
-          <div class="wk-native-grid">
-            {
-              wkNative.highlights.map((highlight) => (
-                <article>
-                  <div>
-                    <h3>{highlight.title}</h3>
-                    <p>{highlight.body}</p>
-                  </div>
-                </article>
-              ))
-            }
-          </div>
-
-          <details class="wk-tech">
-            <summary>Native implementation details</summary>
-            <p>{wkNative.tech.join(' · ')}</p>
-          </details>
-        </div>
-      </section>
     </main>
 
     <footer class="wk-footer">
@@ -279,7 +198,7 @@ const structuredData = {
             finish — still legible years after the sawdust is swept up.
           </p>
           <div class="wk-actions">
-            <a class="wk-action primary" href="#the-native-app">Review build 13 evidence</a>
+            <a class="wk-action primary" href="https://workshop.nintek.com">Open Workshop</a>
             <a class="wk-action secondary" href={`mailto:${COMPANY.email}?subject=Workshop`}>Contact Nintek</a>
           </div>
           <p class="wk-legal">

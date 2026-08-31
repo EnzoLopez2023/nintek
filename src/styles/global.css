@@ -379,15 +379,6 @@ h3 {
 .workshop-promo .promo-app img {
   box-shadow: 0 4px 12px rgba(21, 51, 46, 0.2);
 }
-.workshop-promo .promo-native {
-  border-color: var(--ws-divider);
-  background: var(--ws-surface);
-  color: var(--ws-action);
-}
-.workshop-promo .promo-native:hover {
-  border-color: var(--ws-pencil);
-  background: var(--ws-recessed);
-}
 
 /* ---- Mockup ---- */
 .mockup-wrap {
@@ -1323,23 +1314,9 @@ h3 {
   background: rgba(255, 255, 255, 0.075);
   border-color: rgba(201, 168, 130, 0.34);
 }
-.ns-card.workshop-card {
-  border-color: #afc7c0;
-  background: #eef4f2;
-  color: #15332e;
-}
-.ns-card.workshop-card:hover {
-  border-color: #477f97;
-  background: #fafcfb;
-}
 .ns-phone {
   max-width: 176px;
   margin: 0 auto 20px;
-}
-.ns-phone .workshop-screen {
-  width: min(100%, 164px);
-  margin-inline: auto;
-  border-radius: 28px;
 }
 .ns-phone .phone-wrap {
   max-width: 100%;
@@ -1421,15 +1398,6 @@ h3 {
   font-size: 0.83rem;
   line-height: 1.45;
   color: #b39d87;
-}
-.ns-card.workshop-card .ns-card-name {
-  color: #15332e;
-}
-.ns-card.workshop-card .ns-card-blurb {
-  color: #58716b;
-}
-.ns-card.workshop-card .ns-card-foot img {
-  box-shadow: 0 3px 12px rgba(21, 51, 46, 0.24);
 }
 .ns-cta {
   display: flex;

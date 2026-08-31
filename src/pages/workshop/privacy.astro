@@ -4,11 +4,11 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('workshop')!;
-const effectiveDate = 'August 23, 2026';
+const effectiveDate = 'August 31, 2026';
 const sections = [
   { href: '#scope', label: 'Scope and identity' },
   { href: '#data', label: 'Data processed' },
-  { href: '#storage', label: 'Storage and device data' },
+  { href: '#storage', label: 'Storage and browser data' },
   { href: '#analysis', label: 'Optional URL analysis' },
   { href: '#lifecycle', label: 'Export, deletion, and retention' },
   { href: '#providers', label: 'Providers and sharing' },
@@ -17,15 +17,15 @@ const sections = [
 const lifecycleRows = [
   {
     data: 'Workshop account identity',
-    location: 'An isolated Workshop identity derived from either Microsoft or Apple sign-in. The providers create separate Workshop accounts unless a future linking feature explicitly joins them.',
+    location: 'The web workspace uses Microsoft sign-in. Existing Apple-backed identities remain isolated from Microsoft-backed Workshop accounts unless a future linking feature explicitly joins them.',
     portability: 'The project-summary export includes no provider credential or complete account profile. Apple and Microsoft provide controls for their own accounts.',
-    deletion: 'In-app account deletion removes the selected Workshop identity and data. It does not delete the Apple or Microsoft account or a Workshop account created with the other provider.',
+    deletion: 'Account deletion from Workshop Settings removes the current Microsoft-backed identity and data. It does not delete the Microsoft account or a separate existing Apple-backed identity.',
   },
   {
     data: 'Projects, parts, lists, logs, and other structured content',
     location: 'A private per-user SQLite database hosted on Microsoft Azure.',
     portability: 'Settings can download a JSON project-list summary. It omits project detail tables, account state, and uploads and has no import path, so it is not a complete backup.',
-    deletion: 'Deleting content removes it from the active account according to the feature. Deleting the account purges the selected per-user database after required provider revocation succeeds.',
+    deletion: 'Deleting content removes it from the active account according to the feature. Deleting the account purges the selected per-user database after the service confirms the request.',
   },
   {
     data: 'Photos and uploaded files',
@@ -46,10 +46,10 @@ const lifecycleRows = [
     deletion: 'Delete the saved Workshop content or selected account. Anthropic and the source site may retain provider-side records under their own terms.',
   },
   {
-    data: 'Device snapshots, credentials, and support mail',
-    location: 'Protected app, Keychain, App Group, widget or Live Activity storage on the device, plus Nintek’s mailbox if you contact support.',
-    portability: 'Device snapshots are not a complete project backup. You control any support message you send.',
-    deletion: 'Account deletion clears Workshop credentials and native account state after server confirmation. Support mail may be retained for response, security, or legal needs.',
+    data: 'Browser session data and support mail',
+    location: 'Authentication and session data used by the browser and service, plus Nintek’s mailbox if you contact support.',
+    portability: 'Session data is not a project backup. You control any support message you send.',
+    deletion: 'Account deletion clears the current Workshop workspace after server confirmation. Support mail may be retained for response, security, or legal needs.',
   },
 ];
 ---
@@ -57,29 +57,28 @@ const lifecycleRows = [
 <LegalLayout
   app={app}
   title={`${app.name} Privacy Policy — ${COMPANY.name}`}
-  description="How Workshop handles separate Apple and Microsoft identities, per-user Azure databases, uploads, optional Anthropic URL analysis, exports, backups, and account deletion."
+  description="How Workshop handles Microsoft sign-in, existing separate provider-backed identities, per-user Azure databases, uploads, optional Anthropic URL analysis, exports, backups, and account deletion."
   path="/workshop/privacy"
   page="privacy"
   heading="Workshop Privacy Policy"
   documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
-  summary="Workshop is a private, account-backed woodworking project companion. The current web workspace remains active; native build 2.2.1 (13) is attached and in internal TestFlight, not public. Apple and Microsoft sign-in create separate Workshop accounts."
+  summary="Workshop is a private, account-backed woodworking project companion. Its supported client is the online web workspace. Web sign-in uses Microsoft, and existing Apple-backed accounts remain separate."
   sections={sections}
-  evidenceNote="Reviewed against the current Workshop web service and immutable Workshop-for-iOS build 13 authority 32248fc on August 23, 2026."
+  evidenceNote="Reviewed against the current Workshop web service and recovery runbook on August 31, 2026."
   theme="workshop"
 >
   <section id="scope" class="legal-section">
     <h2>Scope and account identity</h2>
     <p>
       This policy explains how {COMPANY.name} (“we”, “us”) handles information in
-      {app.name} on the web and in its private native builds. Workshop is a
-      single-user project companion for planning and documenting woodworking and
-      Shaper projects.
+      the {app.name} web workspace. Workshop is a single-user project companion
+      for planning and documenting woodworking and Shaper projects.
     </p>
     <p class="legal-callout">
-      Sign in with Apple and Microsoft are independent identity paths. Even when
-      both providers use the same email address, they create separate Workshop
-      accounts, databases, uploads, exports, and deletion scopes. There is no
-      automatic cross-provider account linking.
+      The web workspace signs in with Microsoft. Any existing Apple-backed
+      Workshop identity remains separate, even when both providers use the same
+      email address. Their databases, uploads, exports, and deletion scopes are
+      not automatically linked or merged.
     </p>
     <p>
       Workshop does not use third-party advertising, advertising identifiers, or
@@ -93,9 +92,9 @@ const lifecycleRows = [
     <ul>
       <li>
         <strong>Account information.</strong> A stable provider identifier and the
-        basic profile fields Apple or Microsoft makes available, such as name and
-        email. Apple may provide a private relay address. Apple authorization data
-        needed for account revocation is stored encrypted.
+        basic profile fields Microsoft makes available, such as name and email.
+        Existing Apple-backed identities may retain a private relay address and
+        encrypted authorization data needed for account revocation.
       </li>
       <li>
         <strong>Project information.</strong> Projects, Shaper projects,
@@ -104,8 +103,8 @@ const lifecycleRows = [
         related settings.
       </li>
       <li>
-        <strong>Files.</strong> Project photos, drawings, selected images,
-        Journaling Suggestions you choose to attach, and other account uploads.
+        <strong>Files.</strong> Project photos, drawings, selected images, and
+        other account uploads.
       </li>
       <li>
         <strong>Imported source material.</strong> A URL and the page content
@@ -121,7 +120,7 @@ const lifecycleRows = [
   </section>
 
   <section id="storage" class="legal-section">
-    <h2>Server storage and device data</h2>
+    <h2>Server storage and browser data</h2>
     <p>
       Each Workshop account has a private per-user SQLite database. Photos and
       other uploads are kept in account-scoped upload storage. The service runs on
@@ -129,18 +128,10 @@ const lifecycleRows = [
       support operations that require it.
     </p>
     <p>
-      On iPhone and iPad, authentication credentials use protected platform
-      storage. App preferences and compact widget or Live Activity snapshots can
-      use local app and App Group storage. Camera, photo-picker, Live Text,
-      Pencil, notification, and Journaling Suggestions data is accessed only when
-      you choose the related feature.
-    </p>
-    <p>
-      Workshop is online-only for account data on both web and native. The native
-      app is a REST client with no local database mirror. Unit-conversion tables
-      work without a server, and native widgets can show a stale last-synced
-      snapshot, but projects, edits, uploads, shopping, logs, analysis, and
-      deletion require a live connection. Device snapshots are not an independent
+      Workshop is online-only for account data. A loaded browser page can calculate
+      unit conversions locally, but projects, edits, uploads, shopping, logs,
+      analysis, and deletion require a live connection. Workshop is not an
+      installable or offline PWA, and browser session data is not an independent
       backup.
     </p>
   </section>
@@ -171,13 +162,12 @@ const lifecycleRows = [
       and exist to recover the service, not to provide a user export.
     </p>
     <p>
-      In the native app, account deletion revokes stored Apple credentials before
-      local Workshop data is removed. If Apple revocation fails, deletion stops
-      and leaves the account data intact for a safe retry. Microsoft-backed
-      deletion removes Workshop data without deleting the Microsoft account.
-      Each action is scoped to the current provider-backed Workshop workspace;
-      Apple and Microsoft workspaces are not automatically linked or merged, and
-      deleting one does not delete the other.
+      In the web workspace, open Settings, then Account, to permanently delete the
+      current Microsoft-backed Workshop workspace. Deletion removes Workshop data
+      without deleting the Microsoft account. Any existing Apple-backed workspace
+      remains separate; deleting one provider-backed workspace does not delete the
+      other. If Workshop cannot confirm deletion, it leaves the data intact so the
+      action can be retried safely.
     </p>
     <p>
       The service retains seven local daily recovery bundles. Protected off-host
@@ -197,10 +187,11 @@ const lifecycleRows = [
     <h2>Providers, sharing, and account boundaries</h2>
     <p>
       We do not sell personal information. Microsoft provides Azure hosting and
-      Microsoft identity. Apple provides Apple sign-in and its revocation service.
-      Anthropic processes selected URL-analysis inputs. A source website receives
-      an ordinary server request when you ask Workshop to analyze it. Each provider
-      handles its part under its own terms and legal obligations.
+      Microsoft identity. Apple provides authorization and revocation services for
+      existing Apple-backed identities. Anthropic processes selected URL-analysis
+      inputs. A source website receives an ordinary server request when you ask
+      Workshop to analyze it. Each provider handles its part under its own terms
+      and legal obligations.
     </p>
     <p>
       Deleting Workshop cannot delete the underlying Apple or Microsoft account,

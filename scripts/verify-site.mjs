@@ -422,13 +422,12 @@ const pageAssertions = {
     'there is no installable PWA, offline web mode, or browser background-reminder claim',
   ],
   '/workshop': [
-    'Internal TestFlight',
-    '2.2.1 (13)',
-    'Attached · VALID',
-    'Nintek Workshop',
-    'does not publish a stale capture',
+    'Open Workshop',
+    'Current web capture',
+    'Online and account-backed',
+    'Read-only demo available',
     'not an installable or offline PWA',
-    'does not promise background reminders',
+    'permanently delete the current workspace from Settings',
   ],
   '/shopkeep': ['2.0.1 (35)', 'Apple or Microsoft', 'does not substitute synthetic UI', 'no App Review submission'],
   '/shopkeep/support': ['Delete ShopKeep Account', 'public beta, public App Store listing'],
@@ -454,7 +453,7 @@ const pageAssertions = {
   ],
   '/ios': [
     'production web traffic is relay-only',
-    'not installable or offline PWAs',
+    'not an installable or offline PWA',
     'no shared web data',
   ],
 };
@@ -464,6 +463,36 @@ for (const [route, values] of Object.entries(pageAssertions)) {
   for (const value of values) {
     assert(normalized.includes(value), `${route}: missing required evidence text "${value}"`);
   }
+}
+
+const workshopPublicHtml = ['/workshop', '/workshop/privacy', '/workshop/support']
+  .map((route) => readFileSync(routeFile(route), 'utf8'))
+  .join('\n');
+for (const stale of [
+  'Internal TestFlight',
+  'App Store',
+  'Workshop-for-iOS',
+  'com.nintek.workshop',
+  'iPhone',
+  'iPad',
+  'native app',
+  'native build',
+  'Live Activity',
+  'WidgetKit',
+  '/ios#workshop',
+]) {
+  assert(!workshopPublicHtml.includes(stale), `Workshop public routes contain retired client claim: ${stale}`);
+}
+const iosCatalogue = readFileSync(routeFile('/ios'), 'utf8');
+for (const stale of [
+  'id="workshop"',
+  'href="#workshop"',
+  'href="/ios#workshop"',
+  'src="/apps/workshop.png"',
+  'Nintek Workshop',
+  'Build 13',
+]) {
+  assert(!iosCatalogue.includes(stale), `The iOS catalogue still includes retired Workshop content: ${stale}`);
 }
 
 const legalAssertions = {
@@ -479,16 +508,15 @@ const legalAssertions = {
     'former web database is separate and has not yet been destructively removed',
   ],
   '/workshop/privacy': [
-    'separate Workshop accounts',
+    'web workspace signs in with Microsoft',
+    'Existing Apple-backed identities remain isolated',
     'online-only for account data',
     'manual deletion reconciliation',
   ],
   '/workshop/support': [
-    'internal TestFlight',
-    'Nintek Workshop',
-    'More → Account',
-    'does not automatically link or merge',
-    'Build 13 contains the provider-scoped sign-in and deletion copy',
+    'sole supported Workshop client',
+    'Settings → Account',
+    'separate existing Apple-backed workspace',
     'project-list summary',
     'not automated by the restore code',
   ],
@@ -558,7 +586,9 @@ for (const [route, values] of Object.entries(legalAssertions)) {
   assert(routeExists(route), `${route}: required legal route is missing`);
   const html = readFileSync(routeFile(route), 'utf8');
   const normalized = html.replace(/\s+/g, ' ');
-  const expectedLegalDate = 'August 23, 2026';
+  const expectedLegalDate = route.startsWith('/workshop/')
+    ? 'August 31, 2026'
+    : 'August 23, 2026';
   assert(
     normalized.includes(expectedLegalDate),
     `${route}: missing the current effective or updated date`,
