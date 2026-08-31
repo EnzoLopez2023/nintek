@@ -109,7 +109,7 @@ export interface App {
   description: string;
   quiet: string;
   icon: IconKey;
-  bundleId: string;
+  bundleId?: string;
   hasPage: boolean;
   /** Public app-specific policy and help routes, when available. */
   privacyPath?: string;
@@ -158,7 +158,7 @@ export const ECOSYSTEM = {
       icon: 'layers' as IconKey,
       title: 'One set of models',
       body:
-        'Tools, projects, cut lists, exam attempts — defined once and decoded the same way in the app and its extensions. Nothing drifts between surfaces.',
+        'Shared records are defined once and decoded the same way in each app and its extensions. Nothing drifts between surfaces.',
     },
     {
       icon: 'widget' as IconKey,
@@ -168,9 +168,9 @@ export const ECOSYSTEM = {
     },
     {
       icon: 'gauge' as IconKey,
-      title: 'Algorithms moved on device',
+      title: 'Scheduling moved on device',
       body:
-        'The cut-plan optimiser and the spaced-repetition scheduler were ported to Swift and unit-tested against the originals. What used to be a round trip is now instant.',
+        'The spaced-repetition scheduler was ported to Swift and unit-tested against the original. Study planning that once needed a round trip is now instant.',
     },
   ],
 };
@@ -496,91 +496,19 @@ export const apps: App[] = [
     tagline: 'Keep the whole build connected.',
     headline: { lead: 'Keep the whole build', em: 'connected.' },
     description:
-      'Workshop keeps woodworking plans, dimensions, materials, cuts, shopping, build notes, and finish records together. Its web workspace is online and account-backed, while native build 2.2.1 (13) is in internal TestFlight.',
-    quiet: 'Build 13 is VALID and attached, but Nintek Workshop is not public and physical review gates remain.',
+      'Workshop keeps woodworking plans, dimensions, materials, cuts, shopping, build notes, and finish records together in one online, account-backed web workspace.',
+    quiet: 'Open the supported web client at workshop.nintek.com, or explore the read-only demo before signing in.',
     icon: 'package',
-    bundleId: 'com.nintek.workshop',
     hasPage: true,
     privacyPath: '/workshop/privacy',
     supportPath: '/workshop/support',
     termsPath: TERMS_PATH,
-    platforms: { web: true, ios: true },
+    platforms: { web: true, ios: false },
     mockup: {
       title: 'Workshop',
       subtitle: 'Project companion',
       chip: 'Current Living Plan Table',
-      live: 'Real captures',
-    },
-    native: {
-      status: 'internal-testflight',
-      thesis:
-        'Build 2.2.1 (13) carries plans, parts, materials and progress into the shop; internal TestFlight is preparation, not public availability.',
-      intro:
-        'Workshop uses the Living Plan Table system shown in the current web capture. Native build 2.2.1 (13) is valid, attached, and assigned to internal TestFlight under the listing name Nintek Workshop, but it is not public and physical review gates remain. The app includes seven starter projects, an on-device cut-plan optimiser, Lock Screen surfaces and a purpose-built iPad workspace.',
-      highlights: [
-        {
-          icon: 'package',
-          title: 'A full shop, not an empty state',
-          body:
-            'Four woodworking builds and three Shaper projects arrive ready to explore, with original technical drawings, real parts, materials, costs, and numbered instructions. They are useful examples, not placeholder cards.',
-        },
-        {
-          icon: 'gauge',
-          title: 'Cut plans computed on device',
-          body:
-            'The guillotine packing optimiser is a direct Swift port of the web algorithm, unit-tested against the original. It accounts for stock dimensions, kerf, rotation, yield, and offcuts in your hand, then exports the result.',
-        },
-        {
-          icon: 'lock',
-          title: 'The checklist lives where you work',
-          body:
-            'Cut-list and shopping Live Activities stay on the Lock Screen and in the Dynamic Island. Home Screen, Lock Screen, and StandBy widgets keep the active build and the next purchase visible without opening the app.',
-        },
-        {
-          icon: 'check',
-          title: 'One shopping run for every build',
-          body:
-            'Materials from every active project roll into one list, grouped by build with quantities and estimated cost. Check items off in the aisle, print the list, or keep it moving from a widget.',
-        },
-        {
-          icon: 'scan',
-          title: 'Camera, Pencil, and Live Text',
-          body:
-            'Read a fraction from a tape measure, select dimensions from an existing project photo, and sketch directly on iPad with Apple Pencil.',
-        },
-        {
-          icon: 'ruler',
-          title: 'Readable your way',
-          body:
-            'Five text sizes, five annotation colors, light and dark appearances, VoiceOver descriptions, larger controls, and support for Reduce Motion and Reduce Transparency keep the workspace legible in more shops.',
-        },
-        {
-          icon: 'search',
-          title: 'Part of the system, not a tab',
-          body:
-            'Spotlight finds projects, Siri opens the dashboard or shopping list, Handoff passes a build between devices, finish reminders watch the recoat window, and Swift Charts reveals where the time and material budget went.',
-        },
-        {
-          icon: 'user',
-          title: 'Sign in, export, or leave',
-          body:
-            'Use Sign in with Apple or Microsoft, export a portable JSON project summary, and permanently delete every Workshop project, photo, list, and account record from inside the app.',
-        },
-      ],
-      tech: [
-        'SwiftUI',
-        'WidgetKit',
-        'ActivityKit',
-        'App Intents',
-        'VisionKit',
-        'PencilKit',
-        'Swift Charts',
-        'Core Spotlight',
-        'BackgroundTasks',
-        'Journaling Suggestions',
-      ],
-      minOS: 'iOS 17',
-      devices: 'iPhone and iPad',
+      live: 'Current web capture',
     },
   },
   {
@@ -888,7 +816,9 @@ export function getRetiredApp(slug: string): RetiredApp | undefined {
 }
 
 /** Current native iOS projects, in the order the story should be told. */
-export const nativeApps = apps.filter((a) => a.native && a.native.status !== 'next');
+export const nativeApps = apps.filter(
+  (a) => a.platforms.ios && a.native && a.native.status !== 'next',
+);
 
 /** The app that is next in line for a native port, if any. */
 export const nextNativeApp = apps.find((a) => a.native?.status === 'next');

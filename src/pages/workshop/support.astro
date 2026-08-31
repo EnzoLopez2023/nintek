@@ -3,7 +3,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 import { getApp, COMPANY } from '../../data/apps';
 
 const app = getApp('workshop')!;
-const updatedDate = 'August 23, 2026';
+const updatedDate = 'August 31, 2026';
 const sections = [
   { href: '#availability', label: 'Availability' },
   { href: '#identity', label: 'Sign-in and identity' },
@@ -19,64 +19,57 @@ const sections = [
 <LegalLayout
   app={app}
   title={`${app.name} Support — ${COMPANY.name}`}
-  description="Help with Workshop web and private native builds, Apple and Microsoft sign-in, uploads, URL analysis, export limits, recovery, and account deletion."
+  description="Help with the Workshop web workspace, Microsoft sign-in, uploads, URL analysis, export limits, recovery, and account deletion."
   path="/workshop/support"
   page="support"
   heading="Workshop Support"
-  documentMeta={`Updated ${updatedDate} · Web current · Native internal draft`}
-  summary="Workshop’s account-backed web workspace remains current. Native build 2.2.1 (13) is VALID, attached, and in internal TestFlight under the listing name Nintek Workshop. It is not public and has no acquisition link."
+  documentMeta={`Updated ${updatedDate} · Web workspace current`}
+  summary="The online, account-backed web workspace at workshop.nintek.com is the sole supported Workshop client."
   sections={sections}
-  evidenceNote="Support guidance was reviewed against the current web service, recovery runbook, and immutable Workshop-for-iOS build 13 authority 32248fc on August 23, 2026."
+  evidenceNote="Support guidance was reviewed against the current Workshop web service and recovery runbook on August 31, 2026."
   theme="workshop"
 >
   <section id="availability" class="legal-section">
     <h2>Current availability</h2>
     <p class="legal-callout">
-      The private web workspace is the current Workshop service. The native build
-      supports iPhone and iPad on iOS 17 or later. Build 2.2.1 (13) is VALID,
-      attached, and assigned to internal TestFlight under the listing name Nintek
-      Workshop, but current private access does not imply public TestFlight or App
-      Store availability.
-      Physical-device, accessibility, privacy, reviewer-account, and review-evidence
-      gates remain.
+      Use <a href="https://workshop.nintek.com">workshop.nintek.com</a> for the
+      current Workshop service. It runs in the browser, requires a connection for
+      account data, and offers a read-only demo before sign-in.
     </p>
   </section>
 
   <section id="identity" class="legal-section">
-    <h2>Apple and Microsoft sign-in</h2>
+    <h2>Sign-in and account identity</h2>
     <p>
-      Apple and Microsoft create separate Workshop accounts, even when both
-      providers use the same email address. Workshop does not automatically link
-      or merge those provider workspaces. If projects appear missing, sign out
-      only after confirming the active provider, then return with the provider
-      originally used for that workspace.
+      The web workspace signs in with Microsoft. If projects appear missing,
+      confirm that you used the same Microsoft account as before. Any existing
+      Apple-backed Workshop account remains a separate workspace and is not
+      automatically linked or merged with the Microsoft-backed workspace.
     </p>
     <p>
       Support can help identify the account path but will not ask for a password,
-      verification code, Apple authorization code, Microsoft token, or encrypted
-      revocation credential.
+      verification code, Microsoft token, or encrypted authorization credential.
     </p>
   </section>
 
   <section id="sync-offline" class="legal-section">
     <h2>Uploads, sync, and offline limits</h2>
     <p>
-      Workshop is online-only for real account data on both web and native.
-      Projects, edits, cut lists, materials, shopping, logs, uploads, analysis,
-      cross-device changes, and account deletion require a working connection.
-      The native app has no local database mirror or offline write queue.
+      Workshop is online-only for account data. Projects, edits, cut lists,
+      materials, shopping, logs, uploads, analysis, and account deletion require
+      a working connection. The web workspace is not an installable or offline PWA
+      and has no offline write queue.
     </p>
     <p>
-      Unit-conversion tables are pure client-side calculations and remain usable
-      without the server. Native widgets can show a stale last-synced snapshot,
-      but that snapshot is not an editable workspace or backup. Do not assume a
-      project is safely on the server until its change or upload finishes without
-      an error.
+      Unit-conversion tables are client-side calculations and can keep working in
+      an already loaded page, but they are not an editable offline workspace or
+      backup. Do not assume a project is safely on the server until its change or
+      upload finishes without an error.
     </p>
     <p>
-      If a photo or file does not appear, remain signed in to the correct provider,
-      reconnect, reopen the project, and retry the upload once. Keep the original
-      file until the account-backed copy is visible.
+      If a photo or file does not appear, remain signed in to the correct Microsoft
+      account, reconnect, reopen the project, and retry the upload once. Keep the
+      original file until the account-backed copy is visible.
     </p>
   </section>
 
@@ -116,40 +109,35 @@ const sections = [
   <section id="deletion" class="legal-section">
     <h2>Delete a Workshop account</h2>
     <p>
-      In the private native build, open <strong>More → Account</strong>, review
-      the scope, and confirm account deletion. Deletion applies only to the
-      current Apple- or Microsoft-backed Workshop workspace. It does not link,
-      merge, or delete a workspace created with the other provider.
+      In the web workspace, open <strong>Settings → Account</strong>, review the
+      scope, and confirm account deletion. Deletion applies only to the current
+      Microsoft-backed Workshop workspace. It does not delete the Microsoft
+      account or a separate existing Apple-backed workspace.
     </p>
     <p>
-      Apple-backed deletion revokes stored Apple authorization before Workshop
-      removes local account data. If provider revocation fails, Workshop leaves
-      the account intact and reports a retryable failure. Microsoft-backed
-      deletion removes Workshop data but does not delete or revoke unrelated
-      Microsoft account access.
-    </p>
-    <p>
-      Build 13 contains the provider-scoped sign-in and deletion copy described
-      here. Build 12 remains detached and must not be used as an App Review
-      candidate.
+      Deletion uses resumable checkpoints and does not report success until
+      provider, database, media, and filesystem cleanup completes. If a step fails,
+      some cleanup may already have happened. Retry from
+      <strong>Settings → Account</strong>; if deletion still cannot complete, or
+      for help with a separate Apple-backed account, email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
     </p>
     <p>
       Export the project summary first if it is useful, while remembering that it
-      omits project details and uploads. For deletion help, email
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      omits project details and uploads.
     </p>
   </section>
 
   <section id="troubleshooting" class="legal-section">
     <h2>Troubleshooting checklist</h2>
     <ol>
-      <li>Confirm whether the issue is in the web workspace or private native build.</li>
-      <li>Confirm the active Apple or Microsoft provider before changing sessions.</li>
+      <li>Confirm that the issue occurs in the current web workspace.</li>
+      <li>Confirm the active Microsoft account before changing sessions.</li>
       <li>Reconnect and retry the failed save, upload, or analysis once.</li>
-      <li>Keep the original file and avoid deleting the app during a data-recovery issue.</li>
+      <li>Keep the original file during a data-recovery issue.</li>
       <li>
-        Record the device or browser, Workshop version, project name, time, and
-        visible recovery message.
+        Record the browser, Workshop version, project name, time, and visible
+        recovery message.
       </li>
     </ol>
     <p>

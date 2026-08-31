@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PhoneMock from '../components/PhoneMock.astro';
-import WorkshopShowcase from '../components/WorkshopShowcase.astro';
 import Icon from '../components/Icon.astro';
 import CairnPhone from '../components/mocks/ios/Cairn.astro';
 import CortexPhone from '../components/mocks/ios/Cortex.astro';
@@ -46,31 +45,31 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
     icon: 'widget',
     title: 'The app before you open it',
     body:
-      'Several put something useful on your Home Screen — a study streak, tools that need attention, a build in progress, or a game you were halfway through. Some go further and let you act without opening the full app.',
+      'Several put something useful on your Home Screen — a study streak, tools that need attention, or a game you were halfway through. Some go further and let you act without opening the full app.',
   },
   {
     icon: 'lock',
     title: 'Live on the Lock Screen',
     body:
-      'A timed exam counts down in the Dynamic Island. A cut list sits on your Lock Screen so you can tick off parts at the saw. Live Activities are the difference between an app you check and an app that keeps up with you.',
+      'A timed exam counts down in the Dynamic Island, keeping the clock visible without pulling you away from the question. Live Activities are the difference between an app you check and an app that keeps up with you.',
   },
   {
     icon: 'scan',
     title: 'A camera beats a keyboard',
     body:
-      'VisionKit reads a barcode off a box, a QR label off a drawer, or a fraction off a tape measure. Every one of those is a form field you no longer have to fill in with sawdust on your hands.',
+      'VisionKit reads a barcode off a box or a QR label off a drawer. Each scan replaces a form field and keeps inventory work moving.',
   },
   {
     icon: 'gauge',
     title: 'Compute that moved on device',
     body:
-      'The cut-plan optimiser and the spaced-repetition scheduler were ported to Swift and unit-tested against the originals. What used to be a server round trip now happens instantly, offline, in your hand.',
+      'The spaced-repetition scheduler was ported to Swift and unit-tested against the original. Study planning now happens instantly and offline.',
   },
   {
     icon: 'sparkle',
     title: 'Siri, Spotlight and Shortcuts',
     body:
-      'Ask for a study session, jump straight to the scanner, pull up a project by name from system search, or wire any of it into a Shortcut. The apps became part of the system instead of sitting behind a browser tab.',
+      'Ask for a study session, jump straight to the scanner, open a game from system search, or wire an action into a Shortcut. The apps became part of the system instead of sitting behind a browser tab.',
   },
   {
     icon: 'ruler',
@@ -95,7 +94,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
 
 <BaseLayout
   title={`Native on iOS — ${COMPANY.name}`}
-  description="Seven Nintek products have native iOS builds at different release stages. None currently has a public App Store listing."
+  description={`${nativeApps.length} Nintek products have native iOS builds at different release stages. None currently has a public App Store listing.`}
   path="/ios"
   boardFonts
   socialImage="/bg.png"
@@ -123,7 +122,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
           </p>
           <p class="ih-lede">
             <strong>None has a public App Store listing today.</strong> Tare,
-            Workshop, Cortex, and Sortie have internal TestFlight builds;
+            Cortex, and Sortie have internal TestFlight builds;
             Cairn&rsquo;s submitted release is blocked after review; ShopKeep has a
             private attached build; and Salvo remains unreleased and content-blocked.
           </p>
@@ -261,7 +260,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
         const native = app.native!;
         return (
           <section
-            class={`iapp${i % 2 === 1 ? ' reverse' : ''}${app.slug === 'workshop' ? ' workshop-iapp' : ''}`}
+            class={`iapp${i % 2 === 1 ? ' reverse' : ''}`}
             id={app.slug}
           >
             <div class="container">
@@ -357,9 +356,7 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                 <div class={`iapp-phone reveal${app.slug === 'salvo' ? ' iapp-tablet' : ''}`}>
                   <div class="iapp-phone-sticky">
                     {
-                      app.slug === 'workshop' ? (
-                        <WorkshopShowcase />
-                      ) : app.slug === 'tare' ? (
+                      app.slug === 'tare' ? (
                         <TareReleaseVisual />
                       ) : app.slug === 'shopkeep' ? (
                         <ShopKeepReleaseVisual compact />
@@ -379,29 +376,6 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
                 </div>
               </div>
 
-              {app.slug === 'workshop' && (
-                <div class="ios-workshop-proof reveal">
-                  <div class="ios-workshop-proof-copy">
-                    <h3>One service. Two separately evidenced clients.</h3>
-                    <p>
-                      The current web workspace is shown here from a real capture.
-                      The native client carries the same account-backed project
-                      record into iPhone and iPad, but its build 13 screenshot
-                      masters are untracked upstream and are not substituted here.
-                    </p>
-                    <div class="ios-proof-facts">
-                      <span>7 complete starter builds</span>
-                      <span>5 text sizes</span>
-                      <span>Apple + Microsoft sign-in</span>
-                    </div>
-                    <p class="ios-proof-status">
-                      Build 2.2.1 (13) is VALID, attached, and in internal TestFlight
-                      as Nintek Workshop. It is not public and has no acquisition link.
-                    </p>
-                  </div>
-                  <WorkshopShowcase variant="web" />
-                </div>
-              )}
             </div>
           </section>
         );
@@ -440,10 +414,10 @@ const thesis: { icon: IconKey; title: string; body: string }[] = [
       <h2>The web story differs by product.</h2>
       <p>
         Tare&rsquo;s browser product is retired and production web traffic is
-        relay-only for optional native AI features. Workshop and Cairn remain
-        online, account-backed web workspaces, not installable or offline PWAs.
-        Workshop&rsquo;s native app is a separate client; CairnNative is a separate
-        offline/private-iCloud product with no shared web data.
+        relay-only for optional native AI features. Cairn remains an online,
+        account-backed web workspace, not an installable or offline PWA.
+        CairnNative is a separate offline/private-iCloud product with no shared
+        web data.
       </p>
       <p class="iend-links">
         <a href="/#apps">Browse the apps →</a>

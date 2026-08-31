@@ -6,7 +6,6 @@ import SortiePhone from './mocks/ios/Sortie.astro';
 import SalvoReleaseVisual from './SalvoReleaseVisual.astro';
 import ShopKeepReleaseVisual from './ShopKeepReleaseVisual.astro';
 import TareReleaseVisual from './TareReleaseVisual.astro';
-import WorkshopShowcase from './WorkshopShowcase.astro';
 import { nativeApps, nextNativeApp } from '../data/apps';
 
 const phones: Record<string, any> = {
@@ -24,7 +23,6 @@ const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
 const blurbs: Record<string, string> = {
   cairn: 'Local study with private iCloud sync; the rejected release is not public.',
   shopkeep: 'Build 35 is attached and valid; Apple and Microsoft workspaces stay separate.',
-  workshop: 'Build 13 is attached and valid in internal TestFlight, not public.',
   cortex: 'Build 21 is internal TestFlight; eight games, no Nintek backend.',
   tare: 'Build 31 is internal TestFlight, with real Simulator evidence across three device families.',
   sortie: 'Supply-line conquest across 1,500 levels, saved entirely on device.',
@@ -50,8 +48,8 @@ const evidenceLabels: Record<string, string> = {
       </h2>
       <p class="ns-lede">
         {nativeApps.length} products now have native iOS builds in SwiftUI or Godot.
-        None has a public App Store listing today: Tare, Workshop, Cortex, and
-        Sortie are internal TestFlight builds; Cairn is blocked after review;
+        None has a public App Store listing today: Tare, Cortex, and Sortie are
+        internal TestFlight builds; Cairn is blocked after review;
         ShopKeep has a private attached build; and Salvo remains unreleased.
       </p>
     </div>
@@ -62,14 +60,12 @@ const evidenceLabels: Record<string, string> = {
           const Phone = phones[app.slug];
           return (
             <a
-              class={`ns-card reveal${app.slug === 'workshop' ? ' workshop-card' : ''}`}
+              class="ns-card reveal"
               href={['cortex', 'sortie', 'salvo'].includes(app.slug) ? `/${app.slug}` : `/ios#${app.slug}`}
             >
               <div class={`ns-phone${app.slug === 'salvo' ? ' ns-tablet' : ''}`}>
                 {
-                  app.slug === 'workshop' ? (
-                    <WorkshopShowcase />
-                  ) : app.slug === 'tare' ? (
+                  app.slug === 'tare' ? (
                     <TareReleaseVisual />
                   ) : app.slug === 'shopkeep' ? (
                     <ShopKeepReleaseVisual compact />

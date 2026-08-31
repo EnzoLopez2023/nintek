@@ -1,64 +1,32 @@
 ---
 interface Props {
-  variant?: 'native' | 'web';
   eager?: boolean;
 }
 
-const { variant = 'native', eager = false } = Astro.props;
+const { eager = false } = Astro.props;
 const loading = eager ? 'eager' : 'lazy';
 ---
 
-{
-  variant === 'web' ? (
-    <figure class="ws-proof ws-proof-web">
-      <div class="ws-browser-bar" aria-hidden="true">
-        <span class="ws-browser-dots"><i></i><i></i><i></i></span>
-        <span>Workshop · web workspace</span>
-      </div>
-      <img
-        src="/apps/workshop/web-project.webp"
-        alt="Current Workshop web app showing a walnut shelf plan with its next action, parts count, and stock"
-        width="598"
-        height="500"
-        loading={loading}
-        decoding="async"
-      />
-      <figcaption class="ws-proof-label">Current web capture</figcaption>
-    </figure>
-  ) : (
-    <figure class="ws-proof ws-proof-native">
-      <div class="ws-release-head">
-        <span>Native release evidence</span>
-        <strong>2.2.1 (13)</strong>
-      </div>
-      <img
-        class="ws-release-icon"
-        src="/apps/workshop.png"
-        alt="Workshop canonical mallet app icon"
-        width="1024"
-        height="1024"
-        loading={loading}
-        decoding="async"
-      />
-      <dl class="ws-release-facts">
-        <div><dt>Build</dt><dd>Attached · VALID</dd></div>
-        <div><dt>Channel</dt><dd>Internal TestFlight</dd></div>
-        <div><dt>Public release</dt><dd>Not available</dd></div>
-      </dl>
-      <figcaption class="ws-proof-label">
-        Build 13 screenshot masters are recorded in App Store Connect but are not
-        committed upstream, so no substitute screenshot is shown.
-      </figcaption>
-    </figure>
-  )
-}
+<figure class="ws-proof ws-proof-web">
+  <div class="ws-browser-bar" aria-hidden="true">
+    <span class="ws-browser-dots"><i></i><i></i><i></i></span>
+    <span>Workshop · web workspace</span>
+  </div>
+  <img
+    src="/apps/workshop/web-project.webp"
+    alt="Current Workshop web app showing a walnut shelf plan with its next action, parts count, and stock"
+    width="598"
+    height="500"
+    loading={loading}
+    decoding="async"
+  />
+  <figcaption class="ws-proof-label">Current web capture</figcaption>
+</figure>
 
 <style>
   .ws-proof {
-    --ws-canvas: #eef4f2;
     --ws-recessed: #e0ebe7;
     --ws-surface: #fafcfb;
-    --ws-ink: #15332e;
     --ws-muted: #58716b;
     --ws-divider: #c9dad5;
     --ws-divider-strong: #afc7c0;
@@ -129,68 +97,6 @@ const loading = eager ? 'eager' : 'lazy';
     background: var(--ws-action);
   }
 
-  .ws-proof-native {
-    padding: clamp(16px, 3vw, 28px);
-    overflow: hidden;
-    border: 1px solid var(--ws-divider);
-    border-radius: 24px;
-    background:
-      linear-gradient(rgba(53, 109, 133, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
-      linear-gradient(90deg, rgba(53, 109, 133, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
-      linear-gradient(145deg, var(--ws-canvas), var(--ws-recessed));
-  }
-
-  .ws-release-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--ws-divider);
-    color: var(--ws-muted);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .ws-release-head strong {
-    color: var(--ws-action);
-  }
-
-  .ws-release-icon {
-    width: min(58%, 220px) !important;
-    margin: clamp(22px, 4vw, 34px) auto;
-    border-radius: 22.5%;
-    box-shadow: 0 22px 48px -26px rgba(9, 17, 15, 0.52);
-  }
-
-  .ws-release-facts {
-    margin: 0;
-    border-top: 1px solid var(--ws-divider);
-  }
-
-  .ws-release-facts div {
-    display: grid;
-    grid-template-columns: minmax(100px, 0.42fr) minmax(0, 1fr);
-    gap: 16px;
-    padding: 11px 0;
-    border-bottom: 1px solid var(--ws-divider);
-  }
-
-  .ws-release-facts dt,
-  .ws-release-facts dd {
-    margin: 0;
-    color: var(--ws-muted);
-    font-size: 0.72rem;
-    line-height: 1.45;
-  }
-
-  .ws-release-facts dd {
-    color: var(--ws-ink);
-    font-weight: 650;
-  }
-
   @media (max-width: 700px) {
     .ws-proof-web {
       border-radius: 18px;
@@ -202,18 +108,12 @@ const loading = eager ? 'eager' : 'lazy';
       padding-inline: 10px;
       font-size: 0.62rem;
     }
-
-    .ws-proof-native {
-      border-radius: 18px;
-    }
   }
 
   @media (prefers-color-scheme: dark) {
     .ws-proof {
-      --ws-canvas: #0c1513;
       --ws-recessed: #12201d;
       --ws-surface: #182823;
-      --ws-ink: #f3f8f6;
       --ws-muted: #9cb2ac;
       --ws-divider: #2a423c;
       --ws-divider-strong: #3c5a52;
