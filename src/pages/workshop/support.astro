@@ -115,9 +115,12 @@ const sections = [
       account or a separate existing Apple-backed workspace.
     </p>
     <p>
-      If Workshop cannot confirm deletion, it leaves the account data intact and
-      reports a retryable failure. For help with a separate Apple-backed account,
-      email <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      Deletion uses resumable checkpoints and does not report success until
+      provider, database, media, and filesystem cleanup completes. If a step fails,
+      some cleanup may already have happened. Retry from
+      <strong>Settings → Account</strong>; if deletion still cannot complete, or
+      for help with a separate Apple-backed account, email
+      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
     </p>
     <p>
       Export the project summary first if it is useful, while remembering that it

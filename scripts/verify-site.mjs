@@ -480,6 +480,8 @@ for (const stale of [
   'Live Activity',
   'WidgetKit',
   '/ios#workshop',
+  'leaves the data intact',
+  'leaves the account data intact',
 ]) {
   assert(!workshopPublicHtml.includes(stale), `Workshop public routes contain retired client claim: ${stale}`);
 }
@@ -491,6 +493,8 @@ for (const stale of [
   'src="/apps/workshop.png"',
   'Nintek Workshop',
   'Build 13',
+  'Tools, projects, cut lists',
+  'cut-plan optimiser',
 ]) {
   assert(!iosCatalogue.includes(stale), `The iOS catalogue still includes retired Workshop content: ${stale}`);
 }
@@ -511,12 +515,14 @@ const legalAssertions = {
     'web workspace signs in with Microsoft',
     'Existing Apple-backed identities remain isolated',
     'online-only for account data',
+    'does not report success until provider, database, media, and filesystem cleanup completes',
     'manual deletion reconciliation',
   ],
   '/workshop/support': [
     'sole supported Workshop client',
     'Settings → Account',
     'separate existing Apple-backed workspace',
+    'does not report success until provider, database, media, and filesystem cleanup completes',
     'project-list summary',
     'not automated by the restore code',
   ],

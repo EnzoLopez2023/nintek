@@ -158,7 +158,7 @@ export const ECOSYSTEM = {
       icon: 'layers' as IconKey,
       title: 'One set of models',
       body:
-        'Tools, projects, cut lists, exam attempts — defined once and decoded the same way in the app and its extensions. Nothing drifts between surfaces.',
+        'Shared records are defined once and decoded the same way in each app and its extensions. Nothing drifts between surfaces.',
     },
     {
       icon: 'widget' as IconKey,
@@ -168,9 +168,9 @@ export const ECOSYSTEM = {
     },
     {
       icon: 'gauge' as IconKey,
-      title: 'Algorithms moved on device',
+      title: 'Scheduling moved on device',
       body:
-        'The cut-plan optimiser and the spaced-repetition scheduler were ported to Swift and unit-tested against the originals. What used to be a round trip is now instant.',
+        'The spaced-repetition scheduler was ported to Swift and unit-tested against the original. Study planning that once needed a round trip is now instant.',
     },
   ],
 };

@@ -166,8 +166,10 @@ const lifecycleRows = [
       current Microsoft-backed Workshop workspace. Deletion removes Workshop data
       without deleting the Microsoft account. Any existing Apple-backed workspace
       remains separate; deleting one provider-backed workspace does not delete the
-      other. If Workshop cannot confirm deletion, it leaves the data intact so the
-      action can be retried safely.
+      other. Deletion advances through resumable checkpoints and does not report
+      success until provider, database, media, and filesystem cleanup completes. If
+      a step fails, some cleanup may already have happened; retry deletion from
+      Settings, and contact support if it still cannot complete.
     </p>
     <p>
       The service retains seven local daily recovery bundles. Protected off-host
