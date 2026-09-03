@@ -386,6 +386,9 @@ const forbidden = [
   'Ceasefire talks resume',
   'Europa Clipper returns',
   'Tare is replacing its browser interface',
+  'and play',
+  'daily games',
+  'daily puzzle',
 ];
 for (const value of forbidden) {
   assert(!allHtml.includes(value), `Rendered site contains forbidden or stale value: ${value}`);
@@ -822,6 +825,7 @@ for (const stalePath of [
   'src/components/SalvoReleaseVisual.astro',
   'src/components/ShopKeepMark.astro',
   'src/components/mocks/ShopKeep.astro',
+  'src/components/mocks/Puzzlebox.astro',
   'src/components/mocks/ios/Cortex.astro',
   'src/components/mocks/ios/ShopKeep.astro',
   'src/components/mocks/ios/Sortie.astro',
