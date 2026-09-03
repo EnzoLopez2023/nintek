@@ -117,19 +117,19 @@ export interface App {
   /** Shared studio terms covering this product. */
   termsPath: string;
   platforms: Platforms;
+  /** Precise iOS relationship when the native surface has no public release record. */
+  iosLabel?: string;
   mockup: Mockup;
   native?: Native;
+  /** Source-backed content for the shared, intentionally noindex product record. */
+  overview?: {
+    purpose: string;
+    facts: string[];
+    availability: string;
+    sourceUrl: string;
+  };
   /** Set when a retired web predecessor needs a standing migration notice. */
   sunset?: Sunset;
-}
-
-/** Minimal metadata retained for legal and historical routes after an app leaves
- *  the public catalogue. */
-export interface RetiredApp {
-  slug: string;
-  name: string;
-  successorSlug: string;
-  successorName: string;
 }
 
 export const COMPANY = {
@@ -175,7 +175,7 @@ export const ECOSYSTEM = {
   ],
 };
 
-export const apps: App[] = [
+const appRecords: App[] = [
   {
     slug: 'tare',
     name: 'Tare',
@@ -512,221 +512,164 @@ export const apps: App[] = [
     },
   },
   {
-    slug: 'cortex',
-    name: 'Cortex',
-    category: 'Games · iPhone',
-    tagline: 'Eight native games. No Nintek backend.',
-    headline: { lead: 'Eight games, one hub.', em: 'Built for iOS.' },
+    slug: 'prism',
+    name: 'Prism',
+    category: 'AI & Research',
+    tagline: 'A focused workbench for model-assisted work.',
+    headline: { lead: 'Compare the answer.', em: 'Keep the useful artifact.' },
     description:
-      'A native games hub for iPhone: Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop, with optional Game Center and no Nintek account or backend.',
-    quiet: 'Build 1.1 (21) is internal TestFlight, not external or public; there is no App Store listing.',
-    icon: 'gamepad',
-    bundleId: 'com.nintek.cortex',
+      'A private web workbench for conversations, reusable prompts, provider comparison, image experiments, and browser-side spreadsheet conversion.',
+    quiet: 'Web-only source is audited; no public acquisition, price, privacy, or support route is claimed.',
+    icon: 'sparkle',
     hasPage: true,
-    privacyPath: '/cortex/privacy',
-    supportPath: '/cortex/support',
     termsPath: TERMS_PATH,
-    platforms: { web: false, ios: true },
+    platforms: { web: true, ios: false },
     mockup: {
-      title: 'Cortex',
-      subtitle: 'Eight games · Game Center',
-      chip: 'Eight games · one native hub',
-      live: 'No Nintek backend',
+      title: 'Prism',
+      subtitle: 'Conversation · prompts · comparison',
+      chip: 'Canonical source identity',
+      live: 'Limited',
     },
-    native: {
-      status: 'internal-testflight',
-      thesis: 'Eight native games, optional Game Center, and no Nintek backend.',
-      intro:
-        'Cortex 1.1 (21) is a valid, attached internal TestFlight build for iPhone. Eight distinct word, number, logic and arcade games share one native home, with optional Game Center and no Nintek account or backend service sitting between you and a game. External beta and public App Store availability are not established.',
-      highlights: [
-        {
-          icon: 'grid',
-          title: 'Eight games in one hub',
-          body:
-            'Sudoku, Sumweave, Word Search, Letter Sprint, Wordfoundry, Grid Blast, Pixel Flow and Neon Drop — each with its own home and play style.',
-        },
-        {
-          icon: 'trophy',
-          title: 'Optional Game Center',
-          body:
-            'When you use it, Apple Game Center connects scores and achievements to the gaming profile you already control. Cortex remains playable without it.',
-        },
-        {
-          icon: 'star',
-          title: 'Pixel Flow',
-          body:
-            'A conveyor-belt colour matcher where every board resolves into pixel art. Its 505-board campaign uses verified first-party and owner-generated sources, and the generator keeps every level solvable.',
-        },
-        {
-          icon: 'gamepad',
-          title: 'Neon Drop',
-          body:
-            'A falling-block game done properly — SRS rotation with wall kicks, a seven-bag randomiser, T-spins, combos and back-to-back scoring. Core Haptics gives every lock and line clear its own texture.',
-        },
-        {
-          icon: 'package',
-          title: 'Grid Blast',
-          body:
-            'A tactile block puzzle that rewards a clean board, thoughtful placement and one more carefully judged move.',
-        },
-        {
-          icon: 'cloud',
-          title: 'No Nintek backend',
-          body:
-            'The games and detailed statistics run on the device. There is no Cortex account, Nintek API, analytics service or first-party sync backend.',
-        },
-        {
-          icon: 'widget',
-          title: 'Widgets to pull you back in',
-          body:
-            'Quick Launch drops you straight into a game from the Home Screen. Stats shows your totals and how close you are to the next achievement.',
-        },
+    overview: {
+      purpose:
+        'Prism keeps AI conversations, reusable prompts, provider comparisons, image experiments, and converted spreadsheet artifacts in one focused web workbench.',
+      facts: [
+        'Web application built around conversations, prompts, provider comparison, and image experiments.',
+        'Spreadsheet conversion runs in the browser.',
+        'No iOS app, App Store listing, public price, or public acquisition route is established.',
       ],
-      tech: ['SwiftUI', 'GameKit', 'Core Haptics', 'WidgetKit'],
-      minOS: 'iOS 18',
-      devices: 'iPhone',
+      availability:
+        'A production runtime is recorded separately, but its release-ledger source pin does not match this audited product commit. This page therefore publishes no launch link.',
+      sourceUrl: 'https://github.com/EnzoLopez2023/Prism',
     },
   },
   {
-    slug: 'sortie',
-    name: 'Sortie',
-    category: 'Games · iPhone',
-    tagline: 'Build the line. Take the map.',
-    headline: { lead: 'Draw the supply line.', em: 'Watch the front move.' },
+    slug: 'watchtower',
+    name: 'Watchtower',
+    category: 'Home Infrastructure',
+    tagline: 'Infrastructure status without the legacy portal.',
+    headline: { lead: 'See the household systems.', em: 'Keep the contract stable.' },
     description:
-      'A tactical conquest campaign for iPhone. Link keeps into permanent supply lines, route reinforcements around terrain, and take 1,500 levels across 15 distinct biomes.',
-    quiet: 'Build 13 is in internal TestFlight, not public. Local saves, optional Game Center, no account or backend.',
-    icon: 'gamepad',
-    bundleId: 'com.nintek.sortie',
+      'A standalone monitoring and operations surface for Azure, power, network, storage, cameras, agent ingest, alerts, and outage review.',
+    quiet: 'The private iOS companion retains legacy implementation identifiers; Watchtower remains the product name.',
+    icon: 'gauge',
     hasPage: true,
-    privacyPath: '/sortie/privacy',
-    supportPath: '/sortie/support',
     termsPath: TERMS_PATH,
-    platforms: { web: false, ios: true },
+    platforms: { web: true, ios: true },
+    iosLabel: 'iOS companion · private',
     mockup: {
-      title: 'Sortie',
-      subtitle: 'Tactical conquest · 1,500 levels',
-      chip: 'Permanent supply lines',
-      live: 'Pre-release build',
+      title: 'Watchtower',
+      subtitle: 'Systems · alerts · operations',
+      chip: 'Canonical source identity',
+      live: 'Controlled cutover',
     },
-    native: {
-      status: 'internal-testflight',
-      showcase: 'phone',
-      thesis: 'A 1,500-level supply-line campaign with local saves and optional Game Center.',
-      intro:
-        'Sortie rebuilds City War as a standalone Godot strategy game for iPhone. Every route is a lasting commitment: link one keep to another and it keeps sending troops until you cut or redirect the line. The current campaign spans 1,500 levels and 15 biomes, saves entirely on device, and keeps Game Center optional.',
-      highlights: [
-        {
-          icon: 'share',
-          title: 'Supply lines that stay drawn',
-          body:
-            'A route is not a one-off command. It keeps sending troops, turning each match into a network you build, reinforce, reroute, and cut under pressure.',
-        },
-        {
-          icon: 'layers',
-          title: '1,500 levels across 15 biomes',
-          body:
-            'The current campaign moves through meadow, tundra, coast, storm, crystal, and ten other terrain sets, with one hundred levels assigned to each biome.',
-        },
-        {
-          icon: 'ruler',
-          title: 'Terrain is the rule set',
-          body:
-            'Routes are tested against every obstacle on the board. There is no hidden edge graph: a clear line is a usable line, and the landscape decides the plan.',
-        },
-        {
-          icon: 'gauge',
-          title: 'Keeps become a relay network',
-          body:
-            'Growing a keep unlocks more lanes. A full keep forwards its surplus through the chain, so a quiet rear position can feed the entire front.',
-        },
-        {
-          icon: 'lock',
-          title: 'Progress stays on the device',
-          body:
-            'Campaign progress, records, wins, settings, and best times are written to a local JSON save. There is no Nintek account or sync backend.',
-        },
-        {
-          icon: 'trophy',
-          title: 'Game Center is optional',
-          body:
-            'Achievements report through Game Center when it is available. Authentication never sits between the player and the campaign.',
-        },
+    overview: {
+      purpose:
+        'Watchtower owns infrastructure monitoring, observability, alerting, and operations, including the compatibility API consumed by its private iOS companion.',
+      facts: [
+        'Covers Azure visibility, UPS and power topology, UniFi networking, Synology storage, cameras, alerts, and outage review.',
+        'The iOS companion keeps legacy repository and bundle identifiers as implementation details; the marketed product is Watchtower.',
+        'No public App Store, TestFlight, price, privacy, or support route is established.',
       ],
-      tech: ['Godot 4', 'Game Center', 'Local JSON saves'],
-      minOS: 'iOS 14',
-      devices: 'iPhone',
+      availability:
+        'The direct host is verified, but the controlled product-hostname cutover remains open. This page publishes no launch link.',
+      sourceUrl: 'https://github.com/EnzoLopez2023/Watchtower',
     },
   },
   {
-    slug: 'salvo',
-    name: 'Salvo',
-    category: 'Games · iPad',
-    tagline: 'Hold the line in Age of Siege.',
-    headline: { lead: 'Build the defense.', em: 'Hold the first era.' },
+    slug: 'lantern',
+    name: 'Lantern',
+    category: 'Learning & Study',
+    tagline: 'Long-form learning with a place to resume.',
+    headline: { lead: 'Build the study path.', em: 'Return where you stopped.' },
     description:
-      'An unreleased portrait-iPad tower-defense build with 16 synchronized Age of Siege operations, three difficulty settings, local progress, and a separate endless mode.',
-    quiet: 'Build 4 is attached and VALID, but wider campaign content and release approval remain blocked.',
-    icon: 'gamepad',
-    bundleId: 'com.nintek.salvo',
+      'A web knowledge base and study hub for long-form guides, study tracks, flashcards, mock and adaptive exams, and offline resume.',
+    quiet: 'Web-only source is audited; IT certification remains Cairn’s separate domain.',
+    icon: 'book',
     hasPage: true,
-    privacyPath: '/salvo/privacy',
-    supportPath: '/salvo/support',
     termsPath: TERMS_PATH,
-    platforms: { web: false, ios: true },
+    platforms: { web: true, ios: false },
     mockup: {
-      title: 'Salvo',
-      subtitle: 'Five-era tower defense',
-      chip: '16 Age of Siege operations',
-      live: 'Unreleased',
+      title: 'Lantern',
+      subtitle: 'Guides · tracks · exams',
+      chip: 'Canonical source identity',
+      live: 'Limited',
     },
-    native: {
-      status: 'development',
-      showcase: 'tablet',
-      thesis: 'An unreleased portrait iPad build centered on readable tactical choices.',
-      intro:
-        'Salvo turns Puzzlebox Tower Defense into a standalone Godot game built specifically for portrait iPad play. Version 1.0.0 (4) contains 16 synchronized Age of Siege operations, three difficulty settings, a separate endless mode, and local progress. The wider five-era campaign remains blocked, and Game Center is excluded from v1.',
-      highlights: [
-        {
-          icon: 'grid',
-          title: 'Sixteen current operations',
-          body:
-            'The executable campaign and manifest currently ship 16 synchronized maps. The wider five-era campaign remains active development, not a finished content claim.',
-        },
-        {
-          icon: 'layers',
-          title: 'A five-era framework',
-          body:
-            'Siege is the current playable era. Wastes, Modern, Future, and Xeno define the wider art and campaign direction but are not shipped v1 content.',
-        },
-        {
-          icon: 'ruler',
-          title: 'Built for portrait iPad',
-          body:
-            'The tactical board, command bar, tower deck, and touch targets are composed for one portrait canvas rather than stretched from a phone or browser layout.',
-        },
-        {
-          icon: 'gauge',
-          title: 'Campaign and local endless mode',
-          body:
-            'Three difficulties sit alongside a separate endless run whose highest completed wave stays on the device.',
-        },
-        {
-          icon: 'lock',
-          title: 'Local progress comes first',
-          body:
-            'Results commit to a versioned on-device save. The current local game remains usable without an account or network.',
-        },
-        {
-          icon: 'trophy',
-          title: 'No Game Center in v1',
-          body:
-            'The player export excludes Game Center entirely: no achievements, leaderboards, ranked scores, authentication, or retry ledger.',
-        },
+    overview: {
+      purpose:
+        'Lantern combines long-form study guides with checklists, tracks, flashcards, mock exams, adaptive practice, and resumable offline study.',
+      facts: [
+        'Built for technical and non-IT-certification learning; Cairn remains the separate IT-certification product.',
+        'Includes guide checklists, flashcards, mock exams, adaptive exams, sandbox exams, and Azure Speech text to speech.',
+        'No iOS app, App Store listing, public price, privacy, or support route is established.',
       ],
-      tech: ['Godot 4', 'Local JSON saves'],
-      minOS: 'iOS 15',
-      devices: 'iPad only',
+      availability:
+        'A production runtime is recorded separately, but its release-ledger source pin does not match this audited product commit. This page therefore publishes no launch link.',
+      sourceUrl: 'https://github.com/EnzoLopez2023/Lantern',
+    },
+  },
+  {
+    slug: 'marquee',
+    name: 'Marquee',
+    category: 'Media Operations',
+    tagline: 'A control room for a private media library.',
+    headline: { lead: 'Inspect the library.', em: 'Act with review in view.' },
+    description:
+      'A private web operations and analytics surface for Plex, Tautulli, and Sonarr, with library review, command, playlist, and duplicate workflows.',
+    quiet: 'Web-only source is audited; no public acquisition, price, privacy, or support route is claimed.',
+    icon: 'grid',
+    hasPage: true,
+    termsPath: TERMS_PATH,
+    platforms: { web: true, ios: false },
+    mockup: {
+      title: 'Marquee',
+      subtitle: 'Library · command · review',
+      chip: 'Canonical source identity',
+      live: 'Limited',
+    },
+    overview: {
+      purpose:
+        'Marquee brings Plex, Tautulli, and Sonarr operations into one private web surface for library analytics and deliberate media actions.',
+      facts: [
+        'Includes library analytics, a command center, duplicate audit and deletion review, playlist building, and Sonarr status.',
+        'The audited source is a React and Express web application.',
+        'No iOS app, App Store listing, public price, privacy, or support route is established.',
+      ],
+      availability:
+        'Deployment evidence is incomplete and the audited product commit differs from the release-ledger source pin. This page therefore publishes no launch link.',
+      sourceUrl: 'https://github.com/EnzoLopez2023/Marquee',
+    },
+  },
+  {
+    slug: 'shapepilot',
+    name: 'ShapePilot',
+    category: 'Design & Fabrication',
+    tagline: 'One document from idea to fabrication.',
+    headline: { lead: 'Shape the part.', em: 'Export the useful geometry.' },
+    description:
+      'An AI-assisted web workspace for approachable 2D and 3D design across keycaps, trays, Shaper Origin, Bambu Lab, and exploratory modeling.',
+    quiet: 'Web-only; the repository’s native C helpers are not a native app.',
+    icon: 'ruler',
+    hasPage: true,
+    termsPath: TERMS_PATH,
+    platforms: { web: true, ios: false },
+    mockup: {
+      title: 'ShapePilot',
+      subtitle: '2D · 3D · fabrication',
+      chip: 'Canonical source identity',
+      live: 'Limited',
+    },
+    overview: {
+      purpose:
+        'ShapePilot joins approachable 2D and 3D design, editing, viewing, AI-assisted exploration, and fabrication exports in one web workspace.',
+      facts: [
+        'Supports keycap projects and trays, Shaper Origin 2D work, Bambu Lab 3D modeling, and an AI imagination workspace.',
+        'Exports include STL, 3MF, SVG, and DXF where the relevant designer supports them.',
+        'The repository’s native C modules protect SQLite file identity; they do not establish an iOS, Android, or desktop app.',
+      ],
+      availability:
+        'The audited product commit differs from the release-ledger source pin, and production AI availability is not established for this exact source. This page publishes no launch link.',
+      sourceUrl: 'https://github.com/EnzoLopez2023/ShapePilot',
     },
   },
   {
@@ -782,43 +725,59 @@ export const apps: App[] = [
     tagline: 'The whole household, on the same page.',
     headline: { lead: 'The home you keep —', em: 'kept warm, in one place.' },
     description:
-      'Hearth holds your recipes, your maintenance log, your home inventory, a to-scale garden planner with its own harvest ledger, the network and server closet, and an AI assistant — under one warm, calm interface.',
-    quiet: 'Not a productivity tool. A place for the records that keep your home running.',
+      'The current Hearth-v2 fieldbook keeps household maintenance, inventory, yard, garden, pool, recipes, and today’s property work in one household-scoped web application.',
+    quiet: 'Hearth-v2 is authoritative. Extracted products and the superseded Hearth monolith are not the current runtime.',
     icon: 'flame',
     bundleId: 'com.nintek.hearth',
     hasPage: true,
+    privacyPath: '/hearth/privacy',
     termsPath: TERMS_PATH,
     platforms: { web: true, ios: false },
     mockup: {
-      title: 'At a Glance',
-      subtitle: 'Home · garden · maintenance',
-      chip: 'Next task · Furnace filter',
-      live: 'Home',
+      title: 'Hearth',
+      subtitle: 'Property fieldbook',
+      chip: 'Canonical source identity',
+      live: 'Private',
+    },
+    overview: {
+      purpose:
+        'Hearth is the current household and property fieldbook for dashboard attention, maintenance, inventory, yard, garden, pool, recipes, and durable household evidence.',
+      facts: [
+        'Records are scoped to an authorized household in a migration-managed SQLite store.',
+        'Printed Hearth identifiers remain resolvable while legacy import stays a separate, explicit operator action.',
+        'Prism, Watchtower, Lantern, Marquee, and ShapePilot are separate products rather than destinations inside Hearth.',
+      ],
+      availability:
+        'Hearth is private and has no public sign-up or acquisition route. This page describes Hearth-v2 only, not the superseded legacy runtime.',
+      sourceUrl: 'https://github.com/EnzoLopez2023/Hearth-v2',
     },
   },
 ];
 
-export const retiredApps: RetiredApp[] = [
-  {
-    slug: 'puzzlebox',
-    name: 'Puzzlebox',
-    successorSlug: 'cortex',
-    successorName: 'Cortex',
-  },
-];
+export const PRODUCT_SLUGS = [
+  'tare',
+  'shopkeep',
+  'cairn',
+  'workshop',
+  'prism',
+  'watchtower',
+  'lantern',
+  'marquee',
+  'shapepilot',
+  'tabloom',
+  'pulsewire',
+  'hearth',
+] as const;
+
+/** Authorized public portfolio registry. */
+export const apps = appRecords;
 
 export function getApp(slug: string): App | undefined {
-  return apps.find((a) => a.slug === slug);
-}
-
-export function getRetiredApp(slug: string): RetiredApp | undefined {
-  return retiredApps.find((app) => app.slug === slug);
+  return appRecords.find((a) => a.slug === slug);
 }
 
 /** Current native iOS projects, in the order the story should be told. */
-export const nativeApps = apps.filter(
-  (a) => a.platforms.ios && a.native && a.native.status !== 'next',
-);
+export const nativeApps = apps.filter((app) => app.platforms.ios);
 
 /** The app that is next in line for a native port, if any. */
 export const nextNativeApp = apps.find((a) => a.native?.status === 'next');

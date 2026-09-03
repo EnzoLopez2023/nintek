@@ -1,0 +1,19 @@
+---
+import ProductRecord from '../components/ProductRecord.astro';
+import { apps } from '../data/apps';
+import type { App } from '../data/apps';
+
+export function getStaticPaths() {
+  return apps
+    .filter((app) => app.overview && app.slug !== 'hearth')
+    .map((app) => ({ params: { slug: app.slug }, props: { app } }));
+}
+
+interface Props {
+  app: App;
+}
+
+const { app } = Astro.props;
+---
+
+<ProductRecord app={app} />

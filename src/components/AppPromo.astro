@@ -1,14 +1,9 @@
 ---
 import type { App } from '../data/apps';
 import MockShell from './MockShell.astro';
-import PhoneMock from './PhoneMock.astro';
 import PlatformBadges from './PlatformBadges.astro';
 import Cairn from './mocks/Cairn.astro';
-import Hearth from './mocks/Hearth.astro';
-import CortexPhone from './mocks/ios/Cortex.astro';
 import WorkshopShowcase from './WorkshopShowcase.astro';
-import SortiePhone from './mocks/ios/Sortie.astro';
-import SalvoReleaseVisual from './SalvoReleaseVisual.astro';
 import ShopKeepReleaseVisual from './ShopKeepReleaseVisual.astro';
 import TareReleaseVisual from './TareReleaseVisual.astro';
 import WebReleaseVisual from './WebReleaseVisual.astro';
@@ -23,22 +18,12 @@ const reverse = index % 2 === 1;
 
 const bodies: Record<string, any> = {
   cairn: Cairn,
-  hearth: Hearth,
 };
 
-/** Apps whose home is a phone get a device frame instead of browser chrome.
- *  Tare is here because the native app is now the product — showing it in a
- *  browser window would advertise the version being retired. */
-const phoneBodies: Record<string, any> = {
-  cortex: CortexPhone,
-  sortie: SortiePhone,
-};
-
-const PhoneBody = phoneBodies[app.slug];
 const Body = bodies[app.slug];
 const isCurrentNative = app.native && app.native.status !== 'next';
 const isWorkshop = app.slug === 'workshop';
-const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug}.png`;
+const iconSrc = `/apps/${app.slug}.png`;
 ---
 
 <section
@@ -93,7 +78,7 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
           isCurrentNative && (
             <a
               class="promo-native"
-              href={['cortex', 'sortie', 'salvo'].includes(app.slug) ? `/${app.slug}` : `/ios#${app.slug}`}
+              href={`/ios#${app.slug}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -127,20 +112,9 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
             <TareReleaseVisual />
           ) : app.slug === 'shopkeep' ? (
             <ShopKeepReleaseVisual compact />
-          ) : app.slug === 'salvo' ? (
-            <SalvoReleaseVisual />
           ) : app.slug === 'tabloom' || app.slug === 'pulsewire' ? (
             <WebReleaseVisual product={app.slug} />
-          ) : PhoneBody ? (
-            <PhoneMock
-              tone="dark"
-              chip={app.mockup.chip}
-              live={app.mockup.live}
-              fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
-            >
-              <PhoneBody />
-            </PhoneMock>
-          ) : (
+          ) : Body ? (
             <MockShell
               title={app.mockup.title}
               subtitle={app.mockup.subtitle}
@@ -148,6 +122,25 @@ const iconSrc = app.slug === 'tabloom' ? '/apps/tabloom.svg' : `/apps/${app.slug
               live={app.mockup.live}
             >
               <Body />
+            </MockShell>
+          ) : (
+            <MockShell
+              title={app.mockup.title}
+              subtitle={app.mockup.subtitle}
+              chip={app.mockup.chip}
+              live={app.mockup.live}
+            >
+              <div class="canonical-icon-evidence">
+                <img
+                  src={iconSrc}
+                  alt={`${app.name} canonical app icon`}
+                  width="1024"
+                  height="1024"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <p>Canonical upstream identity · no product UI substituted</p>
+              </div>
             </MockShell>
           )
         }

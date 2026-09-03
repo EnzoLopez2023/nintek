@@ -13,43 +13,45 @@ const expectedAuthorities = new Map([
   ['workshop', ['EnzoLopez2023/Workshop-for-iOS', '32248fcfec06195f847aaaa56e036f5b92d2981a', 'AppStore/RELEASE_VISUAL_MANIFEST.json', '89615b9c298415591e180ea629424663b8af5b5c73acab8322064daa6ab3e4b2']],
   ['shopkeep', ['EnzoLopez2023/ShopKeepNative', 'b1a757b84500fc7b051b0c0b7599b9f7906a0a1e', 'AppStorePreview/release-visual-manifest.json', '6de1f3573886c0cfd1947197c54f4842f5e1290dcb538ff8d87ac81b71b3df03']],
   ['cairn', ['EnzoLopez2023/CairnNative', '07f2ecea7e31bddb0b66612571010ac1514ac14f', 'AppStore/ReleaseVisuals/manifest.json', '607e525f9efbb8c64cb59b345538cf3ec7c3b6ac1eaa927233186e7f443b63d4']],
-  ['cortex', ['EnzoLopez2023/Cortex', '32a7bde9cb5a4cc4af0507a35e53faa5ae58d01f', 'AppStore/release_visual_manifest.json', 'c0b8758bab7e4201ab5d61bd774eb4a097dfb79d6b809558448d08fb7f603ec2']],
-  ['sortie', ['EnzoLopez2023/Sortie', 'be654b971f5011537c479511f1122c0b94b5d337', 'appstore/release-visuals.json', '4d3b23985ede46439daca018e346fd17ea7f9728f320fbd76b46dea48fd20da8']],
-  ['salvo', ['EnzoLopez2023/Salvo', '3fb91b02f9ec1d29c63caa7ba3080290b3b9e607', 'release/release-visuals.json', '1bd4308390cac4f66005bf5691afd4f3504d2afaec90f6cbf2740de28732fc20']],
   ['tabloom', ['EnzoLopez2023/tabloom', 'acfa8a95d1b9e39b995c9e34549f638aafd77352', 'docs/release-visuals/manifest.json', 'e26df22695e3bf0fb41c0c2beb2837401955200c1646555c654db6b394474c85']],
   ['pulsewire', ['EnzoLopez2023/PulseWire', '6b4c1c79e5158ad1d1ec8b89195751e469e7310e', 'docs/release-visuals/manifest.json', 'e490a4664ced9cf06e1334178ff28ee402c17296176b8968d1b3f3469c345fe7']],
+]);
+const expectedCanonicalIcons = new Map([
+  ['prism', ['EnzoLopez2023/Prism', '2168818ffa0661f5d1cad72085e0214cdca3d6b3', 'public/prism-icon-1024.png', '669b93ec6763a8ceec51434911dfa1c6fe31c9152c335f8468b3a973119942ce']],
+  ['watchtower', ['EnzoLopez2023/Watchtower', '3c84ef87d14f16806a96c097798346cc69ac56eb', 'public/watchtower-icon-1024.png', 'a49c72aad165d0537ecd6475f079f8b31af63fc8e3b70d13986dd071262031a3']],
+  ['lantern', ['EnzoLopez2023/Lantern', 'e40c9d8b679057989380ab053fcbdbc2d784f17d', 'public/lantern-icon-1024.png', '91e58c529d5bb58c42d559961ed0285a7516ed00c756a5be557f2e1d47615847']],
+  ['marquee', ['EnzoLopez2023/Marquee', '35750f9401da5a34267030a2c316624790977587', 'public/marquee-icon-1024.png', '552a6bc58780ef9e597642445c40faccfbbff356729e30cfdfc34de7bad0cd54']],
+  ['shapepilot', ['EnzoLopez2023/ShapePilot', 'f15cbf25dc63817ba25cf9098d0d014398b7a736', 'public/shapepilot-icon-1024.png', '974b1eeb5ce0d0049233d112f3ddf2b52a7b637c52376a30dfb02c81d9283534']],
+  ['hearth', ['EnzoLopez2023/Hearth-v2', '6c9a7922884c41813acd918b3fba395f8c447e9b', 'src/client/public/app-icon-1024.png', 'acafb62175cd3742a2b8c988249b62934e3d5de7a192a9732248b4fcff8ebdf7']],
+  ['shopkeep', ['EnzoLopez2023/ShopKeep', '939d5ae35b81cd6e93eb464b1f03cf90add1be18', 'app-store/AppIcon-1024.png', '4480365dd4c267e02e5c75a914dd949c8a996dea01111d63ff83dae0f7f04679']],
+  ['workshop', ['EnzoLopez2023/workshop', 'a99aa780267b95795327dd24fb5609867b8f6603', 'app-store/AppIcon-1024.png', '66fe71c864f0353b473f9c14d89be9aa1c683df045d48bb4b8f479086b834172']],
+  ['tare', ['EnzoLopez2023/Tare-for-iOS', '7ffd2c56e874a162523fa7dcf3ef51a9d3aedfce', 'app-store/AppIcon-1024.png', '600e44cbff4f01be6ba42f3d137a81308e378c83310681995f52e1db302d6b71']],
+  ['tabloom', ['EnzoLopez2023/tabloom', '761fa9899e7f986b5f1d8302fe4d3d399ec31d15', 'app-store/AppIcon-1024.png', 'e42e6418274facec1a1d828effd9897254cd59e49e6bd30e7f375c0b07804ec5']],
+  ['pulsewire', ['EnzoLopez2023/PulseWire', '93b76357c3642087a17ba05ad571797832db14de', 'app-store/AppIcon-1024.png', '7869a547fac45c2376ed4353109267eff6717c88c5b89374878cfd0a0d014a3a']],
+  ['cairn', ['EnzoLopez2023/Cairn', 'a343f3e8862fd0be8d5eac1039ec2ad88b737a5f', 'app-store/AppIcon-1024.png', '530fb62a43737f9503d5364b9e1ea5406a6d48b9198afda54d2532bb901362ac']],
 ]);
 const expectedIndexedRoutes = new Set([
   '/',
   '/about',
   '/cairn',
-  '/cortex',
   '/ios',
-  '/salvo',
-  '/sortie',
   '/tare',
   '/terms',
   '/workshop',
 ]);
 const indexedSoftwareRoutes = new Set([
   '/cairn',
-  '/cortex',
-  '/salvo',
-  '/sortie',
   '/tare',
   '/workshop',
 ]);
 const expectedSocialImages = new Map([
   ['/cairn', `${site}/social/cairn.png`],
-  ['/cortex', `${site}/social/cortex.png`],
-  ['/pulsewire', `${site}/social/pulsewire.png`],
   ['/shopkeep', `${site}/social/shopkeep.png`],
-  ['/sortie', `${site}/social/sortie.png`],
   ['/tare', `${site}/social/tare.png`],
   ['/workshop', `${site}/social/workshop.png`],
 ]);
-const reviewedLegalApps = ['tare', 'workshop', 'shopkeep', 'cairn', 'cortex', 'sortie', 'salvo', 'tabloom', 'pulsewire'];
-const lifecycleTableApps = new Set(reviewedLegalApps.filter((app) => app !== 'sortie'));
+const reviewedLegalApps = ['tare', 'workshop', 'shopkeep', 'cairn', 'tabloom', 'pulsewire'];
+const lifecycleTableApps = new Set(reviewedLegalApps);
 
 function fail(message) {
   throw new Error(message);
@@ -384,6 +386,9 @@ const forbidden = [
   'Ceasefire talks resume',
   'Europa Clipper returns',
   'Tare is replacing its browser interface',
+  'and play',
+  'daily games',
+  'daily puzzle',
 ];
 for (const value of forbidden) {
   assert(!allHtml.includes(value), `Rendered site contains forbidden or stale value: ${value}`);
@@ -440,28 +445,31 @@ const pageAssertions = {
   ],
   '/pulsewire': ['controlled fictional fixture', 'PostgreSQL · pgvector', 'count intentionally omitted'],
   '/tabloom': ['Archive &amp; Restore', 'Offline Reading', 'fictional local fixture'],
-  '/cortex': ['Internal TestFlight · 1.1 (21) · iPhone only', 'External beta and App Store availability are not public'],
-  '/sortie': ['iPhone only', 'iOS 14', '1.0 (13) · internal TestFlight', 'physical iPhone', 'Not available yet'],
-  '/sortie/privacy': ['iPhone-only, portrait pre-release game', 'Optional Apple Game Center', 'no tracking'],
-  '/sortie/support': ['iPhone-only, portrait pre-release build', 'iOS 14 or later', 'no public App Store listing'],
-  '/salvo': ['1.0.0 (4)', '16 Age of Siege operations', 'Game Center is disabled and excluded from v1', 'content remains blocked', 'Not available yet'],
+  '/prism': ['Spreadsheet conversion runs in the browser.', 'publishes no launch link', 'View audited source'],
+  '/watchtower': ['private iOS companion', 'publishes no launch link', 'View audited source'],
+  '/lantern': ['Cairn remains the separate IT-certification product', 'publishes no launch link'],
+  '/marquee': ['Plex, Tautulli, and Sonarr', 'publishes no launch link'],
+  '/shapepilot': ['native C modules protect SQLite file identity', 'publishes no launch link'],
+  '/hearth': ['current household and property fieldbook', 'superseded legacy runtime'],
   '/terms': ['Terms of Use', 'Your content and your responsibility', 'AI output and professional-advice limits'],
   '/about': [
     'Web and native are not the same promise.',
     'Production web traffic is relay-only',
     'never share progress or account data',
+    'Tools that escaped the original household hub.',
   ],
   '/ios': [
-    'production web traffic is relay-only',
-    'not an installable or offline PWA',
-    'no shared web data',
+    'Native is a relationship, not a release claim.',
+    'Watchtower has a private companion',
+    'Workshop’s native client remains archived',
   ],
 };
 for (const [route, values] of Object.entries(pageAssertions)) {
   const html = readFileSync(routeFile(route), 'utf8');
   const normalized = html.replace(/\s+/g, ' ');
+  const normalizedLower = normalized.toLowerCase();
   for (const value of values) {
-    assert(normalized.includes(value), `${route}: missing required evidence text "${value}"`);
+    assert(normalizedLower.includes(value.toLowerCase()), `${route}: missing required evidence text "${value}"`);
   }
 }
 
@@ -566,25 +574,11 @@ const legalAssertions = {
     'do not require a purchase',
     'Independent study material',
   ],
-  '/cortex/privacy': [
-    'no custom account or login',
-    'Private iCloud key-value storage',
-    'Cortex data lifecycle and account-control boundaries',
-  ],
-  '/cortex/support': [
-    'iPhone-only internal TestFlight build',
-    'no single in-app erase-all control',
-    'Troubleshoot optional Game Center',
-  ],
-  '/salvo/privacy': [
-    'no account, Nintek backend, analytics, advertising, in-app purchase, cloud save, or Game Center integration',
-    'Salvo data lifecycle and account-control boundaries',
-    'no App Review submission',
-  ],
-  '/salvo/support': [
-    '16 synchronized Age of Siege operations',
-    'Game Center is disabled and excluded from v1',
-    'no App Review submission',
+  '/hearth/privacy': [
+    'This notice covers Hearth-v2',
+    'Hearth-v2 data lifecycle and current control boundaries',
+    'does not establish a public self-service account export',
+    'superseded runtime is not marketed here as the current product',
   ],
 };
 
@@ -594,7 +588,9 @@ for (const [route, values] of Object.entries(legalAssertions)) {
   const normalized = html.replace(/\s+/g, ' ');
   const expectedLegalDate = route.startsWith('/workshop/')
     ? 'August 31, 2026'
-    : 'August 23, 2026';
+    : route.startsWith('/hearth/')
+      ? 'September 3, 2026'
+      : 'August 23, 2026';
   assert(
     normalized.includes(expectedLegalDate),
     `${route}: missing the current effective or updated date`,
@@ -647,22 +643,18 @@ for (const stale of [
 
 const homepageTermsLink = homepage.includes('href="/terms"');
 assert(homepageTermsLink, 'Global site footer is missing the terms link.');
-for (const route of ['/sortie', '/sortie/privacy', '/sortie/support', '/salvo', '/salvo/privacy', '/salvo/support']) {
-  const html = readFileSync(routeFile(route), 'utf8');
-  assert(html.includes('href="/terms"'), `${route}: missing shared terms link`);
-}
-
 const evidenceLedger = readFileSync(join(root, 'docs', 'MARKETING_EVIDENCE.md'), 'utf8');
 assert(
-  evidenceLedger.includes('**Base verification:** 2026-08-22') &&
-    evidenceLedger.includes('**Canonical visual sync:** 2026-08-23'),
-  'Marketing evidence ledger does not carry the base and release-state verification dates.',
+  evidenceLedger.includes('**Portfolio verification:** September 3, 2026') &&
+    evidenceLedger.includes('9029446de5fc04c550753b6de8819f668e0d78e9') &&
+    evidenceLedger.includes('336527ddeb39d6808963f471708559b23913dd9bb3ccca48813710550bb54dcd'),
+  'Marketing evidence ledger does not carry the final portfolio audit.',
 );
 for (const phrase of [
-  'Tare | **Retired, relay-only.**',
-  'Workshop | **Online and account-backed.**',
-  'Cairn | **Online and account-backed.**',
-  'registrar-owned apex/subpath forwarding',
+  'The former browser product is retired',
+  'Workshop-for-iOS is archived',
+  'Hearth-v2 only',
+  'private iOS companion',
 ]) {
   assert(evidenceLedger.includes(phrase), `Evidence ledger is missing platform/host decision: ${phrase}`);
 }
@@ -695,16 +687,64 @@ assert(!robots.includes('Disallow:'), 'robots.txt must not conflict with page-le
 assert(robots.includes(`${site}/sitemap.xml`), 'robots.txt has the wrong sitemap URL.');
 
 assert(releaseVisuals.schemaVersion === 1, 'Unsupported release visual manifest schema.');
-assert(releaseVisuals.verifiedAt === '2026-08-23', 'Release visual verification date is stale.');
+assert(releaseVisuals.verifiedAt === '2026-09-03', 'Release visual verification date is stale.');
 assert(
-  Object.keys(releaseVisuals.products).length === 9,
-  'Release visual manifest must cover all nine synchronized products.',
+  JSON.stringify(releaseVisuals.portfolioAudit) ===
+    JSON.stringify({
+      repository: 'EnzoLopez2023/azure-infra',
+      commit: '9029446de5fc04c550753b6de8819f668e0d78e9',
+      evidenceDigestSha256: '336527ddeb39d6808963f471708559b23913dd9bb3ccca48813710550bb54dcd',
+      result: '16/16 sealed',
+    }),
+  'Final portfolio audit evidence drifted.',
+);
+assert(
+  Object.keys(releaseVisuals.products).length === 6,
+  'Release visual manifest must cover the six retained release-visual products.',
 );
 assert(
   JSON.stringify(Object.keys(releaseVisuals.products).sort()) ===
     JSON.stringify([...expectedAuthorities.keys()].sort()),
   'Release visual manifest product set drifted.',
 );
+
+assert(
+  JSON.stringify(Object.keys(releaseVisuals.canonicalIcons).sort()) ===
+    JSON.stringify([...expectedCanonicalIcons.keys()].sort()),
+  'Canonical product icon manifest drifted.',
+);
+const appIconDirectory = join(root, 'public', 'apps');
+const actualAppIconSlugs = readdirSync(appIconDirectory, { withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith('.png'))
+  .map((entry) => entry.name.slice(0, -'.png'.length))
+  .sort();
+assert(
+  JSON.stringify(actualAppIconSlugs) === JSON.stringify([...expectedCanonicalIcons.keys()].sort()),
+  'Top-level public app icon census must be exactly the authorized twelve products.',
+);
+for (const [slug, expected] of expectedCanonicalIcons) {
+  const icon = releaseVisuals.canonicalIcons[slug];
+  assert(icon, `${slug}: canonical icon evidence is missing`);
+  assert(
+    JSON.stringify([icon.repository, icon.commit, icon.sourcePath, icon.sha256]) ===
+      JSON.stringify(expected),
+    `${slug}: canonical icon authority drifted`,
+  );
+  const file = join(appIconDirectory, `${slug}.png`);
+  const bytes = readFileSync(file);
+  const actualHash = createHash('sha256').update(bytes).digest('hex');
+  assert(actualHash === icon.sha256, `${slug}: canonical app icon hash drifted`);
+  const image = inspectImage(file);
+  assert(image.width === 1024 && image.height === 1024, `${slug}: canonical app icon is not 1024x1024`);
+  const emitted = join(dist, 'apps', `${slug}.png`);
+  assert(existsSync(emitted), `${slug}: canonical app icon was not emitted`);
+  const emittedHash = createHash('sha256').update(readFileSync(emitted)).digest('hex');
+  assert(emittedHash === icon.sha256, `${slug}: emitted canonical app icon hash drifted`);
+  assert(homepage.includes(`/apps/${slug}.png`), `${slug}: canonical icon is absent from the registry`);
+}
+for (const staleSlug of ['cortex', 'sortie', 'salvo', 'puzzlebox']) {
+  assert(!homepage.includes(`/apps/${staleSlug}.png`), `${staleSlug}: stale product icon remains in the registry`);
+}
 
 const releaseAssets = Object.entries(releaseVisuals.products).flatMap(([slug, product]) => {
   const expected = expectedAuthorities.get(slug);
@@ -778,16 +818,39 @@ for (const stalePath of [
   'public/apps/workshop/iphone-projects.webp',
   'public/apps/workshop/iphone-shopping.webp',
   'public/apps/workshop/iphone-tables.webp',
-  'src/assets/salvo/home.webp',
-  'src/assets/salvo/command.webp',
-  'src/assets/salvo/campaign.webp',
+  'src/assets/cortex',
+  'src/assets/salvo',
+  'src/assets/sortie',
+  'src/components/CortexScreen.astro',
+  'src/components/SalvoReleaseVisual.astro',
   'src/components/ShopKeepMark.astro',
   'src/components/mocks/ShopKeep.astro',
+  'src/components/mocks/Puzzlebox.astro',
+  'src/components/mocks/ios/Cortex.astro',
   'src/components/mocks/ios/ShopKeep.astro',
+  'src/components/mocks/ios/Sortie.astro',
+  'src/layouts/CortexLegalLayout.astro',
+  'src/styles/cortex-landing.css',
+  'src/styles/cortex-legal.css',
+  'src/styles/puzzlebox-landing.css',
+  'public/apps/cortex.png',
+  'public/apps/puzzlebox.png',
+  'public/apps/salvo.png',
+  'public/apps/sortie.png',
+  'public/apps/tabloom.svg',
+  'public/social/cortex.png',
+  'public/social/pulsewire.png',
+  'public/social/sortie.png',
+  'public/social/source/cortex.svg',
+  'public/social/source/sortie.svg',
+  'src/pages/cortex',
+  'src/pages/puzzlebox',
+  'src/pages/salvo',
+  'src/pages/sortie',
 ]) {
-  assert(!existsSync(join(root, stalePath)), `Superseded release visual remains: ${stalePath}`);
+  assert(!existsSync(join(root, stalePath)), `Superseded product artifact remains: ${stalePath}`);
 }
 
 console.log(
-  `Verified ${htmlFiles.length} HTML routes, ${sitemapRoutes.size} indexed routes, and ${releaseAssets.length} canonical release assets.`,
+  `Verified ${htmlFiles.length} HTML routes, ${sitemapRoutes.size} indexed routes, ${actualAppIconSlugs.length} canonical app icons, and ${releaseAssets.length} release assets.`,
 );

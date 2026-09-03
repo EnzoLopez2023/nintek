@@ -5,7 +5,7 @@ import { COMPANY } from '../data/apps';
 
 <BaseLayout
   title={`About — ${COMPANY.name}`}
-  description="Nintek is a one-person studio built around a real life — an SRE career, a woodworking hobby, a health journey, daily games, and keeping a home."
+  description="Nintek is a one-person studio built around a real life — an SRE career, a woodworking hobby, a health journey, software operations, and keeping a home."
   path="/about"
 >
   <section class="about-hero container reveal">
@@ -46,17 +46,16 @@ import { COMPANY } from '../data/apps';
           middle of something.
         </p>
         <p>
-          <a href="/tabloom">Tabloom</a> started as a personal experiment in what
-          notes could feel like if speed and privacy came first. <a href="/pulsewire">PulseWire</a>
-          came from a similar frustration — staying current in tech is part of
-          the job, but the signal-to-noise ratio on the internet is brutal. And
-          <a href="/cairn">Cairn</a>? Certifications don't stop being important
-          once you're senior. If anything, they matter more. I built Cairn to
-          keep my study habit alive without turning it into a second job.
+          <a href="/tabloom">Tabloom</a> became the notebook, <a href="/pulsewire">PulseWire</a>
+          became the evidence-linked reader, and <a href="/prism">Prism</a> became
+          the focused AI workbench. <a href="/lantern">Lantern</a> holds long-form
+          learning while <a href="/cairn">Cairn</a> stays focused on certification.
         </p>
         <div class="story-apps">
           <a href="/tabloom" class="story-app-pill">Tabloom</a>
           <a href="/pulsewire" class="story-app-pill">PulseWire</a>
+          <a href="/prism" class="story-app-pill">Prism</a>
+          <a href="/lantern" class="story-app-pill">Lantern</a>
           <a href="/cairn" class="story-app-pill">Cairn</a>
         </div>
       </section>
@@ -109,24 +108,24 @@ import { COMPANY } from '../data/apps';
       </section>
 
       <section class="story-section reveal">
-        <span class="story-eyebrow">Play</span>
-        <h2>An avid gamer who needed a reset.</h2>
+        <span class="story-eyebrow">Making</span>
+        <h2>Tools that escaped the original household hub.</h2>
         <p>
-          I've been playing games my whole life — consoles, PC, all of it.
-          But there are days when a full session isn't in the cards. What I
-          wanted was something to decompress with during lunch or after dinner
-          that didn't ask for more time than I had — something that used a
-          different part of my brain than a workday does.
+          Some parts of the original household system became clearer when they
+          stopped pretending to be one product. <a href="/shapepilot">ShapePilot</a>
+          owns approachable 2D and 3D design for fabrication. <a href="/marquee">Marquee</a>
+          owns private media-library operations. <a href="/watchtower">Watchtower</a>
+          owns infrastructure monitoring and alerting.
         </p>
         <p>
-          Puzzlebox started as eight daily games in one place — Sudoku, word
-          puzzles, and logic grids — then grew into a much larger browser arcade.
-          Puzzlebox is retired now. <a href="/cortex">Cortex</a> superseded it as
-          Nintek's active games hub, rebuilding the idea around eight native games
-          for iPhone with optional Game Center and no Nintek backend.
+          The split is a product boundary, not a new portal. Each app has its own
+          source, identity, and release evidence; <a href="/hearth">Hearth</a> no
+          longer markets those extracted tools as rooms inside the current runtime.
         </p>
         <div class="story-apps">
-          <a href="/cortex" class="story-app-pill">Cortex</a>
+          <a href="/shapepilot" class="story-app-pill">ShapePilot</a>
+          <a href="/marquee" class="story-app-pill">Marquee</a>
+          <a href="/watchtower" class="story-app-pill">Watchtower</a>
         </div>
       </section>
 
@@ -141,12 +140,11 @@ import { COMPANY } from '../data/apps';
           marinade everyone loved?
         </p>
         <p>
-          <a href="/hearth">Hearth</a> is a household records hub. Appliances and
-          their maintenance history, home documents, cooking notes — the stuff
-          that's currently spread across your junk drawer, your email, and
-          your fading memory. It has since grown a garden planner with a
-          to-scale bed layout and a harvest log, and a corner that watches the
-          home infrastructure I'd otherwise forget about until it broke.
+          <a href="/hearth">Hearth</a> is the current household and property
+          fieldbook: maintenance, inventory, yard, garden, pool, recipes, and the
+          work that needs attention today. Infrastructure monitoring now belongs
+          to <a href="/watchtower">Watchtower</a>; it is not a legacy room inside
+          Hearth-v2.
         </p>
         <div class="story-apps">
           <a href="/hearth" class="story-app-pill">Hearth</a>
@@ -155,52 +153,18 @@ import { COMPANY } from '../data/apps';
 
       <section class="story-section story-native reveal">
         <span class="story-eyebrow">Direction</span>
-        <h2>Then the apps started leaving the browser.</h2>
+        <h2>Native status belongs to each product.</h2>
         <p>
-          Everything above was built for the web, and the web is a genuinely
-          good place for most of it. But I kept running into the same wall.
-          Cairn's whole point is studying in the gaps of a day, and a browser
-          tab can't put your streak on a Home Screen. ShopKeep spent years asking
-          me to type in numbers that were printed on the box in a barcode.
+          <a href="/tare">Tare</a>, <a href="/shopkeep">ShopKeep</a>, and
+          <a href="/cairn">Cairn</a> have native builds with different private or
+          blocked release states. <a href="/watchtower">Watchtower</a> has a private
+          iOS companion whose retained Hearth identifiers are implementation detail,
+          not product naming. Workshop’s native client is archived.
         </p>
         <p>
-          So I learned SwiftUI and started porting. <a href="/cairn">Cairn</a>
-          went first and went furthest — the native version has no sign-in and no
-          server at all, with every question bundled into the app and progress
-          living in your own iCloud.
-          <a href="/shopkeep">ShopKeep</a> turned the camera into the filing
-          system, turning a barcode or QR label into inventory without another
-          form to fill in.
-        </p>
-        <p>
-          The interesting part wasn't any single app — it was what accumulated
-          between them. A shared Swift package called NintekKit now holds the
-          models, the API clients, the widget plumbing and the ported
-          algorithms, so each port costs less than the one before it. That's the
-          difference between a pile of apps and an ecosystem.
-        </p>
-        <p>
-          And then there's <a href="/cortex"><strong>Cortex</strong></a>, which
-          broke the pattern. Eight distinct games live in one native iOS hub,
-          with optional Game Center and no Nintek backend. It's the most fun
-          I've had building anything in a while.
-        </p>
-        <p>
-          <a href="/tare">Tare</a> came last, and that was deliberate. It holds
-          years of my own health data and I open it every day, so it was the one
-          port I could not afford to get wrong — the earlier utility ports were
-          practice runs. It went furthest in one particular way: the native version
-          has no account at all, where the retired web app used Microsoft. Every
-          weight, dose, glucose reading and lab result lives on the phone and
-          syncs through my own iCloud, and the whole history came across in a
-          single backup file.
-        </p>
-        <p>
-          Six products now have native builds, but their release states differ:
-          Tare, Cortex, and Sortie have internal TestFlight builds;
-          Cairn&rsquo;s submitted release is blocked after review; ShopKeep has a
-          private attached build; and Salvo remains unreleased and content-blocked.
-          None currently has a public App Store listing.
+          None currently has a public App Store listing. The portfolio does not
+          infer prices, dates, TestFlight access, or acquisition links from a build
+          simply existing.
         </p>
         <div class="story-apps">
           <a href="/ios" class="story-app-pill story-app-pill--strong">
@@ -208,7 +172,8 @@ import { COMPANY } from '../data/apps';
           </a>
           <a href="/ios#cairn" class="story-app-pill">Cairn</a>
           <a href="/ios#shopkeep" class="story-app-pill">ShopKeep</a>
-          <a href="/ios#cortex" class="story-app-pill">Cortex</a>
+          <a href="/ios#tare" class="story-app-pill">Tare</a>
+          <a href="/ios#watchtower" class="story-app-pill">Watchtower</a>
         </div>
       </section>
 

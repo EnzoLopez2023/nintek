@@ -1,116 +1,108 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getApp, COMPANY } from '../../data/apps';
+import DataLifecycleTable from '../../components/DataLifecycleTable.astro';
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { COMPANY, getApp } from '../../data/apps';
 
 const app = getApp('hearth')!;
-const lastUpdated = 'June 24, 2026';
+const effectiveDate = 'September 3, 2026';
+const sections = [
+  { href: '#scope', label: 'Scope' },
+  { href: '#data', label: 'Data and providers' },
+  { href: '#controls', label: 'Controls and limits' },
+  { href: '#contact', label: 'Contact' },
+];
+const lifecycle = [
+  {
+    data: 'Account and household membership',
+    location: 'Hearth-v2 resolves verified Microsoft Entra/OIDC identity to an app-local user and household membership.',
+    portability: 'The audited source does not establish a public self-service account export.',
+    deletion: 'Provider identity and app-local membership are separate. No public account-wide deletion or retention promise is established yet.',
+  },
+  {
+    data: 'Household and property records',
+    location: 'Maintenance, inventory, yard, garden, pool, recipe, and dashboard records are household-scoped in a migration-managed SQLite database.',
+    portability: 'Keep independent originals of records or evidence that must survive outside Hearth.',
+    deletion: 'Owned record APIs support deletion, but backup expiry and account-wide erasure are not represented as complete public controls.',
+  },
+  {
+    data: 'Photos, documents, and reports',
+    location: 'Authorized durable blob storage holds supported maintenance, warranty, receipt, inventory, and pool-report evidence.',
+    portability: 'The audited source does not establish a complete public bulk-media export.',
+    deletion: 'Unreferenced blob deletion is supported; storage-provider retention can continue under its own operational and legal rules.',
+  },
+  {
+    data: 'Optional provider requests',
+    location: 'Chosen recipe-AI, weather, or geocoding features send only the request needed to the configured provider.',
+    portability: 'Review and save useful results into your own records; unsaved recipe drafts are not persisted by Hearth.',
+    deletion: 'Provider logs and retention follow the selected provider’s terms. Optional providers are not startup requirements.',
+  },
+];
 ---
 
-<BaseLayout
-  title={`${app.name} Privacy Policy — ${COMPANY.name}`}
-  description={`How ${app.name} collects, uses, and protects your information.`}
-  path={`/${app.slug}/privacy`}
-  noindex={true}
+<LegalLayout
+  app={app}
+  title={`Hearth Privacy Policy — ${COMPANY.name}`}
+  description="Current privacy boundaries for the private Hearth-v2 household and property fieldbook."
+  path="/hearth/privacy"
+  page="privacy"
+  heading="Hearth Privacy Policy"
+  documentMeta={`Effective ${effectiveDate} · Last reviewed ${effectiveDate}`}
+  summary="This notice covers Hearth-v2, the current private household and property fieldbook. It does not describe the superseded Hearth monolith or the separate Prism, Watchtower, Lantern, Marquee, and ShapePilot products."
+  sections={sections}
+  evidenceNote="Scoped to Hearth-v2 source at 6c9a7922884c41813acd918b3fba395f8c447e9b. Public release, account-wide deletion, retention, and bulk-export controls are not claimed beyond that source."
 >
-  <article class="prose container">
-    <a class="back-link" href="/hearth">← {app.name}</a>
-    <h1>{app.name} Privacy Policy</h1>
-    <p class="updated">Last updated: {lastUpdated} · <strong>DRAFT</strong></p>
-
+  <section id="scope" class="legal-section">
+    <h2>Scope and access</h2>
     <p>
-      This Privacy Policy explains how {COMPANY.name} (“we”, “us”) handles
-      information in connection with the {app.name} application and website
-      (the “Service”). {app.name} is a private household hub for a single
-      family — recipes, home and yard maintenance, home inventory, Plex media
-      library tools, and an AI assistant. We aim to collect as little as
-      possible and to keep what we do collect private and secure.
+      Hearth-v2 is a private household application. Protected APIs require a
+      verified identity that resolves to an authorized household membership, and
+      production fails closed when authentication is not configured. There is no
+      public sign-up or acquisition route on this site.
     </p>
-
-    <h2>Information we collect</h2>
-    <ul>
-      <li>
-        <strong>Account information.</strong> When you sign in, we use Microsoft
-        identity services. We receive a unique account identifier and basic
-        profile details such as your name and email address so we can create and
-        secure your account.
-      </li>
-      <li>
-        <strong>Household data you create.</strong> Content and activity you
-        generate in the app — such as recipes and their AI-analyzed nutrition,
-        home and yard maintenance tasks, warranties and receipts, home
-        inventory items and locations, and Plex media library metadata — so the
-        Service can keep the records that help run your home.
-      </li>
-      <li>
-        <strong>AI assistant requests.</strong> When you use the AI features
-        (recipe nutrition analysis or the assistant), the relevant prompt and
-        context are sent to our AI providers to generate a response. We do not
-        use this content to train models.
-      </li>
-      <li>
-        <strong>Limited technical data.</strong> Basic operational logs (such as
-        request timestamps and error information) needed to run, secure, and
-        troubleshoot the Service.
-      </li>
-    </ul>
     <p>
-      We do <strong>not</strong> collect precise location, contacts, or device
-      advertising identifiers, and we do not use third-party advertising or
-      cross-app tracking.
+      Development identity is a non-production testing facility and cannot be
+      enabled in production. Hearth-v2 records are directly household-scoped or
+      belong to a household-scoped parent.
     </p>
+  </section>
 
-    <h2>How we use information</h2>
-    <ul>
-      <li>To provide, maintain, and secure your account and the Service.</li>
-      <li>
-        To store your household records and power features such as nutrition
-        analysis, maintenance scheduling, inventory labels, and media tools.
-      </li>
-      <li>To diagnose problems and improve reliability and performance.</li>
-    </ul>
-
-    <h2>How your information is stored and protected</h2>
+  <section id="data" class="legal-section">
+    <h2>Data and optional providers</h2>
     <p>
-      Your household data is stored in your own per-user SQLite database.
-      Information is encrypted in transit using HTTPS, and the Service is hosted
-      on Microsoft Azure. Access is limited to what is necessary to operate the
-      Service.
+      Hearth processes the records you choose to keep for home maintenance,
+      inventory, yard, garden, pool, recipes, costs, shopping context, and
+      supporting photos or documents. Optional AI, weather, and geocoding
+      providers are feature boundaries rather than startup dependencies.
     </p>
+    <DataLifecycleTable caption="Hearth-v2 data lifecycle and current control boundaries" rows={lifecycle} />
+  </section>
 
-    <h2>Sharing</h2>
+  <section id="controls" class="legal-section">
+    <h2>Current controls and known limits</h2>
     <p>
-      We do not sell your personal information. We share information only with
-      infrastructure and AI providers that host and power the Service (for
-      example, Microsoft Azure for hosting and identity, and AI providers for
-      nutrition analysis and the assistant), and only as needed to operate it,
-      or where required by law.
+      Hearth supports household-scoped record operations, strict validation, and
+      authorized blob access. The audited source does not establish a public
+      self-service account export, account-wide deletion flow, fixed retention
+      schedule, or completed legacy-data cutover. This policy does not imply those
+      controls exist.
     </p>
+    <p>
+      Legacy import is a separate, explicit operator action from a read-only
+      snapshot. It is not a background migration, and the superseded runtime is
+      not marketed here as the current product.
+    </p>
+  </section>
 
-    <h2>Data retention and deletion</h2>
+  <section id="contact" class="legal-section">
+    <h2>Questions and requests</h2>
     <p>
-      We retain your information for as long as your account is active. You may
-      request access to, or deletion of, your account and associated data by
-      emailing
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
+      Privacy questions can be sent to
+      <a href={`mailto:${COMPANY.privacyEmail}?subject=Hearth%20privacy`}>
+        {COMPANY.privacyEmail}
+      </a>.
+      General product questions can be sent to
+      <a href={`mailto:${COMPANY.email}?subject=Hearth`}>{COMPANY.email}</a>.
+      Use of Hearth is subject to the <a href={app.termsPath}>Nintek Terms of Use</a>.
     </p>
-
-    <h2>Children’s privacy</h2>
-    <p>
-      The Service is intended for a general, adult audience and is not directed
-      to children. We do not knowingly collect personal information from
-      children.
-    </p>
-
-    <h2>Changes to this policy</h2>
-    <p>
-      We may update this policy from time to time. Material changes will be
-      reflected by updating the “Last updated” date above.
-    </p>
-
-    <h2>Contact us</h2>
-    <p>
-      Questions about this policy or your data? Email
-      <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>.
-    </p>
-  </article>
-</BaseLayout>
+  </section>
+</LegalLayout>

@@ -1,432 +1,200 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PhoneMock from '../components/PhoneMock.astro';
-import Icon from '../components/Icon.astro';
-import CairnPhone from '../components/mocks/ios/Cairn.astro';
-import CortexPhone from '../components/mocks/ios/Cortex.astro';
-import SortiePhone from '../components/mocks/ios/Sortie.astro';
-import SalvoReleaseVisual from '../components/SalvoReleaseVisual.astro';
-import ShopKeepReleaseVisual from '../components/ShopKeepReleaseVisual.astro';
-import TareReleaseVisual from '../components/TareReleaseVisual.astro';
-import {
-  COMPANY,
-  ECOSYSTEM,
-  NATIVE_STATUS_LABELS,
-  nativeApps,
-  nextNativeApp,
-} from '../data/apps';
-import type { IconKey } from '../data/apps';
-import '../styles/ios.css';
-
-const phones: Record<string, any> = {
-  cairn: CairnPhone,
-  cortex: CortexPhone,
-  sortie: SortiePhone,
-};
-
-const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
-  cairn: 'navy',
-  cortex: 'dark',
-  sortie: 'dark',
-};
+import { COMPANY, NATIVE_STATUS_LABELS, nativeApps } from '../data/apps';
 
 const publicStoreCount = 0;
-const watchAppCount = nativeApps.filter((app) => app.native?.watch).length;
-const evidenceLabels: Record<string, string> = {
-  cairn: 'Synthetic UI study',
-  cortex: 'Release-build capture',
-  sortie: 'Pre-release capture',
-};
-
-/** Why the ports are worth doing at all. Each of these is something at least one
- *  of the shipping apps actually does. */
-const thesis: { icon: IconKey; title: string; body: string }[] = [
-  {
-    icon: 'widget',
-    title: 'The app before you open it',
-    body:
-      'Several put something useful on your Home Screen — a study streak, tools that need attention, or a game you were halfway through. Some go further and let you act without opening the full app.',
-  },
-  {
-    icon: 'lock',
-    title: 'Live on the Lock Screen',
-    body:
-      'A timed exam counts down in the Dynamic Island, keeping the clock visible without pulling you away from the question. Live Activities are the difference between an app you check and an app that keeps up with you.',
-  },
-  {
-    icon: 'scan',
-    title: 'A camera beats a keyboard',
-    body:
-      'VisionKit reads a barcode off a box or a QR label off a drawer. Each scan replaces a form field and keeps inventory work moving.',
-  },
-  {
-    icon: 'gauge',
-    title: 'Compute that moved on device',
-    body:
-      'The spaced-repetition scheduler was ported to Swift and unit-tested against the original. Study planning now happens instantly and offline.',
-  },
-  {
-    icon: 'sparkle',
-    title: 'Siri, Spotlight and Shortcuts',
-    body:
-      'Ask for a study session, jump straight to the scanner, open a game from system search, or wire an action into a Shortcut. The apps became part of the system instead of sitting behind a browser tab.',
-  },
-  {
-    icon: 'ruler',
-    title: 'iPad, designed rather than stretched',
-    body:
-      'Cairn moves its navigation into the title bar on iPad, resolves its card grids to two columns, and holds a measured line length on reading surfaces instead of running the full width of the display. Column minimums are tuned per size class, down to the 11-inch iPad in portrait — the size that quietly collapses to one column if you guess.',
-  },
-  {
-    icon: 'cloud',
-    title: 'Less infrastructure, not more',
-    body:
-      'Cairn, Cortex, Sortie and Salvo keep their core experience off Nintek servers. Both Godot campaigns save on device; Sortie keeps Game Center optional while Salvo excludes it from v1. Fewer moving parts is a feature, not a compromise.',
-  },
-  {
-    icon: 'book',
-    title: 'Each product has its own platform relationship',
-    body:
-      'Cairn and the web app have separate progress stores. ShopKeep shares its backend across web and native. Tare’s browser product is retired, while production web remains only as the native app’s consent-gated AI relay. The status belongs to each product, not to a blanket “web versus native” promise.',
-  },
-];
 ---
 
 <BaseLayout
-  title={`Native on iOS — ${COMPANY.name}`}
-  description={`${nativeApps.length} Nintek products have native iOS builds at different release stages. None currently has a public App Store listing.`}
+  title={`Native relationships — ${COMPANY.name}`}
+  description="Four Nintek products reach Apple devices at private or blocked release stages; none currently has a public App Store listing."
   path="/ios"
   boardFonts
   socialImage="/bg.png"
   socialImageAlt="Abstract copper Nintek circuit motif"
 >
-  <div class="ios-page">
-  {/* ── Hero ── */}
-  <section class="ih">
-    <div class="container">
-      <div class="ih-grid">
-        <div class="ih-text reveal">
-          <span class="eyebrow ih-eyebrow">
-            <span class="eyebrow-dot"></span>
-            A new chapter
-          </span>
-          <h1 class="ih-title">
-            The apps are
-            <span class="em">going native.</span>
-          </h1>
-          <p class="ih-lede">
-            {COMPANY.name} started as web apps, and they are still here. But
-            {` ${nativeApps.length} `}products now have real native builds for
-            iPhone or iPad — SwiftUI utilities, a SwiftUI game hub, and two
-            standalone Godot strategy games.
-          </p>
-          <p class="ih-lede">
-            <strong>None has a public App Store listing today.</strong> Tare,
-            Cortex, and Sortie have internal TestFlight builds;
-            Cairn&rsquo;s submitted release is blocked after review; ShopKeep has a
-            private attached build; and Salvo remains unreleased and content-blocked.
-          </p>
-          <div class="ih-stats">
-            <div class="ih-stat">
-              <span class="ih-stat-num">{nativeApps.length}</span>
-              <span class="ih-stat-cap">native projects</span>
-            </div>
-            <div class="ih-stat">
-              <span class="ih-stat-num">{publicStoreCount}</span>
-              <span class="ih-stat-cap">public store listings</span>
-            </div>
-            <div class="ih-stat">
-              <span class="ih-stat-num">{watchAppCount}</span>
-              <span class="ih-stat-cap">Apple Watch app</span>
-            </div>
-          </div>
-          <div class="ih-jump">
-            {
-              nativeApps.map((app) => (
-                <a class="ih-jump-item" href={`#${app.slug}`}>
-                  <img
-                    src={`/apps/${app.slug}.png`}
-                    alt=""
-                    width="26"
-                    height="26"
-                    loading="lazy"
-                  />
-                  {app.name}
-                </a>
-              ))
-            }
-          </div>
-        </div>
-
-        <div class="ih-phones reveal" aria-hidden="true">
-          <div class="ih-phone back">
-            <TareReleaseVisual />
-          </div>
-          <div class="ih-phone front">
-            <PhoneMock tone="dark">
-              <CairnPhone />
-            </PhoneMock>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ── Why native ── */}
-  <section class="isec container">
-    <div class="isec-head reveal">
-      <span class="eyebrow">
-        <span class="eyebrow-dot"></span>
-        Why bother
-      </span>
-      <h2 class="isec-title">
-        A browser tab can only do so much.
-      </h2>
-      <p class="isec-lede">
-        None of these ports exist for the sake of having an app in the store.
-        Each one earns its place by doing something the web version genuinely
-        cannot.
+  <!--
+    THESIS: Native status is a product-by-product evidence ledger, never a blanket launch promise.
+    OWN-WORLD: Nintek cream and walnut with copper rules; canonical icons carry product identity.
+    STORY: See the exact four relationships, understand their boundaries, then inspect each product.
+    FIRST VIEWPORT: The release boundary leads, followed by the four-product census.
+    FORM: A vertical release ledger replaces device theater that cannot represent every evidence class.
+  -->
+  <article class="native-ledger container">
+    <header class="native-hero reveal">
+      <h1>Native is a relationship, not a release claim.</h1>
+      <p>
+        {nativeApps.length} products reach Apple devices, and {publicStoreCount} have a
+        public App Store listing. Tare is internal TestFlight, ShopKeep has a private
+        attached build, Cairn remains blocked after review, and Watchtower has a private
+        companion whose legacy repository identifiers are implementation details.
       </p>
-    </div>
+    </header>
 
-    <div class="ithesis">
+    <div class="native-entries">
       {
-        thesis.map((t) => (
-          <div class="ithesis-card reveal">
-            <span class="ithesis-icon">
-              <Icon name={t.icon} size={19} />
-            </span>
-            <h3>{t.title}</h3>
-            <p>{t.body}</p>
-          </div>
-        ))
+        nativeApps.map((app) => {
+          const status = app.native
+            ? NATIVE_STATUS_LABELS[app.native.status]
+            : app.iosLabel ?? 'Private iOS relationship';
+          const detail = app.native?.intro ?? app.overview?.purpose ?? app.description;
+
+          return (
+            <section class="native-entry reveal" id={app.slug}>
+              <img
+                src={`/apps/${app.slug}.png`}
+                alt={`${app.name} app icon`}
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              />
+              <div>
+                <div class="native-entry-head">
+                  <h2>{app.name}</h2>
+                  <span>{status}</span>
+                </div>
+                <p>{detail}</p>
+                <nav aria-label={`${app.name} documents`}>
+                  {app.hasPage && <a href={`/${app.slug}`}>Product</a>}
+                  {app.privacyPath && <a href={app.privacyPath}>Privacy</a>}
+                  {app.supportPath && <a href={app.supportPath}>Support</a>}
+                  <a href={app.termsPath}>Terms</a>
+                </nav>
+              </div>
+            </section>
+          );
+        })
       }
     </div>
-  </section>
 
-  {/* ── NintekKit ── */}
-  <section class="ikit">
-    <div class="container">
-      <div class="ikit-grid">
-        <div class="ikit-text reveal">
-          <span class="eyebrow ih-eyebrow">
-            <span class="eyebrow-dot"></span>
-            The foundation
-          </span>
-          <h2 class="ikit-title">
-            The utility apps share
-            <span class="em">{ECOSYSTEM.kit}.</span>
-          </h2>
-          <p class="ikit-lede">{ECOSYSTEM.kitSummary}</p>
-          <p class="ikit-note">
-            The first port taught the expensive lessons. The second one reused
-            them. By the third, most of the plumbing already existed — which is
-            the entire point of building an ecosystem instead of a pile of
-            unrelated apps.
-          </p>
-        </div>
-
-        <div class="ikit-points">
-          {
-            ECOSYSTEM.kitPoints.map((p) => (
-              <div class="ikit-point reveal">
-                <span class="ikit-point-icon">
-                  <Icon name={p.icon} size={17} />
-                </span>
-                <div>
-                  <h3>{p.title}</h3>
-                  <p>{p.body}</p>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <p class="ikit-caveat reveal">
-        <span class="ikit-caveat-mark">Note</span>
-        The games are the exceptions. Cortex is a self-contained SwiftUI hub;
-        Sortie and Salvo are Godot exports. None use NintekKit or depend on a
-        Nintek account or backend.
+    <section class="native-boundary reveal">
+      <h2>What this page does not claim</h2>
+      <p>
+        It does not publish an acquisition link, price, territory, release date, or
+        availability beyond the evidence stated above. Workshop’s native client remains
+        archived and is intentionally absent. Hearth remains web-only in this registry;
+        the private monitoring companion is marketed as Watchtower.
       </p>
-    </div>
-  </section>
+    </section>
+  </article>
+</BaseLayout>
 
-  {/* ── Per-app deep dives ── */}
-  <div class="iapps">
-    {
-      nativeApps.map((app, i) => {
-        const Phone = phones[app.slug];
-        const native = app.native!;
-        return (
-          <section
-            class={`iapp${i % 2 === 1 ? ' reverse' : ''}`}
-            id={app.slug}
-          >
-            <div class="container">
-              <div class="iapp-grid">
-                <div class="iapp-text">
-                  <div class="iapp-head reveal">
-                    <img
-                      src={`/apps/${app.slug}.png`}
-                      alt=""
-                      width="56"
-                      height="56"
-                      loading="lazy"
-                    />
-                    <div>
-                      <h2 class="iapp-name">{app.name}</h2>
-                      <span class="iapp-beta">
-                        <span class="iapp-beta-dot" />
-                        {NATIVE_STATUS_LABELS[native.status]}
-                      </span>
-                    </div>
-                  </div>
-                  <p class="iapp-thesis reveal">{native.thesis}</p>
-                  <p class="iapp-intro reveal">{native.intro}</p>
-
-                  <div class="iapp-feats">
-                    {native.highlights.map((h) => (
-                      <div class="iapp-feat reveal">
-                        <span class="iapp-feat-icon">
-                          <Icon name={h.icon} size={16} />
-                        </span>
-                        <div>
-                          <h3>{h.title}</h3>
-                          <p>{h.body}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div class="iapp-foot reveal">
-                    {native.widgets && (
-                      <div class="iapp-extra">
-                        <p class="iapp-extra-cap">Widgets</p>
-                        <div class="iapp-tech">
-                          {native.widgets.map((w) => (
-                            <span class="iapp-chip">{w.name}</span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {native.watch && (
-                      <div class="iapp-extra">
-                        <p class="iapp-extra-cap">Apple Watch · {native.watch.minOS}</p>
-                        <p class="iapp-extra-body">{native.watch.thesis}</p>
-                      </div>
-                    )}
-                    {app.sunset && (
-                      <p class="iapp-sunset">
-                        <span class="iapp-sunset-tag">{app.sunset.label}</span>
-                        {app.sunset.body}
-                      </p>
-                    )}
-                    <div class="iapp-tech">
-                      {native.tech.map((t) => (
-                        <span class="iapp-chip">{t}</span>
-                      ))}
-                    </div>
-                    <p class="iapp-req">
-                      {native.minOS} or later · {native.devices}
-                      {app.hasPage && (
-                        <>
-                          {' · '}
-                          <a href={`/${app.slug}`}>About {app.name}</a>
-                        </>
-                      )}
-                      {app.privacyPath && (
-                        <>
-                          {' · '}
-                          <a href={app.privacyPath}>Privacy</a>
-                        </>
-                      )}
-                      {app.supportPath && (
-                        <>
-                          {' · '}
-                          <a href={app.supportPath}>Support</a>
-                        </>
-                      )}
-                      {' · '}
-                      <a href={app.termsPath}>Terms</a>
-                    </p>
-                  </div>
-                </div>
-
-                <div class={`iapp-phone reveal${app.slug === 'salvo' ? ' iapp-tablet' : ''}`}>
-                  <div class="iapp-phone-sticky">
-                    {
-                      app.slug === 'tare' ? (
-                        <TareReleaseVisual />
-                      ) : app.slug === 'shopkeep' ? (
-                        <ShopKeepReleaseVisual compact />
-                      ) : app.slug === 'salvo' ? (
-                        <SalvoReleaseVisual />
-                      ) : (
-                        <PhoneMock
-                          tone={tones[app.slug] ?? 'dark'}
-                          chip={evidenceLabels[app.slug]}
-                          fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
-                        >
-                          <Phone />
-                        </PhoneMock>
-                      )
-                    }
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </section>
-        );
-      })
-    }
-  </div>
-
-  {/* ── What's next ── */}
-  {
-    nextNativeApp && (
-      <section class="inext container">
-        <div class="inext-card reveal">
-          <img
-            src={`/apps/${nextNativeApp.slug}.png`}
-            alt=""
-            width="60"
-            height="60"
-            loading="lazy"
-          />
-          <div>
-            <span class="inext-eyebrow">
-              <span class="inext-dot" />
-              Up next
-            </span>
-            <h2>{nextNativeApp.name} is the next port.</h2>
-            <p>{nextNativeApp.native!.intro}</p>
-          </div>
-        </div>
-      </section>
-    )
+<style>
+  .native-ledger {
+    padding-top: clamp(4rem, 9vw, 7rem);
+    padding-bottom: clamp(5rem, 10vw, 8rem);
   }
 
-  {/* ── Closing ── */}
-  <section class="iend container">
-    <div class="reveal">
-      <h2>The web story differs by product.</h2>
-      <p>
-        Tare&rsquo;s browser product is retired and production web traffic is
-        relay-only for optional native AI features. Cairn remains an online,
-        account-backed web workspace, not an installable or offline PWA.
-        CairnNative is a separate offline/private-iCloud product with no shared
-        web data.
-      </p>
-      <p class="iend-links">
-        <a href="/#apps">Browse the apps →</a>
-        &ensp;·&ensp;
-        <a href="/about#platform-policy">Read the platform policy</a>
-        &ensp;·&ensp;
-        <a href={`mailto:${COMPANY.email}`}>Get in touch</a>
-      </p>
-    </div>
-  </section>
-  </div>
-</BaseLayout>
+  .native-hero {
+    max-width: 78ch;
+  }
+
+  .native-hero h1 {
+    max-width: 12ch;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  .native-hero p {
+    max-width: 68ch;
+    margin: 1.5rem 0 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.72;
+  }
+
+  .native-entries {
+    margin-top: clamp(4rem, 9vw, 7rem);
+    border-top: 1px solid var(--border);
+  }
+
+  .native-entry {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 7rem;
+  }
+
+  .native-entry > img {
+    width: 100%;
+    height: auto;
+    border-radius: 22%;
+    box-shadow: var(--shadow-card);
+  }
+
+  .native-entry-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .native-entry h2,
+  .native-boundary h2 {
+    margin: 0;
+    color: var(--ink);
+    font: 700 1.45rem/1.15 var(--font-brand);
+    letter-spacing: -0.02em;
+  }
+
+  .native-entry-head span {
+    color: var(--copper);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .native-entry p,
+  .native-boundary p {
+    max-width: 70ch;
+    margin: 1rem 0 0;
+    color: var(--ink-soft);
+    line-height: 1.72;
+  }
+
+  .native-entry nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .native-entry a,
+  .native-boundary a {
+    color: var(--ink);
+    font-weight: 700;
+    text-underline-offset: 0.22em;
+  }
+
+  .native-entry a:focus-visible {
+    outline: 3px solid var(--copper);
+    outline-offset: 4px;
+  }
+
+  .native-boundary {
+    max-width: 72ch;
+    margin-top: clamp(4rem, 9vw, 7rem);
+  }
+
+  @media (max-width: 620px) {
+    .native-entry {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .native-entry {
+      scroll-behavior: auto;
+    }
+  }
+</style>

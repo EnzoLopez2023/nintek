@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 64 64" role="img" aria-label="Tabloom">
-  <rect width="64" height="64" fill="#171A20" />
-  <path d="M18 46 46 18" stroke="#3B66F5" stroke-width="4" stroke-linecap="square" />
-  <path d="M18 18h12M18 18v12M46 46H34M46 46V34" stroke="#F4F6F8" stroke-width="2" />
-  <circle cx="46" cy="18" r="3" fill="#B9C9FF" />
-</svg>

@@ -5,7 +5,7 @@ import sharp from 'sharp';
 
 const root = resolve(import.meta.dirname, '..');
 const checkOnly = process.argv.includes('--check');
-const generator = 'Deterministic local SVG composition rendered with sharp 0.34.5';
+const generator = 'Deterministic local SVG composition rendered with sharp 0.35.3';
 
 if (sharp.versions.sharp !== '0.35.3') {
   throw new Error(`Expected sharp 0.35.3, received ${sharp.versions.sharp}`);
@@ -31,17 +31,10 @@ const previews = [
       'Create a 1200x630 Cairn social preview using only the canonical Cairn icon and established graphic motifs: cool drafting paper, plotted cobalt rules, flat certification stones, and one vermilion capstone. Keep it clearly graphic, never a screenshot of the synthetic Astro UI. Use only real exam codes already present on the page. No store badge, price, rating, fake control, device, or web offline/install claim.',
   },
   {
-    slug: 'cortex',
-    title: 'Cortex social preview',
-    prompt:
-      'Create a 1200x630 Cortex social preview using only the canonical light icon and the established violet-and-teal neural identity. Keep it clearly graphic, not product UI or a device screenshot. Use the existing line Eight games. One vivid little universe. State only internal TestFlight and not public; do not imply App Store availability, price, territories, physical-device evidence, or external beta access.',
-  },
-];
-const preservedPreviews = [
-  {
     slug: 'shopkeep',
-    sourceSha256: '75e36c81c9fdba253ffd1a24b1b92daf6450f491d2fd11287917fabf95a790c3',
-    outputSha256: 'acd6420c4677e9b1edcc04a9d2b45ba914e488b792e6b9b6ea40406460fc67eb',
+    title: 'ShopKeep social preview',
+    prompt:
+      'Create a 1200x630 ShopKeep social preview using only the canonical ShopKeep icon and the approved native inventory language: white system surface, Apple blue, direct SF-style hierarchy, and no retired toolpath-arrow identity. Keep it clearly graphic and do not invent product UI, acquisition controls, pricing, ratings, screenshots, or public availability.',
   },
 ];
 
@@ -136,19 +129,6 @@ for (const preview of previews) {
   }
 }
 
-for (const preview of preservedPreviews) {
-  const source = join(root, 'public', 'social', 'source', `${preview.slug}.svg`);
-  const output = join(root, 'public', 'social', `${preview.slug}.png`);
-  const sourceHash = createHash('sha256').update(await readFile(source)).digest('hex');
-  const outputHash = createHash('sha256').update(await readFile(output)).digest('hex');
-  if (sourceHash !== preview.sourceSha256 || outputHash !== preview.outputSha256) {
-    throw new Error(`${preview.slug}: preserved social handoff drifted`);
-  }
-  if (!checkOnly) console.log(`${relative(root, output)} preserved ${outputHash}`);
-}
-
 if (checkOnly) {
-  console.log(
-    `Verified ${previews.length} deterministic renders and ${preservedPreviews.length} preserved social handoff.`,
-  );
+  console.log(`Verified ${previews.length} deterministic social renders.`);
 }

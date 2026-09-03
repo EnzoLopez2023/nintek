@@ -1,38 +1,11 @@
 ---
-import PhoneMock from './PhoneMock.astro';
-import CairnPhone from './mocks/ios/Cairn.astro';
-import CortexPhone from './mocks/ios/Cortex.astro';
-import SortiePhone from './mocks/ios/Sortie.astro';
-import SalvoReleaseVisual from './SalvoReleaseVisual.astro';
-import ShopKeepReleaseVisual from './ShopKeepReleaseVisual.astro';
-import TareReleaseVisual from './TareReleaseVisual.astro';
-import { nativeApps, nextNativeApp } from '../data/apps';
-
-const phones: Record<string, any> = {
-  cairn: CairnPhone,
-  cortex: CortexPhone,
-  sortie: SortiePhone,
-};
-
-const tones: Record<string, 'light' | 'dark' | 'navy' | 'enamel'> = {
-  cairn: 'navy',
-  cortex: 'dark',
-  sortie: 'dark',
-};
+import { nativeApps } from '../data/apps';
 
 const blurbs: Record<string, string> = {
-  cairn: 'Local study with private iCloud sync; the rejected release is not public.',
+  cairn: 'Separate local-first study app; its rejected release is not public.',
   shopkeep: 'Build 35 is attached and valid; Apple and Microsoft workspaces stay separate.',
-  cortex: 'Build 21 is internal TestFlight; eight games, no Nintek backend.',
-  tare: 'Build 31 is internal TestFlight, with real Simulator evidence across three device families.',
-  sortie: 'Supply-line conquest across 1,500 levels, saved entirely on device.',
-  salvo: 'Sixteen Age of Siege operations; wider campaign content remains blocked.',
-};
-
-const evidenceLabels: Record<string, string> = {
-  cairn: 'Synthetic UI study',
-  cortex: 'Release-build capture',
-  sortie: 'Pre-release capture',
+  tare: 'Build 31 is internal TestFlight for iPhone, iPad, and Apple Watch.',
+  watchtower: 'Private iOS companion; legacy repository identifiers are not product naming.',
 };
 ---
 
@@ -41,79 +14,49 @@ const evidenceLabels: Record<string, string> = {
     <div class="ns-head reveal">
       <span class="eyebrow ns-eyebrow">
         <span class="eyebrow-dot"></span>
-        The direction
+        Native relationships
       </span>
       <h2 class="ns-title">
-        Nintek is going <span class="em">native.</span>
+        Four products reach <span class="em">Apple devices.</span>
       </h2>
       <p class="ns-lede">
-        {nativeApps.length} products now have native iOS builds in SwiftUI or Godot.
-        None has a public App Store listing today: Tare, Cortex, and Sortie are
-        internal TestFlight builds; Cairn is blocked after review;
-        ShopKeep has a private attached build; and Salvo remains unreleased.
+        None has a public App Store listing. Tare is internal TestFlight, ShopKeep
+        has a private attached build, Cairn remains blocked after review, and
+        Watchtower has a private companion whose legacy identifiers stay behind
+        the product name.
       </p>
     </div>
 
     <div class="ns-rail">
       {
-        nativeApps.map((app) => {
-          const Phone = phones[app.slug];
-          return (
-            <a
-              class="ns-card reveal"
-              href={['cortex', 'sortie', 'salvo'].includes(app.slug) ? `/${app.slug}` : `/ios#${app.slug}`}
-            >
-              <div class={`ns-phone${app.slug === 'salvo' ? ' ns-tablet' : ''}`}>
-                {
-                  app.slug === 'tare' ? (
-                    <TareReleaseVisual />
-                  ) : app.slug === 'shopkeep' ? (
-                    <ShopKeepReleaseVisual compact />
-                  ) : app.slug === 'salvo' ? (
-                    <SalvoReleaseVisual />
-                  ) : (
-                    <PhoneMock
-                      tone={tones[app.slug] ?? 'dark'}
-                      chip={evidenceLabels[app.slug]}
-                      fullBleed={app.slug === 'cortex' || app.slug === 'sortie'}
-                    >
-                      <Phone />
-                    </PhoneMock>
-                  )
-                }
+        nativeApps.map((app) => (
+          <a class="ns-card reveal" href={`/ios#${app.slug}`}>
+            <div class="ns-icon-stage">
+              <img
+                src={`/apps/${app.slug}.png`}
+                alt=""
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="ns-card-foot">
+              <div>
+                <p class="ns-card-name">{app.name}</p>
+                <p class="ns-card-blurb">{blurbs[app.slug]}</p>
               </div>
-              <div class="ns-card-foot">
-                <img
-                  src={`/apps/${app.slug}.png`}
-                  alt=""
-                  width="34"
-                  height="34"
-                  loading="lazy"
-                />
-                <div>
-                  <p class="ns-card-name">{app.name}</p>
-                  <p class="ns-card-blurb">{blurbs[app.slug]}</p>
-                </div>
-              </div>
-            </a>
-          );
-        })
+            </div>
+          </a>
+        ))
       }
     </div>
 
     <div class="ns-cta reveal">
       <a class="ns-btn" href="/ios">
-        See what the native apps do
+        Read the native boundaries
         <span aria-hidden="true">→</span>
       </a>
-      {
-        nextNativeApp && (
-          <span class="ns-next">
-            <span class="ns-next-dot" />
-            {nextNativeApp.name} is next.
-          </span>
-        )
-      }
     </div>
   </div>
 </section>

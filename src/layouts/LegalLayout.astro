@@ -39,11 +39,7 @@ const {
   noindex = page !== 'terms',
 } = Astro.props;
 
-const icon = app
-  ? app.slug === 'tabloom'
-    ? '/apps/tabloom.svg'
-    : `/apps/${app.slug}.png`
-  : undefined;
+const icon = app ? `/apps/${app.slug}.png` : undefined;
 const socialImage = app ? `/apps/${app.slug}.png` : '/bg.png';
 
 const documentLinks = app
