@@ -1,20 +1,29 @@
 {
   "schemaVersion": 1,
-  "verifiedAt": "2026-08-23",
+  "verifiedAt": "2026-09-03",
   "socialRenderer": {
     "command": "npm run social:build",
     "checkCommand": "npm run social:check",
     "sharpVersion": "0.35.3",
-    "provenanceGeneratorValue": "Deterministic local SVG composition rendered with sharp 0.34.5",
+    "provenanceGeneratorValue": "Deterministic local SVG composition rendered with sharp 0.35.3",
     "density": 144,
     "png": {
       "compressionLevel": 9,
       "adaptiveFiltering": true,
       "palette": false
     },
-    "metadataOrder": ["Title", "Prompt", "Source", "Generator"],
+    "metadataOrder": [
+      "Title",
+      "Prompt",
+      "Source",
+      "Generator"
+    ],
     "metadataEncoding": "PNG tEXt chunks inserted after IHDR with IEEE CRC-32",
-    "pixelsPerMeter": [5669, 5669, 1]
+    "pixelsPerMeter": [
+      5669,
+      5669,
+      1
+    ]
   },
   "products": {
     "tare": {
@@ -32,14 +41,17 @@
       "assets": [
         {
           "path": "public/apps/tare.png",
-          "sha256": "457bbf0e4b1fbb66e7e95a298ed0ce49393b759d296bfbde2803e366df225a87",
+          "sha256": "600e44cbff4f01be6ba42f3d137a81308e378c83310681995f52e1db302d6b71",
           "width": 1024,
           "height": 1024,
-          "captureClass": "canonical-app-icon"
+          "captureClass": "canonical-upstream-app-icon",
+          "sourceRepository": "EnzoLopez2023/Tare-for-iOS",
+          "sourceCommit": "7ffd2c56e874a162523fa7dcf3ef51a9d3aedfce",
+          "sourcePath": "app-store/AppIcon-1024.png"
         },
         {
           "path": "public/social/tare.png",
-          "sha256": "3eb68730de37c1d371f8c64ca32f8f1460ff67259a2a0a8c122ff0fc313a5da0",
+          "sha256": "b39748ed5387e321c3ac455994d8f11571a26cbb69313b4a6c5df329dcf2b99e",
           "width": 1200,
           "height": 630,
           "captureClass": "deterministic-branded-composition"
@@ -183,10 +195,13 @@
       "assets": [
         {
           "path": "public/apps/workshop.png",
-          "sha256": "cdf1ceedf57c10f71d543cae9aa0688683fb17d01dd503a5f9ebd275f0b8cc3e",
+          "sha256": "66fe71c864f0353b473f9c14d89be9aa1c683df045d48bb4b8f479086b834172",
           "width": 1024,
           "height": 1024,
-          "captureClass": "canonical-app-icon"
+          "captureClass": "canonical-upstream-app-icon",
+          "sourceRepository": "EnzoLopez2023/workshop",
+          "sourceCommit": "a99aa780267b95795327dd24fb5609867b8f6603",
+          "sourcePath": "app-store/AppIcon-1024.png"
         },
         {
           "path": "public/apps/workshop/web-project.webp",
@@ -197,7 +212,7 @@
         },
         {
           "path": "public/social/workshop.png",
-          "sha256": "2c9863c24291ae42b414110fb730df9372c0340482533b94c72f100473a3c086",
+          "sha256": "59fac03e0c64705a5a7077ce30861bb84a30b63a44be7e8c97f1bf3986a7ea50",
           "width": 1200,
           "height": 630,
           "captureClass": "deterministic-web-capture-composition"
@@ -227,14 +242,17 @@
       "assets": [
         {
           "path": "public/apps/shopkeep.png",
-          "sha256": "1da578d78344b7d4a6b3dd68e261fa52590186b52ba6b8efc54cb40808370025",
+          "sha256": "4480365dd4c267e02e5c75a914dd949c8a996dea01111d63ff83dae0f7f04679",
           "width": 1024,
           "height": 1024,
-          "captureClass": "canonical-app-icon"
+          "captureClass": "canonical-upstream-app-icon",
+          "sourceRepository": "EnzoLopez2023/ShopKeep",
+          "sourceCommit": "939d5ae35b81cd6e93eb464b1f03cf90add1be18",
+          "sourcePath": "app-store/AppIcon-1024.png"
         },
         {
           "path": "public/social/shopkeep.png",
-          "sha256": "acd6420c4677e9b1edcc04a9d2b45ba914e488b792e6b9b6ea40406460fc67eb",
+          "sha256": "14e5a32d08d3662d1ab77af926fe8241e7b5549c35d96093b797ffd91c26897a",
           "width": 1200,
           "height": 630,
           "captureClass": "deterministic-branded-composition"
@@ -264,14 +282,17 @@
       "assets": [
         {
           "path": "public/apps/cairn.png",
-          "sha256": "f2195c75597a8f3fe94d5f57d6e1445ce59b8a9773d14bf9778d480ba798efb5",
+          "sha256": "530fb62a43737f9503d5364b9e1ea5406a6d48b9198afda54d2532bb901362ac",
           "width": 1024,
           "height": 1024,
-          "captureClass": "canonical-app-icon"
+          "captureClass": "canonical-upstream-app-icon",
+          "sourceRepository": "EnzoLopez2023/Cairn",
+          "sourceCommit": "a343f3e8862fd0be8d5eac1039ec2ad88b737a5f",
+          "sourcePath": "app-store/AppIcon-1024.png"
         },
         {
           "path": "public/social/cairn.png",
-          "sha256": "0fe7a02598009b06d13ce9eca3b9c4cfb3317656e6e8a6ca2e8134290daac32e",
+          "sha256": "f11f8a5c77ae1d55eca939033e66083f16aeb52d14423f048569704be9fd0da9",
           "width": 1200,
           "height": 630,
           "captureClass": "deterministic-branded-composition"
@@ -281,262 +302,6 @@
           "sha256": "f9fed69568a46d2a080f4131f9959d1700420c954c55c2343b2023fa87c285db",
           "captureClass": "editable-social-source"
         }
-      ]
-    },
-    "cortex": {
-      "repository": "EnzoLopez2023/Cortex",
-      "authorityCommit": "32a7bde9cb5a4cc4af0507a35e53faa5ae58d01f",
-      "manifestPath": "AppStore/release_visual_manifest.json",
-      "manifestBytes": 12437,
-      "manifestSha256": "c0b8758bab7e4201ab5d61bd774eb4a097dfb79d6b809558448d08fb7f603ec2",
-      "release": {
-        "version": "1.1",
-        "build": "21",
-        "state": "internal-testflight-attached",
-        "public": false
-      },
-      "assets": [
-        {
-          "path": "public/apps/cortex.png",
-          "sha256": "b48d58b783ce57bd83522935c1d818211a493f43202a268f5e0f7ce9baa83d5e",
-          "width": 1024,
-          "height": 1024,
-          "captureClass": "canonical-app-icon"
-        },
-        {
-          "path": "src/assets/cortex/hub.webp",
-          "sha256": "5e64d0f577157230e41e4695288b9d136fb0f2d83f9892ede615e4ff5acb6864",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/sudoku.webp",
-          "sha256": "8f8843893cec5418e71fc0faf014d56c8d7c6e6eb201d62d19a5cfa633034048",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/sumweave.webp",
-          "sha256": "38d564c245a09768435398a63ca64799fc98060bb766e0f14c94f64603a38131",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/word-search.webp",
-          "sha256": "1c25e9001532eba5e9ad8a98ac84812e93831ad58034d336aabe4de64444150e",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/letter-sprint.webp",
-          "sha256": "3d8ce0e30bb0f63fa02b1afcbec54dd344bb1023db810cdd010321b3b8ae4bbd",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/wordfoundry.webp",
-          "sha256": "dddc4955433561a53bdb80350f2c9a0dfacf86d6645cc3688f22d4d40d5fb2a0",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/grid-blast.webp",
-          "sha256": "58e7b78c7d0e4c5a2022068bd50343a126c77a534c5fe32991af4d23476f8b60",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/pixel-flow.webp",
-          "sha256": "7e5b907d263f46c0944c6d74a3053449f56e8a1fb884a916c0df2e249521f432",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "src/assets/cortex/neon-drop.webp",
-          "sha256": "3bb352385f3d6204a86ec1d381784061720131b2b48c3ae50d17ccb0b43eccf7",
-          "width": 1206,
-          "height": 2622,
-          "captureClass": "simulator-marketing-derivative"
-        },
-        {
-          "path": "public/social/cortex.png",
-          "sha256": "e5cf088a0939911a7980e09934cb4c37adf5a638c14f4ee207a8517d9b4029c4",
-          "width": 1200,
-          "height": 630,
-          "captureClass": "deterministic-branded-composition"
-        },
-        {
-          "path": "public/social/source/cortex.svg",
-          "sha256": "8c925a1c4fbc6f81512e39133f3ac9a57c0e7805d28b4b75bf4435a701f6539d",
-          "captureClass": "editable-social-source"
-        }
-      ]
-    },
-    "sortie": {
-      "repository": "EnzoLopez2023/Sortie",
-      "authorityCommit": "be654b971f5011537c479511f1122c0b94b5d337",
-      "manifestPath": "appstore/release-visuals.json",
-      "manifestBytes": 27473,
-      "manifestSha256": "4d3b23985ede46439daca018e346fd17ea7f9728f320fbd76b46dea48fd20da8",
-      "release": {
-        "version": "1.0",
-        "build": "13",
-        "state": "internal-testflight-unattached",
-        "public": false
-      },
-      "assets": [
-        {
-          "path": "public/apps/sortie.png",
-          "sha256": "6ffc68d514b6dc94555e3481086951c70bf0bab43ed7deb34621558ed8d43e06",
-          "width": 1024,
-          "height": 1024,
-          "captureClass": "canonical-app-icon"
-        },
-        {
-          "path": "src/assets/sortie/logo.webp",
-          "sha256": "29d0d5d632b43af1cba921d014d5de9868de823968cab4a237399bece87feb72",
-          "width": 1200,
-          "height": 515,
-          "captureClass": "source-art-derivative"
-        },
-        {
-          "path": "src/assets/sortie/home-poster.webp",
-          "sha256": "65a764b1413d30e74b1883724862800aeb03d795f0d167cdffd2899317f6b30b",
-          "width": 720,
-          "height": 1280,
-          "captureClass": "handoff-footage-frame-unasserted"
-        },
-        {
-          "path": "src/assets/sortie/tundra.webp",
-          "sha256": "aa302ee1c2ca3a64bc4adfbdff7f8c9772510c7d3232080c1734311961e79ab8",
-          "width": 1024,
-          "height": 2224,
-          "captureClass": "source-art-derivative"
-        },
-        {
-          "path": "src/assets/sortie/meadow.webp",
-          "sha256": "dc47761eed39778282622043b303d21029673c0eeeee9b4bc912179f53a1158c",
-          "width": 1024,
-          "height": 2224,
-          "captureClass": "source-art-derivative"
-        },
-        {
-          "path": "src/assets/sortie/keep-player.webp",
-          "sha256": "f6cf104c8bf479ca2261c0ff8f93167dd34e9c722befa4918136b7a3e4ff50f9",
-          "width": 512,
-          "height": 512,
-          "captureClass": "source-art-derivative"
-        },
-        {
-          "path": "src/assets/sortie/keep-enemy.webp",
-          "sha256": "9ce97177c9c49a39e2ae4c56ed85a9140d7e032f1f977f05d2e5430af802a793",
-          "width": 512,
-          "height": 512,
-          "captureClass": "source-art-derivative"
-        },
-        {
-          "path": "src/assets/sortie/keep-neutral.webp",
-          "sha256": "b7428dc662b1e7b518509e2ba34814181645d487014aa98f863721a82cf7353a",
-          "width": 512,
-          "height": 512,
-          "captureClass": "source-art-derivative"
-        },
-        {
-          "path": "public/apps/sortie/hero-loop.mp4",
-          "sha256": "7a15d773759d7fd50f0fea971c05b746f4d2746bcecd5fbac5a84695de606ae6",
-          "captureClass": "handoff-footage-unasserted"
-        },
-        {
-          "path": "public/social/sortie.png",
-          "sha256": "d10d298b61ccecc11f0f772e8adf4352cc007d2e7dd49e45c1847a4ea5397a73",
-          "width": 1200,
-          "height": 630,
-          "captureClass": "deterministic-branded-composition"
-        },
-        {
-          "path": "public/social/source/sortie.svg",
-          "sha256": "543a8c571cea872baf2a9c1fed67d6e0fce06f9bfdfa51dc7a5aab2ec0c63646",
-          "captureClass": "upstream-authored-social-source"
-        }
-      ],
-      "omissions": [
-        "Physical-device gameplay screenshots remain blocked; source art, desktop captures, debug captures, iPad captures, and synthetic gameplay are prohibited substitutes."
-      ]
-    },
-    "salvo": {
-      "repository": "EnzoLopez2023/Salvo",
-      "authorityCommit": "3fb91b02f9ec1d29c63caa7ba3080290b3b9e607",
-      "manifestPath": "release/release-visuals.json",
-      "manifestBytes": 18646,
-      "manifestSha256": "1bd4308390cac4f66005bf5691afd4f3504d2afaec90f6cbf2740de28732fc20",
-      "release": {
-        "version": "1.0.0",
-        "build": "4",
-        "state": "prepare-for-submission-content-blocked",
-        "public": false
-      },
-      "assets": [
-        {
-          "path": "public/apps/salvo.png",
-          "sha256": "ec67b89f1c333d957464266117ffa66162abe37bd58be99827bc9e1aebbb3792",
-          "width": 1024,
-          "height": 1024,
-          "captureClass": "canonical-app-icon"
-        },
-        {
-          "path": "src/assets/salvo/release/01-title.png",
-          "sha256": "79c2bea84e85db58f2c636eaecece2aacbadab9357ec0d518f325f005ff6eafe",
-          "width": 2064,
-          "height": 2752,
-          "captureClass": "automated-ipad-release-capture"
-        },
-        {
-          "path": "src/assets/salvo/release/02-command.png",
-          "sha256": "346d33f8349ae208bdce0228cf5f99ebd585136cd8876c873585cddda9897b27",
-          "width": 2064,
-          "height": 2752,
-          "captureClass": "automated-ipad-release-capture"
-        },
-        {
-          "path": "src/assets/salvo/release/03-campaign.png",
-          "sha256": "69e6c2414e0b39ffea5092532c1280c7aff179d39c13d3e17dcd46405f7ed3c7",
-          "width": 2064,
-          "height": 2752,
-          "captureClass": "automated-ipad-release-capture"
-        },
-        {
-          "path": "src/assets/salvo/release/04-placement.png",
-          "sha256": "b5df5aacff7eed0dc0ea641f42427635f858457a50c97069f3ed289024248632",
-          "width": 2064,
-          "height": 2752,
-          "captureClass": "automated-ipad-release-capture"
-        },
-        {
-          "path": "src/assets/salvo/release/05-combat.png",
-          "sha256": "a5fd168d4e11d0f33773e7719f57506d688e9b025ab0d13b9fe4877864271cb8",
-          "width": 2064,
-          "height": 2752,
-          "captureClass": "automated-ipad-release-capture"
-        },
-        {
-          "path": "src/assets/salvo/release/06-result.png",
-          "sha256": "6224a014e3b72b5a80d34d5315ca4ee4f2b4fa79a76c5e834d82fcaec9ad409e",
-          "width": 2064,
-          "height": 2752,
-          "captureClass": "automated-ipad-release-capture"
-        }
-      ],
-      "omissions": [
-        "Owner-approved social assets are empty; release screenshots are not used as social previews.",
-        "Only 16 Age of Siege operations are current; the wider five-era campaign remains blocked pending pilot and blueprint approval."
       ]
     },
     "tabloom": {
@@ -553,15 +318,13 @@
       "assets": [
         {
           "path": "public/apps/tabloom.png",
-          "sha256": "10012328cd4ad77c1a588f929a879b90a9a8e996156d7b900376653d655e1bce",
+          "sha256": "e42e6418274facec1a1d828effd9897254cd59e49e6bd30e7f375c0b07804ec5",
           "width": 1024,
           "height": 1024,
-          "captureClass": "canonical-social-raster"
-        },
-        {
-          "path": "public/apps/tabloom.svg",
-          "sha256": "5ebdc6ad05672b96597a5d3e76b2567f11cc24946f51a770a0a3e90f72a847fd",
-          "captureClass": "canonical-social-vector"
+          "captureClass": "canonical-upstream-app-icon",
+          "sourceRepository": "EnzoLopez2023/tabloom",
+          "sourceCommit": "761fa9899e7f986b5f1d8302fe4d3d399ec31d15",
+          "sourcePath": "app-store/AppIcon-1024.png"
         },
         {
           "path": "public/apps/tabloom/editor-desktop.png",
@@ -594,10 +357,13 @@
       "assets": [
         {
           "path": "public/apps/pulsewire.png",
-          "sha256": "114af94c6267534fc39ff38531969a1e9c91ac1bea37df65b21a2cb530773187",
+          "sha256": "7869a547fac45c2376ed4353109267eff6717c88c5b89374878cfd0a0d014a3a",
           "width": 1024,
           "height": 1024,
-          "captureClass": "canonical-app-icon"
+          "captureClass": "canonical-upstream-app-icon",
+          "sourceRepository": "EnzoLopez2023/PulseWire",
+          "sourceCommit": "93b76357c3642087a17ba05ad571797832db14de",
+          "sourcePath": "app-store/AppIcon-1024.png"
         },
         {
           "path": "public/apps/pulsewire/dashboard-desktop.png",
@@ -612,15 +378,101 @@
           "width": 390,
           "height": 844,
           "captureClass": "deterministic-fictional-fixture"
-        },
-        {
-          "path": "public/social/pulsewire.png",
-          "sha256": "cc0c6818ff12887c748dce29b2584492e4b77a4d3b9e2a365a98712025eecea4",
-          "width": 1200,
-          "height": 630,
-          "captureClass": "deterministic-fictional-fixture"
         }
       ]
+    }
+  },
+  "portfolioAudit": {
+    "repository": "EnzoLopez2023/azure-infra",
+    "commit": "9029446de5fc04c550753b6de8819f668e0d78e9",
+    "evidenceDigestSha256": "336527ddeb39d6808963f471708559b23913dd9bb3ccca48813710550bb54dcd",
+    "result": "16/16 sealed"
+  },
+  "canonicalIcons": {
+    "prism": {
+      "repository": "EnzoLopez2023/Prism",
+      "commit": "2168818ffa0661f5d1cad72085e0214cdca3d6b3",
+      "sourcePath": "public/prism-icon-1024.png",
+      "sha256": "669b93ec6763a8ceec51434911dfa1c6fe31c9152c335f8468b3a973119942ce"
+    },
+    "watchtower": {
+      "repository": "EnzoLopez2023/Watchtower",
+      "commit": "3c84ef87d14f16806a96c097798346cc69ac56eb",
+      "sourcePath": "public/watchtower-icon-1024.png",
+      "sha256": "a49c72aad165d0537ecd6475f079f8b31af63fc8e3b70d13986dd071262031a3"
+    },
+    "lantern": {
+      "repository": "EnzoLopez2023/Lantern",
+      "commit": "e40c9d8b679057989380ab053fcbdbc2d784f17d",
+      "sourcePath": "public/lantern-icon-1024.png",
+      "sha256": "91e58c529d5bb58c42d559961ed0285a7516ed00c756a5be557f2e1d47615847"
+    },
+    "marquee": {
+      "repository": "EnzoLopez2023/Marquee",
+      "commit": "35750f9401da5a34267030a2c316624790977587",
+      "sourcePath": "public/marquee-icon-1024.png",
+      "sha256": "552a6bc58780ef9e597642445c40faccfbbff356729e30cfdfc34de7bad0cd54"
+    },
+    "shapepilot": {
+      "repository": "EnzoLopez2023/ShapePilot",
+      "commit": "f15cbf25dc63817ba25cf9098d0d014398b7a736",
+      "sourcePath": "public/shapepilot-icon-1024.png",
+      "sha256": "974b1eeb5ce0d0049233d112f3ddf2b52a7b637c52376a30dfb02c81d9283534"
+    },
+    "hearth": {
+      "repository": "EnzoLopez2023/Hearth-v2",
+      "commit": "6c9a7922884c41813acd918b3fba395f8c447e9b",
+      "sourcePath": "src/client/public/app-icon-1024.png",
+      "sha256": "acafb62175cd3742a2b8c988249b62934e3d5de7a192a9732248b4fcff8ebdf7"
+    },
+    "shopkeep": {
+      "repository": "EnzoLopez2023/ShopKeep",
+      "commit": "939d5ae35b81cd6e93eb464b1f03cf90add1be18",
+      "sourcePath": "app-store/AppIcon-1024.png",
+      "sha256": "4480365dd4c267e02e5c75a914dd949c8a996dea01111d63ff83dae0f7f04679",
+      "supportingEvidence": {
+        "repository": "EnzoLopez2023/ShopKeepNative",
+        "commit": "b5705cf2365c4b9d713297194c8e8e723fad6c14"
+      }
+    },
+    "workshop": {
+      "repository": "EnzoLopez2023/workshop",
+      "commit": "a99aa780267b95795327dd24fb5609867b8f6603",
+      "sourcePath": "app-store/AppIcon-1024.png",
+      "sha256": "66fe71c864f0353b473f9c14d89be9aa1c683df045d48bb4b8f479086b834172"
+    },
+    "tare": {
+      "repository": "EnzoLopez2023/Tare-for-iOS",
+      "commit": "7ffd2c56e874a162523fa7dcf3ef51a9d3aedfce",
+      "sourcePath": "app-store/AppIcon-1024.png",
+      "sha256": "600e44cbff4f01be6ba42f3d137a81308e378c83310681995f52e1db302d6b71",
+      "supportingEvidence": {
+        "repository": "EnzoLopez2023/Tare",
+        "commit": "b006a6bb9f3001bb660985b091e2c5637530af85",
+        "scope": "secure relay and retirement boundary"
+      }
+    },
+    "tabloom": {
+      "repository": "EnzoLopez2023/tabloom",
+      "commit": "761fa9899e7f986b5f1d8302fe4d3d399ec31d15",
+      "sourcePath": "app-store/AppIcon-1024.png",
+      "sha256": "e42e6418274facec1a1d828effd9897254cd59e49e6bd30e7f375c0b07804ec5"
+    },
+    "pulsewire": {
+      "repository": "EnzoLopez2023/PulseWire",
+      "commit": "93b76357c3642087a17ba05ad571797832db14de",
+      "sourcePath": "app-store/AppIcon-1024.png",
+      "sha256": "7869a547fac45c2376ed4353109267eff6717c88c5b89374878cfd0a0d014a3a"
+    },
+    "cairn": {
+      "repository": "EnzoLopez2023/Cairn",
+      "commit": "a343f3e8862fd0be8d5eac1039ec2ad88b737a5f",
+      "sourcePath": "app-store/AppIcon-1024.png",
+      "sha256": "530fb62a43737f9503d5364b9e1ea5406a6d48b9198afda54d2532bb901362ac",
+      "supportingEvidence": {
+        "repository": "EnzoLopez2023/CairnNative",
+        "commit": "36995273c59bc53d64e4bf4005411162ee2497ae"
+      }
     }
   }
 }

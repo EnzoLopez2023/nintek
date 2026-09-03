@@ -1,0 +1,244 @@
+---
+import type { App } from '../data/apps';
+import { COMPANY } from '../data/apps';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  app: App;
+}
+
+const { app } = Astro.props;
+const overview = app.overview!;
+const platformLabel = app.platforms.ios
+  ? app.platforms.web
+    ? `Web · ${app.iosLabel ?? 'iOS'}`
+    : app.iosLabel ?? 'iOS'
+  : 'Web';
+---
+
+<BaseLayout
+  title={`${app.name} — ${COMPANY.name}`}
+  description={overview.purpose}
+  path={`/${app.slug}`}
+  noindex
+  boardFonts
+  socialImage={`/apps/${app.slug}.png`}
+  socialImageAlt={`${app.name} canonical app icon`}
+>
+  <!--
+    THESIS: A source-backed product record, not a speculative launch page.
+    OWN-WORLD: Nintek cream, walnut ink, copper rules, and one untouched canonical icon.
+    STORY: Understand the product boundary, see the verified facts, then inspect its source.
+    FIRST VIEWPORT: Product name and purpose lead; the icon is the only product visual.
+    FORM: A compact registry folio extends the established portfolio without inventing a subworld.
+  -->
+  <article class="record container">
+    <header class="record-hero">
+      <div class="record-copy reveal">
+        <p class="record-platform">{platformLabel}</p>
+        <h1>{app.name}</h1>
+        <p class="record-purpose">{overview.purpose}</p>
+        <div class="record-actions">
+          <a class="record-primary" href={overview.sourceUrl}>View audited source</a>
+          <a href="/#apps">All Nintek apps</a>
+        </div>
+      </div>
+      <figure class="record-icon reveal">
+        <img
+          src={`/apps/${app.slug}.png`}
+          alt={`${app.name} app icon`}
+          width="1024"
+          height="1024"
+          loading="eager"
+          decoding="async"
+        />
+        <figcaption>Canonical 1024 px upstream master</figcaption>
+      </figure>
+    </header>
+
+    <section class="record-body reveal" aria-labelledby="verified-facts">
+      <h2 id="verified-facts">What the audited source establishes</h2>
+      <ul>
+        {overview.facts.map((fact) => <li>{fact}</li>)}
+      </ul>
+    </section>
+
+    <section class="record-boundary reveal" aria-labelledby="availability">
+      <h2 id="availability">Availability boundary</h2>
+      <p>{overview.availability}</p>
+      <p>
+        {
+          app.privacyPath ? (
+            <>
+              The <a href={app.privacyPath}>{app.name} privacy notice</a> is scoped to verified
+              product behavior. No product-specific support route is published without source or
+              release-ledger evidence.{' '}
+            </>
+          ) : (
+            <>
+              No product-specific privacy or support route is published without source or
+              release-ledger evidence.{' '}
+            </>
+          )
+        }
+        The <a href={app.termsPath}>Nintek Terms of Use</a>{' '}
+        apply to available services; studio questions can be sent to{' '}
+        <a href={`mailto:${COMPANY.email}?subject=${encodeURIComponent(app.name)}`}>
+          {COMPANY.email}
+        </a>.
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .record {
+    padding-top: clamp(4rem, 9vw, 7rem);
+    padding-bottom: clamp(5rem, 10vw, 8rem);
+  }
+
+  .record-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr);
+    gap: clamp(3rem, 8vw, 7rem);
+    align-items: center;
+  }
+
+  .record-platform {
+    margin: 0 0 1rem;
+    color: var(--copper);
+    font: 700 0.78rem/1.2 var(--font-brand);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .record h1 {
+    margin: 0;
+    max-width: 10ch;
+    color: var(--ink);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  .record-purpose {
+    max-width: 62ch;
+    margin: 1.75rem 0 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .record-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .record-actions a {
+    color: var(--ink);
+    font-weight: 700;
+    text-underline-offset: 0.24em;
+  }
+
+  .record-actions .record-primary {
+    padding: 0.85rem 1.15rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    box-shadow: var(--shadow-card);
+    transition: transform 180ms var(--ease), box-shadow 180ms var(--ease);
+  }
+
+  .record-actions .record-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-float);
+  }
+
+  .record-actions a:focus-visible {
+    outline: 3px solid var(--copper);
+    outline-offset: 4px;
+  }
+
+  .record-icon {
+    margin: 0;
+    text-align: center;
+  }
+
+  .record-icon img {
+    display: block;
+    width: min(100%, 22rem);
+    height: auto;
+    margin-inline: auto;
+    border-radius: 22%;
+    box-shadow: var(--shadow-float);
+  }
+
+  .record-icon figcaption {
+    margin-top: 1rem;
+    color: var(--ink-muted);
+    font-size: 0.66rem;
+  }
+
+  .record-body,
+  .record-boundary {
+    max-width: 72ch;
+    margin-top: clamp(4rem, 9vw, 7rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .record h2 {
+    margin: 0 0 1.25rem;
+    color: var(--ink);
+    font-size: 1.45rem;
+    letter-spacing: -0.03em;
+  }
+
+  .record-body ul {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding-inline-start: 1.25rem;
+  }
+
+  .record-body li,
+  .record-boundary p {
+    color: var(--ink-soft);
+    line-height: 1.72;
+  }
+
+  .record-boundary p {
+    margin: 0 0 1rem;
+  }
+
+  .record-boundary a {
+    color: var(--ink);
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 760px) {
+    .record-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .record-icon {
+      order: -1;
+      text-align: start;
+    }
+
+    .record-icon img {
+      width: min(46vw, 12rem);
+      margin-inline: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .record-actions .record-primary {
+      transition-duration: 0.001ms;
+    }
+  }
+</style>

@@ -441,6 +441,28 @@ h3 {
 .mockup-dot.g {
   background: #86efac;
 }
+.canonical-icon-evidence {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: clamp(28px, 8cqi, 64px) 24px;
+  border-radius: var(--r-md);
+  background: var(--paper);
+}
+.canonical-icon-evidence img {
+  width: min(62cqi, 260px);
+  height: auto;
+  border-radius: 22%;
+  box-shadow: var(--shadow-card);
+}
+.canonical-icon-evidence p {
+  max-width: 30ch;
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  text-align: center;
+}
 /* floating chips */
 .chip {
   position: absolute;
@@ -835,11 +857,6 @@ h3 {
 .phone.full-bleed .phone-body {
   padding: 0;
 }
-.phone.full-bleed .cortex-screen {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 .phone-chip {
   position: absolute;
   left: -22px;
@@ -1138,106 +1155,6 @@ h3 {
   opacity: 1;
 }
 
-/* ---- Cortex game hub ---- */
-.ios-hub {
-  gap: 9px;
-}
-.ios-toast {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px 11px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.13);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(8px);
-}
-.ios-toast-medal {
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  background: linear-gradient(150deg, #e0a94e, #b07c2a);
-  color: #241407;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-}
-.ios-toast-title {
-  font-size: 0.65rem;
-  font-weight: 700;
-}
-.ios-toast-sub {
-  font-size: 0.57rem;
-  opacity: 0.7;
-  margin-top: 1px;
-}
-.ios-hub-head {
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  padding: 2px 2px 0;
-}
-.ios-hub-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-.ios-game {
-  position: relative;
-  border-radius: 13px;
-  padding: 8px 9px 9px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-}
-.ios-game-art {
-  display: block;
-  height: 22px;
-  border-radius: 6px;
-  margin-bottom: 6px;
-  background: linear-gradient(135deg, var(--tint), transparent 130%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
-}
-.ios-game-name {
-  display: block;
-  font-size: 0.58rem;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.ios-game-tag {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  font-size: 0.46rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 1.5px 5px;
-  border-radius: 9999px;
-  background: rgba(240, 195, 162, 0.9);
-  color: #24140a;
-}
-.ios-hub-foot {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: auto;
-  padding-top: 4px;
-  font-size: 0.57rem;
-  font-weight: 600;
-  opacity: 0.7;
-}
-.ios-hub-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--emerald);
-  flex: none;
-}
-
 /* ============================================================
    Native showcase band (home page)
    ============================================================ */
@@ -1313,6 +1230,20 @@ h3 {
   transform: translateY(-6px);
   background: rgba(255, 255, 255, 0.075);
   border-color: rgba(201, 168, 130, 0.34);
+}
+.ns-icon-stage {
+  display: grid;
+  min-height: 210px;
+  place-items: center;
+  margin-bottom: 20px;
+  border-radius: var(--r-lg);
+  background: rgba(245, 240, 234, 0.06);
+}
+.ns-icon-stage img {
+  width: min(70%, 148px);
+  height: auto;
+  border-radius: 22%;
+  box-shadow: 0 18px 34px -14px rgba(28, 15, 7, 0.28);
 }
 .ns-phone {
   max-width: 176px;
